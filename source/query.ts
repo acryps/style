@@ -3,7 +3,7 @@ import { StyleProperty } from "./properties/index";
 
 type StyleSelectorBody = StyleProperty | StyleDeclaration | StyleSelectorBody[];
 
-export function select(selector: string, ...items: StyleSelectorBody[]) {
+export function style(selector: string, ...items: StyleSelectorBody[]) {
 	const declaration = new StyleDeclaration(selector);
 
 	const add = items => {
@@ -26,5 +26,9 @@ export function select(selector: string, ...items: StyleSelectorBody[]) {
 }
 
 export function child(selector: string, ...items: StyleSelectorBody[]) {
-	return select(`> ${selector}`, ...items);
+	return style(`>${selector}`, ...items);
+}
+
+export function select(selector: string, ...items: StyleSelectorBody[]) {
+	return style(` ${selector}`, ...items);
 }
