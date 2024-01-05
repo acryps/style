@@ -5,8 +5,7 @@
 		"target": "esnext",
 		"declaration": true,
 		"lib": [
-			"esnext",
-			"DOM"
+			"esnext"
 		]
 	}
 }
