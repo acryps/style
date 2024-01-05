@@ -1,4 +1,8 @@
 export * from './properties/index';
+export * from './properties/display';
+export * from './properties/size/height';
+export * from './properties/size/width';
+export * from './properties/spacing/margin';
 export * from './properties/spacing/padding';
 
 export * from './units/calculate';

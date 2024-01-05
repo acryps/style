@@ -1,9 +1,9 @@
 import { StyleProperty } from "..";
 import { Style } from "../../style";
 import { Calculate } from "../../units/calculate";
-import { Length } from "../../units/length";
+import { AbsoluteGlobalLength, AbsoluteLength } from "../../units/length";
 
-export type PaddingDimension = Calculate | Length;
+export type PaddingDimension = AbsoluteLength;
 
 export class Padding extends StyleProperty {
 	constructor(
@@ -47,21 +47,10 @@ export function padding(...sides: PaddingDimension[]) {
 	sides = sides.map(side => Style.toUnit(side));
 
 	switch (sides.length) {
-		case 1: {
-			return new Padding(sides[0], sides[0], sides[0], sides[0]);
-		}
-
-		case 2: {
-			return new Padding(sides[0], sides[1], sides[0], sides[1]);
-		}
-
-		case 3: {
-			return new Padding(sides[0], sides[1], sides[2], sides[1]);
-		}
-
-		case 4: {
-			return new Padding(sides[0], sides[1], sides[2], sides[3]);
-		}
+		case 1: return new Padding(sides[0], sides[0], sides[0], sides[0]);
+		case 2: return new Padding(sides[0], sides[1], sides[0], sides[1]);
+		case 3: return new Padding(sides[0], sides[1], sides[2], sides[1]);
+		case 4: return new Padding(sides[0], sides[1], sides[2], sides[3]);
 	}
 
 	throw new Error('Invalid padding dimensions');

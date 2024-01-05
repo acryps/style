@@ -1,6 +1,5 @@
 import { StyleDeclaration } from "./declaration";
 import { StyleProperty } from "./properties/index";
-import { RootFontSize } from "./units/root-font-size";
 
 export function select(selector: string, ...items: (StyleProperty | StyleDeclaration)[]) {
 	const declaration = new StyleDeclaration(selector);
@@ -17,5 +16,5 @@ export function select(selector: string, ...items: (StyleProperty | StyleDeclara
 }
 
 export function child(selector: string, ...items: (StyleProperty | StyleDeclaration)[]) {
-	return select(`> ${select}`, ...items);
+	return select(`> ${selector}`, ...items);
 }
