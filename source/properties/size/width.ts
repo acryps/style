@@ -5,7 +5,7 @@ import { Percentage } from "../../units/percentage";
 
 export type WidthDimension = AbsoluteLength | Percentage | 'auto' | 'maxContent' | 'minContent' | 'fitContent';
 
-export class Width extends StyleProperty {
+export class WidthProperty extends StyleProperty {
 	constructor(
 		private size: WidthDimension
 	) {
@@ -25,5 +25,5 @@ export class Width extends StyleProperty {
 }
 
 export function width(size: WidthDimension) {
-	return new Width(size);
+	return new WidthProperty(size);
 }

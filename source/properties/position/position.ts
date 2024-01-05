@@ -2,7 +2,7 @@ import { StyleProperty } from "..";
 
 export type PositionMode = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
 
-export class Position extends StyleProperty {
+export class PositionProperty extends StyleProperty {
 	constructor(
 		private mode: PositionMode
 	) {
@@ -15,5 +15,5 @@ export class Position extends StyleProperty {
 }
 
 export function position(mode: PositionMode) {
-	return new Position(mode);
+	return new PositionProperty(mode);
 }

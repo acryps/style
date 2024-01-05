@@ -1,6 +1,12 @@
 export * from './properties/index';
 
-export * from './properties/display';
+export * from './properties/layout/display';
+
+export * from './properties/painting/background';
+export * from './properties/painting/color';
+export * from './properties/painting/opacity';
+export * from './properties/painting/box-shadow';
+export * from './properties/painting/border';
 
 export * from './properties/position/inset';
 export * from './properties/position/position';
@@ -19,6 +25,7 @@ export * from './units/angle/radians';
 export * from './units/angle/turn';
 
 export * from './units/color/index';
+export * from './units/color/current-color';
 export * from './units/color/hue-saturation-lightness';
 export * from './units/color/named';
 export * from './units/color/red-green-blue';

@@ -5,7 +5,7 @@ import { AbsoluteGlobalLength, AbsoluteLength } from "../../units/length";
 
 export type PaddingDimension = AbsoluteLength;
 
-export class Padding extends StyleProperty {
+export class PaddingProperty extends StyleProperty {
 	constructor(
 		private top: PaddingDimension,
 		private right: PaddingDimension,
@@ -47,19 +47,19 @@ export function padding(...sides: PaddingDimension[]) {
 	sides = sides.map(side => Style.toUnit(side));
 
 	switch (sides.length) {
-		case 1: return new Padding(sides[0], sides[0], sides[0], sides[0]);
-		case 2: return new Padding(sides[0], sides[1], sides[0], sides[1]);
-		case 3: return new Padding(sides[0], sides[1], sides[2], sides[1]);
-		case 4: return new Padding(sides[0], sides[1], sides[2], sides[3]);
+		case 1: return new PaddingProperty(sides[0], sides[0], sides[0], sides[0]);
+		case 2: return new PaddingProperty(sides[0], sides[1], sides[0], sides[1]);
+		case 3: return new PaddingProperty(sides[0], sides[1], sides[2], sides[1]);
+		case 4: return new PaddingProperty(sides[0], sides[1], sides[2], sides[3]);
 	}
 
 	throw new Error('Invalid padding dimensions');
 }
 
-export const paddingInline = (offset: PaddingDimension | number) => new Padding(Style.toUnit(offset), null, Style.toUnit(offset), null);
-export const paddingBlock = (offset: PaddingDimension | number) => new Padding(null, Style.toUnit(offset), null, Style.toUnit(offset));
+export const paddingInline = (offset: PaddingDimension | number) => new PaddingProperty(Style.toUnit(offset), null, Style.toUnit(offset), null);
+export const paddingBlock = (offset: PaddingDimension | number) => new PaddingProperty(null, Style.toUnit(offset), null, Style.toUnit(offset));
 
-export const paddingTop = (offset: PaddingDimension | number) => new Padding(Style.toUnit(offset), null, null, null);
-export const paddingRight = (offset: PaddingDimension | number) => new Padding(null, Style.toUnit(offset), null, null);
-export const paddingBottom = (offset: PaddingDimension | number) => new Padding(null, null, Style.toUnit(offset), null);
-export const paddingLeft = (offset: PaddingDimension | number) => new Padding(null, null, null, Style.toUnit(offset));
+export const paddingTop = (offset: PaddingDimension | number) => new PaddingProperty(Style.toUnit(offset), null, null, null);
+export const paddingRight = (offset: PaddingDimension | number) => new PaddingProperty(null, Style.toUnit(offset), null, null);
+export const paddingBottom = (offset: PaddingDimension | number) => new PaddingProperty(null, null, Style.toUnit(offset), null);
+export const paddingLeft = (offset: PaddingDimension | number) => new PaddingProperty(null, null, null, Style.toUnit(offset));

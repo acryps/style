@@ -1,6 +1,6 @@
 import { StyleProperty } from "..";
 
-export class ZIndex extends StyleProperty {
+export class ZIndexProperty extends StyleProperty {
 	constructor(
 		private index: number
 	) {
@@ -17,5 +17,5 @@ export class ZIndex extends StyleProperty {
 }
 
 export function zIndex(index: number) {
-	return new ZIndex(index);
+	return new ZIndexProperty(index);
 }

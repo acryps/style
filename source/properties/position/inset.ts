@@ -18,36 +18,36 @@ class InsetDimensionProperty extends StyleProperty {
 	}
 }
 
-export class Top extends InsetDimensionProperty {
+export class TopProperty extends InsetDimensionProperty {
 	constructor(offset: InsetDimension) { super('top', offset); }
 }
 
 export function top(offset: InsetDimension) {
-	return new Top(offset);
+	return new TopProperty(offset);
 }
 
-export class Right extends InsetDimensionProperty {
+export class RightProperty extends InsetDimensionProperty {
 	constructor(offset: InsetDimension) { super('right', offset); }
 }
 
 export function right(offset: InsetDimension) {
-	return new Right(offset);
+	return new RightProperty(offset);
 }
 
-export class Bottom extends InsetDimensionProperty {
+export class BottomProperty extends InsetDimensionProperty {
 	constructor(offset: InsetDimension) { super('bottom', offset); }
 }
 
 export function bottom(offset: InsetDimension) {
-	return new Bottom(offset);
+	return new BottomProperty(offset);
 }
 
-export class Left extends InsetDimensionProperty {
+export class LeftProperty extends InsetDimensionProperty {
 	constructor(offset: InsetDimension) { super('left', offset); }
 }
 
 export function left(offset: InsetDimension) {
-	return new Left(offset);
+	return new LeftProperty(offset);
 }
 
 export function inset(all: InsetDimension | number);
@@ -59,14 +59,14 @@ export function inset(...sides: InsetDimension[]) {
 	sides = sides.map(side => Style.toUnit(side));
 
 	switch (sides.length) {
-		case 1: return [new Top(sides[0]), new Right(sides[0]), new Bottom(sides[0]), new Left(sides[0])];
-		case 2: return [new Top(sides[0]), new Right(sides[1]), new Bottom(sides[0]), new Left(sides[1])];
-		case 3: return [new Top(sides[0]), new Right(sides[1]), new Bottom(sides[2]), new Left(sides[1])];
-		case 4: return [new Top(sides[0]), new Right(sides[1]), new Bottom(sides[2]), new Left(sides[3])];
+		case 1: return [new TopProperty(sides[0]), new RightProperty(sides[0]), new BottomProperty(sides[0]), new LeftProperty(sides[0])];
+		case 2: return [new TopProperty(sides[0]), new RightProperty(sides[1]), new BottomProperty(sides[0]), new LeftProperty(sides[1])];
+		case 3: return [new TopProperty(sides[0]), new RightProperty(sides[1]), new BottomProperty(sides[2]), new LeftProperty(sides[1])];
+		case 4: return [new TopProperty(sides[0]), new RightProperty(sides[1]), new BottomProperty(sides[2]), new LeftProperty(sides[3])];
 	}
 
 	throw new Error('Invalid inset dimensions');
 }
 
-export const insetInline = (offset: InsetDimension | number) => [new Left(Style.toUnit(offset)), new Right(Style.toUnit(offset))];
-export const insetBlock = (offset: InsetDimension | number) => [new Top(Style.toUnit(offset)), new Bottom(Style.toUnit(offset))];
+export const insetInline = (offset: InsetDimension | number) => [new LeftProperty(Style.toUnit(offset)), new RightProperty(Style.toUnit(offset))];
+export const insetBlock = (offset: InsetDimension | number) => [new TopProperty(Style.toUnit(offset)), new BottomProperty(Style.toUnit(offset))];

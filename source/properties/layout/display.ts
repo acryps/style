@@ -1,8 +1,8 @@
-import { StyleProperty } from ".";
+import { StyleProperty } from "..";
 
 export type DisplayMode = ['block'] | ['inline'] | ['inline', 'block'] | ['flex'] | ['inline', 'flex'] | ['grid'] | ['inline', 'grid'] | ['flow-root'] | ['none'] | ['contents'];
 
-export class Display extends StyleProperty {
+export class DisplayProperty extends StyleProperty {
 	private mode: DisplayMode;
 
 	constructor(
@@ -19,5 +19,5 @@ export class Display extends StyleProperty {
 }
 
 export function display(...mode: DisplayMode) {
-	return new Display(...mode);
+	return new DisplayProperty(...mode);
 }

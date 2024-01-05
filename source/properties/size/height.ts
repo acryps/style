@@ -5,7 +5,7 @@ import { Percentage } from "../../units/percentage";
 
 export type HeightDimension = AbsoluteLength | Percentage | 'auto' | 'maxContent' | 'minContent' | 'fitContent';
 
-export class Height extends StyleProperty {
+export class HeightProperty extends StyleProperty {
 	constructor(
 		private size: HeightDimension
 	) {
@@ -25,5 +25,5 @@ export class Height extends StyleProperty {
 }
 
 export function height(size: HeightDimension) {
-	return new Height(size);
+	return new HeightProperty(size);
 }
