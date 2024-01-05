@@ -38,9 +38,9 @@ export class Margin extends StyleProperty {
 	}
 }
 
-export function margin(sideOffset: MarginDimension | number);
-export function margin(topBottom: MarginDimension | number, leftRight: MarginDimension | number);
-export function margin(top: MarginDimension | number, leftRight: MarginDimension | number, bottom: MarginDimension | number);
+export function margin(all: MarginDimension | number);
+export function margin(block: MarginDimension | number, inline: MarginDimension | number);
+export function margin(top: MarginDimension | number, inline: MarginDimension | number, bottom: MarginDimension | number);
 export function margin(top: MarginDimension | number, right: MarginDimension | number, bottom: MarginDimension | number, left: MarginDimension | number);
 
 export function margin(...sides: MarginDimension[]) {
@@ -55,3 +55,11 @@ export function margin(...sides: MarginDimension[]) {
 
 	throw new Error('Invalid margin dimensions');
 }
+
+export const marginInline = (offset: MarginDimension | number) => new Margin(Style.toUnit(offset), null, Style.toUnit(offset), null);
+export const marginBlock = (offset: MarginDimension | number) => new Margin(null, Style.toUnit(offset), null, Style.toUnit(offset));
+
+export const marginTop = (offset: MarginDimension | number) => new Margin(Style.toUnit(offset), null, null, null);
+export const marginRight = (offset: MarginDimension | number) => new Margin(null, Style.toUnit(offset), null, null);
+export const marginBottom = (offset: MarginDimension | number) => new Margin(null, null, Style.toUnit(offset), null);
+export const marginLeft = (offset: MarginDimension | number) => new Margin(null, null, null, Style.toUnit(offset));
