@@ -9,7 +9,7 @@ You can assemble, combine, generate, theme, inherit, extend, ... your styles on 
 This framework aims to translate all the CSS features into typescript, while adding type safety.
 You may combine this with other libraries which add preassembled mixins, err i meant functions, and classes to help with flex, ...
 
-> We do not have the recourses to add every single CSS property into @acryps/styles, so we only added the properties we use for our applications. 
+> We do not have the resources to add every single CSS property into @acryps/styles, so we only added the properties we use for our applications. 
 > If something is missing, please open an issue or create a pull request and we'll try to add it asap.
 
 This does not define any styles or mixins on its own.
