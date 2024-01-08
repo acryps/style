@@ -1,18 +1,18 @@
-import { BorderWidth, BorderStyle } from ".";
-import { StyleProperty } from "../..";
-import { Style } from "../../../style";
-import { Color } from "../../../units/color";
-import { AbsoluteLength } from "../../../units/length";
+import { BorderWidth, BorderStyle } from "..";
+import { StyleProperty } from "../../..";
+import { Style } from "../../../../style";
+import { Color } from "../../../../units/color";
+import { AbsoluteLength } from "../../../../units/length";
 
 export class RightBorderWidthProperty extends StyleProperty {
 	constructor(
 		public width: BorderWidth
 	) {
-		super();
+		super('border-right-width');
 	}
 
-	toString() {
-		return `border-right-width:${this.width}`;
+	toValueString() {
+		return `${this.width}`;
 	}
 }
 
@@ -24,11 +24,11 @@ export class RightBorderStyleProperty extends StyleProperty {
 	constructor(
 		public style: BorderStyle
 	) {
-		super();
+		super('border-right-style');
 	}
 
-	toString() {
-		return `border-right-style:${this.style}`;
+	toValueString() {
+		return `${this.style}`;
 	}
 }
 
@@ -40,11 +40,11 @@ export class RightBorderColorProperty extends StyleProperty {
 	constructor(
 		public color: Color
 	) {
-		super();
+		super('border-right-color');
 	}
 
-	toString() {
-		return `border-right-color:${this.color}`;
+	toValueString() {
+		return `${this.color}`;
 	}
 }
 
@@ -60,11 +60,11 @@ export class RightBorderProperty extends StyleProperty {
 		public style: RightBorderStyleProperty,
 		public color: RightBorderColorProperty
 	) {
-		super();
+		super('border-right');
 	}
 
-	toStyle() {
-		return `border-right:${this.size.width} ${this.style.style} ${this.color.color}`;
+	toValueString() {
+		return `${this.size.width} ${this.style.style} ${this.color.color}`;
 	}
 }
 

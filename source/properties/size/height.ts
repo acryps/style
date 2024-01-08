@@ -9,17 +9,17 @@ export class HeightProperty extends StyleProperty {
 	constructor(
 		private size: HeightDimension
 	) {
-		super();
+		super('height');
 	}
 
-	toString() {
+	toValueString() {
 		switch (this.size) {
-			case 'auto': return 'height:auto;';
-			case 'maxContent': return 'height:max-content;';
-			case 'minContent': return 'height:min-content;';
-			case 'fitContent': return 'height:fit-content;';
+			case 'auto': return 'auto';
+			case 'maxContent': return 'max-content';
+			case 'minContent': return 'min-content';
+			case 'fitContent': return 'fit-content';
 
-			default: return `height:${this.size};`;
+			default: return `${this.size};`;
 		}
 	}
 }

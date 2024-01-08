@@ -10,10 +10,10 @@ export class BoxShadowProperty extends StyleProperty {
 		private blurRadius?: AbsoluteLength,
 		private spreadRadius?: AbsoluteLength
 	) {
-		super();
+		super('box-shadow');
 	}
 
-	toString() {
+	toValueString() {
 		return `${this.offsetX} ${this.offsetY} ${this.blurRadius ?? ''} ${this.spreadRadius ?? ''} ${this.inset ? ' inset' : ''}`;
 	}
 }

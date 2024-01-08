@@ -1,18 +1,18 @@
-import { BorderWidth, BorderStyle } from ".";
-import { StyleProperty } from "../..";
-import { Style } from "../../../style";
-import { Color } from "../../../units/color";
-import { AbsoluteLength } from "../../../units/length";
+import { BorderWidth, BorderStyle } from "..";
+import { StyleProperty } from "../../..";
+import { Style } from "../../../../style";
+import { Color } from "../../../../units/color";
+import { AbsoluteLength } from "../../../../units/length";
 
 export class TopBorderWidthProperty extends StyleProperty {
 	constructor(
 		public width: BorderWidth
 	) {
-		super();
+		super('border-top-width');
 	}
 
-	toString() {
-		return `border-top-width:${this.width}`;
+	toValueString() {
+		return `${this.width}`;
 	}
 }
 
@@ -24,11 +24,11 @@ export class TopBorderStyleProperty extends StyleProperty {
 	constructor(
 		public style: BorderStyle
 	) {
-		super();
+		super('border-top-style');
 	}
 
-	toString() {
-		return `border-top-style:${this.style}`;
+	toValueString() {
+		return `${this.style}`;
 	}
 }
 
@@ -40,11 +40,11 @@ export class TopBorderColorProperty extends StyleProperty {
 	constructor(
 		public color: Color
 	) {
-		super();
+		super('border-top-color');
 	}
 
-	toString() {
-		return `border-top-color:${this.color}`;
+	toValueString() {
+		return `${this.color}`;
 	}
 }
 
@@ -60,11 +60,11 @@ export class TopBorderProperty extends StyleProperty {
 		public style: TopBorderStyleProperty,
 		public color: TopBorderColorProperty
 	) {
-		super();
+		super('border-top');
 	}
 
-	toStyle() {
-		return `border-top:${this.size.width} ${this.style.style} ${this.color.color}`;
+	toValueString() {
+		return `${this.size.width} ${this.style.style} ${this.color.color}`;
 	}
 }
 

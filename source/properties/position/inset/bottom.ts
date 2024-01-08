@@ -5,11 +5,11 @@ export class BottomProperty extends StyleProperty {
 	constructor(
 		private offset: InsetDimension
 	) {
-		super();
+		super('bottom');
 	}
 
-	toString() {
-		return `bottom:${this.offset};`;
+	toValueString() {
+		return `${this.offset}`;
 	}
 }
 

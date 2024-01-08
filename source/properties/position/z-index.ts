@@ -4,15 +4,15 @@ export class ZIndexProperty extends StyleProperty {
 	constructor(
 		private index: number
 	) {
-		super();
+		super('z-index');
 
 		if (Math.floor(index) != index) {
 			throw new Error('Z-Index must be an integer');
 		}
 	}
 
-	toString() {
-		return `z-index:${this.index}`;
+	toValueString() {
+		return `${this.index}`;
 	}
 }
 

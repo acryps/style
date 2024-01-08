@@ -9,17 +9,17 @@ export class WidthProperty extends StyleProperty {
 	constructor(
 		private size: WidthDimension
 	) {
-		super();
+		super('width');
 	}
 
-	toString() {
+	toValueString() {
 		switch (this.size) {
-			case 'auto': return 'width:auto;';
-			case 'maxContent': return 'width:max-content;';
-			case 'minContent': return 'width:min-content;';
-			case 'fitContent': return 'width:fit-content;';
+			case 'auto': return 'auto';
+			case 'maxContent': return 'max-content';
+			case 'minContent': return 'min-content';
+			case 'fitContent': return 'fit-content';
 
-			default: return `width:${this.size};`;
+			default: return `${this.size};`;
 		}
 	}
 }

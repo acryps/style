@@ -5,11 +5,11 @@ export class LeftProperty extends StyleProperty {
 	constructor(
 		private offset: InsetDimension
 	) {
-		super();
+		super('left');
 	}
 
-	toString() {
-		return `left:${this.offset};`;
+	toValueString() {
+		return `${this.offset}`;
 	}
 }
 

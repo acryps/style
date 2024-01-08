@@ -1,7 +1,7 @@
-import { StyleProperty } from "..";
-import { Style } from "../../style";
-import { Calculate } from "../../units/calculate";
-import { AbsoluteGlobalLength, AbsoluteLength } from "../../units/length";
+import { StyleProperty } from "../..";
+import { Style } from "../../../style";
+import { Calculate } from "../../../units/calculate";
+import { AbsoluteGlobalLength, AbsoluteLength } from "../../../units/length";
 
 export type MarginDimension = AbsoluteLength;
 
@@ -12,7 +12,7 @@ export class MarginProperty extends StyleProperty {
 		private bottom: MarginDimension,
 		private left: MarginDimension
 	) {
-		super();
+		super('margin');
 	}
 
 	toString() {

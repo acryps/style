@@ -6,11 +6,11 @@ export class PositionProperty extends StyleProperty {
 	constructor(
 		private mode: PositionMode
 	) {
-		super();
+		super('position');
 	}
 
-	toString() {
-		return `position:${this.mode}`;
+	toValueString() {
+		return `${this.mode}`;
 	}
 }
 

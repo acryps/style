@@ -1,18 +1,18 @@
-import { BorderWidth, BorderStyle } from ".";
-import { StyleProperty } from "../..";
-import { Style } from "../../../style";
-import { Color } from "../../../units/color";
-import { AbsoluteLength } from "../../../units/length";
+import { BorderWidth, BorderStyle } from "..";
+import { StyleProperty } from "../../..";
+import { Style } from "../../../../style";
+import { Color } from "../../../../units/color";
+import { AbsoluteLength } from "../../../../units/length";
 
 export class BottomBorderWidthProperty extends StyleProperty {
 	constructor(
 		public width: BorderWidth
 	) {
-		super();
+		super('border-bottom-width');
 	}
 
-	toString() {
-		return `border-bottom-width:${this.width}`;
+	toValueString() {
+		return `${this.width}`;
 	}
 }
 
@@ -24,11 +24,11 @@ export class BottomBorderStyleProperty extends StyleProperty {
 	constructor(
 		public style: BorderStyle
 	) {
-		super();
+		super('border-bottom-style');
 	}
 
-	toString() {
-		return `border-bottom-style:${this.style}`;
+	toValueString() {
+		return `${this.style}`;
 	}
 }
 
@@ -40,11 +40,11 @@ export class BottomBorderColorProperty extends StyleProperty {
 	constructor(
 		public color: Color
 	) {
-		super();
+		super('border-bottom-color');
 	}
 
-	toString() {
-		return `border-bottom-color:${this.color}`;
+	toValueString() {
+		return `${this.color}`;
 	}
 }
 
@@ -60,11 +60,11 @@ export class BottomBorderProperty extends StyleProperty {
 		public style: BottomBorderStyleProperty,
 		public color: BottomBorderColorProperty
 	) {
-		super();
+		super('border-bottom');
 	}
 
-	toStyle() {
-		return `border-bottom:${this.size.width} ${this.style.style} ${this.color.color}`;
+	toValueString() {
+		return `${this.size.width} ${this.style.style} ${this.color.color}`;
 	}
 }
 

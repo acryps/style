@@ -8,13 +8,13 @@ export class DisplayProperty extends StyleProperty {
 	constructor(
 		...mode: DisplayMode
 	) {
-		super();
+		super('display');
 
 		this.mode = mode;
 	}
 
-	toString() {
-		return `display:${this.mode.join('-')}`;
+	toValueString() {
+		return `${this.mode.join('-')}`;
 	}
 }
 

@@ -5,11 +5,11 @@ export class RightProperty extends StyleProperty {
 	constructor(
 		private offset: InsetDimension
 	) {
-		super();
+		super('right');
 	}
 
-	toString() {
-		return `right:${this.offset};`;
+	toValueString() {
+		return `${this.offset}`;
 	}
 }
 

@@ -1,10 +1,10 @@
 import { StyleProperty } from "../..";
 import { Color } from "../../../units/color";
 import { AbsoluteLength } from "../../../units/length";
-import { BottomBorderProperty, bottomBorder } from "./bottom";
-import { LeftBorderProperty, leftBorder } from "./left";
-import { RightBorderProperty, rightBorder } from "./right";
-import { TopBorderProperty, topBorder } from "./top";
+import { BottomBorderProperty, bottomBorder } from "./sides/bottom";
+import { LeftBorderProperty, leftBorder } from "./sides/left";
+import { RightBorderProperty, rightBorder } from "./sides/right";
+import { TopBorderProperty, topBorder } from "./sides/top";
 
 export type BorderWidth = AbsoluteLength | 'thin' | 'medium' | 'thick';
 export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'; 
@@ -16,11 +16,11 @@ class InlineBorderProperty extends StyleProperty {
 		public left: LeftBorderProperty,
 		public right: RightBorderProperty
 	) {
-		super();
+		super('border-inline');
 	}
 
-	toString() {
-		return `border-inline:${this.left.size.width} ${this.left.style.style} ${this.left.color.color}`;
+	toValueString() {
+		return `${this.left.size.width} ${this.left.style.style} ${this.left.color.color}`;
 	}
 }
 
@@ -38,11 +38,11 @@ class BlockBorderProperty extends StyleProperty {
 		public top: TopBorderProperty,
 		public bottom: BottomBorderProperty
 	) {
-		super();
+		super('border-block');
 	}
 
-	toString() {
-		return `border-block:${this.top.size.width} ${this.top.style.style} ${this.top.color.color}`;
+	toValueString() {
+		return `${this.top.size.width} ${this.top.style.style} ${this.top.color.color}`;
 	}
 }
 
@@ -60,11 +60,11 @@ class BorderProperty extends StyleProperty {
 		public inline: InlineBorderProperty,
 		public block: BlockBorderProperty
 	) {
-		super();
+		super('border');
 	}
 
-	toString() {
-		return `border:${this.inline.left.size.width} ${this.inline.left.style.style} ${this.inline.left.color.color}`;
+	toValueString() {
+		return `${this.inline.left.size.width} ${this.inline.left.style.style} ${this.inline.left.color.color}`;
 	}
 }
 

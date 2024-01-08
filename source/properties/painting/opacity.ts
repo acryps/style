@@ -5,11 +5,11 @@ export class OpacityProperty extends StyleProperty {
 	constructor(
 		private alpha: AlphaValue
 	) {
-		super();
+		super('opacity');
 	}
 
-	toString() {
-		return `opacity:${this.alpha}`;
+	toValueString() {
+		return `${this.alpha}`;
 	}
 }
 

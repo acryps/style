@@ -5,11 +5,11 @@ export class ColorProperty extends StyleProperty {
 	constructor(
 		private color: Color
 	) {
-		super();
+		super('color');
 	}
 
-	toString() {
-		return `color:${this.color};`;
+	toValueString() {
+		return `${this.color}`;
 	}
 }
 

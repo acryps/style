@@ -7,10 +7,10 @@ export class OverflowProperty extends StyleProperty {
 		private block: OverflowMode,
 		private inline: OverflowMode
 	) {
-		super();
+		super('overflow');
 	}
 
-	toString() {
+	toValueString() {
 		if (this.inline == this.block) {
 			return `overflow:${this.inline};`;
 		}

@@ -12,7 +12,7 @@ export class PaddingProperty extends StyleProperty {
 		private bottom: PaddingDimension,
 		private left: PaddingDimension
 	) {
-		super();
+		super('padding');
 	}
 
 	toString() {
