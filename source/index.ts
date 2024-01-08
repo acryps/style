@@ -9,6 +9,11 @@ export * from './properties/painting/box-shadow';
 export * from './properties/painting/border';
 
 export * from './properties/position/inset';
+export * from './properties/position/inset/top';
+export * from './properties/position/inset/right';
+export * from './properties/position/inset/bottom';
+export * from './properties/position/inset/left';
+export * from './properties/position/inset';
 export * from './properties/position/position';
 export * from './properties/position/z-index';
 

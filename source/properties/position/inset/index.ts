@@ -1,54 +1,13 @@
-import { StyleProperty } from "..";
-import { Style } from "../../style";
-import { AbsoluteLength } from "../../units/length";
-import { Percentage } from "../../units/percentage";
+import { Style } from "../../../style";
+import { AbsoluteLength } from "../../../units/length";
+import { Percentage } from "../../../units/percentage";
+import { BottomProperty } from "./bottom";
+import { LeftProperty } from "./left";
+import { RightProperty } from "./right";
+import { TopProperty } from "./top";
 
 export type InsetDimension = AbsoluteLength | Percentage | 'auto';
-
-class InsetDimensionProperty extends StyleProperty {
-	constructor(
-		private dimension: string,
-		private offset: InsetDimension
-	) {
-		super();
-	}
-
-	toString() {
-		return `${this.dimension}:${this.offset};`;
-	}
-}
-
-export class TopProperty extends InsetDimensionProperty {
-	constructor(offset: InsetDimension) { super('top', offset); }
-}
-
-export function top(offset: InsetDimension) {
-	return new TopProperty(offset);
-}
-
-export class RightProperty extends InsetDimensionProperty {
-	constructor(offset: InsetDimension) { super('right', offset); }
-}
-
-export function right(offset: InsetDimension) {
-	return new RightProperty(offset);
-}
-
-export class BottomProperty extends InsetDimensionProperty {
-	constructor(offset: InsetDimension) { super('bottom', offset); }
-}
-
-export function bottom(offset: InsetDimension) {
-	return new BottomProperty(offset);
-}
-
-export class LeftProperty extends InsetDimensionProperty {
-	constructor(offset: InsetDimension) { super('left', offset); }
-}
-
-export function left(offset: InsetDimension) {
-	return new LeftProperty(offset);
-}
+export type InsetDimensionProperty = TopProperty | RightProperty | BottomProperty | LeftProperty;  
 
 export function inset(all: InsetDimension | number);
 export function inset(block: InsetDimension | number, inline: InsetDimension | number);
