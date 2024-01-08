@@ -44,7 +44,7 @@ export function margin(top: MarginDimension | number, inline: MarginDimension | 
 export function margin(top: MarginDimension | number, right: MarginDimension | number, bottom: MarginDimension | number, left: MarginDimension | number);
 
 export function margin(...sides: MarginDimension[]) {
-	sides = sides.map(side => Style.toUnit(side));
+	sides = sides.map(side => Style.resolveUnit(side));
 
 	switch (sides.length) {
 		case 1: return new MarginProperty(sides[0], sides[0], sides[0], sides[0]);
@@ -56,10 +56,10 @@ export function margin(...sides: MarginDimension[]) {
 	throw new Error('Invalid margin dimensions');
 }
 
-export const marginInline = (offset: MarginDimension | number) => new MarginProperty(Style.toUnit(offset), null, Style.toUnit(offset), null);
-export const marginBlock = (offset: MarginDimension | number) => new MarginProperty(null, Style.toUnit(offset), null, Style.toUnit(offset));
+export const marginInline = (offset: MarginDimension | number) => new MarginProperty(Style.resolveUnit(offset), null, Style.resolveUnit(offset), null);
+export const marginBlock = (offset: MarginDimension | number) => new MarginProperty(null, Style.resolveUnit(offset), null, Style.resolveUnit(offset));
 
-export const marginTop = (offset: MarginDimension | number) => new MarginProperty(Style.toUnit(offset), null, null, null);
-export const marginRight = (offset: MarginDimension | number) => new MarginProperty(null, Style.toUnit(offset), null, null);
-export const marginBottom = (offset: MarginDimension | number) => new MarginProperty(null, null, Style.toUnit(offset), null);
-export const marginLeft = (offset: MarginDimension | number) => new MarginProperty(null, null, null, Style.toUnit(offset));
+export const marginTop = (offset: MarginDimension | number) => new MarginProperty(Style.resolveUnit(offset), null, null, null);
+export const marginRight = (offset: MarginDimension | number) => new MarginProperty(null, Style.resolveUnit(offset), null, null);
+export const marginBottom = (offset: MarginDimension | number) => new MarginProperty(null, null, Style.resolveUnit(offset), null);
+export const marginLeft = (offset: MarginDimension | number) => new MarginProperty(null, null, null, Style.resolveUnit(offset));

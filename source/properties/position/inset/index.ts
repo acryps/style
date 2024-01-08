@@ -15,7 +15,7 @@ export function inset(top: InsetDimension | number, inline: InsetDimension | num
 export function inset(top: InsetDimension | number, right: InsetDimension | number, bottom: InsetDimension | number, left: InsetDimension | number);
 
 export function inset(...sides: InsetDimension[]) {
-	sides = sides.map(side => Style.toUnit(side));
+	sides = sides.map(side => Style.resolveUnit(side));
 
 	switch (sides.length) {
 		case 1: return [new TopProperty(sides[0]), new RightProperty(sides[0]), new BottomProperty(sides[0]), new LeftProperty(sides[0])];
@@ -27,5 +27,5 @@ export function inset(...sides: InsetDimension[]) {
 	throw new Error('Invalid inset dimensions');
 }
 
-export const insetInline = (offset: InsetDimension | number) => [new LeftProperty(Style.toUnit(offset)), new RightProperty(Style.toUnit(offset))];
-export const insetBlock = (offset: InsetDimension | number) => [new TopProperty(Style.toUnit(offset)), new BottomProperty(Style.toUnit(offset))];
+export const insetInline = (offset: InsetDimension | number) => [new LeftProperty(Style.resolveUnit(offset)), new RightProperty(Style.resolveUnit(offset))];
+export const insetBlock = (offset: InsetDimension | number) => [new TopProperty(Style.resolveUnit(offset)), new BottomProperty(Style.resolveUnit(offset))];

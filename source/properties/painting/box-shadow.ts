@@ -21,19 +21,19 @@ export class BoxShadowProperty extends StyleProperty {
 export function boxShadow(offsetX: AbsoluteLength | number, offsetY: AbsoluteLength | number, blurRadius?: AbsoluteLength | number, spreadRadius?: AbsoluteLength | number) {
 	return new BoxShadowProperty(
 		false,
-		Style.toUnit(offsetX),
-		Style.toUnit(offsetY),
-		Style.toUnit(blurRadius),
-		Style.toUnit(spreadRadius)
+		Style.resolveUnit(offsetX),
+		Style.resolveUnit(offsetY),
+		Style.resolveUnit(blurRadius),
+		Style.resolveUnit(spreadRadius)
 	)
 }
 
 export function insetBoxShadow(offsetX: AbsoluteLength | number, offsetY: AbsoluteLength | number, blurRadius?: AbsoluteLength | number, spreadRadius?: AbsoluteLength | number) {
 	return new BoxShadowProperty(
 		true,
-		Style.toUnit(offsetX),
-		Style.toUnit(offsetY),
-		Style.toUnit(blurRadius),
-		Style.toUnit(spreadRadius)
+		Style.resolveUnit(offsetX),
+		Style.resolveUnit(offsetY),
+		Style.resolveUnit(blurRadius),
+		Style.resolveUnit(spreadRadius)
 	)
 }
