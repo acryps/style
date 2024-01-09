@@ -1,7 +1,9 @@
+import { ImageSource } from './primitives';
+import { Gradient } from './primitives';
 import { ColorValue } from './color';
 
 // background image source
-export type BackgroundImageSource = Image | Gradient;
+export type BackgroundImageSource = ImageSource | Gradient;
 
 // background image
 export class BackgroundImageStyleProperty {

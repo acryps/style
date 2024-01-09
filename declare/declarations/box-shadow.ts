@@ -1,8 +1,8 @@
 import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
 import { colorValue } from "./color";
-import { length } from "./numbers";
+import { length } from "./primitives";
 
-export const boxShadowType = new TypeDeclaration(`'inset' | 'outset'`);
+export const boxShadowType = new TypeDeclaration('inset', 'outset');
 
 export const boxShadow = new PropertyTypeDeclaration({
 	color: colorValue.single(),

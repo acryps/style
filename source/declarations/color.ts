@@ -1,7 +1,13 @@
 
 
+// hex color
+export type HexColor = ;
+
+// rgb color
+export type RgbColor = ;
+
 // color value
-export type ColorValue = HexColor | RgbColor | HslColor;
+export type ColorValue = HexColor | RgbColor;
 
 // color
 export class ColorStyleProperty {

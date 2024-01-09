@@ -1,7 +1,7 @@
 import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
-import { length } from "./numbers";
+import { length } from "./primitives";
 
-export const positionMode = new TypeDeclaration("'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'");
+export const positionMode = new TypeDeclaration('static', 'relative', 'absolute', 'fixed', 'sticky');
 
 export const position = new PropertyTypeDeclaration({
 	mode: positionMode.single()

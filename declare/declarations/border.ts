@@ -1,9 +1,9 @@
 import { Ident } from "../ident";
 import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
 import { colorValue } from "./color";
-import { lineWidth } from "./numbers";
+import { lineWidth } from "./primitives";
 
-export const borderStyle = new TypeDeclaration("'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'");
+export const borderStyle = new TypeDeclaration('none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
 
 const exportBorderWidth = (side: string) => module.exports[`border${Ident.fromCamelCase(side).toClassCamelCase()}Width`] = new PropertyTypeDeclaration({
 	width: lineWidth.single()

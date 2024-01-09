@@ -1,5 +1,5 @@
 import { ColorValue } from './color';
-import { Length } from './numbers';
+import { Length } from './primitives';
 
 // box shadow type
 export type BoxShadowType = 'inset' | 'outset';

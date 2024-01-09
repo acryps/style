@@ -1,4 +1,4 @@
-import { Length } from './numbers';
+import { Length } from './primitives';
 
 // margin left
 export class MarginLeftStyleProperty {

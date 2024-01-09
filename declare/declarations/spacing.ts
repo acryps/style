@@ -1,6 +1,6 @@
 import { Ident } from "../ident";
 import { PropertyTypeDeclaration, ShorthandDeclaration } from "../types";
-import { length } from "./numbers";
+import { length } from "./primitives";
 
 const exportSpacingSide = (type: string, side: string) => module.exports[`${type}${Ident.fromCamelCase(side).toClassCamelCase()}`] = new PropertyTypeDeclaration({
 	length: length.single()

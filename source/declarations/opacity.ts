@@ -1,7 +1,7 @@
-
+import { Number } from './primitives';
 
 // alpha value
-export type AlphaValue = number | 'none';
+export type AlphaValue = Number | 'none';
 
 // opacity
 export class OpacityStyleProperty {

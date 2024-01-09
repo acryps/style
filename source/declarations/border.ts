@@ -1,4 +1,4 @@
-import { LineWidth } from './numbers';
+import { LineWidth } from './primitives';
 import { ColorValue } from './color';
 
 // border style

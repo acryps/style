@@ -1,7 +1,8 @@
 import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
 import { colorValue } from "./color";
+import { gradient, imageSource } from "./primitives";
 
-export const backgroundImageSource = new TypeDeclaration('Image | Gradient');
+export const backgroundImageSource = new TypeDeclaration(imageSource, gradient);
 
 export const backgroundImage = new PropertyTypeDeclaration({
 	sources: backgroundImageSource.spread()

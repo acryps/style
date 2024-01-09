@@ -1,4 +1,4 @@
-import { Length } from './numbers';
+import { Length } from './primitives';
 
 // position mode
 export type PositionMode = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';

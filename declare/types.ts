@@ -30,9 +30,13 @@ export class PropertyInitializer {
 export class TypeDeclaration implements Declaration {
 	name: Ident;
 
+	options: (string | TypeDeclaration)[];
+
 	constructor(
-		public declaration: string
-	) {}
+		...options: (string | TypeDeclaration)[]
+	) {
+		this.options = options;
+	}
 
 	spread() {
 		return (propertyName: string) => new PropertyInitializer(
@@ -53,7 +57,27 @@ export class TypeDeclaration implements Declaration {
 	}
 
 	requirements() {
+		return this.options.filter(value => value instanceof TypeDeclaration) as TypeDeclaration[];
+	}
+
+	toString() {
+		return this.options.map(option => option instanceof TypeDeclaration ? option.name.toClassCamelCase() : `'${option}'`).join(' | ');
+	}
+}
+
+export class PrimitiveType extends TypeDeclaration {
+	constructor(
+		private definition: string
+	) {
+		super();
+	}
+
+	requirements() {
 		return [];
+	}
+
+	toString() {
+		return this.definition
 	}
 }
 

@@ -1,7 +1,8 @@
-
+import { Length } from './primitives';
+import { Percentage } from './primitives';
 
 // size dimension
-export type SizeDimension = Length | Percentage | 'auto' | 'maxContent' | 'minContent' | 'fitContent';
+export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content';
 
 // height
 export class HeightStyleProperty {

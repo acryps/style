@@ -78,7 +78,7 @@ for (let sourcePath in sources) {
 			}
 
 			if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration.declaration};\n\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n\n`);
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
@@ -167,3 +167,11 @@ for (let sourcePath in sources) {
 		writer.close();
 	}
 }
+
+const indexWriter = createWriteStream(join(drainBase, 'index.ts'));
+
+for (let sourcePath in sources) {
+	indexWriter.write(`export * from './${sourcePath.replace('.js', '')}';\n`);
+}
+
+indexWriter.end();

@@ -1,4 +1,4 @@
-import { Integer } from './numbers';
+import { Integer } from './primitives';
 
 // z index
 export class ZIndexStyleProperty {

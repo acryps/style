@@ -1,7 +1,7 @@
-
+import { Number } from './primitives';
 
 // line height size
-export type LineHeightSize = number;
+export type LineHeightSize = Number;
 
 // line height
 export class LineHeightStyleProperty {
