@@ -6,7 +6,8 @@
 		"preversion": "git pull",
 		"postversion": "git push",
 		"prepare": "tsc",
-		"import": "tsc && node built/import/index.js"
+
+		"import": "tsc && node built/declare/index.js"
 	},
 	"license": "GPL-3.0-only",
 	"devDependencies": {
