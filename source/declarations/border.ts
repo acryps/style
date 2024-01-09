@@ -268,23 +268,29 @@ export class BorderBottomStyleProperty {
 }
 
 export function borderInline(borderLeft: BorderLeftStyleProperty, borderRight: BorderRightStyleProperty)
+export function borderInline(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
 export function borderInline(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function borderInline() {
 	if (arguments[0] instanceof BorderLeftStyleProperty && arguments[1] instanceof BorderRightStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [borderLeft(arguments[0], arguments[1], arguments[2]), borderRight(arguments[0], arguments[1], arguments[2])] }
+	if (arguments.length == 3) { return [borderLeft(arguments[0], arguments[1], arguments[2]), borderRight(arguments[0], arguments[1], arguments[2])] }
 }
 
 export function borderBlock(borderTop: BorderTopStyleProperty, borderBottom: BorderBottomStyleProperty)
+export function borderBlock(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue)
 export function borderBlock(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function borderBlock() {
 	if (arguments[0] instanceof BorderTopStyleProperty && arguments[1] instanceof BorderBottomStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [borderTop(arguments[0], arguments[1], arguments[2]), borderBottom(arguments[0], arguments[1], arguments[2])] }
+	if (arguments.length == 3) { return [borderTop(arguments[0], arguments[1], arguments[2]), borderBottom(arguments[0], arguments[1], arguments[2])] }
 }
 
 export function border(borderInline: BorderInlineStyleProperty, borderBlock: BorderBlockStyleProperty)
+export function border(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
 export function border(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function border() {
 	if (arguments[0] instanceof BorderInlineStyleProperty && arguments[1] instanceof BorderBlockStyleProperty) { return [arguments] }
+	if (arguments.length == 3) { return [borderInline(arguments[0], arguments[1], arguments[2]), borderBlock(arguments[0], arguments[1], arguments[2])] }
 	if (arguments.length == 3) { return [borderInline(arguments[0], arguments[1], arguments[2]), borderBlock(arguments[0], arguments[1], arguments[2])] }
 }
 

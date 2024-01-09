@@ -66,7 +66,7 @@ export class ShorthandDeclaration implements Declaration {
 
 	// create child initializer
 	// → overflow('scroll', 'auto') = overflowX('scroll') + overflowY('auto')
-	constructChildInitializer() {
+	constructChildInitializer(): { genericArguments: string[], namedArguments: string[], initializer: string } {
 		const firstDeclaration = this.children[0];
 
 		if (firstDeclaration instanceof ShorthandDeclaration) {
@@ -78,7 +78,7 @@ export class ShorthandDeclaration implements Declaration {
 				if (children.every(child => child.constructChildInitializer()?.genericArguments.join() == firstShorthandInitializer.genericArguments.join())) {
 					return {
 						genericArguments: firstShorthandInitializer.genericArguments,
-						namedArguments: firstShorthandInitializer.genericArguments,
+						namedArguments: firstShorthandInitializer.namedArguments,
 						initializer: `if (arguments.length == ${firstShorthandInitializer.genericArguments.length}) { return [${
 							children.map(child => `${child.name.toCommandName()}(${firstShorthandInitializer.genericArguments.map((argument, index) => `arguments[${index}]`) .join(', ')})`).join(', ')
 						}] }`
@@ -115,8 +115,25 @@ export class ShorthandDeclaration implements Declaration {
 
 	// check for same parameter initializing
 	// → overflow('scroll') = overflowX('scroll') + overflowY('scroll')
-	constructCommonParameterInitializer() {
+	constructCommonParameterInitializer(): { arguments: string[], initializer: string } {
 		const firstDeclaration = this.children[0];
+
+		if (firstDeclaration instanceof ShorthandDeclaration) {
+			const children = this.children as ShorthandDeclaration[];
+
+			const firstChildInitializer = firstDeclaration.constructChildInitializer();
+
+			if (children.every(child => child.constructChildInitializer().genericArguments.join() == firstChildInitializer.genericArguments.join())) {
+				const uniqueArguments = firstChildInitializer.genericArguments.filter((argument, index) => firstChildInitializer.genericArguments.indexOf(argument) == index);
+
+				return {
+					arguments: uniqueArguments,
+					initializer: `if (arguments.length == ${uniqueArguments.length}) { return [${
+						children.map(child => `${child.name.toCommandName()}(${uniqueArguments.map((argument, index) => `arguments[${index}]`).join(', ')})`).join(', ')
+					}] }`
+				}
+			}
+		}
 
 		if (firstDeclaration instanceof PropertyTypeDeclaration) {
 			const children = this.children as PropertyTypeDeclaration[];

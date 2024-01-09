@@ -201,10 +201,12 @@ export function marginBlock() {
 }
 
 export function margin(marginInline: MarginInlineStyleProperty, marginBlock: MarginBlockStyleProperty)
-export function margin(length: Length, length: Length)
+export function margin(marginLeftLength: Length, marginRightLength: Length)
+export function margin(length: Length)
 export function margin() {
 	if (arguments[0] instanceof MarginInlineStyleProperty && arguments[1] instanceof MarginBlockStyleProperty) { return [arguments] }
 	if (arguments.length == 2) { return [marginInline(arguments[0], arguments[1]), marginBlock(arguments[0], arguments[1])] }
+	if (arguments.length == 1) { return [marginInline(arguments[0]), marginBlock(arguments[0])] }
 }
 
 export function paddingInline(paddingLeft: PaddingLeftStyleProperty, paddingRight: PaddingRightStyleProperty)
@@ -226,9 +228,11 @@ export function paddingBlock() {
 }
 
 export function padding(paddingInline: PaddingInlineStyleProperty, paddingBlock: PaddingBlockStyleProperty)
-export function padding(length: Length, length: Length)
+export function padding(paddingLeftLength: Length, paddingRightLength: Length)
+export function padding(length: Length)
 export function padding() {
 	if (arguments[0] instanceof PaddingInlineStyleProperty && arguments[1] instanceof PaddingBlockStyleProperty) { return [arguments] }
 	if (arguments.length == 2) { return [paddingInline(arguments[0], arguments[1]), paddingBlock(arguments[0], arguments[1])] }
+	if (arguments.length == 1) { return [paddingInline(arguments[0]), paddingBlock(arguments[0])] }
 }
 

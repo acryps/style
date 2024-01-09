@@ -132,9 +132,11 @@ export function insetBlock() {
 }
 
 export function inset(insetInline: InsetInlineStyleProperty, insetBlock: InsetBlockStyleProperty)
-export function inset(offset: Length, offset: Length)
+export function inset(leftOffset: Length, rightOffset: Length)
+export function inset(offset: Length)
 export function inset() {
 	if (arguments[0] instanceof InsetInlineStyleProperty && arguments[1] instanceof InsetBlockStyleProperty) { return [arguments] }
 	if (arguments.length == 2) { return [insetInline(arguments[0], arguments[1]), insetBlock(arguments[0], arguments[1])] }
+	if (arguments.length == 1) { return [insetInline(arguments[0]), insetBlock(arguments[0])] }
 }
 
