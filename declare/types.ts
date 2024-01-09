@@ -1,23 +1,33 @@
 import { Ident } from "./ident";
 
-export class PropertyTypeDeclaration {
+export interface Declaration {
+	name: Ident;
+	requirements(): Declaration[];
+}
+
+export class PropertyTypeDeclaration implements Declaration {
 	name: Ident;
 
 	constructor(
 		public initializer: Record<string, (propertyName: string) => PropertyInitializer>,
 		public valueConverter: string
 	) {}
+
+	requirements() {
+		return Object.values(this.initializer).map(value => value('').source);
+	}
 }
 
 export class PropertyInitializer {
 	constructor(
+		public source: TypeDeclaration,
 		public type: string,
 		public argument: string,
 		public pass: string
 	) {}
 }
 
-export class TypeDeclaration {
+export class TypeDeclaration implements Declaration {
 	name: Ident;
 
 	constructor(
@@ -26,6 +36,7 @@ export class TypeDeclaration {
 
 	spread() {
 		return (propertyName: string) => new PropertyInitializer(
+			this,
 			`${this.name.toClassCamelCase()}[]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
 			`...${propertyName}`
@@ -34,14 +45,19 @@ export class TypeDeclaration {
 
 	single(defaultValue?: string) {
 		return (propertyName: string) => new PropertyInitializer(
+			this,
 			`${this.name.toClassCamelCase()}`,
 			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
 			propertyName
 		);
 	}
+
+	requirements() {
+		return [];
+	}
 }
 
-export class ShorthandDeclaration {
+export class ShorthandDeclaration implements Declaration {
 	name: Ident;
 
 	constructor(
@@ -102,12 +118,6 @@ export class ShorthandDeclaration {
 	constructCommonParameterInitializer() {
 		const firstDeclaration = this.children[0];
 
-		if (firstDeclaration instanceof ShorthandDeclaration) {
-			const children = this.children as ShorthandDeclaration[];
-
-			
-		}
-
 		if (firstDeclaration instanceof PropertyTypeDeclaration) {
 			const children = this.children as PropertyTypeDeclaration[];
 
@@ -130,5 +140,9 @@ export class ShorthandDeclaration {
 				}
 			}
 		}
+	}
+
+	requirements() {
+		return this.children.flatMap(child => child.requirements());
 	}
 }

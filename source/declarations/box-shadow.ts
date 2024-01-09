@@ -1,9 +1,12 @@
+import { ColorValue } from './color';
+import { Length } from './numbers';
+
 // box shadow type
 export type BoxShadowType = 'inset' | 'outset';
 
 // box shadow
 export class BoxShadowStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 	private offsetX: Length;
 	private offsetY: Length;
 	private blurRadius: Length;
@@ -11,7 +14,7 @@ export class BoxShadowStyleProperty {
 	private type: BoxShadowType;
 
 	constructor(
-		color: Color,
+		color: ColorValue,
 		offsetX: Length,
 		offsetY: Length,
 		blurRadius: Length,
@@ -33,5 +36,5 @@ export class BoxShadowStyleProperty {
 	}
 }
 
-export const boxShadow = (color: Color, offsetX: Length, offsetY: Length, blurRadius: Length, spreadRadius: Length = 0, type: BoxShadowType = 'outset') => new BoxShadowStyleProperty(color, offsetX, offsetY, blurRadius, spreadRadius, type);
+export const boxShadow = (color: ColorValue, offsetX: Length, offsetY: Length, blurRadius: Length, spreadRadius: Length = 0, type: BoxShadowType = 'outset') => new BoxShadowStyleProperty(color, offsetX, offsetY, blurRadius, spreadRadius, type);
 

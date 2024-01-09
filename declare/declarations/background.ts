@@ -1,5 +1,5 @@
 import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
-import { color } from "./color";
+import { colorValue } from "./color";
 
 export const backgroundImageSource = new TypeDeclaration('Image | Gradient');
 
@@ -8,7 +8,7 @@ export const backgroundImage = new PropertyTypeDeclaration({
 }, "${this.sources.join(', ')}");
 
 export const backgroundColor = new PropertyTypeDeclaration({
-	color: color.single()
+	color: colorValue.single()
 }, "${this.color}");
 
 export const background = new ShorthandDeclaration([

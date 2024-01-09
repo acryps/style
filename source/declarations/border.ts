@@ -1,3 +1,6 @@
+import { LineWidth } from './numbers';
+import { ColorValue } from './color';
+
 // border style
 export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset';
 
@@ -56,10 +59,10 @@ export const borderLeftStyle = (style: BorderStyle) => new BorderLeftStyleStyleP
 
 // border left color
 export class BorderLeftColorStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 
 	constructor(
-		color: Color
+		color: ColorValue
 	) {
 		super('border-left-color');
 
@@ -71,7 +74,7 @@ export class BorderLeftColorStyleProperty {
 	}
 }
 
-export const borderLeftColor = (color: Color) => new BorderLeftColorStyleProperty(color);
+export const borderLeftColor = (color: ColorValue) => new BorderLeftColorStyleProperty(color);
 
 // border left
 export class BorderLeftStyleProperty {
@@ -118,10 +121,10 @@ export const borderRightStyle = (style: BorderStyle) => new BorderRightStyleStyl
 
 // border right color
 export class BorderRightColorStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 
 	constructor(
-		color: Color
+		color: ColorValue
 	) {
 		super('border-right-color');
 
@@ -133,7 +136,7 @@ export class BorderRightColorStyleProperty {
 	}
 }
 
-export const borderRightColor = (color: Color) => new BorderRightColorStyleProperty(color);
+export const borderRightColor = (color: ColorValue) => new BorderRightColorStyleProperty(color);
 
 // border right
 export class BorderRightStyleProperty {
@@ -180,10 +183,10 @@ export const borderTopStyle = (style: BorderStyle) => new BorderTopStyleStylePro
 
 // border top color
 export class BorderTopColorStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 
 	constructor(
-		color: Color
+		color: ColorValue
 	) {
 		super('border-top-color');
 
@@ -195,7 +198,7 @@ export class BorderTopColorStyleProperty {
 	}
 }
 
-export const borderTopColor = (color: Color) => new BorderTopColorStyleProperty(color);
+export const borderTopColor = (color: ColorValue) => new BorderTopColorStyleProperty(color);
 
 // border top
 export class BorderTopStyleProperty {
@@ -242,10 +245,10 @@ export const borderBottomStyle = (style: BorderStyle) => new BorderBottomStyleSt
 
 // border bottom color
 export class BorderBottomColorStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 
 	constructor(
-		color: Color
+		color: ColorValue
 	) {
 		super('border-bottom-color');
 
@@ -257,7 +260,7 @@ export class BorderBottomColorStyleProperty {
 	}
 }
 
-export const borderBottomColor = (color: Color) => new BorderBottomColorStyleProperty(color);
+export const borderBottomColor = (color: ColorValue) => new BorderBottomColorStyleProperty(color);
 
 // border bottom
 export class BorderBottomStyleProperty {
@@ -265,49 +268,49 @@ export class BorderBottomStyleProperty {
 }
 
 export function borderInline(borderLeft: BorderLeftStyleProperty, borderRight: BorderRightStyleProperty)
-export function borderInline(width: LineWidth, style: BorderStyle, color: Color)
+export function borderInline(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function borderInline() {
 	if (arguments[0] instanceof BorderLeftStyleProperty && arguments[1] instanceof BorderRightStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [borderLeft(arguments[0], arguments[1], arguments[2]), borderRight(arguments[0], arguments[1], arguments[2])] }
 }
 
 export function borderBlock(borderTop: BorderTopStyleProperty, borderBottom: BorderBottomStyleProperty)
-export function borderBlock(width: LineWidth, style: BorderStyle, color: Color)
+export function borderBlock(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function borderBlock() {
 	if (arguments[0] instanceof BorderTopStyleProperty && arguments[1] instanceof BorderBottomStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [borderTop(arguments[0], arguments[1], arguments[2]), borderBottom(arguments[0], arguments[1], arguments[2])] }
 }
 
 export function border(borderInline: BorderInlineStyleProperty, borderBlock: BorderBlockStyleProperty)
-export function border(width: LineWidth, style: BorderStyle, color: Color)
+export function border(width: LineWidth, style: BorderStyle, color: ColorValue)
 export function border() {
 	if (arguments[0] instanceof BorderInlineStyleProperty && arguments[1] instanceof BorderBlockStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [borderInline(arguments[0], arguments[1], arguments[2]), borderBlock(arguments[0], arguments[1], arguments[2])] }
 }
 
 export function borderLeft(borderLeftWidth: BorderLeftWidthStyleProperty, borderLeftStyle: BorderLeftStyleStyleProperty, borderLeftColor: BorderLeftColorStyleProperty)
-export function borderLeft(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: Color)
+export function borderLeft(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
 export function borderLeft() {
 	if (arguments[0] instanceof BorderLeftWidthStyleProperty && arguments[1] instanceof BorderLeftStyleStyleProperty && arguments[2] instanceof BorderLeftColorStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [new BorderLeftWidthStyleProperty(arguments[0]), new BorderLeftStyleStyleProperty(arguments[1]), new BorderLeftColorStyleProperty(arguments[2])] }
 }
 
 export function borderRight(borderRightWidth: BorderRightWidthStyleProperty, borderRightStyle: BorderRightStyleStyleProperty, borderRightColor: BorderRightColorStyleProperty)
-export function borderRight(borderRightWidthWidth: LineWidth, borderRightStyleStyle: BorderStyle, borderRightColorColor: Color)
+export function borderRight(borderRightWidthWidth: LineWidth, borderRightStyleStyle: BorderStyle, borderRightColorColor: ColorValue)
 export function borderRight() {
 	if (arguments[0] instanceof BorderRightWidthStyleProperty && arguments[1] instanceof BorderRightStyleStyleProperty && arguments[2] instanceof BorderRightColorStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [new BorderRightWidthStyleProperty(arguments[0]), new BorderRightStyleStyleProperty(arguments[1]), new BorderRightColorStyleProperty(arguments[2])] }
 }
 
 export function borderTop(borderTopWidth: BorderTopWidthStyleProperty, borderTopStyle: BorderTopStyleStyleProperty, borderTopColor: BorderTopColorStyleProperty)
-export function borderTop(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: Color)
+export function borderTop(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue)
 export function borderTop() {
 	if (arguments[0] instanceof BorderTopWidthStyleProperty && arguments[1] instanceof BorderTopStyleStyleProperty && arguments[2] instanceof BorderTopColorStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [new BorderTopWidthStyleProperty(arguments[0]), new BorderTopStyleStyleProperty(arguments[1]), new BorderTopColorStyleProperty(arguments[2])] }
 }
 
 export function borderBottom(borderBottomWidth: BorderBottomWidthStyleProperty, borderBottomStyle: BorderBottomStyleStyleProperty, borderBottomColor: BorderBottomColorStyleProperty)
-export function borderBottom(borderBottomWidthWidth: LineWidth, borderBottomStyleStyle: BorderStyle, borderBottomColorColor: Color)
+export function borderBottom(borderBottomWidthWidth: LineWidth, borderBottomStyleStyle: BorderStyle, borderBottomColorColor: ColorValue)
 export function borderBottom() {
 	if (arguments[0] instanceof BorderBottomWidthStyleProperty && arguments[1] instanceof BorderBottomStyleStyleProperty && arguments[2] instanceof BorderBottomColorStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [new BorderBottomWidthStyleProperty(arguments[0]), new BorderBottomStyleStyleProperty(arguments[1]), new BorderBottomColorStyleProperty(arguments[2])] }

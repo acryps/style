@@ -1,7 +1,7 @@
 import { createWriteStream, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
 import { Ident } from "./ident";
-import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "./types";
+import { Declaration, PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "./types";
 
 const sourceBase = join(__dirname, 'declarations');
 
@@ -30,9 +30,44 @@ for (let sourcePath in sources) {
 		const declarations = sources[sourcePath];
 		const writer = createWriteStream(join(drainBase, sourcePath.replace('.js', '.ts')));
 
+		// import all types
+		const imports = [];
+
+		for (let name in declarations) {
+			const declaration = declarations[name] as Declaration;
+
+			for (let requirement of declaration.requirements()) {
+				const exportedMemberName = requirement.name.toCamelCase();
+
+				// don't import local types
+				if (!(exportedMemberName in declarations)) {
+					let found = false;
+
+					for (let sourcePath in sources) {
+						if (exportedMemberName in sources[sourcePath]) {
+							const importStatement = `import { ${requirement.name.toClassCamelCase()} } from './${sourcePath.replace('.js', '')}';`;
+
+							if (!imports.includes(importStatement)) {
+								imports.push(importStatement);
+							}
+
+							found = true;
+						}
+					}
+
+					if (!found) {
+						throw new Error(`Type '${exportedMemberName}' cloud not be imported`);
+					}
+				}
+			}
+		}
+
+		writer.write(imports.join('\n'));
+		writer.write('\n\n');
+
 		for (let name in declarations) {
 			const ident = Ident.fromCamelCase(name);
-			const declaration = declarations[name];
+			const declaration = declarations[name] as Declaration;
 
 			writer.write(`// ${ident.toSpaced()}\n`);
 

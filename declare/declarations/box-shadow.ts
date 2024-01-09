@@ -1,11 +1,11 @@
 import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
-import { color } from "./color";
+import { colorValue } from "./color";
 import { length } from "./numbers";
 
 export const boxShadowType = new TypeDeclaration(`'inset' | 'outset'`);
 
 export const boxShadow = new PropertyTypeDeclaration({
-	color: color.single(),
+	color: colorValue.single(),
 	offsetX: length.single(),
 	offsetY: length.single(),
 	blurRadius: length.single(),

@@ -1,6 +1,6 @@
 import { Ident } from "../ident";
 import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
-import { color } from "./color";
+import { colorValue } from "./color";
 import { lineWidth } from "./numbers";
 
 export const borderStyle = new TypeDeclaration("'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'");
@@ -14,7 +14,7 @@ const exportBorderStyle = (side: string) => module.exports[`border${Ident.fromCa
 }, '${this.style}');
 
 const exportBorderColor = (side: string) => module.exports[`border${Ident.fromCamelCase(side).toClassCamelCase()}Color`] = new PropertyTypeDeclaration({
-	color: color.single()
+	color: colorValue.single()
 }, '${this.color}');
 
 const exportBorderSide = (side: string) => module.exports[`border${Ident.fromCamelCase(side).toClassCamelCase()}`] = new ShorthandDeclaration([

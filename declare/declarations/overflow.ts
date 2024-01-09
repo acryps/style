@@ -9,4 +9,4 @@ const exportOverflowAxis = (axis: string) => module.exports[`overflow${axis.toUp
 export const overflow = new ShorthandDeclaration([
 	exportOverflowAxis('x'),
 	exportOverflowAxis('y')
-]);
+]);6

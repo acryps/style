@@ -1,3 +1,5 @@
+
+
 // user select mode
 export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none';
 

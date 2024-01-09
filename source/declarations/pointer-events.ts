@@ -1,3 +1,5 @@
+
+
 // pointer events mode
 export type PointerEventsMode = 'auto' | 'bounding-box' | 'visiblePainted' | 'visibleFill' | 'visibleStroke' | 'visible' | 'painted' | 'fill' | 'stroke' | 'all' | 'none';
 

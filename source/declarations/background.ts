@@ -1,3 +1,5 @@
+import { ColorValue } from './color';
+
 // background image source
 export type BackgroundImageSource = Image | Gradient;
 
@@ -22,10 +24,10 @@ export const backgroundImage = (...sources: BackgroundImageSource[]) => new Back
 
 // background color
 export class BackgroundColorStyleProperty {
-	private color: Color;
+	private color: ColorValue;
 
 	constructor(
-		color: Color
+		color: ColorValue
 	) {
 		super('background-color');
 
@@ -37,7 +39,7 @@ export class BackgroundColorStyleProperty {
 	}
 }
 
-export const backgroundColor = (color: Color) => new BackgroundColorStyleProperty(color);
+export const backgroundColor = (color: ColorValue) => new BackgroundColorStyleProperty(color);
 
 // background
 export class BackgroundStyleProperty {
@@ -45,7 +47,7 @@ export class BackgroundStyleProperty {
 }
 
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty)
-export function background(backgroundColorColor: Color, ...backgroundImageSources: BackgroundImageSource[])
+export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[])
 export function background() {
 	if (arguments[0] instanceof BackgroundColorStyleProperty && arguments[1] instanceof BackgroundImageStyleProperty) { return [arguments] }
 	if (arguments.length == 2) { return [new BackgroundColorStyleProperty(arguments[0]), new BackgroundImageStyleProperty(...arguments[1])] }
