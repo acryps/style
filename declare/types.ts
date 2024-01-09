@@ -32,10 +32,10 @@ export class TypeDeclaration {
 		);
 	}
 
-	single() {
+	single(defaultValue?: string) {
 		return (propertyName: string) => new PropertyInitializer(
 			`${this.name.toClassCamelCase()}`,
-			`${propertyName}: ${this.name.toClassCamelCase()}`,
+			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
 			propertyName
 		);
 	}

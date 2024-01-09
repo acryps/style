@@ -1,9 +1,6 @@
 // border style
 export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset';
 
-// line width
-export type LineWidth = number;
-
 // border inline
 export class BorderInlineStyleProperty {
 
@@ -315,3 +312,4 @@ export function borderBottom() {
 	if (arguments[0] instanceof BorderBottomWidthStyleProperty && arguments[1] instanceof BorderBottomStyleStyleProperty && arguments[2] instanceof BorderBottomColorStyleProperty) { return [arguments] }
 	if (arguments.length == 3) { return [new BorderBottomWidthStyleProperty(arguments[0]), new BorderBottomStyleStyleProperty(arguments[1]), new BorderBottomColorStyleProperty(arguments[2])] }
 }
+
