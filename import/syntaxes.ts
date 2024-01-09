@@ -18,9 +18,9 @@ export const importSyntax = (css, base: string) => {
 			console.group(syntax);
 
 			if (syntax.includes('()')) {
-				for (let declaration of FormatParser.toFunctionDeclarationList(definition)) {
+				/*for (let declaration of FormatParser.toFunctionDeclarationList(definition)) {
 					writer.write(`export function ${declaration};\n`);
-				}
+				}*/
 
 				writer.write('\n');
 			} else {

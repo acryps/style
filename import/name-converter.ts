@@ -1,20 +1,25 @@
 export class NameConverter {
 	static reservedFunctionNames = {
-		'in': 'inch'
+		'in': 'inch',
+		'continue': 'continueOverflow'
 	};
 
-	static toClassName(...parts: string[]) {
-		parts = parts
+	private static splitName(...parts: string[]) {
+		return parts
+			.flatMap(part => part.replace(/[A-Z]/g, match => `-${match}`))
 			.flatMap(part => part.split(' '))
-			.flatMap(part => part.split('-'));
+			.flatMap(part => part.split('-'))
+			.filter(part => part);
+	}
+
+	static toClassName(...parts: string[]) {
+		parts = this.splitName(...parts);
 
 		return parts.map(part => part[0].toUpperCase() + part.substring(1).toLowerCase()).join('');
 	}
 
 	static toFunctionName(...parts: string[]) {
-		parts = parts
-			.flatMap(part => part.split(' '))
-			.flatMap(part => part.split('-'));
+		parts = this.splitName(...parts);
 
 		const name = `${parts.map((part, index) => index ? part[0].toUpperCase() + part.substring(1).toLowerCase() : part.toLowerCase()).join('')}`;
 
@@ -25,7 +30,7 @@ export class NameConverter {
 		return name;
 	}
 
-	static toFunctionReturnType(...parts: string[]) {
-		return this.toClassName(...parts, 'return', 'type');
+	static toPropertyType(...parts: string[]) {
+		return this.toClassName(...parts, 'property');
 	}
 }

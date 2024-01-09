@@ -4,22 +4,41 @@ export class FormatParser {
 	static helpers = [
 		'type Recurse<T> = T | Recurse<T>[]',
 		'type RecurseAny<T> = Recurse<T> | null',
-		'type RecurseTuple<T> = T | T[]'
+		'type RecurseTuple<T> = T | T[]',
+
+		'type Ident = string',
+		'type DashedIdent = Ident',
+		'type CustomIdent = Ident',
+
+		// missing definitions
+		'type ReversedCounterName = string',
+		'type PaletteIdentifier = string',
+		'type UnicodeRange = string',
+
+		'type Declaration = {}',
+		'type DeclarationList = Declaration[]',
+
+		'type MediaQuery = {}',
+		'type MediaQueryList = MediaQuery[]',
+
+		'class Percentage {}',
+		'class HexColor {}',
+		'class AlphaValue {}'
 	];
 
 	static inlineFunctionDeclarations = [];
 
-	static toFunctionDeclarationList(source: string) {
-		const functionName = source.split('(')[0];
+	static toFunctionDeclarationList(name: string, source: string) {
+		const localName = source.split('(')[0];
 		const declarations = [];
 
 		for (let option of FormatParser.splitOptions(source)) {
-			const body = option.slice(functionName.length + 1, -1).trim();
+			const body = option.slice(localName.length + 1, -1).trim();
 
 			const parameterDeclarations = this.scopedSplit(body, ', ');
 			
 			for (let parameters of this.toTypeDeclarationCombinations(parameterDeclarations)) {
-				declarations.push(`${NameConverter.toFunctionName(functionName)}(${parameters.map((parameter, index) => `${String.fromCharCode('a'.charCodeAt(0) + index)}: ${parameter}`).join(', ')}): ${NameConverter.toFunctionReturnType(functionName)}`);
+				declarations.push(`${NameConverter.toFunctionName(name)}(${parameters.map((parameter, index) => `${String.fromCharCode('a'.charCodeAt(0) + index)}: ${parameter}`).join(', ')}): ${NameConverter.toPropertyType(localName)}`);
 			}
 		}
 
@@ -27,8 +46,6 @@ export class FormatParser {
 	}
 
 	static toTypeDeclarations(source: string): string[] {
-		console.log(`>${source}<`);
-
 		if (!source) {
 			return ['void'];
 		}
@@ -91,7 +108,7 @@ export class FormatParser {
 		}
 
 		// primitives
-		if (/^<(number|integer|length)(\s\[[0-9]+\,[0-9∞]+\])?>$/.test(source)) {
+		if (/^<(number|integer|length)(\s\[\-?[0-9]+\,[0-9∞]+\])?>$/.test(source)) {
 			return ['number'];
 		}
 
@@ -100,17 +117,17 @@ export class FormatParser {
 		}
 
 		// type references
-		if (/^<[A-Za-z\-0-9]+>$/.test(source)) {
-			return [NameConverter.toClassName(source.slice(1, -1))];
+		if (/^<[A-Za-z\-0-9]+(\s\[\-?[0-9a-zA-Z]+\,[0-9∞a-zA-Z]+\])?>$/.test(source)) {
+			return [NameConverter.toClassName(source.slice(1, -1).split(' ')[0])];
 		}
 
 		if (/^<'[A-Za-z\-0-9]+'>$/.test(source)) {
-			return [NameConverter.toClassName(source.slice(2, -2))];
+			return [NameConverter.toPropertyType(source.slice(2, -2))];
 		}
 
 		// function return references
 		if (/^<[A-Za-z\-0-9]+\(\)>$/.test(source)) {
-			return [NameConverter.toFunctionReturnType(source.slice(1, -3))];
+			return [NameConverter.toPropertyType(source.slice(1, -3))];
 		}
 
 		// direct string values
@@ -163,8 +180,6 @@ export class FormatParser {
 			let helperName;
 			let helperBody;
 
-			console.log('>>>>>', range);
-
 			if (range.includes(',')) {
 				const min = +range.split(',')[0];
 				const max = +range.split(',')[1];
@@ -184,7 +199,7 @@ export class FormatParser {
 				helperBody = `[${Array(count).fill('T').join(', ')}]`;
 			}
 
-			const helper = `${helperName}<T> = ${helperBody}`;
+			const helper = `type ${helperName}<T> = ${helperBody}`;
 
 			if (!this.helpers.includes(helper)) {
 				this.helpers.push(helper);
@@ -222,11 +237,10 @@ export class FormatParser {
 		if (/^[a-z\-0-9]+\(/.test(source) && source.endsWith(')')) {
 			const name = source.split('(')[0];
 
-			return this.toTypeDeclarationCombinations(this.scopedSplit(source.slice(name.length + 1, -1).trim(), ', ')).map(combination => `{ ${name}: [${combination.join(', ')}] }`);
+			return this.toTypeDeclarationCombinations(this.scopedSplit(source.slice(name.length + 1, -1).trim(), ', ')).map(combination => `{ '${name}': [${combination.join(', ')}] }`);
 		}
 
-		console.log(`<<${source}>>`)
-		throw new Error('source');
+		throw new Error(`unknown token '${source}'`);
 	}
 
 	private static toTypeDeclarationCombinations(sources: string[]) {
