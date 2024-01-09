@@ -76,7 +76,7 @@ export type ContentPosition = ('center' | 'start' | 'end' | 'flex-start' | 'flex
 
 // type <baseline-position>
 // [ first | last ]? && baseline
-export type BaselinePosition = ((('first' | 'last') & 'baseline')) | ((void & 'baseline'));
+export type BaselinePosition = (((('first' | 'last'))?, 'baseline'));
 
 // type <content-distribution>
 // space-between | space-around | space-evenly | stretch
@@ -94,10 +94,7 @@ export type InsetAreaSpan = ((('start' | ('end' | 'center'))) | (('self-start' |
 // anchor( <anchor-element>? <anchor-side>, <length-percentage>? )
 class AnchorProperty {}
 
-export function anchor(a: [AnchorElement, AnchorSide], b: LengthPercentage): AnchorProperty;
-export function anchor(a: [AnchorElement, AnchorSide], b: void): AnchorProperty;
-export function anchor(a: [void, AnchorSide], b: LengthPercentage): AnchorProperty;
-export function anchor(a: [void, AnchorSide], b: void): AnchorProperty;
+export function anchor(a: [(AnchorElement)?, AnchorSide], b: (LengthPercentage)?): AnchorProperty;
 export function anchor() { return new AnchorProperty(); }
 
 // type <anchor-element>
@@ -112,10 +109,7 @@ export type AnchorSide = ('inside' | 'outside' | 'top' | 'left' | 'right' | 'bot
 // anchor( <anchor-element>? <anchor-size>, <length-percentage>? )
 class AnchorSizeProperty {}
 
-export function anchorSize(a: [AnchorElement, AnchorSize], b: LengthPercentage): AnchorProperty;
-export function anchorSize(a: [AnchorElement, AnchorSize], b: void): AnchorProperty;
-export function anchorSize(a: [void, AnchorSize], b: LengthPercentage): AnchorProperty;
-export function anchorSize(a: [void, AnchorSize], b: void): AnchorProperty;
+export function anchorSize(a: [(AnchorElement)?, AnchorSize], b: (LengthPercentage)?): AnchorProperty;
 export function anchorSize() { return new AnchorSizeProperty(); }
 
 // type <anchor-size>
@@ -164,7 +158,7 @@ export type SingleAnimationFillMode = ('none' | 'forwards' | 'backwards' | 'both
 
 // type <bg-position>
 // [ [ left | center | right | top | bottom | start | end | <length-percentage> ] | [ left | center | right | x-start | x-end | <length-percentage> ] [ top | center | bottom | y-start | y-end | <length-percentage> ] | [ center | [ left | right | x-start | x-end ] <length-percentage>? ] && [ center | [ top | bottom | y-start | y-end ] <length-percentage>? ] | [ center | [ start | end ] <length-percentage>? ] [ center | [ start | end ] <length-percentage>? ] ]
-export type BgPosition = ((('left' | 'center' | 'right' | 'top' | 'bottom' | 'start' | 'end' | LengthPercentage) | [('left' | 'center' | 'right' | 'x-start' | 'x-end' | LengthPercentage), ('top' | 'center' | 'bottom' | 'y-start' | 'y-end' | LengthPercentage)] | (('center' | [('left' | 'right' | 'x-start' | 'x-end'), LengthPercentage] | [('left' | 'right' | 'x-start' | 'x-end'), void]) & ('center' | [('top' | 'bottom' | 'y-start' | 'y-end'), LengthPercentage] | [('top' | 'bottom' | 'y-start' | 'y-end'), void])) | [('center' | [('start' | 'end'), LengthPercentage] | [('start' | 'end'), void]), ('center' | [('start' | 'end'), LengthPercentage] | [('start' | 'end'), void])]));
+export type BgPosition = ((('left' | 'center' | 'right' | 'top' | 'bottom' | 'start' | 'end' | LengthPercentage) | [('left' | 'center' | 'right' | 'x-start' | 'x-end' | LengthPercentage), ('top' | 'center' | 'bottom' | 'y-start' | 'y-end' | LengthPercentage)] | (('center' | [('left' | 'right' | 'x-start' | 'x-end'), (LengthPercentage)?]), ('center' | [('top' | 'bottom' | 'y-start' | 'y-end'), (LengthPercentage)?])) | [('center' | [('start' | 'end'), (LengthPercentage)?]), ('center' | [('start' | 'end'), (LengthPercentage)?])]));
 
 // type <bg-clip>
 // <visual-box> | border | text
@@ -188,11 +182,11 @@ export type BgSize = (Repeat1to2<(LengthPercentage | 'auto')> | 'cover' | 'conta
 
 // type <bg-layer>
 // <bg-image> || <bg-position> [ / <bg-size> ]? || <repeat-style> || <attachment> || <visual-box> || <visual-box>
-export type BgLayer = ((BgImage | ([BgPosition, (['/', BgSize])] | (RepeatStyle | (Attachment | (VisualBox | VisualBox)))))) | ((BgImage | ([BgPosition, void] | (RepeatStyle | (Attachment | (VisualBox | VisualBox))))));
+export type BgLayer = ((BgImage | ([BgPosition, ((['/', BgSize]))?] | (RepeatStyle | (Attachment | (VisualBox | VisualBox))))));
 
 // type <final-bg-layer>
 // <bg-image> || <bg-position> [ / <bg-size> ]? || <repeat-style> || <attachment> || <visual-box> || <visual-box> || <'background-color'>
-export type FinalBgLayer = ((BgImage | ([BgPosition, (['/', BgSize])] | (RepeatStyle | (Attachment | (VisualBox | (VisualBox | BackgroundColorProperty))))))) | ((BgImage | ([BgPosition, void] | (RepeatStyle | (Attachment | (VisualBox | (VisualBox | BackgroundColorProperty)))))));
+export type FinalBgLayer = ((BgImage | ([BgPosition, ((['/', BgSize]))?] | (RepeatStyle | (Attachment | (VisualBox | (VisualBox | BackgroundColorProperty)))))));
 
 // type <line-style>
 // none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
@@ -204,11 +198,11 @@ export type LineWidth = (number | 'thin' | 'medium' | 'thick');
 
 // type <shadow>
 // <color>? && [<length>{2} <length [0,∞]>? <length>?] && inset?
-export type Shadow = ((Color & (([Repeat2<number>, number, number]) & 'inset'))) | ((Color & (([Repeat2<number>, number, number]) & void))) | ((Color & (([Repeat2<number>, number, void]) & 'inset'))) | ((Color & (([Repeat2<number>, number, void]) & void))) | ((Color & (([Repeat2<number>, void, number]) & 'inset'))) | ((Color & (([Repeat2<number>, void, number]) & void))) | ((Color & (([Repeat2<number>, void, void]) & 'inset'))) | ((Color & (([Repeat2<number>, void, void]) & void))) | ((void & (([Repeat2<number>, number, number]) & 'inset'))) | ((void & (([Repeat2<number>, number, number]) & void))) | ((void & (([Repeat2<number>, number, void]) & 'inset'))) | ((void & (([Repeat2<number>, number, void]) & void))) | ((void & (([Repeat2<number>, void, number]) & 'inset'))) | ((void & (([Repeat2<number>, void, number]) & void))) | ((void & (([Repeat2<number>, void, void]) & 'inset'))) | ((void & (([Repeat2<number>, void, void]) & void)));
+export type Shadow = (((Color)?, (([Repeat2<number>, (number)?, (number)?]), ('inset')?)));
 
 // type <spread-shadow>
 // <'box-shadow-color'>? && [ <'box-shadow-offset'> [ <'box-shadow-blur'> <'box-shadow-spread'>? ]? ] && <'box-shadow-position'>?
-export type SpreadShadow = ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, BoxShadowSpreadProperty])]) & BoxShadowPositionProperty))) | ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, BoxShadowSpreadProperty])]) & void))) | ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, void])]) & BoxShadowPositionProperty))) | ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, void])]) & void))) | ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, void]) & BoxShadowPositionProperty))) | ((BoxShadowColorProperty & (([BoxShadowOffsetProperty, void]) & void))) | ((void & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, BoxShadowSpreadProperty])]) & BoxShadowPositionProperty))) | ((void & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, BoxShadowSpreadProperty])]) & void))) | ((void & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, void])]) & BoxShadowPositionProperty))) | ((void & (([BoxShadowOffsetProperty, ([BoxShadowBlurProperty, void])]) & void))) | ((void & (([BoxShadowOffsetProperty, void]) & BoxShadowPositionProperty))) | ((void & (([BoxShadowOffsetProperty, void]) & void)));
+export type SpreadShadow = (((BoxShadowColorProperty)?, (([BoxShadowOffsetProperty, (([BoxShadowBlurProperty, (BoxShadowSpreadProperty)?]))?]), (BoxShadowPositionProperty)?)));
 
 // type <box>
 // undefined
@@ -238,7 +232,7 @@ export type CoordBox = (PaintBox | 'view-box');
 
 // type <import-conditions>
 // [ supports( [ <supports-condition> | <declaration> ] ) ]? <media-query-list>?
-export type ImportConditions = ([({ 'supports': [(SupportsCondition | Declaration)] }), MediaQueryList]) | ([({ 'supports': [(SupportsCondition | Declaration)] }), void]) | ([void, MediaQueryList]) | ([void, void]);
+export type ImportConditions = ([(({ 'supports': [(SupportsCondition | Declaration)] }))?, (MediaQueryList)?]);
 
 // type <layer-name>
 // <ident> [ '.' <ident> ]*
@@ -260,84 +254,65 @@ export type AbsoluteColorFunction = (RgbProperty | RgbaProperty | HslProperty | 
 // color-mix( <color-interpolation-method> , [ <color> && <percentage [0,100]>? ]#{2})
 class ColorMixProperty {}
 
-export function colorMix(a: [ColorInterpolationMethod, void], b: Repeat2<RecurseTuple<((Color & Percentage))>>): ColorMixProperty;
-export function colorMix(a: [ColorInterpolationMethod, void], b: Repeat2<RecurseTuple<((Color & void))>>): ColorMixProperty;
+export function colorMix(a: [ColorInterpolationMethod, void], b: Repeat2<RecurseTuple<((Color, (Percentage)?))>>): ColorMixProperty;
 export function colorMix() { return new ColorMixProperty(); }
 
 // type <modern-rgb-syntax>
 // rgb( [ from <color> ]? [ <number> | <percentage> | none]{3} [ / [<alpha-value> | none] ]? )
-export type ModernRgbSyntax = ({ 'rgb': [[(['from', Color]), Repeat3<(number | Percentage | 'none')>, (['/', (AlphaValue | 'none')])]] }) | ({ 'rgb': [[(['from', Color]), Repeat3<(number | Percentage | 'none')>, void]] }) | ({ 'rgb': [[void, Repeat3<(number | Percentage | 'none')>, (['/', (AlphaValue | 'none')])]] }) | ({ 'rgb': [[void, Repeat3<(number | Percentage | 'none')>, void]] });
+export type ModernRgbSyntax = ({ 'rgb': [[((['from', Color]))?, Repeat3<(number | Percentage | 'none')>, ((['/', (AlphaValue | 'none')]))?]] });
 
 // type <modern-rgba-syntax>
 // rgba( [ from <color> ]? [ <number> | <percentage> | none]{3} [ / [<alpha-value> | none] ]? )
-export type ModernRgbaSyntax = ({ 'rgba': [[(['from', Color]), Repeat3<(number | Percentage | 'none')>, (['/', (AlphaValue | 'none')])]] }) | ({ 'rgba': [[(['from', Color]), Repeat3<(number | Percentage | 'none')>, void]] }) | ({ 'rgba': [[void, Repeat3<(number | Percentage | 'none')>, (['/', (AlphaValue | 'none')])]] }) | ({ 'rgba': [[void, Repeat3<(number | Percentage | 'none')>, void]] });
+export type ModernRgbaSyntax = ({ 'rgba': [[((['from', Color]))?, Repeat3<(number | Percentage | 'none')>, ((['/', (AlphaValue | 'none')]))?]] });
 
 // type <modern-hsl-syntax>
 // hsl([from <color>]? [<hue> | none] [<percentage> | <number> | none] [<percentage> | <number> | none] [ / [<alpha-value> | none] ]? )
-export type ModernHslSyntax = ({ 'hsl': [[(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]] }) | ({ 'hsl': [[(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]] }) | ({ 'hsl': [[void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]] }) | ({ 'hsl': [[void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]] });
+export type ModernHslSyntax = ({ 'hsl': [[((['from', Color]))?, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), ((['/', (AlphaValue | 'none')]))?]] });
 
 // type <modern-hsla-syntax>
 // hsla([from <color>]? [<hue> | none] [<percentage> | <number> | none] [<percentage> | <number> | none] [ / [<alpha-value> | none] ]? )
-export type ModernHslaSyntax = ({ 'hsla': [[(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]] }) | ({ 'hsla': [[(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]] }) | ({ 'hsla': [[void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]] }) | ({ 'hsla': [[void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]] });
+export type ModernHslaSyntax = ({ 'hsla': [[((['from', Color]))?, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), ((['/', (AlphaValue | 'none')]))?]] });
 
 // function hwb()
 // hwb([from <color>]? [<hue> | none] [<percentage> | <number> | none] [<percentage> | <number> | none] [ / [<alpha-value> | none] ]? )
 class HwbProperty {}
 
-export function hwb(a: [(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): HwbProperty;
-export function hwb(a: [(['from', Color]), (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): HwbProperty;
-export function hwb(a: [void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): HwbProperty;
-export function hwb(a: [void, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): HwbProperty;
+export function hwb(a: [((['from', Color]))?, (Hue | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), ((['/', (AlphaValue | 'none')]))?]): HwbProperty;
 export function hwb() { return new HwbProperty(); }
 
 // function lab()
 // lab([from <color>]? [<percentage> | <number> | none] [<percentage> | <number> | none] [<percentage> | <number> | none] [ / [<alpha-value> | none] ]? )
 class LabProperty {}
 
-export function lab(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): LabProperty;
-export function lab(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): LabProperty;
-export function lab(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): LabProperty;
-export function lab(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): LabProperty;
+export function lab(a: [((['from', Color]))?, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), ((['/', (AlphaValue | 'none')]))?]): LabProperty;
 export function lab() { return new LabProperty(); }
 
 // function oklab()
 // oklab([from <color>]? [<percentage> | <number> | none] [<percentage> | <number> | none] [<percentage> | <number> | none] [ / [<alpha-value> | none] ]? )
 class OklabProperty {}
 
-export function oklab(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): OklabProperty;
-export function oklab(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): OklabProperty;
-export function oklab(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), (['/', (AlphaValue | 'none')])]): OklabProperty;
-export function oklab(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), void]): OklabProperty;
+export function oklab(a: [((['from', Color]))?, (Percentage | number | 'none'), (Percentage | number | 'none'), (Percentage | number | 'none'), ((['/', (AlphaValue | 'none')]))?]): OklabProperty;
 export function oklab() { return new OklabProperty(); }
 
 // function lch()
 // lch([from <color>]? [<percentage> | <number> | none] [<percentage> | <number> | none] [<hue> | none] [ / [<alpha-value> | none] ]? )
 class LchProperty {}
 
-export function lch(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), (['/', (AlphaValue | 'none')])]): LchProperty;
-export function lch(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), void]): LchProperty;
-export function lch(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), (['/', (AlphaValue | 'none')])]): LchProperty;
-export function lch(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), void]): LchProperty;
+export function lch(a: [((['from', Color]))?, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), ((['/', (AlphaValue | 'none')]))?]): LchProperty;
 export function lch() { return new LchProperty(); }
 
 // function oklch()
 // oklch([from <color>]? [<percentage> | <number> | none] [<percentage> | <number> | none] [<hue> | none] [ / [<alpha-value> | none] ]? )
 class OklchProperty {}
 
-export function oklch(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), (['/', (AlphaValue | 'none')])]): OklchProperty;
-export function oklch(a: [(['from', Color]), (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), void]): OklchProperty;
-export function oklch(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), (['/', (AlphaValue | 'none')])]): OklchProperty;
-export function oklch(a: [void, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), void]): OklchProperty;
+export function oklch(a: [((['from', Color]))?, (Percentage | number | 'none'), (Percentage | number | 'none'), (Hue | 'none'), ((['/', (AlphaValue | 'none')]))?]): OklchProperty;
 export function oklch() { return new OklchProperty(); }
 
 // function color()
 // color( [from <color>]? <colorspace-params> [ / [ <alpha-value> | none ] ]? )
 class ColorProperty {}
 
-export function color(a: [(['from', Color]), ColorspaceParams, (['/', (AlphaValue | 'none')])]): ColorProperty;
-export function color(a: [(['from', Color]), ColorspaceParams, void]): ColorProperty;
-export function color(a: [void, ColorspaceParams, (['/', (AlphaValue | 'none')])]): ColorProperty;
-export function color(a: [void, ColorspaceParams, void]): ColorProperty;
+export function color(a: [((['from', Color]))?, ColorspaceParams, ((['/', (AlphaValue | 'none')]))?]): ColorProperty;
 export function color() { return new ColorProperty(); }
 
 // type <colorspace-params>
@@ -378,7 +353,7 @@ export type LegacyDeviceCmykSyntax = ({ 'device-cmyk': [Repeat4<RecurseTuple<num
 
 // type <modern-device-cmyk-syntax>
 // device-cmyk( <cmyk-component>{4} [ / [ <alpha-value> | none ] ]? )
-export type ModernDeviceCmykSyntax = ({ 'device-cmyk': [[Repeat4<CmykComponent>, (['/', (AlphaValue | 'none')])]] }) | ({ 'device-cmyk': [[Repeat4<CmykComponent>, void]] });
+export type ModernDeviceCmykSyntax = ({ 'device-cmyk': [[Repeat4<CmykComponent>, ((['/', (AlphaValue | 'none')]))?]] });
 
 // type <cmyk-component>
 // <number> | <percentage> | none
@@ -413,13 +388,13 @@ export type HueInterpolationMethod = ([('shorter' | 'longer' | 'increasing' | 'd
 
 // type <color-interpolation-method>
 // in [ <rectangular-color-space> | <polar-color-space> <hue-interpolation-method>? | <custom-color-space> ]
-export type ColorInterpolationMethod = (['in', (RectangularColorSpace | [PolarColorSpace, HueInterpolationMethod] | [PolarColorSpace, void] | CustomColorSpace)]);
+export type ColorInterpolationMethod = (['in', (RectangularColorSpace | [PolarColorSpace, (HueInterpolationMethod)?] | CustomColorSpace)]);
 
 // function contrast-color()
 // contrast-color( [ [ <color> && [ tbd-fg | tbd-bg ] && <target-contrast>? ] | [ <color> && [ tbd-fg | tbd-bg ] && <target-contrast>, <color># ] ] )
 class ContrastColorProperty {}
 
-export function contrastColor(a: (((Color & (('tbd-fg' | 'tbd-bg') & TargetContrast))) | ((Color & (('tbd-fg' | 'tbd-bg') & void))) | ((Color & (('tbd-fg' | 'tbd-bg') & [TargetContrast, RecurseTuple<Color>]))))): ContrastColorProperty;
+export function contrastColor(a: (((Color, (('tbd-fg' | 'tbd-bg'), (TargetContrast)?))) | ((Color, (('tbd-fg' | 'tbd-bg'), [TargetContrast, RecurseTuple<Color>]))))): ContrastColorProperty;
 export function contrastColor() { return new ContrastColorProperty(); }
 
 // type <target-contrast>
@@ -428,7 +403,7 @@ export type TargetContrast = (Wcag2);
 
 // type <wcag2>
 // wcag2 | wcag2([<number> | [ aa | aaa ] && large? ])
-export type Wcag2 = ('wcag2' | { 'wcag2': [(number | (('aa' | 'aaa') & 'large') | (('aa' | 'aaa') & void))] });
+export type Wcag2 = ('wcag2' | { 'wcag2': [(number | (('aa' | 'aaa'), ('large')?))] });
 
 // type <hue>
 // <number> | <angle>
@@ -450,11 +425,11 @@ export function rgba() { return new RgbaProperty(); }
 
 // type <legacy-rgb-syntax>
 // rgb( <percentage>#{3} , <alpha-value>? ) | rgb( <number>#{3} , <alpha-value>? )
-export type LegacyRgbSyntax = ({ 'rgb': [[Repeat3<RecurseTuple<Percentage>>, void], AlphaValue] } | { 'rgb': [[Repeat3<RecurseTuple<Percentage>>, void], void] } | { 'rgb': [[Repeat3<RecurseTuple<number>>, void], AlphaValue] } | { 'rgb': [[Repeat3<RecurseTuple<number>>, void], void] });
+export type LegacyRgbSyntax = ({ 'rgb': [[Repeat3<RecurseTuple<Percentage>>, void], (AlphaValue)?] } | { 'rgb': [[Repeat3<RecurseTuple<number>>, void], (AlphaValue)?] });
 
 // type <legacy-rgba-syntax>
 // rgba( <percentage>#{3} , <alpha-value>? ) | rgba( <number>#{3} , <alpha-value>? )
-export type LegacyRgbaSyntax = ({ 'rgba': [[Repeat3<RecurseTuple<Percentage>>, void], AlphaValue] } | { 'rgba': [[Repeat3<RecurseTuple<Percentage>>, void], void] } | { 'rgba': [[Repeat3<RecurseTuple<number>>, void], AlphaValue] } | { 'rgba': [[Repeat3<RecurseTuple<number>>, void], void] });
+export type LegacyRgbaSyntax = ({ 'rgba': [[Repeat3<RecurseTuple<Percentage>>, void], (AlphaValue)?] } | { 'rgba': [[Repeat3<RecurseTuple<number>>, void], (AlphaValue)?] });
 
 // type <hex-color>
 // undefined
@@ -483,11 +458,11 @@ export function hsla() { return new HslaProperty(); }
 
 // type <legacy-hsl-syntax>
 // hsl( <hue>, <percentage>, <percentage>, <alpha-value>? )
-export type LegacyHslSyntax = ({ 'hsl': [Hue, Percentage, Percentage, AlphaValue] }) | ({ 'hsl': [Hue, Percentage, Percentage, void] });
+export type LegacyHslSyntax = ({ 'hsl': [Hue, Percentage, Percentage, (AlphaValue)?] });
 
 // type <legacy-hsla-syntax>
 // hsla( <hue>, <percentage>, <percentage>, <alpha-value>? )
-export type LegacyHslaSyntax = ({ 'hsla': [Hue, Percentage, Percentage, AlphaValue] }) | ({ 'hsla': [Hue, Percentage, Percentage, void] });
+export type LegacyHslaSyntax = ({ 'hsla': [Hue, Percentage, Percentage, (AlphaValue)?] });
 
 // type <xyz-space>
 // xyz | xyz-d50 | xyz-d65
@@ -544,7 +519,7 @@ export type SupportsDecl = ((Declaration));
 
 // type <container-condition>
 // [ <container-name> ]? <container-query>
-export type ContainerCondition = ([(ContainerName), ContainerQuery]) | ([void, ContainerQuery]);
+export type ContainerCondition = ([((ContainerName))?, ContainerQuery]);
 
 // type <container-name>
 // <custom-ident>
@@ -595,40 +570,35 @@ export type Target = (TargetCounterProperty | TargetCountersProperty | TargetTex
 // target-counter( [ <string> | <url> ] , <custom-ident> , <counter-style>? )
 class TargetCounterProperty {}
 
-export function targetCounter(a: [(string | Url), void], b: [CustomIdent, void], c: CounterStyle): TargetCounterProperty;
-export function targetCounter(a: [(string | Url), void], b: [CustomIdent, void], c: void): TargetCounterProperty;
+export function targetCounter(a: [(string | Url), void], b: [CustomIdent, void], c: (CounterStyle)?): TargetCounterProperty;
 export function targetCounter() { return new TargetCounterProperty(); }
 
 // function target-counters()
 // target-counters( [ <string> | <url> ] , <custom-ident> , <string> , <counter-style>? )
 class TargetCountersProperty {}
 
-export function targetCounters(a: [(string | Url), void], b: [CustomIdent, void], c: [string, void], d: CounterStyle): TargetCountersProperty;
-export function targetCounters(a: [(string | Url), void], b: [CustomIdent, void], c: [string, void], d: void): TargetCountersProperty;
+export function targetCounters(a: [(string | Url), void], b: [CustomIdent, void], c: [string, void], d: (CounterStyle)?): TargetCountersProperty;
 export function targetCounters() { return new TargetCountersProperty(); }
 
 // function target-text()
 // target-text( [ <string> | <url> ] , [ content | before | after | first-letter ]? )
 class TargetTextProperty {}
 
-export function targetText(a: [(string | Url), void], b: ('content' | 'before' | 'after' | 'first-letter')): TargetTextProperty;
-export function targetText(a: [(string | Url), void], b: void): TargetTextProperty;
+export function targetText(a: [(string | Url), void], b: (('content' | 'before' | 'after' | 'first-letter'))?): TargetTextProperty;
 export function targetText() { return new TargetTextProperty(); }
 
 // function string()
 // string( <custom-ident> , [ first | start | last | first-except ]? )
 class StringProperty {}
 
-export function string(a: [CustomIdent, void], b: ('first' | 'start' | 'last' | 'first-except')): StringProperty;
-export function string(a: [CustomIdent, void], b: void): StringProperty;
+export function string(a: [CustomIdent, void], b: (('first' | 'start' | 'last' | 'first-except'))?): StringProperty;
 export function string() { return new StringProperty(); }
 
 // function content()
 // content( [ text | before | after | first-letter | marker ]? )
 class ContentProperty {}
 
-export function content(a: ('text' | 'before' | 'after' | 'first-letter' | 'marker')): ContentProperty;
-export function content(a: void): ContentProperty;
+export function content(a: (('text' | 'before' | 'after' | 'first-letter' | 'marker'))?): ContentProperty;
 export function content() { return new ContentProperty(); }
 
 // type <counter-style-name>
@@ -643,8 +613,7 @@ export type Symbol = (string | Image | CustomIdent);
 // symbols( <symbols-type>? [ <string> | <image> ]+ )
 class SymbolsProperty {}
 
-export function symbols(a: [SymbolsType, Recurse<(string | Image)>]): SymbolsProperty;
-export function symbols(a: [void, Recurse<(string | Image)>]): SymbolsProperty;
+export function symbols(a: [(SymbolsType)?, Recurse<(string | Image)>]): SymbolsProperty;
 export function symbols() { return new SymbolsProperty(); }
 
 // type <symbols-type>
@@ -665,7 +634,7 @@ export type DisplayInside = ('flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 
 
 // type <display-listitem>
 // <display-outside>? && [ flow | flow-root ]? && list-item
-export type DisplayListitem = ((DisplayOutside & (('flow' | 'flow-root') & 'list-item'))) | ((DisplayOutside & (void & 'list-item'))) | ((void & (('flow' | 'flow-root') & 'list-item'))) | ((void & (void & 'list-item')));
+export type DisplayListitem = (((DisplayOutside)?, ((('flow' | 'flow-root'))?, 'list-item')));
 
 // type <display-internal>
 // table-row-group | table-header-group | table-footer-group | table-row | table-cell | table-column-group | table-column | table-caption | ruby-base | ruby-text | ruby-base-container | ruby-text-container
@@ -700,7 +669,7 @@ export type LinearStopList = (RecurseTuple<(LinearStop)>);
 
 // type <linear-stop>
 // <number> && <linear-stop-length>?
-export type LinearStop = ((number & LinearStopLength)) | ((number & void));
+export type LinearStop = ((number, (LinearStopLength)?));
 
 // type <linear-stop-length>
 // <percentage>{1,2}
@@ -712,7 +681,7 @@ export type CubicBezierEasingFunction = ('ease' | 'ease-in' | 'ease-out' | 'ease
 
 // type <step-easing-function>
 // step-start | step-end | steps(<integer> , <step-position>?)
-export type StepEasingFunction = ('step-start' | 'step-end' | { 'steps': [[number, void], StepPosition] } | { 'steps': [[number, void], void] });
+export type StepEasingFunction = ('step-start' | 'step-end' | { 'steps': [[number, void], (StepPosition)?] });
 
 // type <step-position>
 // jump-start | jump-end | jump-none | jump-both | start | end
@@ -722,8 +691,7 @@ export type StepPosition = ('jump-start' | 'jump-end' | 'jump-none' | 'jump-both
 // env( <custom-ident> <integer [0,∞]>*, <declaration-value>? )
 class EnvProperty {}
 
-export function env(a: [CustomIdent, RecurseAny<number>], b: DeclarationValue): EnvProperty;
-export function env(a: [CustomIdent, RecurseAny<number>], b: void): EnvProperty;
+export function env(a: [CustomIdent, RecurseAny<number>], b: (DeclarationValue)?): EnvProperty;
 export function env() { return new EnvProperty(); }
 
 // type <extension-name>
@@ -731,7 +699,7 @@ export function env() { return new EnvProperty(); }
 
 // type <custom-selector>
 // <custom-arg>? : <extension-name> [ ( <custom-arg>+#? ) ]? ;
-export type CustomSelector = ([CustomArg, ':', ExtensionName, ((RecurseTuple<Recurse<CustomArg>>)), ';']) | ([CustomArg, ':', ExtensionName, ((void)), ';']) | ([CustomArg, ':', ExtensionName, void, ';']) | ([void, ':', ExtensionName, ((RecurseTuple<Recurse<CustomArg>>)), ';']) | ([void, ':', ExtensionName, ((void)), ';']) | ([void, ':', ExtensionName, void, ';']);
+export type CustomSelector = ([(CustomArg)?, ':', ExtensionName, ((((RecurseTuple<Recurse<CustomArg>>)?)))?, ';']);
 
 // type <custom-arg>
 // $ <ident-token> ;
@@ -780,7 +748,7 @@ export type FontStretchCss3 = (('normal' | 'ultra-condensed' | 'extra-condensed'
 
 // type <font-src>
 // <url> [ format(<font-format>)]? [ tech( <font-tech>#)]? | local(<family-name>)
-export type FontSrc = ([Url, ({ 'format': [FontFormat] }), ({ 'tech': [RecurseTuple<FontTech>] })] | [Url, ({ 'format': [FontFormat] }), void] | [Url, void, ({ 'tech': [RecurseTuple<FontTech>] })] | [Url, void, void] | { 'local': [FamilyName] });
+export type FontSrc = ([Url, (({ 'format': [FontFormat] }))?, (({ 'tech': [RecurseTuple<FontTech>] }))?] | { 'local': [FamilyName] });
 
 // type <common-lig-values>
 // [ common-ligatures | no-common-ligatures ]
@@ -843,15 +811,15 @@ export function running() { return new RunningProperty(); }
 
 // type <track-list>
 // [ <line-names>? [ <track-size> | <track-repeat> ] ]+ <line-names>?
-export type TrackList = ([Recurse<([LineNames, (TrackSize | TrackRepeat)])>, LineNames]) | ([Recurse<([LineNames, (TrackSize | TrackRepeat)])>, void]) | ([Recurse<([void, (TrackSize | TrackRepeat)])>, LineNames]) | ([Recurse<([void, (TrackSize | TrackRepeat)])>, void]);
+export type TrackList = ([Recurse<([(LineNames)?, (TrackSize | TrackRepeat)])>, (LineNames)?]);
 
 // type <auto-track-list>
 // [ <line-names>? [ <fixed-size> | <fixed-repeat> ] ]* <line-names>? <auto-repeat> [ <line-names>? [ <fixed-size> | <fixed-repeat> ] ]* <line-names>?
-export type AutoTrackList = ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([LineNames, (FixedSize | FixedRepeat)])>, void]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, LineNames]) | ([RecurseAny<([void, (FixedSize | FixedRepeat)])>, void, AutoRepeat, RecurseAny<([void, (FixedSize | FixedRepeat)])>, void]);
+export type AutoTrackList = ([RecurseAny<([(LineNames)?, (FixedSize | FixedRepeat)])>, (LineNames)?, AutoRepeat, RecurseAny<([(LineNames)?, (FixedSize | FixedRepeat)])>, (LineNames)?]);
 
 // type <explicit-track-list>
 // [ <line-names>? <track-size> ]+ <line-names>?
-export type ExplicitTrackList = ([Recurse<([LineNames, TrackSize])>, LineNames]) | ([Recurse<([LineNames, TrackSize])>, void]) | ([Recurse<([void, TrackSize])>, LineNames]) | ([Recurse<([void, TrackSize])>, void]);
+export type ExplicitTrackList = ([Recurse<([(LineNames)?, TrackSize])>, (LineNames)?]);
 
 // type <line-name-list>
 // [ <line-names> | <name-repeat> ]+
@@ -887,15 +855,15 @@ class RepeatProperty {}
 
 // type <track-repeat>
 // repeat( [ <integer [1,∞]> ] , [ <line-names>? <track-size> ]+ <line-names>? )
-export type TrackRepeat = ({ 'repeat': [[(number), void], [Recurse<([LineNames, TrackSize])>, LineNames]] }) | ({ 'repeat': [[(number), void], [Recurse<([LineNames, TrackSize])>, void]] }) | ({ 'repeat': [[(number), void], [Recurse<([void, TrackSize])>, LineNames]] }) | ({ 'repeat': [[(number), void], [Recurse<([void, TrackSize])>, void]] });
+export type TrackRepeat = ({ 'repeat': [[(number), void], [Recurse<([(LineNames)?, TrackSize])>, (LineNames)?]] });
 
 // type <auto-repeat>
 // repeat( [ auto-fill | auto-fit ] , [ <line-names>? <fixed-size> ]+ <line-names>? )
-export type AutoRepeat = ({ 'repeat': [[('auto-fill' | 'auto-fit'), void], [Recurse<([LineNames, FixedSize])>, LineNames]] }) | ({ 'repeat': [[('auto-fill' | 'auto-fit'), void], [Recurse<([LineNames, FixedSize])>, void]] }) | ({ 'repeat': [[('auto-fill' | 'auto-fit'), void], [Recurse<([void, FixedSize])>, LineNames]] }) | ({ 'repeat': [[('auto-fill' | 'auto-fit'), void], [Recurse<([void, FixedSize])>, void]] });
+export type AutoRepeat = ({ 'repeat': [[('auto-fill' | 'auto-fit'), void], [Recurse<([(LineNames)?, FixedSize])>, (LineNames)?]] });
 
 // type <fixed-repeat>
 // repeat( [ <integer [1,∞]> ] , [ <line-names>? <fixed-size> ]+ <line-names>? )
-export type FixedRepeat = ({ 'repeat': [[(number), void], [Recurse<([LineNames, FixedSize])>, LineNames]] }) | ({ 'repeat': [[(number), void], [Recurse<([LineNames, FixedSize])>, void]] }) | ({ 'repeat': [[(number), void], [Recurse<([void, FixedSize])>, LineNames]] }) | ({ 'repeat': [[(number), void], [Recurse<([void, FixedSize])>, void]] });
+export type FixedRepeat = ({ 'repeat': [[(number), void], [Recurse<([(LineNames)?, FixedSize])>, (LineNames)?]] });
 
 // type <name-repeat>
 // repeat( [ <integer [1,∞]> | auto-fill ], <line-names>+)
@@ -921,20 +889,13 @@ export function imageSet() { return new ImageSetProperty(); }
 
 // type <image-set-option>
 // [ <image> | <string> ] [ <resolution> || type(<string>) ]?
-export type ImageSetOption = ([(Image | string), ((Resolution | { 'type': [string] }))]) | ([(Image | string), void]);
+export type ImageSetOption = ([(Image | string), (((Resolution | { 'type': [string] })))?]);
 
 // function image()
 // image( <image-tags>? [ <image-src>? , <color>? ]! )
 class ImageProperty {}
 
-export function image(a: [ImageTags, (([ImageSrc, void, Color]))]): ImageProperty;
-export function image(a: [ImageTags, (([ImageSrc, void, void]))]): ImageProperty;
-export function image(a: [ImageTags, (([void, void, Color]))]): ImageProperty;
-export function image(a: [ImageTags, (([void, void, void]))]): ImageProperty;
-export function image(a: [void, (([ImageSrc, void, Color]))]): ImageProperty;
-export function image(a: [void, (([ImageSrc, void, void]))]): ImageProperty;
-export function image(a: [void, (([void, void, Color]))]): ImageProperty;
-export function image(a: [void, (([void, void, void]))]): ImageProperty;
+export function image(a: [(ImageTags)?, (([(ImageSrc)?, void, (Color)?]))]): ImageProperty;
 export function image() { return new ImageProperty(); }
 
 // type <image-tags>
@@ -954,7 +915,7 @@ export function crossFade() { return new CrossFadeProperty(); }
 
 // type <cf-image>
 // <percentage [0,100]>? && [ <image> | <color> ]
-export type CfImage = ((Percentage & (Image | Color))) | ((void & (Image | Color)));
+export type CfImage = (((Percentage)?, (Image | Color)));
 
 // function element()
 // element( <id-selector> )
@@ -969,7 +930,7 @@ export type Gradient = ((LinearGradientProperty | RepeatingLinearGradientPropert
 
 // type <linear-gradient-syntax>
 // [ [ <angle> | to <side-or-corner> ] || <color-interpolation-method> ]? , <color-stop-list>
-export type LinearGradientSyntax = ([(((Angle | ['to', SideOrCorner]) | ColorInterpolationMethod)), void, ColorStopList]) | ([void, void, ColorStopList]);
+export type LinearGradientSyntax = ([((((Angle | ['to', SideOrCorner]) | ColorInterpolationMethod)))?, void, ColorStopList]);
 
 // type <side-or-corner>
 // [left | right] || [top | bottom]
@@ -977,7 +938,7 @@ export type SideOrCorner = ((('left' | 'right') | ('top' | 'bottom')));
 
 // type <radial-gradient-syntax>
 // [ [ [ <radial-shape> || <radial-size> ]? [ at <position> ]? ] || <color-interpolation-method>]? , <color-stop-list>
-export type RadialGradientSyntax = ([((([((RadialShape | RadialSize)), (['at', Position])]) | ColorInterpolationMethod)), void, ColorStopList]) | ([((([((RadialShape | RadialSize)), void]) | ColorInterpolationMethod)), void, ColorStopList]) | ([((([void, (['at', Position])]) | ColorInterpolationMethod)), void, ColorStopList]) | ([((([void, void]) | ColorInterpolationMethod)), void, ColorStopList]) | ([void, void, ColorStopList]);
+export type RadialGradientSyntax = ([(((([(((RadialShape | RadialSize)))?, ((['at', Position]))?]) | ColorInterpolationMethod)))?, void, ColorStopList]);
 
 // function conic-gradient()
 // conic-gradient( [ <conic-gradient-syntax> ] )
@@ -988,7 +949,7 @@ export function conicGradient() { return new ConicGradientProperty(); }
 
 // type <conic-gradient-syntax>
 // [ [ [ from <angle> ]? [ at <position> ]? ] || <color-interpolation-method> ]? , <angular-color-stop-list>
-export type ConicGradientSyntax = ([((([(['from', Angle]), (['at', Position])]) | ColorInterpolationMethod)), void, AngularColorStopList]) | ([((([(['from', Angle]), void]) | ColorInterpolationMethod)), void, AngularColorStopList]) | ([((([void, (['at', Position])]) | ColorInterpolationMethod)), void, AngularColorStopList]) | ([((([void, void]) | ColorInterpolationMethod)), void, AngularColorStopList]) | ([void, void, AngularColorStopList]);
+export type ConicGradientSyntax = ([(((([((['from', Angle]))?, ((['at', Position]))?]) | ColorInterpolationMethod)))?, void, AngularColorStopList]);
 
 // function repeating-linear-gradient()
 // repeating-linear-gradient( [ <linear-gradient-syntax> ] )
@@ -1013,11 +974,11 @@ export function repeatingConicGradient() { return new RepeatingConicGradientProp
 
 // type <color-stop-list>
 // <linear-color-stop> , [ <linear-color-hint>? , <linear-color-stop> ]#
-export type ColorStopList = ([LinearColorStop, void, RecurseTuple<([LinearColorHint, void, LinearColorStop])>]) | ([LinearColorStop, void, RecurseTuple<([void, void, LinearColorStop])>]);
+export type ColorStopList = ([LinearColorStop, void, RecurseTuple<([(LinearColorHint)?, void, LinearColorStop])>]);
 
 // type <linear-color-stop>
 // <color> <color-stop-length>?
-export type LinearColorStop = ([Color, ColorStopLength]) | ([Color, void]);
+export type LinearColorStop = ([Color, (ColorStopLength)?]);
 
 // type <linear-color-hint>
 // <length-percentage>
@@ -1029,11 +990,11 @@ export type ColorStopLength = (Repeat1to2<LengthPercentage>);
 
 // type <angular-color-stop-list>
 // <angular-color-stop> , [ <angular-color-hint>? , <angular-color-stop> ]#
-export type AngularColorStopList = ([AngularColorStop, void, RecurseTuple<([AngularColorHint, void, AngularColorStop])>]) | ([AngularColorStop, void, RecurseTuple<([void, void, AngularColorStop])>]);
+export type AngularColorStopList = ([AngularColorStop, void, RecurseTuple<([(AngularColorHint)?, void, AngularColorStop])>]);
 
 // type <angular-color-stop>
 // <color> <color-stop-angle>?
-export type AngularColorStop = ([Color, ColorStopAngle]) | ([Color, void]);
+export type AngularColorStop = ([Color, (ColorStopAngle)?]);
 
 // type <angular-color-hint>
 // <angle-percentage>
@@ -1060,7 +1021,7 @@ export function stripes() { return new StripesProperty(); }
 
 // type <color-stripe>
 // <color> && [ <length-percentage> | <flex> ]?
-export type ColorStripe = ((Color & (LengthPercentage | Flex))) | ((Color & void));
+export type ColorStripe = ((Color, ((LengthPercentage | Flex))?));
 
 // function -webkit-image-set()
 // undefined
@@ -1094,7 +1055,7 @@ export type RadialShape = ('circle' | 'ellipse');
 
 // type <link-param>
 // param( <custom-property-name> <declaration-value>? )
-export type LinkParam = ({ 'param': [[CustomPropertyName, DeclarationValue]] }) | ({ 'param': [[CustomPropertyName, void]] });
+export type LinkParam = ({ 'param': [[CustomPropertyName, (DeclarationValue)?]] });
 
 // type <counter-name>
 // undefined
@@ -1107,16 +1068,14 @@ export type ReversedCounterName = ({ 'reversed': [CounterName] });
 // counter( <counter-name>, <counter-style>? )
 class CounterProperty {}
 
-export function counter(a: CounterName, b: CounterStyle): CounterProperty;
-export function counter(a: CounterName, b: void): CounterProperty;
+export function counter(a: CounterName, b: (CounterStyle)?): CounterProperty;
 export function counter() { return new CounterProperty(); }
 
 // function counters()
 // counters( <counter-name>, <string>, <counter-style>? )
 class CountersProperty {}
 
-export function counters(a: CounterName, b: string, c: CounterStyle): CountersProperty;
-export function counters(a: CounterName, b: string, c: void): CountersProperty;
+export function counters(a: CounterName, b: string, c: (CounterStyle)?): CountersProperty;
 export function counters() { return new CountersProperty(); }
 
 // type <counter>
@@ -1149,7 +1108,7 @@ export type CompositingOperator = ('add' | 'subtract' | 'intersect' | 'exclude')
 
 // type <mask-layer>
 // <mask-reference> || <position> [ / <bg-size> ]? || <repeat-style> || <geometry-box> || [ <geometry-box> | no-clip ] || <compositing-operator> || <masking-mode>
-export type MaskLayer = ((MaskReference | ([Position, (['/', BgSize])] | (RepeatStyle | (GeometryBox | ((GeometryBox | 'no-clip') | (CompositingOperator | MaskingMode))))))) | ((MaskReference | ([Position, void] | (RepeatStyle | (GeometryBox | ((GeometryBox | 'no-clip') | (CompositingOperator | MaskingMode)))))));
+export type MaskLayer = ((MaskReference | ([Position, ((['/', BgSize]))?] | (RepeatStyle | (GeometryBox | ((GeometryBox | 'no-clip') | (CompositingOperator | MaskingMode)))))));
 
 // type <namespace-prefix>
 // <ident>
@@ -1161,7 +1120,7 @@ export type PageSelectorList = (RecurseTuple<PageSelector>);
 
 // type <page-selector>
 // [ <ident-token>? <pseudo-page>* ]!
-export type PageSelector = ((([IdentToken, RecurseAny<PseudoPage>]))) | ((([void, RecurseAny<PseudoPage>])));
+export type PageSelector = ((([(IdentToken)?, RecurseAny<PseudoPage>])));
 
 // type <pseudo-page>
 // ':' [ left | right | first | blank ]
@@ -1171,16 +1130,14 @@ export type PseudoPage = ([':', ('left' | 'right' | 'first' | 'blank')]);
 // paint( <ident>, <declaration-value>? )
 class PaintProperty {}
 
-export function paint(a: Ident, b: DeclarationValue): PaintProperty;
-export function paint(a: Ident, b: void): PaintProperty;
+export function paint(a: Ident, b: (DeclarationValue)?): PaintProperty;
 export function paint() { return new PaintProperty(); }
 
 // function shape()
 // shape( <'fill-rule'>? from <coordinate-pair>, <shape-command>#)
 class ShapeProperty {}
 
-export function shape(a: [FillRuleProperty, 'from', CoordinatePair], b: RecurseTuple<ShapeCommand>): ShapeProperty;
-export function shape(a: [void, 'from', CoordinatePair], b: RecurseTuple<ShapeCommand>): ShapeProperty;
+export function shape(a: [(FillRuleProperty)?, 'from', CoordinatePair], b: RecurseTuple<ShapeCommand>): ShapeProperty;
 export function shape() { return new ShapeProperty(); }
 
 // type <shape-command>
@@ -1189,7 +1146,7 @@ export type ShapeCommand = (MoveCommand | LineCommand | HvLineCommand | CurveCom
 
 // type <basic-shape>
 // undefined
-export type BasicShape = { 'inset': [[Repeat1to4<LengthPercentage>, (['round', BorderRadiusProperty])]] } | { 'inset': [[Repeat1to4<LengthPercentage>, void]] } | { 'xywh': [[Repeat2<LengthPercentage>, Repeat2<LengthPercentage>, (['round', BorderRadiusProperty])]] } | { 'xywh': [[Repeat2<LengthPercentage>, Repeat2<LengthPercentage>, void]] } | { 'rect': [[Repeat4<(LengthPercentage | 'auto')>, (['round', BorderRadiusProperty])]] } | { 'rect': [[Repeat4<(LengthPercentage | 'auto')>, void]] } | { 'circle': [[RadialSize, (['at', Position])]] } | { 'circle': [[RadialSize, void]] } | { 'circle': [[void, (['at', Position])]] } | { 'circle': [[void, void]] } | { 'ellipse': [[RadialSize, (['at', Position])]] } | { 'ellipse': [[RadialSize, void]] } | { 'ellipse': [[void, (['at', Position])]] } | { 'ellipse': [[void, void]] } | { 'polygon': [[FillRuleProperty, void], RecurseTuple<([LengthPercentage, LengthPercentage])>] } | { 'polygon': [[void, void], RecurseTuple<([LengthPercentage, LengthPercentage])>] } | { 'path': [[FillRuleProperty, void], string] } | { 'path': [[void, void], string] };
+export type BasicShape = { 'inset': [[Repeat1to4<LengthPercentage>, ((['round', BorderRadiusProperty]))?]] } | { 'xywh': [[Repeat2<LengthPercentage>, Repeat2<LengthPercentage>, ((['round', BorderRadiusProperty]))?]] } | { 'rect': [[Repeat4<(LengthPercentage | 'auto')>, ((['round', BorderRadiusProperty]))?]] } | { 'circle': [[(RadialSize)?, ((['at', Position]))?]] } | { 'ellipse': [[(RadialSize)?, ((['at', Position]))?]] } | { 'polygon': [[(FillRuleProperty)?, void], RecurseTuple<([LengthPercentage, LengthPercentage])>] } | { 'path': [[(FillRuleProperty)?, void], string] };
 
 // type <basic-shape-rect>
 // <inset()> | <rect()> | <xywh()>
@@ -1201,7 +1158,7 @@ export type ShapeBox = (VisualBox | 'margin-box');
 
 // type <generic-voice>
 // [<age>? <gender> <integer>?]
-export type GenericVoice = (([Age, Gender, number])) | (([Age, Gender, void])) | (([void, Gender, number])) | (([void, Gender, void]));
+export type GenericVoice = (([(Age)?, Gender, (number)?]));
 
 // type <ident-token>
 // undefined
@@ -1283,7 +1240,7 @@ export type GenericVoice = (([Age, Gender, number])) | (([Age, Gender, void])) |
 
 // type <an+b>
 // odd | even | <integer> | <n-dimension> | '+'? n | -n | <ndashdigit-dimension> | '+'? <ndashdigit-ident> | <dashndashdigit-ident> | <n-dimension> <signed-integer> | '+'? n <signed-integer> | -n <signed-integer> | <ndash-dimension> <signless-integer> | '+'? n- <signless-integer> | -n- <signless-integer> | <n-dimension> ['+' | '-'] <signless-integer> | '+'? n ['+' | '-'] <signless-integer> | -n ['+' | '-'] <signless-integer>
-export type An+b = ('odd' | 'even' | number | NDimension | ['+', 'n'] | [void, 'n'] | '-n' | NdashdigitDimension | ['+', NdashdigitIdent] | [void, NdashdigitIdent] | DashndashdigitIdent | [NDimension, SignedInteger] | ['+', 'n', SignedInteger] | [void, 'n', SignedInteger] | ['-n', SignedInteger] | [NdashDimension, SignlessInteger] | ['+', 'n-', SignlessInteger] | [void, 'n-', SignlessInteger] | ['-n-', SignlessInteger] | [NDimension, ('+' | '-'), SignlessInteger] | ['+', 'n', ('+' | '-'), SignlessInteger] | [void, 'n', ('+' | '-'), SignlessInteger] | ['-n', ('+' | '-'), SignlessInteger]);
+export type An+b = ('odd' | 'even' | number | NDimension | [('+')?, 'n'] | '-n' | NdashdigitDimension | [('+')?, NdashdigitIdent] | DashndashdigitIdent | [NDimension, SignedInteger] | [('+')?, 'n', SignedInteger] | ['-n', SignedInteger] | [NdashDimension, SignlessInteger] | [('+')?, 'n-', SignlessInteger] | ['-n-', SignlessInteger] | [NDimension, ('+' | '-'), SignlessInteger] | [('+')?, 'n', ('+' | '-'), SignlessInteger] | ['-n', ('+' | '-'), SignlessInteger]);
 
 // type <n-dimension>
 // undefined
@@ -1483,11 +1440,11 @@ class ContainerProgressProperty {}
 
 // type <container-progress()>
 // container-progress(<size-feature> [ of <container-name> ]? from <calc-sum> to <calc-sum>)
-export type ContainerProgress() = ({ 'container-progress': [[SizeFeature, (['of', ContainerName]), 'from', CalcSum, 'to', CalcSum]] }) | ({ 'container-progress': [[SizeFeature, void, 'from', CalcSum, 'to', CalcSum]] });
+export type ContainerProgress() = ({ 'container-progress': [[SizeFeature, ((['of', ContainerName]))?, 'from', CalcSum, 'to', CalcSum]] });
 
 // type <progress>
 // [ <percentage> | <number> | <'animation-timeline'> ]? && by <easing-function>
-export type Progress = (((Percentage | number | AnimationTimelineProperty) & ['by', EasingFunction])) | ((void & ['by', EasingFunction]));
+export type Progress = ((((Percentage | number | AnimationTimelineProperty))?, ['by', EasingFunction]));
 
 // function calc-mix()
 // undefined
@@ -1511,7 +1468,7 @@ class MixProperty {}
 
 // type <mix()>
 // mix( <progress> ';' <whole-value> ';' <whole-value> ) | mix( <progress> && of <'animation-name'> )
-export type Mix() = ({ 'mix': [[Progress, ';', WholeValue, ';', WholeValue]] } | { 'mix': [(Progress & ['of', AnimationNameProperty])] });
+export type Mix() = ({ 'mix': [[Progress, ';', WholeValue, ';', WholeValue]] } | { 'mix': [(Progress, ['of', AnimationNameProperty])] });
 
 // function first-valid()
 // undefined
@@ -1533,15 +1490,12 @@ export type Toggle() = ({ 'toggle': [[WholeValue, Recurse<([';', WholeValue])>]]
 // attr( <attr-name> <attr-type>? , <declaration-value>?)
 class AttrProperty {}
 
-export function attr(a: [AttrName, AttrType, void], b: DeclarationValue): AttrProperty;
-export function attr(a: [AttrName, AttrType, void], b: void): AttrProperty;
-export function attr(a: [AttrName, void, void], b: DeclarationValue): AttrProperty;
-export function attr(a: [AttrName, void, void], b: void): AttrProperty;
+export function attr(a: [AttrName, (AttrType)?, void], b: (DeclarationValue)?): AttrProperty;
 export function attr() { return new AttrProperty(); }
 
 // type <attr-name>
 // [ <ident-token> '|' ]? <ident-token>
-export type AttrName = ([([IdentToken, '|']), IdentToken]) | ([void, IdentToken]);
+export type AttrName = ([(([IdentToken, '|']))?, IdentToken]);
 
 // type <attr-type>
 // string | url | ident | color | number | percentage | length | angle | time | frequency | flex | <dimension-unit>
@@ -1554,10 +1508,7 @@ export type AttrType = ('string' | 'url' | 'ident' | 'color' | 'number' | 'perce
 // random( <random-caching-options>? , <calc-sum>, <calc-sum>, [by <calc-sum>]? )
 class RandomProperty {}
 
-export function random(a: [RandomCachingOptions, void], b: CalcSum, c: CalcSum, d: (['by', CalcSum])): RandomProperty;
-export function random(a: [RandomCachingOptions, void], b: CalcSum, c: CalcSum, d: void): RandomProperty;
-export function random(a: [void, void], b: CalcSum, c: CalcSum, d: (['by', CalcSum])): RandomProperty;
-export function random(a: [void, void], b: CalcSum, c: CalcSum, d: void): RandomProperty;
+export function random(a: [(RandomCachingOptions)?, void], b: CalcSum, c: CalcSum, d: ((['by', CalcSum]))?): RandomProperty;
 export function random() { return new RandomProperty(); }
 
 // type <random-caching-options>
@@ -1568,10 +1519,7 @@ export type RandomCachingOptions = ((DashedIdent | 'per-element'));
 // random-item( <random-caching-options> ';' <declaration-value>? [ ';' <declaration-value>? ]* )
 class RandomItemProperty {}
 
-export function randomItem(a: [RandomCachingOptions, ';', DeclarationValue, RecurseAny<([';', DeclarationValue])>]): RandomItemProperty;
-export function randomItem(a: [RandomCachingOptions, ';', DeclarationValue, RecurseAny<([';', void])>]): RandomItemProperty;
-export function randomItem(a: [RandomCachingOptions, ';', void, RecurseAny<([';', DeclarationValue])>]): RandomItemProperty;
-export function randomItem(a: [RandomCachingOptions, ';', void, RecurseAny<([';', void])>]): RandomItemProperty;
+export function randomItem(a: [RandomCachingOptions, ';', (DeclarationValue)?, RecurseAny<([';', (DeclarationValue)?])>]): RandomItemProperty;
 export function randomItem() { return new RandomItemProperty(); }
 
 // function sibling-count()
@@ -1649,7 +1597,7 @@ export type TimePercentage = ((Time | Percentage));
 
 // type <ratio>
 // <number [0,∞]> [ / <number [0,∞]> ]?
-export type Ratio = ([number, (['/', number])]) | ([number, void]);
+export type Ratio = ([number, ((['/', number]))?]);
 
 // type <length>
 // undefined
@@ -1673,7 +1621,7 @@ export type Resolution = 'dpi' | 'dpcm' | 'dppx' | 'x';
 
 // type <position>
 // [ [ left | center | right | top | bottom | <length-percentage> ] | [ left | center | right ] && [ top | center | bottom ] | [ left | center | right | <length-percentage> ] [ top | center | bottom | <length-percentage> ] | [ [ left | right ] <length-percentage> ] && [ [ top | bottom ] <length-percentage> ] ]
-export type Position = ((('left' | 'center' | 'right' | 'top' | 'bottom' | LengthPercentage) | (('left' | 'center' | 'right') & ('top' | 'center' | 'bottom')) | [('left' | 'center' | 'right' | LengthPercentage), ('top' | 'center' | 'bottom' | LengthPercentage)] | (([('left' | 'right'), LengthPercentage]) & ([('top' | 'bottom'), LengthPercentage]))));
+export type Position = ((('left' | 'center' | 'right' | 'top' | 'bottom' | LengthPercentage) | (('left' | 'center' | 'right'), ('top' | 'center' | 'bottom')) | [('left' | 'center' | 'right' | LengthPercentage), ('top' | 'center' | 'bottom' | LengthPercentage)] | (([('left' | 'right'), LengthPercentage]), ([('top' | 'bottom'), LengthPercentage]))));
 
 // function calc()
 // calc( <calc-sum> )
@@ -1707,8 +1655,7 @@ export function clamp() { return new ClampProperty(); }
 // round( <rounding-strategy>?, <calc-sum>, <calc-sum> )
 class RoundProperty {}
 
-export function round(a: RoundingStrategy, b: CalcSum, c: CalcSum): RoundProperty;
-export function round(a: void, b: CalcSum, c: CalcSum): RoundProperty;
+export function round(a: (RoundingStrategy)?, b: CalcSum, c: CalcSum): RoundProperty;
 export function round() { return new RoundProperty(); }
 
 // type <rounding-strategy>
@@ -1803,8 +1750,7 @@ export function hypot() { return new HypotProperty(); }
 // log( <calc-sum>, <calc-sum>? )
 class LogProperty {}
 
-export function log(a: CalcSum, b: CalcSum): LogProperty;
-export function log(a: CalcSum, b: void): LogProperty;
+export function log(a: CalcSum, b: (CalcSum)?): LogProperty;
 export function log() { return new LogProperty(); }
 
 // function exp()
@@ -1854,8 +1800,7 @@ export type CalcKeyword = ('e' | 'pi' | 'infinity' | '-infinity' | 'NaN');
 // var( <custom-property-name> , <declaration-value>? )
 class VarProperty {}
 
-export function var(a: [CustomPropertyName, void], b: DeclarationValue): VarProperty;
-export function var(a: [CustomPropertyName, void], b: void): VarProperty;
+export function var(a: [CustomPropertyName, void], b: (DeclarationValue)?): VarProperty;
 export function var() { return new VarProperty(); }
 
 // type <vt-type-selector>
@@ -1888,7 +1833,7 @@ export type FilterFunction = (BlurProperty | BrightnessProperty | ContrastProper
 
 // type <number-optional-number>
 // <number> <number>?
-export type NumberOptionalNumber = ([number, number]) | ([number, void]);
+export type NumberOptionalNumber = ([number, (number)?]);
 
 // function filter()
 // filter( [ <image> | <string> ], <filter-value-list> )
@@ -1899,7 +1844,7 @@ export function filter() { return new FilterProperty(); }
 
 // type <source-size-list>
 // <source-size>#? , <source-size-value>
-export type SourceSizeList = ([RecurseTuple<SourceSize>, void, SourceSizeValue]) | ([void, void, SourceSizeValue]);
+export type SourceSizeList = ([(RecurseTuple<SourceSize>)?, void, SourceSizeValue]);
 
 // type <source-size>
 // <media-condition> <source-size-value> | auto
@@ -1914,7 +1859,7 @@ export type SourceSizeValue = (number | 'auto');
 
 // type <media-query>
 // <media-condition> | [ not | only ]? <media-type> [ and <media-condition-without-or> ]?
-export type MediaQuery = (MediaCondition | [('not' | 'only'), MediaType, (['and', MediaConditionWithoutOr])] | [('not' | 'only'), MediaType, void] | [void, MediaType, (['and', MediaConditionWithoutOr])] | [void, MediaType, void]);
+export type MediaQuery = (MediaCondition | [(('not' | 'only'))?, MediaType, ((['and', MediaConditionWithoutOr]))?]);
 
 // type <media-type>
 // <ident>
@@ -1970,11 +1915,11 @@ export type MfValue = (number | Dimension | Ident | Ratio);
 
 // type <mf-lt>
 // '<' '='?
-export type MfLt = ('<' '=') | (void);
+export type MfLt = (('<' '=')?);
 
 // type <mf-gt>
 // '>' '='?
-export type MfGt = (['>', '=']) | (['>', void]);
+export type MfGt = (['>', ('=')?]);
 
 // type <mf-eq>
 // '='
@@ -1986,7 +1931,7 @@ export type MfComparison = (MfLt | MfGt | MfEq);
 
 // type <general-enclosed>
 // [ <function-token> <any-value>? ) ] | [ ( <any-value>? ) ]
-export type GeneralEnclosed = (([FunctionToken, AnyValue, ')']) | ([FunctionToken, void, ')']) | ((AnyValue)) | ((void)));
+export type GeneralEnclosed = (([FunctionToken, (AnyValue)?, ')']) | (((AnyValue)?)));
 
 // type <mq-boolean>
 // undefined
@@ -1999,14 +1944,7 @@ export type OffsetPath = (RayProperty | Url | BasicShape);
 // ray( <angle> && <ray-size>? && contain? && [at <position>]? )
 class RayProperty {}
 
-export function ray(a: (Angle & (RaySize & ('contain' & (['at', Position]))))): RayProperty;
-export function ray(a: (Angle & (RaySize & ('contain' & void)))): RayProperty;
-export function ray(a: (Angle & (RaySize & (void & (['at', Position]))))): RayProperty;
-export function ray(a: (Angle & (RaySize & (void & void)))): RayProperty;
-export function ray(a: (Angle & (void & ('contain' & (['at', Position]))))): RayProperty;
-export function ray(a: (Angle & (void & ('contain' & void)))): RayProperty;
-export function ray(a: (Angle & (void & (void & (['at', Position]))))): RayProperty;
-export function ray(a: (Angle & (void & (void & void)))): RayProperty;
+export function ray(a: (Angle, ((RaySize)?, (('contain')?, ((['at', Position]))?)))): RayProperty;
 export function ray() { return new RayProperty(); }
 
 // type <ray-size>
@@ -2017,8 +1955,7 @@ export type RaySize = ('closest-side' | 'closest-corner' | 'farthest-side' | 'fa
 // scroll( [ <scroller> || <axis> ]? )
 class ScrollProperty {}
 
-export function scroll(a: ((Scroller | Axis))): ScrollProperty;
-export function scroll(a: void): ScrollProperty;
+export function scroll(a: (((Scroller | Axis)))?): ScrollProperty;
 export function scroll() { return new ScrollProperty(); }
 
 // type <axis>
@@ -2033,8 +1970,7 @@ export type Scroller = ('root' | 'nearest' | 'self');
 // view( [ <axis> || <'view-timeline-inset'> ]? )
 class ViewProperty {}
 
-export function view(a: ((Axis | ViewTimelineInsetProperty))): ViewProperty;
-export function view(a: void): ViewProperty;
+export function view(a: (((Axis | ViewTimelineInsetProperty)))?): ViewProperty;
 export function view() { return new ViewProperty(); }
 
 // type <timeline-range-name>
@@ -2070,27 +2006,27 @@ export type RelativeRealSelectorList = (RecurseTuple<RelativeRealSelector>);
 
 // type <complex-selector>
 // <complex-selector-unit> [ <combinator>? <complex-selector-unit> ]*
-export type ComplexSelector = ([ComplexSelectorUnit, RecurseAny<([Combinator, ComplexSelectorUnit])>]) | ([ComplexSelectorUnit, RecurseAny<([void, ComplexSelectorUnit])>]);
+export type ComplexSelector = ([ComplexSelectorUnit, RecurseAny<([(Combinator)?, ComplexSelectorUnit])>]);
 
 // type <complex-selector-unit>
 // [ <compound-selector>? <pseudo-compound-selector>* ]!
-export type ComplexSelectorUnit = ((([CompoundSelector, RecurseAny<PseudoCompoundSelector>]))) | ((([void, RecurseAny<PseudoCompoundSelector>])));
+export type ComplexSelectorUnit = ((([(CompoundSelector)?, RecurseAny<PseudoCompoundSelector>])));
 
 // type <complex-real-selector>
 // <compound-selector> [ <combinator>? <compound-selector> ]*
-export type ComplexRealSelector = ([CompoundSelector, RecurseAny<([Combinator, CompoundSelector])>]) | ([CompoundSelector, RecurseAny<([void, CompoundSelector])>]);
+export type ComplexRealSelector = ([CompoundSelector, RecurseAny<([(Combinator)?, CompoundSelector])>]);
 
 // type <relative-selector>
 // <combinator>? <complex-selector>
-export type RelativeSelector = ([Combinator, ComplexSelector]) | ([void, ComplexSelector]);
+export type RelativeSelector = ([(Combinator)?, ComplexSelector]);
 
 // type <relative-real-selector>
 // <combinator>? <complex-real-selector>
-export type RelativeRealSelector = ([Combinator, ComplexRealSelector]) | ([void, ComplexRealSelector]);
+export type RelativeRealSelector = ([(Combinator)?, ComplexRealSelector]);
 
 // type <compound-selector>
 // [ <type-selector>? <subclass-selector>* ]!
-export type CompoundSelector = ((([TypeSelector, RecurseAny<SubclassSelector>]))) | ((([void, RecurseAny<SubclassSelector>])));
+export type CompoundSelector = ((([(TypeSelector)?, RecurseAny<SubclassSelector>])));
 
 // type <pseudo-compound-selector>
 // <pseudo-element-selector> <pseudo-class-selector>*
@@ -2106,15 +2042,15 @@ export type Combinator = ('>' | '+' | '~');
 
 // type <wq-name>
 // <ns-prefix>? <ident-token>
-export type WqName = ([NsPrefix, IdentToken]) | ([void, IdentToken]);
+export type WqName = ([(NsPrefix)?, IdentToken]);
 
 // type <ns-prefix>
 // [ <ident-token> | '*' ]? '|'
-export type NsPrefix = ([(IdentToken | '*'), '|']) | ([void, '|']);
+export type NsPrefix = ([((IdentToken | '*'))?, '|']);
 
 // type <type-selector>
 // <wq-name> | <ns-prefix>? '*'
-export type TypeSelector = (WqName | [NsPrefix, '*'] | [void, '*']);
+export type TypeSelector = (WqName | [(NsPrefix)?, '*']);
 
 // type <subclass-selector>
 // <id-selector> | <class-selector> | <attribute-selector> | <pseudo-class-selector>
@@ -2134,7 +2070,7 @@ export type AttributeSelector = ('[' <wq-name> ']' | '[' <wq-name> <attr-matcher
 
 // type <attr-matcher>
 // [ '~' | '|' | '^' | '$' | '*' ]? '='
-export type AttrMatcher = ([('~' | '|' | '^' | '$' | '*'), '=']) | ([void, '=']);
+export type AttrMatcher = ([(('~' | '|' | '^' | '$' | '*'))?, '=']);
 
 // type <attr-modifier>
 // i | s
@@ -2394,66 +2330,63 @@ export function backgroundBlendMode() { return new BackgroundBlendModeProperty()
 // normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position>
 class AlignContentProperty {}
 
-export function alignContent(source: 'normal' | BaselinePosition | ContentDistribution | [OverflowPosition, ContentPosition] | [void, ContentPosition]): AlignContentProperty
+export function alignContent(source: 'normal' | BaselinePosition | ContentDistribution | [(OverflowPosition)?, ContentPosition]): AlignContentProperty
 export function alignContent() { return new AlignContentProperty() }
 
 // property justify-content
 // normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]
 class JustifyContentProperty {}
 
-export function justifyContent(source: 'normal' | ContentDistribution | [OverflowPosition, (ContentPosition | 'left' | 'right')] | [void, (ContentPosition | 'left' | 'right')]): JustifyContentProperty
+export function justifyContent(source: 'normal' | ContentDistribution | [(OverflowPosition)?, (ContentPosition | 'left' | 'right')]): JustifyContentProperty
 export function justifyContent() { return new JustifyContentProperty() }
 
 // property place-content
 // <'align-content'> <'justify-content'>?
 class PlaceContentProperty {}
 
-export function placeContent(source: [AlignContentProperty, JustifyContentProperty]): PlaceContentProperty
-export function placeContent(source: [AlignContentProperty, void]): PlaceContentProperty
+export function placeContent(source: [AlignContentProperty, (JustifyContentProperty)?]): PlaceContentProperty
 export function placeContent() { return new PlaceContentProperty() }
 
 // property justify-self
 // auto | normal | stretch | <baseline-position> | <overflow-position>? [ <self-position> | left | right ]
 class JustifySelfProperty {}
 
-export function justifySelf(source: 'auto' | 'normal' | 'stretch' | BaselinePosition | [OverflowPosition, (SelfPosition | 'left' | 'right')] | [void, (SelfPosition | 'left' | 'right')]): JustifySelfProperty
+export function justifySelf(source: 'auto' | 'normal' | 'stretch' | BaselinePosition | [(OverflowPosition)?, (SelfPosition | 'left' | 'right')]): JustifySelfProperty
 export function justifySelf() { return new JustifySelfProperty() }
 
 // property align-self
 // auto | normal | stretch | <baseline-position> | <overflow-position>? <self-position>
 class AlignSelfProperty {}
 
-export function alignSelf(source: 'auto' | 'normal' | 'stretch' | BaselinePosition | [OverflowPosition, SelfPosition] | [void, SelfPosition]): AlignSelfProperty
+export function alignSelf(source: 'auto' | 'normal' | 'stretch' | BaselinePosition | [(OverflowPosition)?, SelfPosition]): AlignSelfProperty
 export function alignSelf() { return new AlignSelfProperty() }
 
 // property place-self
 // <'align-self'> <'justify-self'>?
 class PlaceSelfProperty {}
 
-export function placeSelf(source: [AlignSelfProperty, JustifySelfProperty]): PlaceSelfProperty
-export function placeSelf(source: [AlignSelfProperty, void]): PlaceSelfProperty
+export function placeSelf(source: [AlignSelfProperty, (JustifySelfProperty)?]): PlaceSelfProperty
 export function placeSelf() { return new PlaceSelfProperty() }
 
 // property justify-items
 // normal | stretch | <baseline-position> | <overflow-position>? [ <self-position> | left | right ] | legacy | legacy && [ left | right | center ]
 class JustifyItemsProperty {}
 
-export function justifyItems(source: 'normal' | 'stretch' | BaselinePosition | [OverflowPosition, (SelfPosition | 'left' | 'right')] | [void, (SelfPosition | 'left' | 'right')] | 'legacy' | ('legacy' & ('left' | 'right' | 'center'))): JustifyItemsProperty
+export function justifyItems(source: 'normal' | 'stretch' | BaselinePosition | [(OverflowPosition)?, (SelfPosition | 'left' | 'right')] | 'legacy' | ('legacy', ('left' | 'right' | 'center'))): JustifyItemsProperty
 export function justifyItems() { return new JustifyItemsProperty() }
 
 // property align-items
 // normal | stretch | <baseline-position> | [ <overflow-position>? <self-position> ]
 class AlignItemsProperty {}
 
-export function alignItems(source: 'normal' | 'stretch' | BaselinePosition | ([OverflowPosition, SelfPosition]) | ([void, SelfPosition])): AlignItemsProperty
+export function alignItems(source: 'normal' | 'stretch' | BaselinePosition | ([(OverflowPosition)?, SelfPosition])): AlignItemsProperty
 export function alignItems() { return new AlignItemsProperty() }
 
 // property place-items
 // <'align-items'> <'justify-items'>?
 class PlaceItemsProperty {}
 
-export function placeItems(source: [AlignItemsProperty, JustifyItemsProperty]): PlaceItemsProperty
-export function placeItems(source: [AlignItemsProperty, void]): PlaceItemsProperty
+export function placeItems(source: [AlignItemsProperty, (JustifyItemsProperty)?]): PlaceItemsProperty
 export function placeItems() { return new PlaceItemsProperty() }
 
 // property row-gap
@@ -2474,8 +2407,7 @@ export function columnGap() { return new ColumnGapProperty() }
 // <'row-gap'> <'column-gap'>?
 class GapProperty {}
 
-export function gap(source: [RowGapProperty, ColumnGapProperty]): GapProperty
-export function gap(source: [RowGapProperty, void]): GapProperty
+export function gap(source: [RowGapProperty, (ColumnGapProperty)?]): GapProperty
 export function gap() { return new GapProperty() }
 
 // property anchor-name
@@ -2496,7 +2428,7 @@ export function anchorDefault() { return new AnchorDefaultProperty() }
 // none | <inset-area-span> [ / <inset-area-span> ]?
 class InsetAreaProperty {}
 
-export function insetArea(source: 'none' | [InsetAreaSpan, (['/', InsetAreaSpan])] | [InsetAreaSpan, void]): InsetAreaProperty
+export function insetArea(source: 'none' | [InsetAreaSpan, ((['/', InsetAreaSpan]))?]): InsetAreaProperty
 export function insetArea() { return new InsetAreaProperty() }
 
 // property position-fallback
@@ -2601,28 +2533,28 @@ export function backgroundPosition() { return new BackgroundPositionProperty() }
 // [ center | [ [ left | right | x-start | x-end ]? <length-percentage>? ]! ]#
 class BackgroundPositionXProperty {}
 
-export function backgroundPositionX(source: RecurseTuple<('center' | (([('left' | 'right' | 'x-start' | 'x-end'), LengthPercentage])) | (([('left' | 'right' | 'x-start' | 'x-end'), void])) | (([void, LengthPercentage])) | (([void, void])))>): BackgroundPositionXProperty
+export function backgroundPositionX(source: RecurseTuple<('center' | (([(('left' | 'right' | 'x-start' | 'x-end'))?, (LengthPercentage)?])))>): BackgroundPositionXProperty
 export function backgroundPositionX() { return new BackgroundPositionXProperty() }
 
 // property background-position-y
 // [ center | [ [ top | bottom | y-start | y-end ]? <length-percentage>? ]! ]#
 class BackgroundPositionYProperty {}
 
-export function backgroundPositionY(source: RecurseTuple<('center' | (([('top' | 'bottom' | 'y-start' | 'y-end'), LengthPercentage])) | (([('top' | 'bottom' | 'y-start' | 'y-end'), void])) | (([void, LengthPercentage])) | (([void, void])))>): BackgroundPositionYProperty
+export function backgroundPositionY(source: RecurseTuple<('center' | (([(('top' | 'bottom' | 'y-start' | 'y-end'))?, (LengthPercentage)?])))>): BackgroundPositionYProperty
 export function backgroundPositionY() { return new BackgroundPositionYProperty() }
 
 // property background-position-inline
 // [ center | [ start | end ]? <length-percentage>? ]#
 class BackgroundPositionInlineProperty {}
 
-export function backgroundPositionInline(source: RecurseTuple<('center' | [('start' | 'end'), LengthPercentage] | [('start' | 'end'), void] | [void, LengthPercentage] | [void, void])>): BackgroundPositionInlineProperty
+export function backgroundPositionInline(source: RecurseTuple<('center' | [(('start' | 'end'))?, (LengthPercentage)?])>): BackgroundPositionInlineProperty
 export function backgroundPositionInline() { return new BackgroundPositionInlineProperty() }
 
 // property background-position-block
 // [ center | [ start | end ]? <length-percentage>? ]#
 class BackgroundPositionBlockProperty {}
 
-export function backgroundPositionBlock(source: RecurseTuple<('center' | [('start' | 'end'), LengthPercentage] | [('start' | 'end'), void] | [void, LengthPercentage] | [void, void])>): BackgroundPositionBlockProperty
+export function backgroundPositionBlock(source: RecurseTuple<('center' | [(('start' | 'end'))?, (LengthPercentage)?])>): BackgroundPositionBlockProperty
 export function backgroundPositionBlock() { return new BackgroundPositionBlockProperty() }
 
 // property background-clip
@@ -2685,15 +2617,8 @@ export function backgroundSize() { return new BackgroundSizeProperty() }
 // <bg-layer>#? , <final-bg-layer>
 class BackgroundProperty {}
 
-export function background(source: [RecurseTuple<BgLayer>, void, FinalBgLayer]): BackgroundProperty
-export function background(source: [void, void, FinalBgLayer]): BackgroundProperty
+export function background(source: [(RecurseTuple<BgLayer>)?, void, FinalBgLayer]): BackgroundProperty
 export function background() { return new BackgroundProperty() }
-
-
-background([
-	linearGradient([153, []])
-]);
-backgroundBlendMode('multiply');
 
 // property border-style
 // <line-style>{1,4}
@@ -2727,8 +2652,7 @@ export function borderImageSource() { return new BorderImageSourceProperty() }
 // [<number [0,∞]> | <percentage [0,∞]>]{1,4} && fill?
 class BorderImageSliceProperty {}
 
-export function borderImageSlice(source: (Repeat1to4<(number | Percentage)> & 'fill')): BorderImageSliceProperty
-export function borderImageSlice(source: (Repeat1to4<(number | Percentage)> & void)): BorderImageSliceProperty
+export function borderImageSlice(source: (Repeat1to4<(number | Percentage)>, ('fill')?)): BorderImageSliceProperty
 export function borderImageSlice() { return new BorderImageSliceProperty() }
 
 // property border-image-width
@@ -2756,8 +2680,7 @@ export function borderImageRepeat() { return new BorderImageRepeatProperty() }
 // <'border-image-source'> || <'border-image-slice'> [ / <'border-image-width'> | / <'border-image-width'>? / <'border-image-outset'> ]? || <'border-image-repeat'>
 class BorderImageProperty {}
 
-export function borderImage(source: (BorderImageSourceProperty | ([BorderImageSliceProperty, (['/', BorderImageWidthProperty] | ['/', BorderImageWidthProperty, '/', BorderImageOutsetProperty] | ['/', void, '/', BorderImageOutsetProperty])] | BorderImageRepeatProperty))): BorderImageProperty
-export function borderImage(source: (BorderImageSourceProperty | ([BorderImageSliceProperty, void] | BorderImageRepeatProperty))): BorderImageProperty
+export function borderImage(source: (BorderImageSourceProperty | ([BorderImageSliceProperty, ((['/', BorderImageWidthProperty] | ['/', (BorderImageWidthProperty)?, '/', BorderImageOutsetProperty]))?] | BorderImageRepeatProperty))): BorderImageProperty
 export function borderImage() { return new BorderImageProperty() }
 
 // property border-top-color
@@ -3107,72 +3030,63 @@ export function borderEndEndRadius() { return new BorderEndEndRadiusProperty() }
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderTopRadiusProperty {}
 
-export function borderTopRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderTopRadiusProperty
-export function borderTopRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderTopRadiusProperty
+export function borderTopRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderTopRadiusProperty
 export function borderTopRadius() { return new BorderTopRadiusProperty() }
 
 // property border-right-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderRightRadiusProperty {}
 
-export function borderRightRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderRightRadiusProperty
-export function borderRightRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderRightRadiusProperty
+export function borderRightRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderRightRadiusProperty
 export function borderRightRadius() { return new BorderRightRadiusProperty() }
 
 // property border-bottom-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderBottomRadiusProperty {}
 
-export function borderBottomRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderBottomRadiusProperty
-export function borderBottomRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderBottomRadiusProperty
+export function borderBottomRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderBottomRadiusProperty
 export function borderBottomRadius() { return new BorderBottomRadiusProperty() }
 
 // property border-left-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderLeftRadiusProperty {}
 
-export function borderLeftRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderLeftRadiusProperty
-export function borderLeftRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderLeftRadiusProperty
+export function borderLeftRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderLeftRadiusProperty
 export function borderLeftRadius() { return new BorderLeftRadiusProperty() }
 
 // property border-block-start-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderBlockStartRadiusProperty {}
 
-export function borderBlockStartRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderBlockStartRadiusProperty
-export function borderBlockStartRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderBlockStartRadiusProperty
+export function borderBlockStartRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderBlockStartRadiusProperty
 export function borderBlockStartRadius() { return new BorderBlockStartRadiusProperty() }
 
 // property border-block-end-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderBlockEndRadiusProperty {}
 
-export function borderBlockEndRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderBlockEndRadiusProperty
-export function borderBlockEndRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderBlockEndRadiusProperty
+export function borderBlockEndRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderBlockEndRadiusProperty
 export function borderBlockEndRadius() { return new BorderBlockEndRadiusProperty() }
 
 // property border-inline-start-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderInlineStartRadiusProperty {}
 
-export function borderInlineStartRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderInlineStartRadiusProperty
-export function borderInlineStartRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderInlineStartRadiusProperty
+export function borderInlineStartRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderInlineStartRadiusProperty
 export function borderInlineStartRadius() { return new BorderInlineStartRadiusProperty() }
 
 // property border-inline-end-radius
 // <length-percentage [0,∞]>{1,2} [ / <length-percentage [0,∞]>{1,2} ]?
 class BorderInlineEndRadiusProperty {}
 
-export function borderInlineEndRadius(source: [Repeat1to2<LengthPercentage>, (['/', Repeat1to2<LengthPercentage>])]): BorderInlineEndRadiusProperty
-export function borderInlineEndRadius(source: [Repeat1to2<LengthPercentage>, void]): BorderInlineEndRadiusProperty
+export function borderInlineEndRadius(source: [Repeat1to2<LengthPercentage>, ((['/', Repeat1to2<LengthPercentage>]))?]): BorderInlineEndRadiusProperty
 export function borderInlineEndRadius() { return new BorderInlineEndRadiusProperty() }
 
 // property border-radius
 // <length-percentage [0,∞]>{1,4} [ / <length-percentage [0,∞]>{1,4} ]?
 class BorderRadiusProperty {}
 
-export function borderRadius(source: [Repeat1to4<LengthPercentage>, (['/', Repeat1to4<LengthPercentage>])]): BorderRadiusProperty
-export function borderRadius(source: [Repeat1to4<LengthPercentage>, void]): BorderRadiusProperty
+export function borderRadius(source: [Repeat1to4<LengthPercentage>, ((['/', Repeat1to4<LengthPercentage>]))?]): BorderRadiusProperty
 export function borderRadius() { return new BorderRadiusProperty() }
 
 // property corner-shape
@@ -3193,7 +3107,7 @@ export function corners() { return new CornersProperty() }
 // all | [ sides | corners ] <length-percentage [0,∞]>? | [ top | right | bottom | left ] <length-percentage [0,∞]>
 class BorderLimitProperty {}
 
-export function borderLimit(source: 'all' | [('sides' | 'corners'), LengthPercentage] | [('sides' | 'corners'), void] | [('top' | 'right' | 'bottom' | 'left'), LengthPercentage]): BorderLimitProperty
+export function borderLimit(source: 'all' | [('sides' | 'corners'), (LengthPercentage)?] | [('top' | 'right' | 'bottom' | 'left'), LengthPercentage]): BorderLimitProperty
 export function borderLimit() { return new BorderLimitProperty() }
 
 // property border-clip
@@ -3410,7 +3324,7 @@ export function all() { return new AllProperty() }
 // normal | [ light | dark | <custom-ident> ]+ && only?
 class ColorSchemeProperty {}
 
-export function colorScheme(source: 'normal' | (Recurse<('light' | 'dark' | CustomIdent)> & 'only') | (Recurse<('light' | 'dark' | CustomIdent)> & void)): ColorSchemeProperty
+export function colorScheme(source: 'normal' | (Recurse<('light' | 'dark' | CustomIdent)>, ('only')?)): ColorSchemeProperty
 export function colorScheme() { return new ColorSchemeProperty() }
 
 // property forced-color-adjust
@@ -3473,8 +3387,7 @@ export function containerName() { return new ContainerNameProperty() }
 // <'container-name'> [ / <'container-type'> ]?
 class ContainerProperty {}
 
-export function container(source: [ContainerNameProperty, (['/', ContainerTypeProperty])]): ContainerProperty
-export function container(source: [ContainerNameProperty, void]): ContainerProperty
+export function container(source: [ContainerNameProperty, ((['/', ContainerTypeProperty]))?]): ContainerProperty
 export function container() { return new ContainerProperty() }
 
 // property content-visibility
@@ -3488,7 +3401,7 @@ export function contentVisibility() { return new ContentVisibilityProperty() }
 // normal | none | [ <content-replacement> | <content-list> ] [/ [ <string> | <counter> ]+ ]?
 class ContentProperty {}
 
-export function content(source: 'normal' | 'none' | [(ContentReplacement | ContentList), (['/', Recurse<(string | Counter)>])] | [(ContentReplacement | ContentList), void]): ContentProperty
+export function content(source: 'normal' | 'none' | [(ContentReplacement | ContentList), ((['/', Recurse<(string | Counter)>]))?]): ContentProperty
 export function content() { return new ContentProperty() }
 
 // property quotes
@@ -3537,7 +3450,7 @@ export function display() { return new DisplayProperty() }
 // [ <'layout-order'> <'reading-order'>? ] | [ [ reading || layout ] && <integer> ]
 class OrderProperty {}
 
-export function order(source: ([LayoutOrderProperty, ReadingOrderProperty]) | ([LayoutOrderProperty, void]) | (((('reading' | 'layout')) & number))): OrderProperty
+export function order(source: ([LayoutOrderProperty, (ReadingOrderProperty)?]) | (((('reading' | 'layout')), number))): OrderProperty
 export function order() { return new OrderProperty() }
 
 // property reading-order
@@ -3600,7 +3513,7 @@ export function flexFlow() { return new FlexFlowProperty() }
 // none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 class FlexProperty {}
 
-export function flex(source: 'none' | (([FlexGrowProperty, FlexShrinkProperty] | FlexBasisProperty)) | (([FlexGrowProperty, void] | FlexBasisProperty))): FlexProperty
+export function flex(source: 'none' | (([FlexGrowProperty, (FlexShrinkProperty)?] | FlexBasisProperty))): FlexProperty
 export function flex() { return new FlexProperty() }
 
 // property flex-grow
@@ -3628,7 +3541,7 @@ export function flexBasis() { return new FlexBasisProperty() }
 // none | [ ex-height | cap-height | ch-width | ic-width | ic-height ]? [ from-font | <number [0,∞]> ]
 class FontSizeAdjustProperty {}
 
-export function fontSizeAdjust(source: 'none' | [('ex-height' | 'cap-height' | 'ch-width' | 'ic-width' | 'ic-height'), ('from-font' | number)] | [void, ('from-font' | number)]): FontSizeAdjustProperty
+export function fontSizeAdjust(source: 'none' | [(('ex-height' | 'cap-height' | 'ch-width' | 'ic-width' | 'ic-height'))?, ('from-font' | number)]): FontSizeAdjustProperty
 export function fontSizeAdjust() { return new FontSizeAdjustProperty() }
 
 // property font-family
@@ -3656,7 +3569,7 @@ export function fontStretch() { return new FontStretchProperty() }
 // normal | italic | oblique <angle [-90deg,90deg]>?
 class FontStyleProperty {}
 
-export function fontStyle(source: 'normal' | 'italic' | ['oblique', Angle] | ['oblique', void]): FontStyleProperty
+export function fontStyle(source: 'normal' | 'italic' | ['oblique', (Angle)?]): FontStyleProperty
 export function fontStyle() { return new FontStyleProperty() }
 
 // property font-size
@@ -3670,7 +3583,7 @@ export function fontSize() { return new FontSizeProperty() }
 // [ [ <'font-style'> || <font-variant-css2> || <'font-weight'> || <font-stretch-css3> ]? <'font-size'> [ / <'line-height'> ]? <'font-family'> ] | <system-family-name>
 class FontProperty {}
 
-export function font(source: ([((FontStyleProperty | (FontVariantCss2 | (FontWeightProperty | FontStretchCss3)))), FontSizeProperty, (['/', LineHeightProperty]), FontFamilyProperty]) | ([((FontStyleProperty | (FontVariantCss2 | (FontWeightProperty | FontStretchCss3)))), FontSizeProperty, void, FontFamilyProperty]) | ([void, FontSizeProperty, (['/', LineHeightProperty]), FontFamilyProperty]) | ([void, FontSizeProperty, void, FontFamilyProperty]) | SystemFamilyName): FontProperty
+export function font(source: ([(((FontStyleProperty | (FontVariantCss2 | (FontWeightProperty | FontStretchCss3)))))?, FontSizeProperty, ((['/', LineHeightProperty]))?, FontFamilyProperty]) | SystemFamilyName): FontProperty
 export function font() { return new FontProperty() }
 
 // property font-synthesis-weight
@@ -3810,7 +3723,7 @@ export function fontVariantEmoji() { return new FontVariantEmojiProperty() }
 // none | [ [ <custom-ident> <content-level>] [, <custom-ident> <content-level>]* ]?
 class CopyIntoProperty {}
 
-export function copyInto(source: 'none' | ([([CustomIdent, ContentLevel]), RecurseAny<([CustomIdent, ContentLevel])>]) | void): CopyIntoProperty
+export function copyInto(source: 'none' | (([([CustomIdent, ContentLevel]), RecurseAny<([CustomIdent, ContentLevel])>]))?): CopyIntoProperty
 export function copyInto() { return new CopyIntoProperty() }
 
 // property footnote-display
@@ -3838,14 +3751,14 @@ export function masonryAutoFlow() { return new MasonryAutoFlowProperty() }
 // none | <track-list> | <auto-track-list> | subgrid <line-name-list>?
 class GridTemplateColumnsProperty {}
 
-export function gridTemplateColumns(source: 'none' | TrackList | AutoTrackList | ['subgrid', LineNameList] | ['subgrid', void]): GridTemplateColumnsProperty
+export function gridTemplateColumns(source: 'none' | TrackList | AutoTrackList | ['subgrid', (LineNameList)?]): GridTemplateColumnsProperty
 export function gridTemplateColumns() { return new GridTemplateColumnsProperty() }
 
 // property grid-template-rows
 // none | <track-list> | <auto-track-list> | subgrid <line-name-list>?
 class GridTemplateRowsProperty {}
 
-export function gridTemplateRows(source: 'none' | TrackList | AutoTrackList | ['subgrid', LineNameList] | ['subgrid', void]): GridTemplateRowsProperty
+export function gridTemplateRows(source: 'none' | TrackList | AutoTrackList | ['subgrid', (LineNameList)?]): GridTemplateRowsProperty
 export function gridTemplateRows() { return new GridTemplateRowsProperty() }
 
 // property grid-template-areas
@@ -3859,7 +3772,7 @@ export function gridTemplateAreas() { return new GridTemplateAreasProperty() }
 // none | [ <'grid-template-rows'> / <'grid-template-columns'> ] | [ <line-names>? <string> <track-size>? <line-names>? ]+ [ / <explicit-track-list> ]?
 class GridTemplateProperty {}
 
-export function gridTemplate(source: 'none' | ([GridTemplateRowsProperty, '/', GridTemplateColumnsProperty]) | [Recurse<([LineNames, string, TrackSize, LineNames])>, (['/', ExplicitTrackList])] | [Recurse<([LineNames, string, TrackSize, LineNames])>, void] | [Recurse<([LineNames, string, TrackSize, void])>, (['/', ExplicitTrackList])] | [Recurse<([LineNames, string, TrackSize, void])>, void] | [Recurse<([LineNames, string, void, LineNames])>, (['/', ExplicitTrackList])] | [Recurse<([LineNames, string, void, LineNames])>, void] | [Recurse<([LineNames, string, void, void])>, (['/', ExplicitTrackList])] | [Recurse<([LineNames, string, void, void])>, void] | [Recurse<([void, string, TrackSize, LineNames])>, (['/', ExplicitTrackList])] | [Recurse<([void, string, TrackSize, LineNames])>, void] | [Recurse<([void, string, TrackSize, void])>, (['/', ExplicitTrackList])] | [Recurse<([void, string, TrackSize, void])>, void] | [Recurse<([void, string, void, LineNames])>, (['/', ExplicitTrackList])] | [Recurse<([void, string, void, LineNames])>, void] | [Recurse<([void, string, void, void])>, (['/', ExplicitTrackList])] | [Recurse<([void, string, void, void])>, void]): GridTemplateProperty
+export function gridTemplate(source: 'none' | ([GridTemplateRowsProperty, '/', GridTemplateColumnsProperty]) | [Recurse<([(LineNames)?, string, (TrackSize)?, (LineNames)?])>, ((['/', ExplicitTrackList]))?]): GridTemplateProperty
 export function gridTemplate() { return new GridTemplateProperty() }
 
 // property grid-auto-columns
@@ -3887,7 +3800,7 @@ export function gridAutoFlow() { return new GridAutoFlowProperty() }
 // <'grid-template'> | <'grid-template-rows'> / [ auto-flow && dense? ] <'grid-auto-columns'>? | [ auto-flow && dense? ] <'grid-auto-rows'>? / <'grid-template-columns'>
 class GridProperty {}
 
-export function grid(source: GridTemplateProperty | [GridTemplateRowsProperty, '/', (('auto-flow' & 'dense')), GridAutoColumnsProperty] | [GridTemplateRowsProperty, '/', (('auto-flow' & 'dense')), void] | [GridTemplateRowsProperty, '/', (('auto-flow' & void)), GridAutoColumnsProperty] | [GridTemplateRowsProperty, '/', (('auto-flow' & void)), void] | [(('auto-flow' & 'dense')), GridAutoRowsProperty, '/', GridTemplateColumnsProperty] | [(('auto-flow' & 'dense')), void, '/', GridTemplateColumnsProperty] | [(('auto-flow' & void)), GridAutoRowsProperty, '/', GridTemplateColumnsProperty] | [(('auto-flow' & void)), void, '/', GridTemplateColumnsProperty]): GridProperty
+export function grid(source: GridTemplateProperty | [GridTemplateRowsProperty, '/', (('auto-flow', ('dense')?)), (GridAutoColumnsProperty)?] | [(('auto-flow', ('dense')?)), (GridAutoRowsProperty)?, '/', GridTemplateColumnsProperty]): GridProperty
 export function grid() { return new GridProperty() }
 
 // property grid-row-start
@@ -3922,16 +3835,14 @@ export function gridColumnEnd() { return new GridColumnEndProperty() }
 // <grid-line> [ / <grid-line> ]?
 class GridRowProperty {}
 
-export function gridRow(source: [GridLine, (['/', GridLine])]): GridRowProperty
-export function gridRow(source: [GridLine, void]): GridRowProperty
+export function gridRow(source: [GridLine, ((['/', GridLine]))?]): GridRowProperty
 export function gridRow() { return new GridRowProperty() }
 
 // property grid-column
 // <grid-line> [ / <grid-line> ]?
 class GridColumnProperty {}
 
-export function gridColumn(source: [GridLine, (['/', GridLine])]): GridColumnProperty
-export function gridColumn(source: [GridLine, void]): GridColumnProperty
+export function gridColumn(source: [GridLine, ((['/', GridLine]))?]): GridColumnProperty
 export function gridColumn() { return new GridColumnProperty() }
 
 // property grid-area
@@ -3952,8 +3863,7 @@ export function objectFit() { return new ObjectFitProperty() }
 // [ from-image || <resolution> ] && snap?
 class ImageResolutionProperty {}
 
-export function imageResolution(source: ((('from-image' | Resolution)) & 'snap')): ImageResolutionProperty
-export function imageResolution(source: ((('from-image' | Resolution)) & void)): ImageResolutionProperty
+export function imageResolution(source: ((('from-image' | Resolution)), ('snap')?)): ImageResolutionProperty
 export function imageResolution() { return new ImageResolutionProperty() }
 
 // property object-view-box
@@ -4030,7 +3940,7 @@ export function lineHeight() { return new LineHeightProperty() }
 // leading | [ text | cap | ex | ideographic | ideographic-ink ] [ text | alphabetic | ideographic | ideographic-ink ]?
 class TextBoxEdgeProperty {}
 
-export function textBoxEdge(source: 'leading' | [('text' | 'cap' | 'ex' | 'ideographic' | 'ideographic-ink'), ('text' | 'alphabetic' | 'ideographic' | 'ideographic-ink')] | [('text' | 'cap' | 'ex' | 'ideographic' | 'ideographic-ink'), void]): TextBoxEdgeProperty
+export function textBoxEdge(source: 'leading' | [('text' | 'cap' | 'ex' | 'ideographic' | 'ideographic-ink'), (('text' | 'alphabetic' | 'ideographic' | 'ideographic-ink'))?]): TextBoxEdgeProperty
 export function textBoxEdge() { return new TextBoxEdgeProperty() }
 
 // property text-box-trim
@@ -4051,17 +3961,14 @@ export function inlineSizing() { return new InlineSizingProperty() }
 // normal | <number [1,∞]> <integer [1,∞]> | <number [1,∞]> && [ drop | raise ]?
 class InitialLetterProperty {}
 
-export function initialLetter(source: 'normal' | [number, number] | (number & ('drop' | 'raise')) | (number & void)): InitialLetterProperty
+export function initialLetter(source: 'normal' | [number, number] | (number, (('drop' | 'raise'))?)): InitialLetterProperty
 export function initialLetter() { return new InitialLetterProperty() }
 
 // property initial-letter-align
 // [ border-box? [ alphabetic | ideographic | hanging | leading ]? ]!
 class InitialLetterAlignProperty {}
 
-export function initialLetterAlign(source: ((['border-box', ('alphabetic' | 'ideographic' | 'hanging' | 'leading')]))): InitialLetterAlignProperty
-export function initialLetterAlign(source: ((['border-box', void]))): InitialLetterAlignProperty
-export function initialLetterAlign(source: (([void, ('alphabetic' | 'ideographic' | 'hanging' | 'leading')]))): InitialLetterAlignProperty
-export function initialLetterAlign(source: (([void, void]))): InitialLetterAlignProperty
+export function initialLetterAlign(source: (([('border-box')?, (('alphabetic' | 'ideographic' | 'hanging' | 'leading'))?]))): InitialLetterAlignProperty
 export function initialLetterAlign() { return new InitialLetterAlignProperty() }
 
 // property initial-letter-wrap
@@ -4138,21 +4045,21 @@ export function markerSide() { return new MarkerSideProperty() }
 // [ <counter-name> <integer>? | <reversed-counter-name> <integer>? ]+ | none
 class CounterResetProperty {}
 
-export function counterReset(source: Recurse<([CounterName, number] | [CounterName, void] | [ReversedCounterName, number] | [ReversedCounterName, void])> | 'none'): CounterResetProperty
+export function counterReset(source: Recurse<([CounterName, (number)?] | [ReversedCounterName, (number)?])> | 'none'): CounterResetProperty
 export function counterReset() { return new CounterResetProperty() }
 
 // property counter-increment
 // [ <counter-name> <integer>? ]+ | none
 class CounterIncrementProperty {}
 
-export function counterIncrement(source: Recurse<([CounterName, number])> | Recurse<([CounterName, void])> | 'none'): CounterIncrementProperty
+export function counterIncrement(source: Recurse<([CounterName, (number)?])> | 'none'): CounterIncrementProperty
 export function counterIncrement() { return new CounterIncrementProperty() }
 
 // property counter-set
 // [ <counter-name> <integer>? ]+ | none
 class CounterSetProperty {}
 
-export function counterSet(source: Recurse<([CounterName, number])> | Recurse<([CounterName, void])> | 'none'): CounterSetProperty
+export function counterSet(source: Recurse<([CounterName, (number)?])> | 'none'): CounterSetProperty
 export function counterSet() { return new CounterSetProperty() }
 
 // property block-size
@@ -4376,8 +4283,7 @@ export function maskBorderMode() { return new MaskBorderModeProperty() }
 // [ <number> | <percentage> ]{1,4} fill?
 class MaskBorderSliceProperty {}
 
-export function maskBorderSlice(source: [Repeat1to4<(number | Percentage)>, 'fill']): MaskBorderSliceProperty
-export function maskBorderSlice(source: [Repeat1to4<(number | Percentage)>, void]): MaskBorderSliceProperty
+export function maskBorderSlice(source: [Repeat1to4<(number | Percentage)>, ('fill')?]): MaskBorderSliceProperty
 export function maskBorderSlice() { return new MaskBorderSliceProperty() }
 
 // property mask-border-width
@@ -4405,11 +4311,7 @@ export function maskBorderRepeat() { return new MaskBorderRepeatProperty() }
 // <'mask-border-source'> || <'mask-border-slice'> [ / <'mask-border-width'>? [ / <'mask-border-outset'> ]? ]? || <'mask-border-repeat'> || <'mask-border-mode'>
 class MaskBorderProperty {}
 
-export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, (['/', MaskBorderWidthProperty, (['/', MaskBorderOutsetProperty])])] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
-export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, (['/', MaskBorderWidthProperty, void])] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
-export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, (['/', void, (['/', MaskBorderOutsetProperty])])] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
-export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, (['/', void, void])] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
-export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, void] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
+export function maskBorder(source: (MaskBorderSourceProperty | ([MaskBorderSliceProperty, ((['/', (MaskBorderWidthProperty)?, ((['/', MaskBorderOutsetProperty]))?]))?] | (MaskBorderRepeatProperty | MaskBorderModeProperty)))): MaskBorderProperty
 export function maskBorder() { return new MaskBorderProperty() }
 
 // property mask-type
@@ -4605,7 +4507,7 @@ export function blockEllipsis() { return new BlockEllipsisProperty() }
 // none | <integer [1,∞]> <'block-ellipsis'>?
 class LineClampProperty {}
 
-export function lineClamp(source: 'none' | [number, BlockEllipsisProperty] | [number, void]): LineClampProperty
+export function lineClamp(source: 'none' | [number, (BlockEllipsisProperty)?]): LineClampProperty
 export function lineClamp() { return new LineClampProperty() }
 
 // property -webkit-line-clamp
@@ -4675,7 +4577,7 @@ export function scrollBehavior() { return new ScrollBehaviorProperty() }
 // auto | stable && both-edges?
 class ScrollbarGutterProperty {}
 
-export function scrollbarGutter(source: 'auto' | ('stable' & 'both-edges') | ('stable' & void)): ScrollbarGutterProperty
+export function scrollbarGutter(source: 'auto' | ('stable', ('both-edges')?)): ScrollbarGutterProperty
 export function scrollbarGutter() { return new ScrollbarGutterProperty() }
 
 // property overscroll-behavior
@@ -4850,7 +4752,7 @@ export function inset() { return new InsetProperty() }
 // none | <ident> [element | content]?
 class FlowIntoProperty {}
 
-export function flowInto(source: 'none' | [Ident, ('element' | 'content')] | [Ident, void]): FlowIntoProperty
+export function flowInto(source: 'none' | [Ident, (('element' | 'content'))?]): FlowIntoProperty
 export function flowInto() { return new FlowIntoProperty() }
 
 // property flow-from
@@ -5025,7 +4927,7 @@ export function scrollStartTargetY() { return new ScrollStartTargetYProperty() }
 // none | [ x | y | block | inline | both ] [ mandatory | proximity ]?
 class ScrollSnapTypeProperty {}
 
-export function scrollSnapType(source: 'none' | [('x' | 'y' | 'block' | 'inline' | 'both'), ('mandatory' | 'proximity')] | [('x' | 'y' | 'block' | 'inline' | 'both'), void]): ScrollSnapTypeProperty
+export function scrollSnapType(source: 'none' | [('x' | 'y' | 'block' | 'inline' | 'both'), (('mandatory' | 'proximity'))?]): ScrollSnapTypeProperty
 export function scrollSnapType() { return new ScrollSnapTypeProperty() }
 
 // property scroll-padding
@@ -5263,40 +5165,35 @@ export function aspectRatio() { return new AspectRatioProperty() }
 // auto? [ none | <length> ]
 class ContainIntrinsicWidthProperty {}
 
-export function containIntrinsicWidth(source: ['auto', ('none' | number)]): ContainIntrinsicWidthProperty
-export function containIntrinsicWidth(source: [void, ('none' | number)]): ContainIntrinsicWidthProperty
+export function containIntrinsicWidth(source: [('auto')?, ('none' | number)]): ContainIntrinsicWidthProperty
 export function containIntrinsicWidth() { return new ContainIntrinsicWidthProperty() }
 
 // property contain-intrinsic-height
 // auto? [ none | <length> ]
 class ContainIntrinsicHeightProperty {}
 
-export function containIntrinsicHeight(source: ['auto', ('none' | number)]): ContainIntrinsicHeightProperty
-export function containIntrinsicHeight(source: [void, ('none' | number)]): ContainIntrinsicHeightProperty
+export function containIntrinsicHeight(source: [('auto')?, ('none' | number)]): ContainIntrinsicHeightProperty
 export function containIntrinsicHeight() { return new ContainIntrinsicHeightProperty() }
 
 // property contain-intrinsic-block-size
 // auto? [ none | <length> ]
 class ContainIntrinsicBlockSizeProperty {}
 
-export function containIntrinsicBlockSize(source: ['auto', ('none' | number)]): ContainIntrinsicBlockSizeProperty
-export function containIntrinsicBlockSize(source: [void, ('none' | number)]): ContainIntrinsicBlockSizeProperty
+export function containIntrinsicBlockSize(source: [('auto')?, ('none' | number)]): ContainIntrinsicBlockSizeProperty
 export function containIntrinsicBlockSize() { return new ContainIntrinsicBlockSizeProperty() }
 
 // property contain-intrinsic-inline-size
 // auto? [ none | <length> ]
 class ContainIntrinsicInlineSizeProperty {}
 
-export function containIntrinsicInlineSize(source: ['auto', ('none' | number)]): ContainIntrinsicInlineSizeProperty
-export function containIntrinsicInlineSize(source: [void, ('none' | number)]): ContainIntrinsicInlineSizeProperty
+export function containIntrinsicInlineSize(source: [('auto')?, ('none' | number)]): ContainIntrinsicInlineSizeProperty
 export function containIntrinsicInlineSize() { return new ContainIntrinsicInlineSizeProperty() }
 
 // property contain-intrinsic-size
 // [ auto? [ none | <length> ] ]{1,2}
 class ContainIntrinsicSizeProperty {}
 
-export function containIntrinsicSize(source: Repeat1to2<(['auto', ('none' | number)])>): ContainIntrinsicSizeProperty
-export function containIntrinsicSize(source: Repeat1to2<([void, ('none' | number)])>): ContainIntrinsicSizeProperty
+export function containIntrinsicSize(source: Repeat1to2<([('auto')?, ('none' | number)])>): ContainIntrinsicSizeProperty
 export function containIntrinsicSize() { return new ContainIntrinsicSizeProperty() }
 
 // property min-intrinsic-sizing
@@ -5401,8 +5298,7 @@ export function pauseAfter() { return new PauseAfterProperty() }
 // <'pause-before'> <'pause-after'>?
 class PauseProperty {}
 
-export function pause(source: [PauseBeforeProperty, PauseAfterProperty]): PauseProperty
-export function pause(source: [PauseBeforeProperty, void]): PauseProperty
+export function pause(source: [PauseBeforeProperty, (PauseAfterProperty)?]): PauseProperty
 export function pause() { return new PauseProperty() }
 
 // property rest-before
@@ -5423,30 +5319,28 @@ export function restAfter() { return new RestAfterProperty() }
 // <'rest-before'> <'rest-after'>?
 class RestProperty {}
 
-export function rest(source: [RestBeforeProperty, RestAfterProperty]): RestProperty
-export function rest(source: [RestBeforeProperty, void]): RestProperty
+export function rest(source: [RestBeforeProperty, (RestAfterProperty)?]): RestProperty
 export function rest() { return new RestProperty() }
 
 // property cue-before
 // <uri> <decibel>? | none
 class CueBeforeProperty {}
 
-export function cueBefore(source: [Uri, Decibel] | [Uri, void] | 'none'): CueBeforeProperty
+export function cueBefore(source: [Uri, (Decibel)?] | 'none'): CueBeforeProperty
 export function cueBefore() { return new CueBeforeProperty() }
 
 // property cue-after
 // <uri> <decibel>? | none
 class CueAfterProperty {}
 
-export function cueAfter(source: [Uri, Decibel] | [Uri, void] | 'none'): CueAfterProperty
+export function cueAfter(source: [Uri, (Decibel)?] | 'none'): CueAfterProperty
 export function cueAfter() { return new CueAfterProperty() }
 
 // property cue
 // <'cue-before'> <'cue-after'>?
 class CueProperty {}
 
-export function cue(source: [CueBeforeProperty, CueAfterProperty]): CueProperty
-export function cue(source: [CueBeforeProperty, void]): CueProperty
+export function cue(source: [CueBeforeProperty, (CueAfterProperty)?]): CueProperty
 export function cue() { return new CueProperty() }
 
 // property voice-family
@@ -5467,14 +5361,14 @@ export function voiceRate() { return new VoiceRateProperty() }
 // <frequency [0Hz,∞]> && absolute | [[x-low | low | medium | high | x-high] || [<frequency> | <semitones> | <percentage>]]
 class VoicePitchProperty {}
 
-export function voicePitch(source: (Frequency & 'absolute') | ((('x-low' | 'low' | 'medium' | 'high' | 'x-high') | (Frequency | Semitones | Percentage)))): VoicePitchProperty
+export function voicePitch(source: (Frequency, 'absolute') | ((('x-low' | 'low' | 'medium' | 'high' | 'x-high') | (Frequency | Semitones | Percentage)))): VoicePitchProperty
 export function voicePitch() { return new VoicePitchProperty() }
 
 // property voice-range
 // <frequency [0Hz,∞]> && absolute | [[x-low | low | medium | high | x-high] || [<frequency> | <semitones> | <percentage>]]
 class VoiceRangeProperty {}
 
-export function voiceRange(source: (Frequency & 'absolute') | ((('x-low' | 'low' | 'medium' | 'high' | 'x-high') | (Frequency | Semitones | Percentage)))): VoiceRangeProperty
+export function voiceRange(source: (Frequency, 'absolute') | ((('x-low' | 'low' | 'medium' | 'high' | 'x-high') | (Frequency | Semitones | Percentage)))): VoiceRangeProperty
 export function voiceRange() { return new VoiceRangeProperty() }
 
 // property voice-stress
@@ -5537,7 +5431,7 @@ export function textTransform() { return new TextTransformProperty() }
 // none | [ space | ideographic-space ] && auto-phrase?
 class WordSpaceTransformProperty {}
 
-export function wordSpaceTransform(source: 'none' | (('space' | 'ideographic-space') & 'auto-phrase') | (('space' | 'ideographic-space') & void)): WordSpaceTransformProperty
+export function wordSpaceTransform(source: 'none' | (('space' | 'ideographic-space'), ('auto-phrase')?)): WordSpaceTransformProperty
 export function wordSpaceTransform() { return new WordSpaceTransformProperty() }
 
 // property white-space
@@ -5758,10 +5652,7 @@ export function textSpacing() { return new TextSpacingProperty() }
 // [ <length-percentage> ] && hanging? && each-line?
 class TextIndentProperty {}
 
-export function textIndent(source: ((LengthPercentage) & ('hanging' & 'each-line'))): TextIndentProperty
-export function textIndent(source: ((LengthPercentage) & ('hanging' & void))): TextIndentProperty
-export function textIndent(source: ((LengthPercentage) & (void & 'each-line'))): TextIndentProperty
-export function textIndent(source: ((LengthPercentage) & (void & void))): TextIndentProperty
+export function textIndent(source: ((LengthPercentage), (('hanging')?, ('each-line')?))): TextIndentProperty
 export function textIndent() { return new TextIndentProperty() }
 
 // property hanging-punctuation
@@ -5887,8 +5778,7 @@ export function textEmphasis() { return new TextEmphasisProperty() }
 // [ over | under ] && [ right | left ]?
 class TextEmphasisPositionProperty {}
 
-export function textEmphasisPosition(source: (('over' | 'under') & ('right' | 'left'))): TextEmphasisPositionProperty
-export function textEmphasisPosition(source: (('over' | 'under') & void)): TextEmphasisPositionProperty
+export function textEmphasisPosition(source: (('over' | 'under'), (('right' | 'left'))?)): TextEmphasisPositionProperty
 export function textEmphasisPosition() { return new TextEmphasisPositionProperty() }
 
 // property text-emphasis-skip
@@ -5902,21 +5792,21 @@ export function textEmphasisSkip() { return new TextEmphasisSkipProperty() }
 // none | [ <color>? && <length>{2,3} ]#
 class TextShadowProperty {}
 
-export function textShadow(source: 'none' | RecurseTuple<((Color & Repeat2to3<number>))> | RecurseTuple<((void & Repeat2to3<number>))>): TextShadowProperty
+export function textShadow(source: 'none' | RecurseTuple<(((Color)?, Repeat2to3<number>))>): TextShadowProperty
 export function textShadow() { return new TextShadowProperty() }
 
 // property translate
 // none | <length-percentage> [ <length-percentage> <length>? ]?
 class TranslateProperty {}
 
-export function translate(source: 'none' | [LengthPercentage, ([LengthPercentage, number])] | [LengthPercentage, ([LengthPercentage, void])] | [LengthPercentage, void]): TranslateProperty
+export function translate(source: 'none' | [LengthPercentage, (([LengthPercentage, (number)?]))?]): TranslateProperty
 export function translate() { return new TranslateProperty() }
 
 // property rotate
 // none | <angle> | [ x | y | z | <number>{3} ] && <angle>
 class RotateProperty {}
 
-export function rotate(source: 'none' | Angle | (('x' | 'y' | 'z' | Repeat3<number>) & Angle)): RotateProperty
+export function rotate(source: 'none' | Angle | (('x' | 'y' | 'z' | Repeat3<number>), Angle)): RotateProperty
 export function rotate() { return new RotateProperty() }
 
 // property scale
@@ -5965,7 +5855,7 @@ export function transform() { return new TransformProperty() }
 // [ left | center | right | top | bottom | <length-percentage> ] | [ left | center | right | <length-percentage> ] [ top | center | bottom | <length-percentage> ] <length>? | [[ center | left | right ] && [ center | top | bottom ]] <length>?
 class TransformOriginProperty {}
 
-export function transformOrigin(source: ('left' | 'center' | 'right' | 'top' | 'bottom' | LengthPercentage) | [('left' | 'center' | 'right' | LengthPercentage), ('top' | 'center' | 'bottom' | LengthPercentage), number] | [('left' | 'center' | 'right' | LengthPercentage), ('top' | 'center' | 'bottom' | LengthPercentage), void] | [((('center' | 'left' | 'right') & ('center' | 'top' | 'bottom'))), number] | [((('center' | 'left' | 'right') & ('center' | 'top' | 'bottom'))), void]): TransformOriginProperty
+export function transformOrigin(source: ('left' | 'center' | 'right' | 'top' | 'bottom' | LengthPercentage) | [('left' | 'center' | 'right' | LengthPercentage), ('top' | 'center' | 'bottom' | LengthPercentage), (number)?] | [((('center' | 'left' | 'right'), ('center' | 'top' | 'bottom'))), (number)?]): TransformOriginProperty
 export function transformOrigin() { return new TransformOriginProperty() }
 
 // property transform-box
@@ -6063,9 +5953,7 @@ export function resize() { return new ResizeProperty() }
 // [ [ <url> | <url-set> ] [<x> <y>]? ]#? [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | grab | grabbing | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out ]
 class CursorProperty {}
 
-export function cursor(source: [RecurseTuple<([(Url | UrlSet), ([X, Y])])>, ('auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'grab' | 'grabbing' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out')]): CursorProperty
-export function cursor(source: [RecurseTuple<([(Url | UrlSet), void])>, ('auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'grab' | 'grabbing' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out')]): CursorProperty
-export function cursor(source: [void, ('auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'grab' | 'grabbing' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out')]): CursorProperty
+export function cursor(source: [(RecurseTuple<([(Url | UrlSet), (([X, Y]))?])>)?, ('auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'grab' | 'grabbing' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out')]): CursorProperty
 export function cursor() { return new CursorProperty() }
 
 // property caret-color
@@ -6093,28 +5981,28 @@ export function caret() { return new CaretProperty() }
 // auto | <id> [ current | root | <target-name> ]?
 class NavUpProperty {}
 
-export function navUp(source: 'auto' | [Id, ('current' | 'root' | TargetName)] | [Id, void]): NavUpProperty
+export function navUp(source: 'auto' | [Id, (('current' | 'root' | TargetName))?]): NavUpProperty
 export function navUp() { return new NavUpProperty() }
 
 // property nav-right
 // auto | <id> [ current | root | <target-name> ]?
 class NavRightProperty {}
 
-export function navRight(source: 'auto' | [Id, ('current' | 'root' | TargetName)] | [Id, void]): NavRightProperty
+export function navRight(source: 'auto' | [Id, (('current' | 'root' | TargetName))?]): NavRightProperty
 export function navRight() { return new NavRightProperty() }
 
 // property nav-down
 // auto | <id> [ current | root | <target-name> ]?
 class NavDownProperty {}
 
-export function navDown(source: 'auto' | [Id, ('current' | 'root' | TargetName)] | [Id, void]): NavDownProperty
+export function navDown(source: 'auto' | [Id, (('current' | 'root' | TargetName))?]): NavDownProperty
 export function navDown() { return new NavDownProperty() }
 
 // property nav-left
 // auto | <id> [ current | root | <target-name> ]?
 class NavLeftProperty {}
 
-export function navLeft(source: 'auto' | [Id, ('current' | 'root' | TargetName)] | [Id, void]): NavLeftProperty
+export function navLeft(source: 'auto' | [Id, (('current' | 'root' | TargetName))?]): NavLeftProperty
 export function navLeft() { return new NavLeftProperty() }
 
 // property user-select
@@ -6205,7 +6093,7 @@ export function glyphOrientationVertical() { return new GlyphOrientationVertical
 // none | all | [ digits <integer [2,4]>? ]
 class TextCombineUprightProperty {}
 
-export function textCombineUpright(source: 'none' | 'all' | (['digits', number]) | (['digits', void])): TextCombineUprightProperty
+export function textCombineUpright(source: 'none' | 'all' | (['digits', (number)?])): TextCombineUprightProperty
 export function textCombineUpright() { return new TextCombineUprightProperty() }
 
 // property fill-rule
@@ -6492,18 +6380,7 @@ export function offsetRotate() { return new OffsetRotateProperty() }
 // [ <'offset-position'>? [ <'offset-path'> [ <'offset-distance'> || <'offset-rotate'> ]? ]? ]! [ / <'offset-anchor'> ]?
 class OffsetProperty {}
 
-export function offset(source: [(([OffsetPositionProperty, ([OffsetPathProperty, ((OffsetDistanceProperty | OffsetRotateProperty))])])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([OffsetPositionProperty, ([OffsetPathProperty, ((OffsetDistanceProperty | OffsetRotateProperty))])])), void]): OffsetProperty
-export function offset(source: [(([OffsetPositionProperty, ([OffsetPathProperty, void])])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([OffsetPositionProperty, ([OffsetPathProperty, void])])), void]): OffsetProperty
-export function offset(source: [(([OffsetPositionProperty, void])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([OffsetPositionProperty, void])), void]): OffsetProperty
-export function offset(source: [(([void, ([OffsetPathProperty, ((OffsetDistanceProperty | OffsetRotateProperty))])])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([void, ([OffsetPathProperty, ((OffsetDistanceProperty | OffsetRotateProperty))])])), void]): OffsetProperty
-export function offset(source: [(([void, ([OffsetPathProperty, void])])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([void, ([OffsetPathProperty, void])])), void]): OffsetProperty
-export function offset(source: [(([void, void])), (['/', OffsetAnchorProperty])]): OffsetProperty
-export function offset(source: [(([void, void])), void]): OffsetProperty
+export function offset(source: [(([(OffsetPositionProperty)?, (([OffsetPathProperty, (((OffsetDistanceProperty | OffsetRotateProperty)))?]))?])), ((['/', OffsetAnchorProperty]))?]): OffsetProperty
 export function offset() { return new OffsetProperty() }
 
 // property scroll-timeline-name
@@ -6524,8 +6401,7 @@ export function scrollTimelineAxis() { return new ScrollTimelineAxisProperty() }
 // [ <'scroll-timeline-name'> <'scroll-timeline-axis'>? ]#
 class ScrollTimelineProperty {}
 
-export function scrollTimeline(source: RecurseTuple<([ScrollTimelineNameProperty, ScrollTimelineAxisProperty])>): ScrollTimelineProperty
-export function scrollTimeline(source: RecurseTuple<([ScrollTimelineNameProperty, void])>): ScrollTimelineProperty
+export function scrollTimeline(source: RecurseTuple<([ScrollTimelineNameProperty, (ScrollTimelineAxisProperty)?])>): ScrollTimelineProperty
 export function scrollTimeline() { return new ScrollTimelineProperty() }
 
 // property view-timeline-name
@@ -6553,30 +6429,28 @@ export function viewTimelineInset() { return new ViewTimelineInsetProperty() }
 // [ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#
 class ViewTimelineProperty {}
 
-export function viewTimeline(source: RecurseTuple<([ViewTimelineNameProperty, ((ViewTimelineAxisProperty | ViewTimelineInsetProperty))])>): ViewTimelineProperty
-export function viewTimeline(source: RecurseTuple<([ViewTimelineNameProperty, void])>): ViewTimelineProperty
+export function viewTimeline(source: RecurseTuple<([ViewTimelineNameProperty, (((ViewTimelineAxisProperty | ViewTimelineInsetProperty)))?])>): ViewTimelineProperty
 export function viewTimeline() { return new ViewTimelineProperty() }
 
 // property animation-range
 // [ <'animation-range-start'> <'animation-range-end'>? ]#
 class AnimationRangeProperty {}
 
-export function animationRange(source: RecurseTuple<([AnimationRangeStartProperty, AnimationRangeEndProperty])>): AnimationRangeProperty
-export function animationRange(source: RecurseTuple<([AnimationRangeStartProperty, void])>): AnimationRangeProperty
+export function animationRange(source: RecurseTuple<([AnimationRangeStartProperty, (AnimationRangeEndProperty)?])>): AnimationRangeProperty
 export function animationRange() { return new AnimationRangeProperty() }
 
 // property animation-range-start
 // [ normal | <length-percentage> | <timeline-range-name> <length-percentage>? ]#
 class AnimationRangeStartProperty {}
 
-export function animationRangeStart(source: RecurseTuple<('normal' | LengthPercentage | [TimelineRangeName, LengthPercentage] | [TimelineRangeName, void])>): AnimationRangeStartProperty
+export function animationRangeStart(source: RecurseTuple<('normal' | LengthPercentage | [TimelineRangeName, (LengthPercentage)?])>): AnimationRangeStartProperty
 export function animationRangeStart() { return new AnimationRangeStartProperty() }
 
 // property animation-range-end
 // [ normal | <length-percentage> | <timeline-range-name> <length-percentage>? ]#
 class AnimationRangeEndProperty {}
 
-export function animationRangeEnd(source: RecurseTuple<('normal' | LengthPercentage | [TimelineRangeName, LengthPercentage] | [TimelineRangeName, void])>): AnimationRangeEndProperty
+export function animationRangeEnd(source: RecurseTuple<('normal' | LengthPercentage | [TimelineRangeName, (LengthPercentage)?])>): AnimationRangeEndProperty
 export function animationRangeEnd() { return new AnimationRangeEndProperty() }
 
 // property timeline-scope
@@ -6604,7 +6478,7 @@ export function strokeDashcorner() { return new StrokeDashcornerProperty() }
 // none | [stretch | compress] [dashes | gaps]?
 class StrokeDashadjustProperty {}
 
-export function strokeDashadjust(source: 'none' | [('stretch' | 'compress'), ('dashes' | 'gaps')] | [('stretch' | 'compress'), void]): StrokeDashadjustProperty
+export function strokeDashadjust(source: 'none' | [('stretch' | 'compress'), (('dashes' | 'gaps'))?]): StrokeDashadjustProperty
 export function strokeDashadjust() { return new StrokeDashadjustProperty() }
 
 
