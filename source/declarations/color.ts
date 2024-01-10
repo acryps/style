@@ -96,7 +96,7 @@ export class Hsl extends StyleMethod {
 export function hsl(hue: Angle, saturation: Percentage, lightness: Percentage, alpha?: AlphaValue) { return new Hsl(Style.resolveNumber('angle', hue), saturation, lightness, alpha); }
 
 // color value
-export type ColorValue = Hex | Rgb | 'currentColor' | 'transparent' | Variable<ColorValue>;
+export type ColorValue = Hex | Rgb | Hsl | 'currentColor' | 'transparent' | Variable<ColorValue>;
 
 // color
 export class ColorStyleProperty extends StyleProperty {

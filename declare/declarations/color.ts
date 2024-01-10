@@ -46,7 +46,7 @@ export const hsl = new MethodDeclaration({
 	this.alpha = alpha;
 `, "hsl(${this.hue} ${this.saturation} ${this.lightness}${this.alpha == null ? '' : ` / ${this.alpha}`})");
 
-export const colorValue = new TypeDeclaration(hex, rgb, 'currentColor', 'transparent');
+export const colorValue = new TypeDeclaration(hex, rgb, hsl, 'currentColor', 'transparent');
 
 export const color = new PropertyTypeDeclaration({
 	color: colorValue.single()
