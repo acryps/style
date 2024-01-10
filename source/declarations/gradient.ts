@@ -1,9 +1,10 @@
+import { Style } from '../index';
 import { StyleProperty } from '../property';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
 import { ColorValue } from './color';
-import { Angle, rad, turn } from './angle';
+import { Angle } from './angle';
 
 // color stop location
 export type ColorStopLocation = Length | Percentage;
@@ -38,9 +39,8 @@ export class LinearGradient {
 	}
 }
 
-export function linearGradient(angle: Angle, ...stops: ColorStop[]) { return new LinearGradient(angle, ...stops); }
+export function linearGradient(angle: Angle, ...stops: ColorStop[]) { return new LinearGradient(Style.resolveNumber('angle', angle), ...stops); }
 
 // gradient
 export type Gradient = LinearGradient;
 
-backgroundImage(linearGradient(turn(0.4), colorStop(0, rgb(1, 5, 6, 0.4))));

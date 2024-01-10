@@ -1,3 +1,4 @@
+import { Style } from '../index';
 import { StyleProperty } from '../property';
 
 import { Number } from './primitives';
@@ -43,4 +44,5 @@ export function turn(angle: Number) { return new Turn(angle); }
 
 // angle
 export type Angle = Deg | Rad | Turn;
+Style.numberConverter['angle'] = Turn;
 

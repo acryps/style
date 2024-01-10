@@ -1,3 +1,4 @@
+import { Style } from '../index';
 import { StyleProperty } from '../property';
 
 

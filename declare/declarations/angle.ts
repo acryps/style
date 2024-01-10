@@ -20,4 +20,5 @@ export const turn = new MethodDeclaration({
 	this.angle = angle;
 `, "${this.angle}turn");
 
-export const angle = new TypeDeclaration(deg, rad, turn);
+export const angle = new TypeDeclaration(deg, rad, turn)
+	.defaultNumberConverter(turn);

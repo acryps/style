@@ -35,6 +35,7 @@ for (let sourcePath in sources) {
 		const writer = createWriteStream(join(drainBase, sourcePath.replace('.js', '.ts')));
 
 		// import base types
+		writer.write(`import { Style } from '../index';\n`);
 		writer.write(`import { StyleProperty } from '../property';\n`);
 		writer.write('\n');
 
@@ -121,7 +122,13 @@ for (let sourcePath in sources) {
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n`);
+
+				if (declaration.defaultNumberConverterDeclaration) {
+					writer.write(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};\n`);
+				}
+
+				writer.write('\n');
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {

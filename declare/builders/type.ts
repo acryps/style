@@ -5,6 +5,7 @@ export class TypeDeclaration implements Declaration {
 	name: Ident;
 
 	options: (string | TypeDeclaration)[];
+	defaultNumberConverterDeclaration: TypeDeclaration;
 
 	constructor(
 		...options: (string | TypeDeclaration)[]
@@ -12,12 +13,18 @@ export class TypeDeclaration implements Declaration {
 		this.options = options;
 	}
 
+	defaultNumberConverter(type: TypeDeclaration) {
+		this.defaultNumberConverterDeclaration = type;
+
+		return this;
+	}
+
 	spread() {
 		return (propertyName: string) => new PropertyInitializer(
 			this,
 			`${this.name.toClassCamelCase()}[]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
-			`...${propertyName}`
+			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`
 		);
 	}
 
@@ -26,7 +33,7 @@ export class TypeDeclaration implements Declaration {
 			this,
 			`${this.name.toClassCamelCase()}`,
 			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
-			propertyName
+			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
 		);
 	}
 
@@ -35,7 +42,7 @@ export class TypeDeclaration implements Declaration {
 			this,
 			`${this.name.toClassCamelCase()} | undefined`,
 			`${propertyName}?: ${this.name.toClassCamelCase()}`,
-			propertyName
+			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
 		);
 	}
 
