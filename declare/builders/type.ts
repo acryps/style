@@ -1,13 +1,14 @@
 import { Ident } from "../ident";
 import { Declaration, PropertyInitializer } from ".";
+import { MethodDeclaration } from "./method";
 
 export class TypeDeclaration implements Declaration {
 	name: Ident;
 
-	options: (string | TypeDeclaration)[];
+	options: (string | TypeDeclaration | MethodDeclaration)[];
 
 	constructor(
-		...options: (string | TypeDeclaration)[]
+		...options: (string | TypeDeclaration | MethodDeclaration)[]
 	) {
 		this.options = options;
 	}
@@ -30,12 +31,33 @@ export class TypeDeclaration implements Declaration {
 		);
 	}
 
+	optional() {
+		return (propertyName: string) => new PropertyInitializer(
+			this,
+			`${this.name.toClassCamelCase()} | undefined`,
+			`${propertyName}?: ${this.name.toClassCamelCase()}`,
+			propertyName
+		);
+	}
+
 	requirements() {
 		return this.options.filter(value => value instanceof TypeDeclaration) as TypeDeclaration[];
 	}
 
 	toString() {
-		return this.options.map(option => option instanceof TypeDeclaration ? option.name.toClassCamelCase() : `'${option}'`).join(' | ');
+		return this.options.map(option => {
+			if (option instanceof TypeDeclaration) {
+				return option.name.toClassCamelCase();
+			}
+
+			if (option instanceof MethodDeclaration) {
+				return option.name.toClassCamelCase();
+			}
+			
+			if (typeof option == 'string') {
+				return `'${option}'`;
+			}
+		}).join(' | ');
 	}
 }
 

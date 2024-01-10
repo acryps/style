@@ -5,6 +5,7 @@ import { Declaration } from "./builders";
 import { TypeDeclaration } from "./builders/type";
 import { PropertyTypeDeclaration } from "./builders/property";
 import { ShorthandDeclaration } from "./builders/shorthand";
+import { MethodDeclaration } from "./builders/method";
 
 const sourceBase = join(__dirname, 'declarations');
 
@@ -94,6 +95,35 @@ for (let sourcePath in sources) {
 
 			if (declaration instanceof TypeDeclaration) {
 				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n\n`);
+			}
+
+			if (declaration instanceof MethodDeclaration) {
+				writer.write(`export class ${declaration.name.toClassCamelCase()} {\n`);
+				
+				const constructorArguments = [];
+				const passArguments = [];
+
+				for (let property in declaration.parameters) {
+					const initializer = declaration.parameters[property](property);
+
+					writer.write(`\tprivate ${property}: ${initializer.type};\n`);
+
+					constructorArguments.push(initializer.argument);
+					passArguments.push(initializer.pass);
+				}
+
+				writer.write('\n');
+
+				writer.write('\tconstructor(\n');
+				writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
+				writer.write('\t) {\n\t');
+
+				writer.write(declaration.creator.trim().split('\n').map(line => `\t${line}`).join('\n'));
+
+				writer.write('\n\t}\n');
+				writer.write(`}\n\n`);
+
+				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
