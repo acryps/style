@@ -1,4 +1,6 @@
-import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
+import { ShorthandDeclaration } from "../builders/shorthand";
 import { integer, length, string } from "./primitives";
 
 export const fontFamilyIdentifier = new TypeDeclaration(string);

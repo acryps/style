@@ -1,4 +1,4 @@
-import { PropertyTypeDeclaration } from "../types";
+import { PropertyTypeDeclaration } from "../builders/property";
 import { integer } from "./primitives";
 
 export const zIndex = new PropertyTypeDeclaration({

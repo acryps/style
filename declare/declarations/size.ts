@@ -1,4 +1,5 @@
-import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
 import { length, percentage } from "./primitives";
 
 export const sizeDimension = new TypeDeclaration(length, percentage, 'auto', 'max-content', 'min-content', 'fit-content');

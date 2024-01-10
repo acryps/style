@@ -1,96 +1,17 @@
-import { Ident } from "./ident";
-
-export interface Declaration {
-	name: Ident;
-	requirements(): Declaration[];
-}
-
-export class PropertyTypeDeclaration implements Declaration {
-	name: Ident;
-
-	constructor(
-		public initializer: Record<string, (propertyName: string) => PropertyInitializer>,
-		public valueConverter: string
-	) {}
-
-	requirements() {
-		return Object.values(this.initializer).map(value => value('').source);
-	}
-}
-
-export class PropertyInitializer {
-	constructor(
-		public source: TypeDeclaration,
-		public type: string,
-		public argument: string,
-		public pass: string
-	) {}
-}
-
-export class TypeDeclaration implements Declaration {
-	name: Ident;
-
-	options: (string | TypeDeclaration)[];
-
-	constructor(
-		...options: (string | TypeDeclaration)[]
-	) {
-		this.options = options;
-	}
-
-	spread() {
-		return (propertyName: string) => new PropertyInitializer(
-			this,
-			`${this.name.toClassCamelCase()}[]`,
-			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
-			`...${propertyName}`
-		);
-	}
-
-	single(defaultValue?: string) {
-		return (propertyName: string) => new PropertyInitializer(
-			this,
-			`${this.name.toClassCamelCase()}`,
-			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
-			propertyName
-		);
-	}
-
-	requirements() {
-		return this.options.filter(value => value instanceof TypeDeclaration) as TypeDeclaration[];
-	}
-
-	toString() {
-		return this.options.map(option => option instanceof TypeDeclaration ? option.name.toClassCamelCase() : `'${option}'`).join(' | ');
-	}
-}
-
-export class PrimitiveType extends TypeDeclaration {
-	constructor(
-		private definition: string
-	) {
-		super();
-	}
-
-	requirements() {
-		return [];
-	}
-
-	toString() {
-		return this.definition
-	}
-}
+import { Ident } from "../ident";
+import { Declaration } from ".";
+import { PropertyTypeDeclaration } from "./property";
 
 export class ShorthandDeclaration implements Declaration {
 	name: Ident;
 
 	constructor(
 		public children: PropertyTypeDeclaration[] | ShorthandDeclaration[]
-	) {}
+	) { }
 
 	// create child initializer
 	// → overflow('scroll', 'auto') = overflowX('scroll') + overflowY('auto')
-	constructChildInitializer(): { genericArguments: string[], namedArguments: string[], initializer: string } {
+	constructChildInitializer(): { genericArguments: string[]; namedArguments: string[]; initializer: string; } {
 		const firstDeclaration = this.children[0];
 
 		if (firstDeclaration instanceof ShorthandDeclaration) {
@@ -103,10 +24,8 @@ export class ShorthandDeclaration implements Declaration {
 					return {
 						genericArguments: firstShorthandInitializer.genericArguments,
 						namedArguments: firstShorthandInitializer.namedArguments,
-						initializer: `if (arguments.length == ${firstShorthandInitializer.genericArguments.length}) { return new ${this.name.toPropertyClassName()}(${
-							children.map(child => `${child.name.toCommandName()}(${firstShorthandInitializer.genericArguments.map((argument, index) => `arguments[${index}]`) .join(', ')})`).join(', ')
-						}); }`
-					}
+						initializer: `if (arguments.length == ${firstShorthandInitializer.genericArguments.length}) { return new ${this.name.toPropertyClassName()}(${children.map(child => `${child.name.toCommandName()}(${firstShorthandInitializer.genericArguments.map((argument, index) => `arguments[${index}]`).join(', ')})`).join(', ')}); }`
+					};
 				}
 			}
 		}
@@ -130,16 +49,14 @@ export class ShorthandDeclaration implements Declaration {
 			return {
 				genericArguments: childInitializerGenericFunctionArguments,
 				namedArguments: childInitializerNamedFunctionArguments,
-				initializer: `if (arguments.length == ${children.length}) { return new ${this.name.toPropertyClassName()}(${
-					children.map(child => `new ${child.name.toPropertyClassName()}(${Object.keys(child.initializer).map(() => childInitializerPassArguments.shift()).join(', ')})`).join(', ')
-				}); }`
-			}
+				initializer: `if (arguments.length == ${children.length}) { return new ${this.name.toPropertyClassName()}(${children.map(child => `new ${child.name.toPropertyClassName()}(${Object.keys(child.initializer).map(() => childInitializerPassArguments.shift()).join(', ')})`).join(', ')}); }`
+			};
 		}
 	}
 
 	// check for same parameter initializing
 	// → overflow('scroll') = overflowX('scroll') + overflowY('scroll')
-	constructCommonParameterInitializer(): { arguments: string[], initializer: string } {
+	constructCommonParameterInitializer(): { arguments: string[]; initializer: string; } {
 		const firstDeclaration = this.children[0];
 
 		if (firstDeclaration instanceof ShorthandDeclaration) {
@@ -152,10 +69,8 @@ export class ShorthandDeclaration implements Declaration {
 
 				return {
 					arguments: uniqueArguments,
-					initializer: `if (arguments.length == ${uniqueArguments.length}) { return new ${this.name.toPropertyClassName()}(${
-						children.map(child => `${child.name.toCommandName()}(${uniqueArguments.map((argument, index) => `arguments[${index}]`).join(', ')})`).join(', ')
-					}); }`
-				}
+					initializer: `if (arguments.length == ${uniqueArguments.length}) { return new ${this.name.toPropertyClassName()}(${children.map(child => `${child.name.toCommandName()}(${uniqueArguments.map((argument, index) => `arguments[${index}]`).join(', ')})`).join(', ')}); }`
+				};
 			}
 		}
 
@@ -175,10 +90,8 @@ export class ShorthandDeclaration implements Declaration {
 
 				return {
 					arguments: functionArguments,
-					initializer: `if (arguments.length == ${Object.keys(firstDeclaration.initializer).length}) { return new ${this.name.toPropertyClassName()}(${
-						children.map(child => `new ${child.name.toPropertyClassName()}(${passArguments.join(', ')})`).join(', ')
-					}); }`
-				}
+					initializer: `if (arguments.length == ${Object.keys(firstDeclaration.initializer).length}) { return new ${this.name.toPropertyClassName()}(${children.map(child => `new ${child.name.toPropertyClassName()}(${passArguments.join(', ')})`).join(', ')}); }`
+				};
 			}
 		}
 	}

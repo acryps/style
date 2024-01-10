@@ -1,4 +1,6 @@
-import { PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
+import { ShorthandDeclaration } from "../builders/shorthand";
 
 export const overflowMode = new TypeDeclaration('visible', 'hidden', 'clip', 'scroll', 'auto');
 

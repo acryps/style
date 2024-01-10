@@ -1,4 +1,5 @@
-import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
 import { colorValue } from "./color";
 import { length } from "./primitives";
 

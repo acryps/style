@@ -1,7 +1,10 @@
 import { createWriteStream, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
 import { Ident } from "./ident";
-import { Declaration, PropertyTypeDeclaration, ShorthandDeclaration, TypeDeclaration } from "./types";
+import { Declaration } from "./builders";
+import { TypeDeclaration } from "./builders/type";
+import { PropertyTypeDeclaration } from "./builders/property";
+import { ShorthandDeclaration } from "./builders/shorthand";
 
 const sourceBase = join(__dirname, 'declarations');
 

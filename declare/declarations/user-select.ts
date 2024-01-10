@@ -1,4 +1,5 @@
-import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
 
 export const userSelectMode = new TypeDeclaration('auto', 'text', 'contain', 'all', 'none');
 

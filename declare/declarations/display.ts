@@ -1,4 +1,5 @@
-import { PropertyTypeDeclaration, TypeDeclaration } from "../types";
+import { TypeDeclaration } from "../builders/type";
+import { PropertyTypeDeclaration } from "../builders/property";
 
 export const displayMode = new TypeDeclaration('block', 'inline', 'flex', 'grid', 'flow-root', 'none', 'contents');
 
