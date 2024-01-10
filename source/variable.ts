@@ -31,7 +31,7 @@ export class Variable<T> extends StyleProperty {
 
 		try {
 			for (let user of this.users) {
-				style(user, this).apply();
+				style(user, new Variable<T>(this.name, this.value)).apply();
 			}
 		} catch {}
 	}

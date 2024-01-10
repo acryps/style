@@ -37,7 +37,7 @@ export class Rad extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.value}deg`;
+		return `${this.value}rad`;
 	}
 }
 
@@ -56,7 +56,7 @@ export class Turn extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.value}deg`;
+		return `${this.value}turn`;
 	}
 }
 
