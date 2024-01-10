@@ -7,6 +7,9 @@ import { Percentage } from './primitives';
 // size dimension
 export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content';
 
+// size bounding dimension
+export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content';
+
 // height
 export class HeightStyleProperty extends StyleProperty {
 	private size: SizeDimension;
@@ -26,6 +29,44 @@ export class HeightStyleProperty extends StyleProperty {
 
 export const height = (size: SizeDimension) => new HeightStyleProperty(size);
 
+// min height
+export class MinHeightStyleProperty extends StyleProperty {
+	private limit: SizeDimension;
+
+	constructor(
+		limit: SizeDimension
+	) {
+		super('min-height');
+
+		this.limit = limit;
+	}
+
+	toValueString() {
+		return `${this.limit}`;
+	}
+}
+
+export const minHeight = (limit: SizeDimension) => new MinHeightStyleProperty(limit);
+
+// max height
+export class MaxHeightStyleProperty extends StyleProperty {
+	private limit: SizeDimension;
+
+	constructor(
+		limit: SizeDimension
+	) {
+		super('max-height');
+
+		this.limit = limit;
+	}
+
+	toValueString() {
+		return `${this.limit}`;
+	}
+}
+
+export const maxHeight = (limit: SizeDimension) => new MaxHeightStyleProperty(limit);
+
 // width
 export class WidthStyleProperty extends StyleProperty {
 	private size: SizeDimension;
@@ -44,4 +85,42 @@ export class WidthStyleProperty extends StyleProperty {
 }
 
 export const width = (size: SizeDimension) => new WidthStyleProperty(size);
+
+// min width
+export class MinWidthStyleProperty extends StyleProperty {
+	private limit: SizeDimension;
+
+	constructor(
+		limit: SizeDimension
+	) {
+		super('min-width');
+
+		this.limit = limit;
+	}
+
+	toValueString() {
+		return `${this.limit}`;
+	}
+}
+
+export const minWidth = (limit: SizeDimension) => new MinWidthStyleProperty(limit);
+
+// max width
+export class MaxWidthStyleProperty extends StyleProperty {
+	private limit: SizeDimension;
+
+	constructor(
+		limit: SizeDimension
+	) {
+		super('max-width');
+
+		this.limit = limit;
+	}
+
+	toValueString() {
+		return `${this.limit}`;
+	}
+}
+
+export const maxWidth = (limit: SizeDimension) => new MaxWidthStyleProperty(limit);
 
