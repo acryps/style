@@ -1,4 +1,4 @@
-import { Style } from '../index';
+import { Style } from '../style';
 import { StyleProperty } from '../property';
 
 import { Length } from './primitives';
@@ -9,6 +9,28 @@ export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-
 
 // size bounding dimension
 export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content';
+
+// box sizing mode
+export type BoxSizingMode = 'border-box' | 'content-box';
+
+// box sizing
+export class BoxSizingStyleProperty extends StyleProperty {
+	private mode: BoxSizingMode;
+
+	constructor(
+		mode: BoxSizingMode
+	) {
+		super('box-sizing');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const boxSizing = (mode: BoxSizingMode) => new BoxSizingStyleProperty(mode);
 
 // height
 export class HeightStyleProperty extends StyleProperty {

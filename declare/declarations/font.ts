@@ -22,4 +22,4 @@ export const font = new ShorthandDeclaration([
 	fontSize,
 	fontWeight,
 	fontFamily
-])
+]);

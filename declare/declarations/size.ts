@@ -20,3 +20,9 @@ const exportSize = (dimension: string) => {
 
 exportSize('height');
 exportSize('width');
+
+export const boxSizingMode = new TypeDeclaration('border-box', 'content-box');
+
+export const boxSizing = new PropertyTypeDeclaration({
+	mode: boxSizingMode.single()
+}, '${this.mode}');

@@ -1,4 +1,4 @@
-import { Style } from '../index';
+import { Style } from '../style';
 import { StyleProperty } from '../property';
 
 import { Number } from './primitives';
@@ -11,6 +11,10 @@ export class Deg {
 		angle: Number
 	) {
 		this.angle = angle;
+	}
+
+	toString() {
+		return `${this.angle}deg`;
 	}
 }
 
@@ -25,6 +29,10 @@ export class Rad {
 	) {
 		this.angle = angle;
 	}
+
+	toString() {
+		return `${this.angle}rad`;
+	}
 }
 
 export function rad(angle: Number) { return new Rad(angle); }
@@ -37,6 +45,10 @@ export class Turn {
 		angle: Number
 	) {
 		this.angle = angle;
+	}
+
+	toString() {
+		return `${this.angle}turn`;
 	}
 }
 

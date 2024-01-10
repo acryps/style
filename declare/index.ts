@@ -35,7 +35,7 @@ for (let sourcePath in sources) {
 		const writer = createWriteStream(join(drainBase, sourcePath.replace('.js', '.ts')));
 
 		// import base types
-		writer.write(`import { Style } from '../index';\n`);
+		writer.write(`import { Style } from '../style';\n`);
 		writer.write(`import { StyleProperty } from '../property';\n`);
 		writer.write('\n');
 
@@ -117,7 +117,12 @@ for (let sourcePath in sources) {
 
 				writer.write(declaration.creator.trim().split('\n').map(line => `\t${line}`).join('\n'));
 
-				writer.write('\n\t}\n');
+				writer.write('\n\t}\n\n');
+
+				writer.write('\ttoString() {\n');
+				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
+				writer.write('\t}\n');
+
 				writer.write(`}\n\n`);
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);

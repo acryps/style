@@ -1,4 +1,4 @@
-import { Style } from '../index';
+import { Style } from '../style';
 import { StyleProperty } from '../property';
 
 import { Length } from './primitives';
@@ -21,6 +21,10 @@ export class ColorStop {
 		this.location = location;
 		this.color = color;
 	}
+
+	toString() {
+		return `${this.color} ${this.location}`;
+	}
 }
 
 export function colorStop(location: ColorStopLocation, color: ColorValue) { return new ColorStop(location, color); }
@@ -36,6 +40,10 @@ export class LinearGradient {
 	) {
 		this.angle = angle;
 		this.stops = stops;
+	}
+
+	toString() {
+		return `${this.angle}, ${this.stops.join(',')}`;
 	}
 }
 

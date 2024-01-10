@@ -1,4 +1,4 @@
-import { Style } from '../index';
+import { Style } from '../style';
 import { StyleProperty } from '../property';
 
 import { LineWidth } from './primitives';
