@@ -1,7 +1,7 @@
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
 
-type StyleSelectorBody = StyleProperty | StyleGroup | StyleSelectorBody[];
+export type StyleSelectorBody = StyleProperty | StyleGroup | StyleSelectorBody[];
 
 export function style(selector: string, ...items: StyleSelectorBody[]) {
 	const declaration = new StyleGroup(selector);

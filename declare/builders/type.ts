@@ -28,6 +28,15 @@ export class TypeDeclaration implements Declaration {
 		);
 	}
 
+	spreadArray() {
+		return (propertyName: string) => new PropertyInitializer(
+			this,
+			`${this.name.toClassCamelCase()}[][]`,
+			`...${propertyName}: ${this.name.toClassCamelCase()}[][]`,
+			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`
+		);
+	}
+
 	single(defaultValue?: string) {
 		return (propertyName: string) => new PropertyInitializer(
 			this,

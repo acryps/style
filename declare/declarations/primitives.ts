@@ -3,6 +3,7 @@ import { PrimitiveType } from "../builders/type";
 import { TypeDeclaration } from "../builders/type";
 
 export const string = new PrimitiveType('string');
+
 export const url = new MethodDeclaration({
 	source: string.single()
 }, `
