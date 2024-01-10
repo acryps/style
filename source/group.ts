@@ -45,9 +45,28 @@ export class StyleGroup {
 		const selector = `${parentSelector}${this.selector}`;
 
 		return `${selector}{${
-			this.properties.join('')
+			this.properties.flatMap(property => property.use(selector)).filter(property => property).join('')
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
 		}`
+	}
+
+	/**
+	 * Apply the styles
+	 * 
+	 * This creates a stylesheet and adds it to the documents head
+	 * Will fail in non-browser contexts (like node)
+	 */
+	apply(document?) {
+		document = (globalThis as any).document;
+
+		if (!document || !document.createElement || !document.head) {
+			throw new Error('Cannot apply styles in non-DOM context.');
+		}
+		
+		const styleSheet = document.createElement('style');
+		styleSheet.textContent = this.toString();
+
+		document.head.appendChild(styleSheet);
 	}
 }

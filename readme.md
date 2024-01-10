@@ -37,7 +37,6 @@ style('ui-book',
 ).apply();
 ```
 
-[NOT IMPLEMENTED]
 Adding a dynamic CSS variable.
 Note that `.update` will apply a new value to the DOM only on DOM contexts, while on contexts without a DOM, like node, this will just update the value definition, thus the `console.debug` will output the new color at the variable definition.
 
@@ -92,3 +91,13 @@ style('ui-page',
 	).apply();
 ).apply();
 ```
+
+## Declaration Generator
+We have tried using official declaration lists, like `@webref/css` or `mdn-data`.
+Sadly, even the official declarations contain errors, which broke the parser (check out old commits) multiple times.
+But there was a bigger issue: You can't automatically map css declarations to useful typescript APIs. 
+There are always a ton of declaration options for the same property, which we cannot make type safe.
+After long consideration, we thus chose to make them manually.
+
+There are a lot of CSS properties, often repeated over and over again using different axis or sides (left, right, ...).
+The properties defined in `source/declarations` are generated from `declare`, using `npm run declare`.

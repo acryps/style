@@ -25,6 +25,10 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 	return declaration;
 }
 
+export function root(...items: StyleSelectorBody[]) {
+	return style(':root', ...items);
+}
+
 export function child(selector: string, ...items: StyleSelectorBody[]) {
 	return style(`>${selector}`, ...items);
 }

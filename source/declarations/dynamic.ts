@@ -477,3 +477,4 @@ export function girdArea() {
 }
 
 GirdAreaStyleProperty.shorthand = [GridRowStartStyleProperty, GridColumnStartStyleProperty, GridRowEndStyleProperty, GridColumnEndStyleProperty];
+
