@@ -4,11 +4,11 @@ import { Declaration, PropertyInitializer } from ".";
 export class TypeDeclaration implements Declaration {
 	name: Ident;
 
-	options: (string | TypeDeclaration)[];
+	options: (string | number | TypeDeclaration)[];
 	defaultNumberConverterDeclaration: TypeDeclaration;
 
 	constructor(
-		...options: (string | TypeDeclaration)[]
+		...options: (string | number | TypeDeclaration)[]
 	) {
 		this.options = options;
 	}
@@ -67,6 +67,10 @@ export class TypeDeclaration implements Declaration {
 			
 			if (typeof option == 'string') {
 				return `'${option}'`;
+			}
+
+			if (typeof option == 'number') {
+				return `${option}`;
 			}
 		}).join(' | ');
 	}

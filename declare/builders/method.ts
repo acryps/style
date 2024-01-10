@@ -10,6 +10,12 @@ export class MethodDeclaration extends TypeDeclaration {
 		super();
 	}
 
+	static fromUnit(name: string, type) {
+		return new MethodDeclaration({
+			value: type.single()
+		}, `this.value = value;`, `\${this.value}${name}`);
+	}
+
 	requirements() {
 		return Object.values(this.parameters).map(parameter => parameter(parameter.name).source);
 	}

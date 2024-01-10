@@ -76,6 +76,8 @@ for (let sourcePath in sources) {
 		writer.write(imports.join('\n'));
 		writer.write('\n\n');
 
+		const defaultNumberConverters = [];
+
 		for (let name in declarations) {
 			const ident = Ident.fromCamelCase(name);
 			const declaration = declarations[name] as Declaration;
@@ -132,13 +134,11 @@ for (let sourcePath in sources) {
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}>;\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}>;\n\n`);
 
 				if (declaration.defaultNumberConverterDeclaration) {
-					writer.write(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};\n`);
+					defaultNumberConverters.push(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};`);
 				}
-
-				writer.write('\n');
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
@@ -225,6 +225,10 @@ for (let sourcePath in sources) {
 				writer.write(`${ident.toPropertyClassName()}.shorthand = [${declaration.children.map(child => child.name.toPropertyClassName()).join(', ')}];\n\n`);
 			}
 		}
+
+		// number converters require all types to be set
+		// insert at the bottom
+		writer.write(defaultNumberConverters.join('\n'));
 
 		writer.close();
 	}
