@@ -3,6 +3,7 @@ export * from './background';
 export * from './border';
 export * from './box-shadow';
 export * from './color';
+export * from './cursor';
 export * from './display';
 export * from './font';
 export * from './gradient';
