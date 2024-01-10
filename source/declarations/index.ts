@@ -8,6 +8,7 @@ export * from './display';
 export * from './font';
 export * from './gradient';
 export * from './line-height';
+export * from './object-fit';
 export * from './opacity';
 export * from './overflow';
 export * from './pointer-events';
