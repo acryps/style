@@ -41,6 +41,6 @@ export class Variable<T> extends StyleProperty {
 	}
 
 	toValueString() {
-		return `var(--${this.propertyName})`;
+		return `var(${this.propertyName})`;
 	}
 }
