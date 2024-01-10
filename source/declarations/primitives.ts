@@ -5,9 +5,6 @@ import { StyleProperty } from '../property';
 // image source
 export type ImageSource = ;
 
-// gradient
-export type Gradient = ;
-
 // string
 export type String = string;
 

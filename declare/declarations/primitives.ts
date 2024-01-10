@@ -2,7 +2,6 @@ import { PrimitiveType } from "../builders/type";
 import { TypeDeclaration } from "../builders/type";
 
 export const imageSource = new TypeDeclaration();
-export const gradient = new TypeDeclaration();
 
 export const string = new PrimitiveType('string');
 export const percentage = new PrimitiveType('number');

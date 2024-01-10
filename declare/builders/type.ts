@@ -1,14 +1,13 @@
 import { Ident } from "../ident";
 import { Declaration, PropertyInitializer } from ".";
-import { MethodDeclaration } from "./method";
 
 export class TypeDeclaration implements Declaration {
 	name: Ident;
 
-	options: (string | TypeDeclaration | MethodDeclaration)[];
+	options: (string | TypeDeclaration)[];
 
 	constructor(
-		...options: (string | TypeDeclaration | MethodDeclaration)[]
+		...options: (string | TypeDeclaration)[]
 	) {
 		this.options = options;
 	}
@@ -47,10 +46,6 @@ export class TypeDeclaration implements Declaration {
 	toString() {
 		return this.options.map(option => {
 			if (option instanceof TypeDeclaration) {
-				return option.name.toClassCamelCase();
-			}
-
-			if (option instanceof MethodDeclaration) {
 				return option.name.toClassCamelCase();
 			}
 			

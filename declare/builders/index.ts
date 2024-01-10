@@ -1,5 +1,6 @@
 import { TypeDeclaration } from "./type";
 import { Ident } from "../ident";
+import { MethodDeclaration } from "./method";
 
 export interface Declaration {
 	name: Ident;

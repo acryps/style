@@ -60,3 +60,4 @@ export class ColorStyleProperty extends StyleProperty {
 }
 
 export const color = (color: ColorValue) => new ColorStyleProperty(color);
+

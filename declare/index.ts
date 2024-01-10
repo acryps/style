@@ -93,10 +93,6 @@ for (let sourcePath in sources) {
 				writer.write(`}\n\n`);
 			}
 
-			if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n\n`);
-			}
-
 			if (declaration instanceof MethodDeclaration) {
 				writer.write(`export class ${declaration.name.toClassCamelCase()} {\n`);
 				
@@ -124,6 +120,8 @@ for (let sourcePath in sources) {
 				writer.write(`}\n\n`);
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
+			} else if (declaration instanceof TypeDeclaration) {
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n\n`);
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {

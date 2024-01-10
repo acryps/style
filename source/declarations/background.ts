@@ -1,7 +1,7 @@
 import { StyleProperty } from '../property';
 
 import { ImageSource } from './primitives';
-import { Gradient } from './primitives';
+import { Gradient } from './gradient';
 import { ColorValue } from './color';
 
 // background image source
