@@ -1,11 +1,13 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Percentage } from './primitives';
 import { Length } from './primitives';
 
 // object fit mode
-export type ObjectFitMode = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+export type ObjectFitMode = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' | Variable<ObjectFitMode>;
 
 // object fit
 export class ObjectFitStyleProperty extends StyleProperty {
@@ -27,10 +29,10 @@ export class ObjectFitStyleProperty extends StyleProperty {
 export const objectFit = (mode: ObjectFitMode) => new ObjectFitStyleProperty(mode);
 
 // object position inline direction
-export type ObjectPositionInlineDirection = 'left' | 'center' | 'right' | Percentage | Length;
+export type ObjectPositionInlineDirection = 'left' | 'center' | 'right' | Percentage | Length | Variable<ObjectPositionInlineDirection>;
 
 // object position block direction
-export type ObjectPositionBlockDirection = 'top' | 'center' | 'bottom' | 'left' | 'right' | Percentage | Length;
+export type ObjectPositionBlockDirection = 'top' | 'center' | 'bottom' | 'left' | 'right' | Percentage | Length | Variable<ObjectPositionBlockDirection>;
 
 // object position
 export class ObjectPositionStyleProperty extends StyleProperty {

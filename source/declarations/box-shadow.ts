@@ -1,11 +1,13 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { ColorValue } from './color';
 import { Length } from './primitives';
 
 // box shadow type
-export type BoxShadowType = 'inset' | 'outset';
+export type BoxShadowType = 'inset' | 'outset' | Variable<BoxShadowType>;
 
 // box shadow
 export class BoxShadowStyleProperty extends StyleProperty {

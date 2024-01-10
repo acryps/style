@@ -1,5 +1,7 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Integer } from './primitives';
 

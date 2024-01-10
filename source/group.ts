@@ -45,7 +45,7 @@ export class StyleGroup {
 		const selector = `${parentSelector}${this.selector}`;
 
 		return `${selector}{${
-			this.properties.flatMap(property => property.use(selector)).filter(property => property).join('')
+			this.properties.flatMap(property => property.use(selector)).filter(property => property).join(';')
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
 		}`

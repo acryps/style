@@ -1,17 +1,19 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
 
 // size dimension
-export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content';
+export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeDimension>;
 
 // size bounding dimension
-export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content';
+export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeBoundingDimension>;
 
 // box sizing mode
-export type BoxSizingMode = 'border-box' | 'content-box';
+export type BoxSizingMode = 'border-box' | 'content-box' | Variable<BoxSizingMode>;
 
 // box sizing
 export class BoxSizingStyleProperty extends StyleProperty {

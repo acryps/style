@@ -1,10 +1,12 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 
 
 // overflow mode
-export type OverflowMode = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto';
+export type OverflowMode = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | Variable<OverflowMode>;
 
 // overflow
 export class OverflowStyleProperty extends StyleProperty {

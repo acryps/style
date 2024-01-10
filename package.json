@@ -1,12 +1,13 @@
 {
 	"name": "@acryps/style",
 	"main": "built/index.js",
-	"typings": "built/index.d.ts",
+	"typings": "built/source/index.d.ts",
 	"scripts": {
 		"preversion": "git pull",
 		"postversion": "git push",
 		"prepare": "tsc",
 
+		"build": "tsc",
 		"declare": "tsc && node built/declare/index.js"
 	},
 	"license": "GPL-3.0-only",

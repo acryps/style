@@ -71,7 +71,7 @@ export const areaSpan = new MethodDeclaration({
 		throw new Error('Invalid area span length 0');
 	}
 
-	if (Math.floor(length) != length) {
+	if (typeof length == 'number' && Math.floor(length) != length) {
 		throw new Error('Area span must be an integer');
 	}
 `, "${this.area} ${this.length}");

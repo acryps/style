@@ -1,33 +1,35 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Length } from './primitives';
 import { Integer } from './primitives';
 import { String } from './primitives';
 
 // alignment mode
-export type AlignmentMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end';
+export type AlignmentMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | Variable<AlignmentMode>;
 
 // items alignment mode
-export type ItemsAlignmentMode = AlignmentMode | 'self-start' | 'self-end';
+export type ItemsAlignmentMode = AlignmentMode | 'self-start' | 'self-end' | Variable<ItemsAlignmentMode>;
 
 // self alignment mode
-export type SelfAlignmentMode = ItemsAlignmentMode | 'auto';
+export type SelfAlignmentMode = ItemsAlignmentMode | 'auto' | Variable<SelfAlignmentMode>;
 
 // distributed alignment mode
-export type DistributedAlignmentMode = AlignmentMode | 'space-between' | 'space-around' | 'space-evenly';
+export type DistributedAlignmentMode = AlignmentMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedAlignmentMode>;
 
 // justification mode
-export type JustificationMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right';
+export type JustificationMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | Variable<JustificationMode>;
 
 // items justification mode
-export type ItemsJustificationMode = JustificationMode | 'self-start' | 'self-end';
+export type ItemsJustificationMode = JustificationMode | 'self-start' | 'self-end' | Variable<ItemsJustificationMode>;
 
 // self justification mode
-export type SelfJustificationMode = ItemsJustificationMode | 'auto';
+export type SelfJustificationMode = ItemsJustificationMode | 'auto' | Variable<SelfJustificationMode>;
 
 // distributed justification mode
-export type DistributedJustificationMode = JustificationMode | 'space-between' | 'space-around' | 'space-evenly';
+export type DistributedJustificationMode = JustificationMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedJustificationMode>;
 
 // align items
 export class AlignItemsStyleProperty extends StyleProperty {
@@ -154,7 +156,7 @@ export class GapStyleProperty extends StyleProperty {
 }
 
 // flex basis mode
-export type FlexBasisMode = Length | 'auto' | 'max-content' | 'min-content' | 'fit-content' | 'content';
+export type FlexBasisMode = Length | 'auto' | 'max-content' | 'min-content' | 'fit-content' | 'content' | Variable<FlexBasisMode>;
 
 // flex basis
 export class FlexBasisStyleProperty extends StyleProperty {
@@ -176,7 +178,7 @@ export class FlexBasisStyleProperty extends StyleProperty {
 export const flexBasis = (mode: FlexBasisMode) => new FlexBasisStyleProperty(mode);
 
 // flex direction mode
-export type FlexDirectionMode = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type FlexDirectionMode = 'row' | 'row-reverse' | 'column' | 'column-reverse' | Variable<FlexDirectionMode>;
 
 // flex direction
 export class FlexDirectionStyleProperty extends StyleProperty {
@@ -198,7 +200,7 @@ export class FlexDirectionStyleProperty extends StyleProperty {
 export const flexDirection = (mode: FlexDirectionMode) => new FlexDirectionStyleProperty(mode);
 
 // flex wrap mode
-export type FlexWrapMode = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type FlexWrapMode = 'nowrap' | 'wrap' | 'wrap-reverse' | Variable<FlexWrapMode>;
 
 // flex wrap
 export class FlexWrapStyleProperty extends StyleProperty {
@@ -220,19 +222,21 @@ export class FlexWrapStyleProperty extends StyleProperty {
 export const flexWrap = (mode: FlexWrapMode) => new FlexWrapStyleProperty(mode);
 
 // span query
-export type SpanQuery = Integer | String;
+export type SpanQuery = Integer | String | Variable<SpanQuery>;
 
 // span
-export class Span {
+export class Span extends StyleMethod {
 	private query: SpanQuery;
 
 	constructor(
 		query: SpanQuery
 	) {
-		this.query = query;
+		super();
+
+	this.query = query;
 	}
 
-	toString() {
+	toValueString() {
 		return `span ${this.query}`;
 	}
 }
@@ -240,7 +244,7 @@ export class Span {
 export function span(query: SpanQuery) { return new Span(query); }
 
 // area span
-export class AreaSpan {
+export class AreaSpan extends StyleMethod {
 	private length: Integer;
 	private area: String;
 
@@ -248,19 +252,21 @@ export class AreaSpan {
 		length: Integer,
 		area: String
 	) {
-		this.length = length;
+		super();
+
+	this.length = length;
 		this.area = area;
 	
 		if (length == 0) {
 			throw new Error('Invalid area span length 0');
 		}
 	
-		if (Math.floor(length) != length) {
+		if (typeof length == 'number' && Math.floor(length) != length) {
 			throw new Error('Area span must be an integer');
 		}
 	}
 
-	toString() {
+	toValueString() {
 		return `${this.area} ${this.length}`;
 	}
 }
@@ -268,7 +274,7 @@ export class AreaSpan {
 export function areaSpan(length: Integer, area: String) { return new AreaSpan(length, area); }
 
 // grid area selector
-export type GridAreaSelector = String | 'auto' | Span | AreaSpan;
+export type GridAreaSelector = String | 'auto' | Span | AreaSpan | Variable<GridAreaSelector>;
 
 // gird area
 export class GirdAreaStyleProperty extends StyleProperty {
@@ -283,7 +289,7 @@ export class GirdAreaStyleProperty extends StyleProperty {
 }
 
 // grid template area name
-export type GridTemplateAreaName = '.' | String;
+export type GridTemplateAreaName = '.' | String | Variable<GridTemplateAreaName>;
 
 // grid template areas
 export class GridTemplateAreasStyleProperty extends StyleProperty {

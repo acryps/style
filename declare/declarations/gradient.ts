@@ -12,7 +12,7 @@ export const colorStop = new MethodDeclaration({
 }, `
 	this.location = location;
 	this.color = color;
-`, "${this.color} ${this.location}");
+`, "${typeof this.color == 'string' ? this.color : this.color.toValueString()} ${this.location}");
 
 export const linearGradient = new MethodDeclaration({
 	angle: angle.single(),
@@ -20,6 +20,6 @@ export const linearGradient = new MethodDeclaration({
 }, `
 	this.angle = angle;
 	this.stops = stops;
-`, "${this.angle}, ${this.stops.join(',')}");
+`, "linear-gradient(${this.angle}, ${this.stops.join(',')})");
 
 export const gradient = new TypeDeclaration(linearGradient);

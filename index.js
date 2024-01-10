@@ -1,1 +1,1 @@
-export * from 'built/source';
+export * from './built/source';

@@ -2,9 +2,9 @@ import { StyleProperty } from "./property";
 import { style } from "./query";
 
 export class Variable<T> extends StyleProperty {
-	value;
+	value: T;
 
-	users: string[];
+	users: string[] = [];
 
 	constructor(
 		public name: string,
@@ -36,7 +36,11 @@ export class Variable<T> extends StyleProperty {
 		} catch {}
 	}
 
+	toString() {
+		return `${this.propertyName}:${this.value?.toString() ?? 'none'}`;
+	}
+
 	toValueString() {
-		return this.value?.toString() ?? 'none';
+		return `var(--${this.propertyName})`;
 	}
 }

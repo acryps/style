@@ -1,10 +1,12 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 
 
 // white space mode
-export type WhiteSpaceMode = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces';
+export type WhiteSpaceMode = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces' | Variable<WhiteSpaceMode>;
 
 // white space
 export class WhiteSpaceStyleProperty extends StyleProperty {
@@ -26,7 +28,7 @@ export class WhiteSpaceStyleProperty extends StyleProperty {
 export const whiteSpace = (mode: WhiteSpaceMode) => new WhiteSpaceStyleProperty(mode);
 
 // overflow wrap mode
-export type OverflowWrapMode = 'normal' | 'break-word' | 'anywhere';
+export type OverflowWrapMode = 'normal' | 'break-word' | 'anywhere' | Variable<OverflowWrapMode>;
 
 // overflow wrap
 export class OverflowWrapStyleProperty extends StyleProperty {
@@ -48,7 +50,7 @@ export class OverflowWrapStyleProperty extends StyleProperty {
 export const overflowWrap = (mode: OverflowWrapMode) => new OverflowWrapStyleProperty(mode);
 
 // word break mode
-export type WordBreakMode = 'normal' | 'break-word' | 'keep-all' | 'auto-phrase';
+export type WordBreakMode = 'normal' | 'break-word' | 'keep-all' | 'auto-phrase' | Variable<WordBreakMode>;
 
 // word break
 export class WordBreakStyleProperty extends StyleProperty {
@@ -70,7 +72,7 @@ export class WordBreakStyleProperty extends StyleProperty {
 export const wordBreak = (mode: WordBreakMode) => new WordBreakStyleProperty(mode);
 
 // hyphens mode
-export type HyphensMode = 'none' | 'manual' | 'auto';
+export type HyphensMode = 'none' | 'manual' | 'auto' | Variable<HyphensMode>;
 
 // hyphens
 export class HyphensStyleProperty extends StyleProperty {

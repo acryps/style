@@ -37,6 +37,8 @@ for (let sourcePath in sources) {
 		// import base types
 		writer.write(`import { Style } from '../style';\n`);
 		writer.write(`import { StyleProperty } from '../property';\n`);
+		writer.write(`import { StyleMethod } from '../method';\n`);
+		writer.write(`import { Variable } from '../variable';\n`);
 		writer.write('\n');
 
 		// import all types
@@ -95,7 +97,7 @@ for (let sourcePath in sources) {
 			}
 
 			if (declaration instanceof MethodDeclaration) {
-				writer.write(`export class ${declaration.name.toClassCamelCase()} {\n`);
+				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod {\n`);
 				
 				const constructorArguments = [];
 				const passArguments = [];
@@ -112,14 +114,17 @@ for (let sourcePath in sources) {
 				writer.write('\n');
 
 				writer.write('\tconstructor(\n');
+
 				writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
 				writer.write('\t) {\n\t');
+				writer.write('\tsuper();\n\n');
+				
 
 				writer.write(declaration.creator.trim().split('\n').map(line => `\t${line}`).join('\n'));
 
 				writer.write('\n\t}\n\n');
 
-				writer.write('\ttoString() {\n');
+				writer.write('\ttoValueString() {\n');
 				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
 				writer.write('\t}\n');
 
@@ -127,7 +132,7 @@ for (let sourcePath in sources) {
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration};\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}>;\n`);
 
 				if (declaration.defaultNumberConverterDeclaration) {
 					writer.write(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};\n`);

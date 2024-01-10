@@ -1,5 +1,7 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
@@ -7,10 +9,10 @@ import { ColorValue } from './color';
 import { Angle } from './angle';
 
 // color stop location
-export type ColorStopLocation = Length | Percentage;
+export type ColorStopLocation = Length | Percentage | Variable<ColorStopLocation>;
 
 // color stop
-export class ColorStop {
+export class ColorStop extends StyleMethod {
 	private location: ColorStopLocation;
 	private color: ColorValue;
 
@@ -18,19 +20,21 @@ export class ColorStop {
 		location: ColorStopLocation,
 		color: ColorValue
 	) {
-		this.location = location;
+		super();
+
+	this.location = location;
 		this.color = color;
 	}
 
-	toString() {
-		return `${this.color} ${this.location}`;
+	toValueString() {
+		return `${typeof this.color == 'string' ? this.color : this.color.toValueString()} ${this.location}`;
 	}
 }
 
 export function colorStop(location: ColorStopLocation, color: ColorValue) { return new ColorStop(location, color); }
 
 // linear gradient
-export class LinearGradient {
+export class LinearGradient extends StyleMethod {
 	private angle: Angle;
 	private stops: ColorStop[];
 
@@ -38,17 +42,19 @@ export class LinearGradient {
 		angle: Angle,
 		...stops: ColorStop[]
 	) {
-		this.angle = angle;
+		super();
+
+	this.angle = angle;
 		this.stops = stops;
 	}
 
-	toString() {
-		return `${this.angle}, ${this.stops.join(',')}`;
+	toValueString() {
+		return `linear-gradient(${this.angle}, ${this.stops.join(',')})`;
 	}
 }
 
 export function linearGradient(angle: Angle, ...stops: ColorStop[]) { return new LinearGradient(Style.resolveNumber('angle', angle), ...stops); }
 
 // gradient
-export type Gradient = LinearGradient;
+export type Gradient = LinearGradient | Variable<Gradient>;
 

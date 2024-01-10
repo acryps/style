@@ -1,11 +1,13 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { LineWidth } from './primitives';
 import { ColorValue } from './color';
 
 // border style
-export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset';
+export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | Variable<BorderStyle>;
 
 // border inline
 export class BorderInlineStyleProperty extends StyleProperty {

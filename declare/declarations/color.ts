@@ -8,10 +8,15 @@ import { angle } from "./angle";
 export const hex = new MethodDeclaration({
 	color: string.single()
 }, `
-	this.color = color.replace('#', '').toLowerCase();
+	if (typeof color == 'string') {
+		this.color = color.replace('#', '').toLowerCase();
 
-	if (!(this.color.length == 3 || this.color.length == 4 || this.color.length == 6 || this.color.length == 8)) {
-		throw new Error(\`Invalid hex color format '\${color}'\`);
+		if (!(this.color.length == 3 || this.color.length == 4 || this.color.length == 6 || this.color.length == 8)) {
+			throw new Error(\`Invalid hex color format '\${color}'\`);
+		}
+	} else {
+		// variables
+		this.color = color;
 	}
 `, "#${this.color}");
 

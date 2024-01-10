@@ -1,10 +1,12 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 
 
 // text decoration line mode
-export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-through' | 'blink';
+export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-through' | 'blink' | Variable<TextDecorationLineMode>;
 
 // text decoration line
 export class TextDecorationLineStyleProperty extends StyleProperty {

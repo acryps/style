@@ -1,15 +1,17 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { String } from './primitives';
 import { Integer } from './primitives';
 import { Length } from './primitives';
 
 // font family identifier
-export type FontFamilyIdentifier = String;
+export type FontFamilyIdentifier = String | Variable<FontFamilyIdentifier>;
 
 // font weights
-export type FontWeights = Integer | 'normal' | 'bold' | 'lighter' | 'bolder';
+export type FontWeights = Integer | 'normal' | 'bold' | 'lighter' | 'bolder' | Variable<FontWeights>;
 
 // font family
 export class FontFamilyStyleProperty extends StyleProperty {

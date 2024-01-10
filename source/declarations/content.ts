@@ -1,10 +1,12 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { String } from './primitives';
 
 // content appendable
-export type ContentAppendable = String;
+export type ContentAppendable = String | Variable<ContentAppendable>;
 
 // content
 export class ContentStyleProperty extends StyleProperty {

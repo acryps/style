@@ -1,10 +1,12 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 
 
 // user select mode
-export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none';
+export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none' | Variable<UserSelectMode>;
 
 // user select
 export class UserSelectStyleProperty extends StyleProperty {

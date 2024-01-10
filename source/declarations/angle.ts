@@ -1,19 +1,23 @@
 import { Style } from '../style';
 import { StyleProperty } from '../property';
+import { StyleMethod } from '../method';
+import { Variable } from '../variable';
 
 import { Number } from './primitives';
 
 // deg
-export class Deg {
+export class Deg extends StyleMethod {
 	private angle: Number;
 
 	constructor(
 		angle: Number
 	) {
-		this.angle = angle;
+		super();
+
+	this.angle = angle;
 	}
 
-	toString() {
+	toValueString() {
 		return `${this.angle}deg`;
 	}
 }
@@ -21,16 +25,18 @@ export class Deg {
 export function deg(angle: Number) { return new Deg(angle); }
 
 // rad
-export class Rad {
+export class Rad extends StyleMethod {
 	private angle: Number;
 
 	constructor(
 		angle: Number
 	) {
-		this.angle = angle;
+		super();
+
+	this.angle = angle;
 	}
 
-	toString() {
+	toValueString() {
 		return `${this.angle}rad`;
 	}
 }
@@ -38,16 +44,18 @@ export class Rad {
 export function rad(angle: Number) { return new Rad(angle); }
 
 // turn
-export class Turn {
+export class Turn extends StyleMethod {
 	private angle: Number;
 
 	constructor(
 		angle: Number
 	) {
-		this.angle = angle;
+		super();
+
+	this.angle = angle;
 	}
 
-	toString() {
+	toValueString() {
 		return `${this.angle}turn`;
 	}
 }
@@ -55,6 +63,6 @@ export class Turn {
 export function turn(angle: Number) { return new Turn(angle); }
 
 // angle
-export type Angle = Deg | Rad | Turn;
+export type Angle = Deg | Rad | Turn | Variable<Angle>;
 Style.numberConverter['angle'] = Turn;
 
