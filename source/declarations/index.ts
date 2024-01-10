@@ -17,4 +17,5 @@ export * from './primitives';
 export * from './size';
 export * from './spacing';
 export * from './user-select';
+export * from './wrapping';
 export * from './z-index';
