@@ -30,6 +30,10 @@ for (let sourcePath in sources) {
 		const declarations = sources[sourcePath];
 		const writer = createWriteStream(join(drainBase, sourcePath.replace('.js', '.ts')));
 
+		// import base types
+		writer.write(`import { StyleProperty } from '../property';\n`);
+		writer.write('\n');
+
 		// import all types
 		const imports = [];
 
@@ -72,9 +76,17 @@ for (let sourcePath in sources) {
 			writer.write(`// ${ident.toSpaced()}\n`);
 
 			if (declaration instanceof ShorthandDeclaration) {
-				writer.write(`export class ${ident.toPropertyClassName()} {\n`);
+				writer.write(`export class ${ident.toPropertyClassName()} extends StyleProperty {\n`);
+				writer.write(`\tconstructor(\n`);
+				
+				for (let child of declaration.children) {
+					writer.write(`\t\tprivate ${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}${declaration.children.indexOf(child as any) == declaration.children.length - 1 ? '' : ','}\n`);
+				}
 
-				writer.write(`\n}\n\n`);
+				writer.write('\t) {\n');
+				writer.write(`\t\tsuper('${ident.toDashed()}', [${declaration.children.map(child => child.name.toCamelCase()).join(', ')}]);\n`);
+				writer.write('\t}\n');
+				writer.write(`}\n\n`);
 			}
 
 			if (declaration instanceof TypeDeclaration) {
@@ -82,7 +94,7 @@ for (let sourcePath in sources) {
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
-				writer.write(`export class ${ident.toPropertyClassName()} {\n`);
+				writer.write(`export class ${ident.toPropertyClassName()} extends StyleProperty {\n`);
 
 				const constructorArguments = [];
 				const passArguments = [];
@@ -133,7 +145,7 @@ for (let sourcePath in sources) {
 				writer.write(`export function ${ident.toCommandName()}(${declaration.children.map(child => `${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}`).join(', ')})\n`);
 				initializers.push(`if (${
 					declaration.children.map((child, index) => `arguments[${index}] instanceof ${child.name.toPropertyClassName()}`).join(' && ')
-				}) { return [arguments] }`);
+				}) { return new ${declaration.name.toPropertyClassName()}(${declaration.children.map((child, index) => `arguments[${index}]`).join(', ')}); }`);
 
 				// create child initializer
 				// → overflow('scroll', 'auto') = overflowX('scroll') + overflowY('auto')
@@ -161,6 +173,8 @@ for (let sourcePath in sources) {
 				}
 
 				writer.write('}\n\n');
+
+				writer.write(`${ident.toPropertyClassName()}.shorthand = [${declaration.children.map(child => child.name.toPropertyClassName()).join(', ')}];\n\n`);
 			}
 		}
 

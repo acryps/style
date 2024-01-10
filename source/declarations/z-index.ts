@@ -1,7 +1,9 @@
+import { StyleProperty } from '../property';
+
 import { Integer } from './primitives';
 
 // z index
-export class ZIndexStyleProperty {
+export class ZIndexStyleProperty extends StyleProperty {
 	private layer: Integer;
 
 	constructor(

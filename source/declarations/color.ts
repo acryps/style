@@ -1,3 +1,5 @@
+import { StyleProperty } from '../property';
+
 
 
 // hex color
@@ -10,7 +12,7 @@ export type RgbColor = ;
 export type ColorValue = HexColor | RgbColor;
 
 // color
-export class ColorStyleProperty {
+export class ColorStyleProperty extends StyleProperty {
 	private color: ColorValue;
 
 	constructor(

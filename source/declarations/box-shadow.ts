@@ -1,3 +1,5 @@
+import { StyleProperty } from '../property';
+
 import { ColorValue } from './color';
 import { Length } from './primitives';
 
@@ -5,7 +7,7 @@ import { Length } from './primitives';
 export type BoxShadowType = 'inset' | 'outset';
 
 // box shadow
-export class BoxShadowStyleProperty {
+export class BoxShadowStyleProperty extends StyleProperty {
 	private color: ColorValue;
 	private offsetX: Length;
 	private offsetY: Length;

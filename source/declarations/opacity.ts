@@ -1,10 +1,12 @@
+import { StyleProperty } from '../property';
+
 import { Number } from './primitives';
 
 // alpha value
 export type AlphaValue = Number | 'none';
 
 // opacity
-export class OpacityStyleProperty {
+export class OpacityStyleProperty extends StyleProperty {
 	private alpha: AlphaValue;
 
 	constructor(

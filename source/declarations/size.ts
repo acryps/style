@@ -1,3 +1,5 @@
+import { StyleProperty } from '../property';
+
 import { Length } from './primitives';
 import { Percentage } from './primitives';
 
@@ -5,7 +7,7 @@ import { Percentage } from './primitives';
 export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content';
 
 // height
-export class HeightStyleProperty {
+export class HeightStyleProperty extends StyleProperty {
 	private size: SizeDimension;
 
 	constructor(
@@ -24,7 +26,7 @@ export class HeightStyleProperty {
 export const height = (size: SizeDimension) => new HeightStyleProperty(size);
 
 // width
-export class WidthStyleProperty {
+export class WidthStyleProperty extends StyleProperty {
 	private size: SizeDimension;
 
 	constructor(

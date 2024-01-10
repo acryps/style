@@ -1,10 +1,12 @@
+import { StyleProperty } from '../property';
+
 
 
 // user select mode
 export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none';
 
 // user select
-export class UserSelectStyleProperty {
+export class UserSelectStyleProperty extends StyleProperty {
 	private mode: UserSelectMode;
 
 	constructor(

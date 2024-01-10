@@ -1,10 +1,12 @@
+import { StyleProperty } from '../property';
+
 import { Number } from './primitives';
 
 // line height size
 export type LineHeightSize = Number;
 
 // line height
-export class LineHeightStyleProperty {
+export class LineHeightStyleProperty extends StyleProperty {
 	private size: LineHeightSize;
 
 	constructor(

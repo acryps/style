@@ -1,10 +1,12 @@
+import { StyleProperty } from '../property';
+
 
 
 // pointer events mode
 export type PointerEventsMode = 'auto' | 'bounding-box' | 'visiblePainted' | 'visibleFill' | 'visibleStroke' | 'visible' | 'painted' | 'fill' | 'stroke' | 'all' | 'none';
 
 // pointer events
-export class PointerEventsStyleProperty {
+export class PointerEventsStyleProperty extends StyleProperty {
 	private mode: PointerEventsMode;
 
 	constructor(

@@ -1,3 +1,5 @@
+import { StyleProperty } from '../property';
+
 import { String } from './primitives';
 import { Integer } from './primitives';
 import { Length } from './primitives';
@@ -9,7 +11,7 @@ export type FontFamilyIdentifier = String;
 export type FontWeights = Integer | 'normal' | 'bold' | 'lighter' | 'bolder';
 
 // font family
-export class FontFamilyStyleProperty {
+export class FontFamilyStyleProperty extends StyleProperty {
 	private name: FontFamilyIdentifier[];
 
 	constructor(
@@ -28,7 +30,7 @@ export class FontFamilyStyleProperty {
 export const fontFamily = (...name: FontFamilyIdentifier[]) => new FontFamilyStyleProperty(...name);
 
 // font size
-export class FontSizeStyleProperty {
+export class FontSizeStyleProperty extends StyleProperty {
 	private size: Length;
 
 	constructor(
@@ -47,7 +49,7 @@ export class FontSizeStyleProperty {
 export const fontSize = (size: Length) => new FontSizeStyleProperty(size);
 
 // font weight
-export class FontWeightStyleProperty {
+export class FontWeightStyleProperty extends StyleProperty {
 	private weight: FontWeights;
 
 	constructor(
@@ -66,14 +68,22 @@ export class FontWeightStyleProperty {
 export const fontWeight = (weight: FontWeights) => new FontWeightStyleProperty(weight);
 
 // font
-export class FontStyleProperty {
-
+export class FontStyleProperty extends StyleProperty {
+	constructor(
+		private fontSize: FontSizeStyleProperty,
+		private fontWeight: FontWeightStyleProperty,
+		private fontFamily: FontFamilyStyleProperty
+	) {
+		super('font', [fontSize, fontWeight, fontFamily]);
+	}
 }
 
 export function font(fontSize: FontSizeStyleProperty, fontWeight: FontWeightStyleProperty, fontFamily: FontFamilyStyleProperty)
 export function font(fontSizeSize: Length, fontWeightWeight: FontWeights, ...fontFamilyName: FontFamilyIdentifier[])
 export function font() {
-	if (arguments[0] instanceof FontSizeStyleProperty && arguments[1] instanceof FontWeightStyleProperty && arguments[2] instanceof FontFamilyStyleProperty) { return [arguments] }
-	if (arguments.length == 3) { return [new FontSizeStyleProperty(arguments[0]), new FontWeightStyleProperty(arguments[1]), new FontFamilyStyleProperty(...arguments[2])] }
+	if (arguments[0] instanceof FontSizeStyleProperty && arguments[1] instanceof FontWeightStyleProperty && arguments[2] instanceof FontFamilyStyleProperty) { return new FontStyleProperty(arguments[0], arguments[1], arguments[2]); }
+	if (arguments.length == 3) { return new FontStyleProperty(new FontSizeStyleProperty(arguments[0]), new FontWeightStyleProperty(arguments[1]), new FontFamilyStyleProperty(...arguments[2])); }
 }
+
+FontStyleProperty.shorthand = [FontSizeStyleProperty, FontWeightStyleProperty, FontFamilyStyleProperty];
 

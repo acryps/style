@@ -103,9 +103,9 @@ export class ShorthandDeclaration implements Declaration {
 					return {
 						genericArguments: firstShorthandInitializer.genericArguments,
 						namedArguments: firstShorthandInitializer.namedArguments,
-						initializer: `if (arguments.length == ${firstShorthandInitializer.genericArguments.length}) { return [${
+						initializer: `if (arguments.length == ${firstShorthandInitializer.genericArguments.length}) { return new ${this.name.toPropertyClassName()}(${
 							children.map(child => `${child.name.toCommandName()}(${firstShorthandInitializer.genericArguments.map((argument, index) => `arguments[${index}]`) .join(', ')})`).join(', ')
-						}] }`
+						}); }`
 					}
 				}
 			}
@@ -130,9 +130,9 @@ export class ShorthandDeclaration implements Declaration {
 			return {
 				genericArguments: childInitializerGenericFunctionArguments,
 				namedArguments: childInitializerNamedFunctionArguments,
-				initializer: `if (arguments.length == ${children.length}) { return [${
+				initializer: `if (arguments.length == ${children.length}) { return new ${this.name.toPropertyClassName()}(${
 					children.map(child => `new ${child.name.toPropertyClassName()}(${Object.keys(child.initializer).map(() => childInitializerPassArguments.shift()).join(', ')})`).join(', ')
-				}] }`
+				}); }`
 			}
 		}
 	}
@@ -152,9 +152,9 @@ export class ShorthandDeclaration implements Declaration {
 
 				return {
 					arguments: uniqueArguments,
-					initializer: `if (arguments.length == ${uniqueArguments.length}) { return [${
+					initializer: `if (arguments.length == ${uniqueArguments.length}) { return new ${this.name.toPropertyClassName()}(${
 						children.map(child => `${child.name.toCommandName()}(${uniqueArguments.map((argument, index) => `arguments[${index}]`).join(', ')})`).join(', ')
-					}] }`
+					}); }`
 				}
 			}
 		}
@@ -175,9 +175,9 @@ export class ShorthandDeclaration implements Declaration {
 
 				return {
 					arguments: functionArguments,
-					initializer: `if (arguments.length == ${Object.keys(firstDeclaration.initializer).length}) { return [${
+					initializer: `if (arguments.length == ${Object.keys(firstDeclaration.initializer).length}) { return new ${this.name.toPropertyClassName()}(${
 						children.map(child => `new ${child.name.toPropertyClassName()}(${passArguments.join(', ')})`).join(', ')
-					}] }`
+					}); }`
 				}
 			}
 		}

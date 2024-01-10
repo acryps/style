@@ -1,3 +1,5 @@
+import { StyleProperty } from '../property';
+
 
 
 // image source
