@@ -1,7 +1,7 @@
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
 
-export type StyleSelectorBody = StyleProperty | StyleGroup | StyleSelectorBody[];
+export type StyleSelectorBody = StyleProperty | StyleGroup | { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] } | StyleSelectorBody[];
 
 export function style(selector: string, ...items: StyleSelectorBody[]) {
 	const declaration = new StyleGroup(selector);
@@ -14,6 +14,12 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 				declaration.appendProperty(item);
 			} else if (Array.isArray(item)) {
 				add(item);
+			} else if ('toStyleGroup' in item) {
+				declaration.appendChild(item.toStyleGroup());
+			} else if ('toStyleProperty' in item) {
+				declaration.appendChild(item.toStyleProperty());
+			} else if ('toStyleProperties' in item) {
+				add(item.toStyleProperties());
 			} else {
 				throw new Error('Invalid style declaration');
 			}
