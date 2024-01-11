@@ -44,8 +44,28 @@ export class StyleGroup {
 	toString(parentSelector: string = '') {
 		const selector = `${parentSelector}${this.selector}`;
 
+		const useProperties = (source: StyleProperty[]) => {
+			const flattenedProperties: StyleProperty[] = [];
+
+			for (let property of source) {
+				const used = property.use(selector);
+
+				if (used) {
+					for (let child of Array.isArray(used) ? used : [used]) {
+						if (child.children) {
+							flattenedProperties.push(...useProperties(child.children));
+						} else {
+							flattenedProperties.push(child);
+						}
+					}
+				}
+			}
+
+			return flattenedProperties;
+		};
+
 		return `${selector}{${
-			this.properties.flatMap(property => property.use(selector)).filter(property => property).join(';')
+			useProperties(this.properties).join(';')
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
 		}`
