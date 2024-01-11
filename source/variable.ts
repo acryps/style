@@ -8,7 +8,7 @@ export class Variable<T> extends StyleProperty {
 
 	constructor(
 		public name: string,
-		public initialValue: T
+		public initialValue?: T
 	) {
 		super(`--${name}`);
 
@@ -37,12 +37,12 @@ export class Variable<T> extends StyleProperty {
 	}
 
 	toValueString() {
-		return `var(${this.propertyName})`;
+		return this.value ?? 'none';
 	}
 
 	// to string is invoked when the variable is used by a property, unit or method as a value
 	// lets return a reference `var(--abc)` then
 	toString() {
-		return this.toValueString();
+		return `var(${this.propertyName})`;
 	}
 }
