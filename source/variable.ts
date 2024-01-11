@@ -36,11 +36,13 @@ export class Variable<T> extends StyleProperty {
 		} catch {}
 	}
 
-	toString() {
-		return `${this.propertyName}:${this.value?.toString() ?? 'none'}`;
-	}
-
 	toValueString() {
 		return `var(${this.propertyName})`;
+	}
+
+	// to string is invoked when the variable is used by a property, unit or method as a value
+	// lets return a reference `var(--abc)` then
+	toString() {
+		return this.toValueString();
 	}
 }
