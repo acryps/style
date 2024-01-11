@@ -1,7 +1,8 @@
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
 
-export type StyleSelectorBody = StyleProperty | StyleGroup | { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] } | StyleSelectorBody[];
+export type StyleInsert = { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] };
+export type StyleSelectorBody = StyleProperty | StyleGroup | StyleInsert | StyleSelectorBody[];
 
 export function style(selector: string, ...items: StyleSelectorBody[]) {
 	const declaration = new StyleGroup(selector);
