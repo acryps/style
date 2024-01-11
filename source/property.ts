@@ -20,7 +20,7 @@ export class StyleProperty {
 	}
 
 	toValueString() {
-		throw new Error('property value not implemented');
+		throw new Error(`No property value for '${this.constructor.name}' implemented`);
 	}
 
 	toString() {
