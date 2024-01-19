@@ -116,7 +116,7 @@ export const girdArea = new ShorthandDeclaration([
 	exportGridArea('column', 'end')
 ]);
 
-export const gridTemplateAreaName = new TypeDeclaration('.', string);
+export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
 
 export const gridTemplateAreas = new PropertyTypeDeclaration({
 	rows: gridTemplateAreaName.spreadArray()
