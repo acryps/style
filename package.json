@@ -5,7 +5,7 @@
 	"scripts": {
 		"preversion": "git pull",
 		"postversion": "git push",
-		"prepare": "tsc",
+		"prepare": "tsc && node built/declare/index.js && tsc",
 		"build": "tsc",
 		"declare": "tsc && node built/declare/index.js"
 	},

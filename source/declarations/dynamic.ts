@@ -382,7 +382,7 @@ export class GirdAreaStyleProperty extends StyleProperty {
 }
 
 // grid template area name
-export type GridTemplateAreaName = '.' | String | Variable<GridTemplateAreaName>;
+export type GridTemplateAreaName = '.' | String | Repeat | Variable<GridTemplateAreaName>;
 
 // grid template areas
 export class GridTemplateAreasStyleProperty extends StyleProperty {
