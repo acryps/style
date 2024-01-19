@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 
 
 // text decoration line mode
-export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-through' | 'blink' | Variable<TextDecorationLineMode>;
+export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-through' | 'blink' | Variable<TextDecorationLineMode> | Calculation<Partial<TextDecorationLineMode>>;
 
 // text decoration line
 export class TextDecorationLineStyleProperty extends StyleProperty {

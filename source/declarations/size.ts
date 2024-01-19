@@ -2,18 +2,19 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
 
 // size dimension
-export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeDimension>;
+export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeDimension> | Calculation<Partial<SizeDimension>>;
 
 // size bounding dimension
-export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeBoundingDimension>;
+export type SizeBoundingDimension = Length | Percentage | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeBoundingDimension> | Calculation<Partial<SizeBoundingDimension>>;
 
 // box sizing mode
-export type BoxSizingMode = 'border-box' | 'content-box' | Variable<BoxSizingMode>;
+export type BoxSizingMode = 'border-box' | 'content-box' | Variable<BoxSizingMode> | Calculation<Partial<BoxSizingMode>>;
 
 // box sizing
 export class BoxSizingStyleProperty extends StyleProperty {

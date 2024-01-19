@@ -2,6 +2,7 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
@@ -9,7 +10,7 @@ import { ColorValue } from './color';
 import { Angle } from './angle';
 
 // color stop location
-export type ColorStopLocation = Length | Percentage | Variable<ColorStopLocation>;
+export type ColorStopLocation = Length | Percentage | Variable<ColorStopLocation> | Calculation<Partial<ColorStopLocation>>;
 
 // color stop
 export class ColorStop extends StyleMethod {
@@ -56,5 +57,5 @@ export class LinearGradient extends StyleMethod {
 export function linearGradient(angle: Angle, ...stops: ColorStop[]) { return new LinearGradient(Style.resolveNumber('angle', angle), ...stops); }
 
 // gradient
-export type Gradient = LinearGradient | Variable<Gradient>;
+export type Gradient = LinearGradient | Variable<Gradient> | Calculation<Partial<Gradient>>;
 

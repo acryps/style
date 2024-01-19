@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 
 
 // user select mode
-export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none' | Variable<UserSelectMode>;
+export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none' | Variable<UserSelectMode> | Calculation<Partial<UserSelectMode>>;
 
 // user select
 export class UserSelectStyleProperty extends StyleProperty {

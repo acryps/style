@@ -2,6 +2,8 @@ import { PropertyInitializer } from ".";
 import { TypeDeclaration } from "./type";
 
 export class MethodDeclaration extends TypeDeclaration {
+	isCalculable = false;
+
 	constructor(
 		public parameters: Record<string, (propertyName: string) => PropertyInitializer>,
 		public creator: string,
@@ -14,6 +16,12 @@ export class MethodDeclaration extends TypeDeclaration {
 		return new MethodDeclaration({
 			value: type.single()
 		}, `this.value = value;`, `\${this.value}${name}`);
+	}
+
+	calculable() {
+		this.isCalculable = true;
+
+		return this;
 	}
 
 	requirements() {

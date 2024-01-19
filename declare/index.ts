@@ -39,6 +39,7 @@ for (let sourcePath in sources) {
 		writer.write(`import { StyleProperty } from '../property';\n`);
 		writer.write(`import { StyleMethod } from '../method';\n`);
 		writer.write(`import { Variable } from '../variable';\n`);
+		writer.write(`import { Calculation, Calculable } from '../calculate';\n`);
 		writer.write('\n');
 
 		// import all types
@@ -99,7 +100,13 @@ for (let sourcePath in sources) {
 			}
 
 			if (declaration instanceof MethodDeclaration) {
-				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod {\n`);
+				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
+				
+				if (declaration.isCalculable) {
+					writer.write(` implements Calculable<${declaration.name.toClassCamelCase()}>`);
+				}
+
+				writer.write(' {\n');
 				
 				const constructorArguments = [];
 				const passArguments = [];
@@ -126,6 +133,14 @@ for (let sourcePath in sources) {
 
 				writer.write('\n\t}\n\n');
 
+				if (declaration.isCalculable) {
+					for (let operation of ['add', 'subtract', 'multiply', 'divide']) {
+						writer.write(`\t${operation} = value => new Calculation(this.toValueString()).${operation}(value);\n`);
+					}
+					
+					writer.write('\n');
+				}
+
 				writer.write('\ttoValueString() {\n');
 				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
 				writer.write('\t}\n');
@@ -134,7 +149,7 @@ for (let sourcePath in sources) {
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}>;\n\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}> | Calculation<Partial<${ident.toClassCamelCase()}>>;\n\n`);
 
 				if (declaration.defaultNumberConverterDeclaration) {
 					defaultNumberConverters.push(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};`);

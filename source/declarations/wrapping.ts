@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 
 
 // white space mode
-export type WhiteSpaceMode = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces' | Variable<WhiteSpaceMode>;
+export type WhiteSpaceMode = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces' | Variable<WhiteSpaceMode> | Calculation<Partial<WhiteSpaceMode>>;
 
 // white space
 export class WhiteSpaceStyleProperty extends StyleProperty {
@@ -28,7 +29,7 @@ export class WhiteSpaceStyleProperty extends StyleProperty {
 export const whiteSpace = (mode: WhiteSpaceMode) => new WhiteSpaceStyleProperty(mode);
 
 // overflow wrap mode
-export type OverflowWrapMode = 'normal' | 'break-word' | 'anywhere' | Variable<OverflowWrapMode>;
+export type OverflowWrapMode = 'normal' | 'break-word' | 'anywhere' | Variable<OverflowWrapMode> | Calculation<Partial<OverflowWrapMode>>;
 
 // overflow wrap
 export class OverflowWrapStyleProperty extends StyleProperty {
@@ -50,7 +51,7 @@ export class OverflowWrapStyleProperty extends StyleProperty {
 export const overflowWrap = (mode: OverflowWrapMode) => new OverflowWrapStyleProperty(mode);
 
 // word break mode
-export type WordBreakMode = 'normal' | 'break-word' | 'keep-all' | 'auto-phrase' | Variable<WordBreakMode>;
+export type WordBreakMode = 'normal' | 'break-word' | 'keep-all' | 'auto-phrase' | Variable<WordBreakMode> | Calculation<Partial<WordBreakMode>>;
 
 // word break
 export class WordBreakStyleProperty extends StyleProperty {
@@ -72,7 +73,7 @@ export class WordBreakStyleProperty extends StyleProperty {
 export const wordBreak = (mode: WordBreakMode) => new WordBreakStyleProperty(mode);
 
 // hyphens mode
-export type HyphensMode = 'none' | 'manual' | 'auto' | Variable<HyphensMode>;
+export type HyphensMode = 'none' | 'manual' | 'auto' | Variable<HyphensMode> | Calculation<Partial<HyphensMode>>;
 
 // hyphens
 export class HyphensStyleProperty extends StyleProperty {

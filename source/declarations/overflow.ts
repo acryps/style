@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 
 
 // overflow mode
-export type OverflowMode = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | Variable<OverflowMode>;
+export type OverflowMode = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | Variable<OverflowMode> | Calculation<Partial<OverflowMode>>;
 
 // overflow
 export class OverflowStyleProperty extends StyleProperty {

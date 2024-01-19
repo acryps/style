@@ -2,6 +2,7 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 import { Number } from './primitives';
@@ -10,28 +11,28 @@ import { String } from './primitives';
 import { Percentage } from './primitives';
 
 // alignment mode
-export type AlignmentMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | Variable<AlignmentMode>;
+export type AlignmentMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | Variable<AlignmentMode> | Calculation<Partial<AlignmentMode>>;
 
 // items alignment mode
-export type ItemsAlignmentMode = AlignmentMode | 'self-start' | 'self-end' | Variable<ItemsAlignmentMode>;
+export type ItemsAlignmentMode = AlignmentMode | 'self-start' | 'self-end' | Variable<ItemsAlignmentMode> | Calculation<Partial<ItemsAlignmentMode>>;
 
 // self alignment mode
-export type SelfAlignmentMode = ItemsAlignmentMode | 'auto' | Variable<SelfAlignmentMode>;
+export type SelfAlignmentMode = ItemsAlignmentMode | 'auto' | Variable<SelfAlignmentMode> | Calculation<Partial<SelfAlignmentMode>>;
 
 // distributed alignment mode
-export type DistributedAlignmentMode = AlignmentMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedAlignmentMode>;
+export type DistributedAlignmentMode = AlignmentMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedAlignmentMode> | Calculation<Partial<DistributedAlignmentMode>>;
 
 // justification mode
-export type JustificationMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | Variable<JustificationMode>;
+export type JustificationMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'left' | 'right' | Variable<JustificationMode> | Calculation<Partial<JustificationMode>>;
 
 // items justification mode
-export type ItemsJustificationMode = JustificationMode | 'self-start' | 'self-end' | Variable<ItemsJustificationMode>;
+export type ItemsJustificationMode = JustificationMode | 'self-start' | 'self-end' | Variable<ItemsJustificationMode> | Calculation<Partial<ItemsJustificationMode>>;
 
 // self justification mode
-export type SelfJustificationMode = ItemsJustificationMode | 'auto' | Variable<SelfJustificationMode>;
+export type SelfJustificationMode = ItemsJustificationMode | 'auto' | Variable<SelfJustificationMode> | Calculation<Partial<SelfJustificationMode>>;
 
 // distributed justification mode
-export type DistributedJustificationMode = JustificationMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedJustificationMode>;
+export type DistributedJustificationMode = JustificationMode | 'space-between' | 'space-around' | 'space-evenly' | Variable<DistributedJustificationMode> | Calculation<Partial<DistributedJustificationMode>>;
 
 // align items
 export class AlignItemsStyleProperty extends StyleProperty {
@@ -158,7 +159,7 @@ export class GapStyleProperty extends StyleProperty {
 }
 
 // flex basis mode
-export type FlexBasisMode = Length | 'auto' | 'max-content' | 'min-content' | 'fit-content' | 'content' | Variable<FlexBasisMode>;
+export type FlexBasisMode = Length | 'auto' | 'max-content' | 'min-content' | 'fit-content' | 'content' | Variable<FlexBasisMode> | Calculation<Partial<FlexBasisMode>>;
 
 // flex basis
 export class FlexBasisStyleProperty extends StyleProperty {
@@ -180,7 +181,7 @@ export class FlexBasisStyleProperty extends StyleProperty {
 export const flexBasis = (mode: FlexBasisMode) => new FlexBasisStyleProperty(mode);
 
 // flex direction mode
-export type FlexDirectionMode = 'row' | 'row-reverse' | 'column' | 'column-reverse' | Variable<FlexDirectionMode>;
+export type FlexDirectionMode = 'row' | 'row-reverse' | 'column' | 'column-reverse' | Variable<FlexDirectionMode> | Calculation<Partial<FlexDirectionMode>>;
 
 // flex direction
 export class FlexDirectionStyleProperty extends StyleProperty {
@@ -202,7 +203,7 @@ export class FlexDirectionStyleProperty extends StyleProperty {
 export const flexDirection = (mode: FlexDirectionMode) => new FlexDirectionStyleProperty(mode);
 
 // flex wrap mode
-export type FlexWrapMode = 'nowrap' | 'wrap' | 'wrap-reverse' | Variable<FlexWrapMode>;
+export type FlexWrapMode = 'nowrap' | 'wrap' | 'wrap-reverse' | Variable<FlexWrapMode> | Calculation<Partial<FlexWrapMode>>;
 
 // flex wrap
 export class FlexWrapStyleProperty extends StyleProperty {
@@ -243,7 +244,7 @@ export class Fr extends StyleMethod {
 export function fr(value: Number) { return new Fr(value); }
 
 // span query
-export type SpanQuery = Integer | String | Variable<SpanQuery>;
+export type SpanQuery = Integer | String | Variable<SpanQuery> | Calculation<Partial<SpanQuery>>;
 
 // span
 export class Span extends StyleMethod {
@@ -265,7 +266,7 @@ export class Span extends StyleMethod {
 export function span(query: SpanQuery) { return new Span(query); }
 
 // min max breadth
-export type MinMaxBreadth = Length | Percentage | Fr | 'max-content' | 'min-content' | 'auto' | Variable<MinMaxBreadth>;
+export type MinMaxBreadth = Length | Percentage | Fr | 'max-content' | 'min-content' | 'auto' | Variable<MinMaxBreadth> | Calculation<Partial<MinMaxBreadth>>;
 
 // min max
 export class MinMax extends StyleMethod {
@@ -309,10 +310,10 @@ export class FitContent extends StyleMethod {
 export function fitContent(size: Length) { return new FitContent(Style.resolveNumber('length', size)); }
 
 // repeat track
-export type RepeatTrack = 'auto-fill' | 'auto-fit' | Integer | Variable<RepeatTrack>;
+export type RepeatTrack = 'auto-fill' | 'auto-fit' | Integer | Variable<RepeatTrack> | Calculation<Partial<RepeatTrack>>;
 
 // repeat slot
-export type RepeatSlot = Length | Fr | 'min-content' | 'max-content' | MinMax | FitContent | 'auto' | Percentage | Variable<RepeatSlot>;
+export type RepeatSlot = Length | Fr | 'min-content' | 'max-content' | MinMax | FitContent | 'auto' | Percentage | Variable<RepeatSlot> | Calculation<Partial<RepeatSlot>>;
 
 // repeat
 export class Repeat extends StyleMethod {
@@ -367,7 +368,7 @@ export class AreaSpan extends StyleMethod {
 export function areaSpan(length: Integer, area: String) { return new AreaSpan(length, area); }
 
 // grid area selector
-export type GridAreaSelector = String | 'auto' | Span | AreaSpan | Variable<GridAreaSelector>;
+export type GridAreaSelector = String | 'auto' | Span | AreaSpan | Variable<GridAreaSelector> | Calculation<Partial<GridAreaSelector>>;
 
 // gird area
 export class GirdAreaStyleProperty extends StyleProperty {
@@ -382,7 +383,7 @@ export class GirdAreaStyleProperty extends StyleProperty {
 }
 
 // grid template area name
-export type GridTemplateAreaName = '.' | String | Repeat | Variable<GridTemplateAreaName>;
+export type GridTemplateAreaName = '.' | String | Repeat | Variable<GridTemplateAreaName> | Calculation<Partial<GridTemplateAreaName>>;
 
 // grid template areas
 export class GridTemplateAreasStyleProperty extends StyleProperty {

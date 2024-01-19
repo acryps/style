@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 
 // position mode
-export type PositionMode = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky' | Variable<PositionMode>;
+export type PositionMode = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky' | Variable<PositionMode> | Calculation<Partial<PositionMode>>;
 
 // position
 export class PositionStyleProperty extends StyleProperty {

@@ -2,12 +2,13 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { ColorValue } from './color';
 import { Length } from './primitives';
 
 // box shadow type
-export type BoxShadowType = 'inset' | 'outset' | Variable<BoxShadowType>;
+export type BoxShadowType = 'inset' | 'outset' | Variable<BoxShadowType> | Calculation<Partial<BoxShadowType>>;
 
 // box shadow
 export class BoxShadowStyleProperty extends StyleProperty {

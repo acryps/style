@@ -2,6 +2,7 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { String } from './primitives';
 import { Number } from './primitives';
@@ -96,7 +97,7 @@ export class Hsl extends StyleMethod {
 export function hsl(hue: Angle, saturation: Percentage, lightness: Percentage, alpha?: AlphaValue) { return new Hsl(Style.resolveNumber('angle', hue), saturation, lightness, alpha); }
 
 // color value
-export type ColorValue = Hex | Rgb | Hsl | 'currentColor' | 'transparent' | Variable<ColorValue>;
+export type ColorValue = Hex | Rgb | Hsl | 'currentColor' | 'transparent' | Variable<ColorValue> | Calculation<Partial<ColorValue>>;
 
 // color
 export class ColorStyleProperty extends StyleProperty {

@@ -2,13 +2,14 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { ImageSource } from './primitives';
 import { Gradient } from './gradient';
 import { ColorValue } from './color';
 
 // background image source
-export type BackgroundImageSource = ImageSource | Gradient | Variable<BackgroundImageSource>;
+export type BackgroundImageSource = ImageSource | Gradient | Variable<BackgroundImageSource> | Calculation<Partial<BackgroundImageSource>>;
 
 // background image
 export class BackgroundImageStyleProperty extends StyleProperty {

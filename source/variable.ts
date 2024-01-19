@@ -1,7 +1,8 @@
+import { Calculable, Calculation } from "./calculate";
 import { StyleProperty } from "./property";
 import { style } from "./query";
 
-export class Variable<T> extends StyleProperty {
+export class Variable<T> extends StyleProperty implements Calculable<T> {
 	value: T;
 
 	users: string[] = [];
@@ -14,6 +15,12 @@ export class Variable<T> extends StyleProperty {
 
 		this.value = initialValue;
 	}
+
+	// calculable methods
+	add = value => new Calculation(this.toString()).add(value);
+	subtract = value => new Calculation(this.toString()).subtract(value);
+	divide = value => new Calculation(this.toString()).divide(value);
+	multiply = value => new Calculation(this.toString()).multiply(value);
 
 	use(selector: string) {
 		this.users.push(selector);

@@ -2,11 +2,12 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Number } from './primitives';
 
 // alpha value
-export type AlphaValue = Number | 'none' | Variable<AlphaValue>;
+export type AlphaValue = Number | 'none' | Variable<AlphaValue> | Calculation<Partial<AlphaValue>>;
 
 // opacity
 export class OpacityStyleProperty extends StyleProperty {

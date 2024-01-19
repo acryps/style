@@ -13,12 +13,12 @@ export const url = new MethodDeclaration({
 export const imageSource = new TypeDeclaration(url);
 
 export const number = new PrimitiveType('number');
-export const percentage = MethodDeclaration.fromUnit('%', number);
+export const percentage = MethodDeclaration.fromUnit('%', number).calculable();
 
 export const lineWidth = new TypeDeclaration(number);
 export const integer = new TypeDeclaration(number);
 
-const exportDimension = (name: string) => module.exports[name] = MethodDeclaration.fromUnit(name, number);
+const exportDimension = (name: string) => module.exports[name] = MethodDeclaration.fromUnit(name, number).calculable();
 
 // font dimensions
 const rem = exportDimension('rem');

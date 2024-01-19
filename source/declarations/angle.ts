@@ -2,6 +2,7 @@ import { Style } from '../style';
 import { StyleProperty } from '../property';
 import { StyleMethod } from '../method';
 import { Variable } from '../variable';
+import { Calculation, Calculable } from '../calculate';
 
 import { Number } from './primitives';
 
@@ -63,6 +64,6 @@ export class Turn extends StyleMethod {
 export function turn(value: Number) { return new Turn(value); }
 
 // angle
-export type Angle = Deg | Rad | Turn | Variable<Angle>;
+export type Angle = Deg | Rad | Turn | Variable<Angle> | Calculation<Partial<Angle>>;
 
 Style.numberConverter['angle'] = Turn;
