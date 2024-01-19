@@ -15,7 +15,6 @@ export const imageSource = new TypeDeclaration(url);
 export const number = new PrimitiveType('number');
 export const percentage = MethodDeclaration.fromUnit('%', number).calculable();
 
-export const lineWidth = new TypeDeclaration(number);
 export const integer = new TypeDeclaration(number);
 
 const exportDimension = (name: string) => module.exports[name] = MethodDeclaration.fromUnit(name, number).calculable();
@@ -76,3 +75,4 @@ export const absoluteLengthDimension = new TypeDeclaration(
 );
 
 export const length = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension).defaultNumberConverter(rem);
+export const lineWidth = new TypeDeclaration(number, length);
