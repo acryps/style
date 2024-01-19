@@ -556,10 +556,10 @@ export class GridColumnEndStyleProperty extends StyleProperty {
 
 export const gridColumnEnd = (selector: GridAreaSelector) => new GridColumnEndStyleProperty(selector);
 
-export function gap(columnGap: ColumnGapStyleProperty, rowGap: RowGapStyleProperty)
-export function gap(columnGapDistance: Length, rowGapDistance: Length)
-export function gap(distance: Length)
-export function gap() {
+export function gap(columnGap: ColumnGapStyleProperty, rowGap: RowGapStyleProperty): GapStyleProperty
+export function gap(columnGapDistance: Length, rowGapDistance: Length): GapStyleProperty
+export function gap(distance: Length): GapStyleProperty
+export function gap(): GapStyleProperty {
 	if (arguments[0] instanceof ColumnGapStyleProperty && arguments[1] instanceof RowGapStyleProperty) { return new GapStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 2) { return new GapStyleProperty(new ColumnGapStyleProperty(Style.resolveNumber('length', arguments[0])), new RowGapStyleProperty(Style.resolveNumber('length', arguments[1]))); }
 	if (arguments.length == 1) { return new GapStyleProperty(new ColumnGapStyleProperty(Style.resolveNumber('length', arguments[0])), new RowGapStyleProperty(Style.resolveNumber('length', arguments[0]))); }
@@ -567,10 +567,10 @@ export function gap() {
 
 GapStyleProperty.shorthand = [ColumnGapStyleProperty, RowGapStyleProperty];
 
-export function girdArea(gridRowStart: GridRowStartStyleProperty, gridColumnStart: GridColumnStartStyleProperty, gridRowEnd: GridRowEndStyleProperty, gridColumnEnd: GridColumnEndStyleProperty)
-export function girdArea(gridRowStartSelector: GridAreaSelector, gridColumnStartSelector: GridAreaSelector, gridRowEndSelector: GridAreaSelector, gridColumnEndSelector: GridAreaSelector)
-export function girdArea(selector: GridAreaSelector)
-export function girdArea() {
+export function girdArea(gridRowStart: GridRowStartStyleProperty, gridColumnStart: GridColumnStartStyleProperty, gridRowEnd: GridRowEndStyleProperty, gridColumnEnd: GridColumnEndStyleProperty): GirdAreaStyleProperty
+export function girdArea(gridRowStartSelector: GridAreaSelector, gridColumnStartSelector: GridAreaSelector, gridRowEndSelector: GridAreaSelector, gridColumnEndSelector: GridAreaSelector): GirdAreaStyleProperty
+export function girdArea(selector: GridAreaSelector): GirdAreaStyleProperty
+export function girdArea(): GirdAreaStyleProperty {
 	if (arguments[0] instanceof GridRowStartStyleProperty && arguments[1] instanceof GridColumnStartStyleProperty && arguments[2] instanceof GridRowEndStyleProperty && arguments[3] instanceof GridColumnEndStyleProperty) { return new GirdAreaStyleProperty(arguments[0], arguments[1], arguments[2], arguments[3]); }
 	if (arguments.length == 4) { return new GirdAreaStyleProperty(new GridRowStartStyleProperty(arguments[0]), new GridColumnStartStyleProperty(arguments[1]), new GridRowEndStyleProperty(arguments[2]), new GridColumnEndStyleProperty(arguments[3])); }
 	if (arguments.length == 1) { return new GirdAreaStyleProperty(new GridRowStartStyleProperty(arguments[0]), new GridColumnStartStyleProperty(arguments[0]), new GridRowEndStyleProperty(arguments[0]), new GridColumnEndStyleProperty(arguments[0])); }

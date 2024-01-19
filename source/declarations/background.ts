@@ -59,9 +59,9 @@ export class BackgroundStyleProperty extends StyleProperty {
 	}
 }
 
-export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty)
-export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[])
-export function background() {
+export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
+export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
+export function background(): BackgroundStyleProperty {
 	if (arguments[0] instanceof BackgroundColorStyleProperty && arguments[1] instanceof BackgroundImageStyleProperty) { return new BackgroundStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 2) { return new BackgroundStyleProperty(new BackgroundColorStyleProperty(arguments[0]), new BackgroundImageStyleProperty(...arguments[1])); }
 }

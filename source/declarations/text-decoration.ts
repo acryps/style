@@ -37,10 +37,10 @@ export class TextDecorationStyleProperty extends StyleProperty {
 	}
 }
 
-export function textDecoration(textDecorationLine: TextDecorationLineStyleProperty)
-export function textDecoration(...textDecorationLineModes: TextDecorationLineMode[])
-export function textDecoration(...modes: TextDecorationLineMode[])
-export function textDecoration() {
+export function textDecoration(textDecorationLine: TextDecorationLineStyleProperty): TextDecorationStyleProperty
+export function textDecoration(...textDecorationLineModes: TextDecorationLineMode[]): TextDecorationStyleProperty
+export function textDecoration(...modes: TextDecorationLineMode[]): TextDecorationStyleProperty
+export function textDecoration(): TextDecorationStyleProperty {
 	if (arguments[0] instanceof TextDecorationLineStyleProperty) { return new TextDecorationStyleProperty(arguments[0]); }
 	if (arguments.length == 1) { return new TextDecorationStyleProperty(new TextDecorationLineStyleProperty(...arguments[0])); }
 	if (arguments.length == 1) { return new TextDecorationStyleProperty(new TextDecorationLineStyleProperty(...arguments[0])); }

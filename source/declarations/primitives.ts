@@ -58,9 +58,6 @@ export class Percentage extends StyleMethod implements Calculable<Percentage> {
 
 export function percentage(value: Number) { return new Percentage(value); }
 
-// line width
-export type LineWidth = Number | Variable<LineWidth> | Calculation<Partial<LineWidth>>;
-
 // integer
 export type Integer = Number | Variable<Integer> | Calculation<Partial<Integer>>;
 
@@ -97,6 +94,9 @@ export type AbsoluteLengthDimension = Px | Cm | Mm | Inch | Pc | Pt | Variable<A
 
 // length
 export type Length = 0 | FontDimension | ViewportDimension | ContainerDimension | AbsoluteLengthDimension | Variable<Length> | Calculation<Partial<Length>>;
+
+// line width
+export type LineWidth = Number | Length | Variable<LineWidth> | Calculation<Partial<LineWidth>>;
 
 // rem
 export class Rem extends StyleMethod implements Calculable<Rem> {

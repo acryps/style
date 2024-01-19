@@ -82,9 +82,9 @@ export class FontStyleProperty extends StyleProperty {
 	}
 }
 
-export function font(fontSize: FontSizeStyleProperty, fontWeight: FontWeightStyleProperty, fontFamily: FontFamilyStyleProperty)
-export function font(fontSizeSize: Length, fontWeightWeight: FontWeights, ...fontFamilyName: FontFamilyIdentifier[])
-export function font() {
+export function font(fontSize: FontSizeStyleProperty, fontWeight: FontWeightStyleProperty, fontFamily: FontFamilyStyleProperty): FontStyleProperty
+export function font(fontSizeSize: Length, fontWeightWeight: FontWeights, ...fontFamilyName: FontFamilyIdentifier[]): FontStyleProperty
+export function font(): FontStyleProperty {
 	if (arguments[0] instanceof FontSizeStyleProperty && arguments[1] instanceof FontWeightStyleProperty && arguments[2] instanceof FontFamilyStyleProperty) { return new FontStyleProperty(arguments[0], arguments[1], arguments[2]); }
 	if (arguments.length == 3) { return new FontStyleProperty(new FontSizeStyleProperty(Style.resolveNumber('length', arguments[0])), new FontWeightStyleProperty(arguments[1]), new FontFamilyStyleProperty(...arguments[2])); }
 }

@@ -205,7 +205,7 @@ for (let sourcePath in sources) {
 
 				// create direct initializer
 				// → overflow(overflowX('scroll'), overflowY('scroll'))
-				writer.write(`export function ${ident.toCommandName()}(${declaration.children.map(child => `${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}`).join(', ')})\n`);
+				writer.write(`export function ${ident.toCommandName()}(${declaration.children.map(child => `${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}`).join(', ')}): ${declaration.name.toPropertyClassName()}\n`);
 				initializers.push(`if (${
 					declaration.children.map((child, index) => `arguments[${index}] instanceof ${child.name.toPropertyClassName()}`).join(' && ')
 				}) { return new ${declaration.name.toPropertyClassName()}(${declaration.children.map((child, index) => `arguments[${index}]`).join(', ')}); }`);
@@ -215,7 +215,7 @@ for (let sourcePath in sources) {
 				const childInitializer = declaration.constructChildInitializer();
 
 				if (childInitializer) {
-					writer.write(`export function ${ident.toCommandName()}(${childInitializer.namedArguments.join(', ')})\n`);
+					writer.write(`export function ${ident.toCommandName()}(${childInitializer.namedArguments.join(', ')}): ${declaration.name.toPropertyClassName()}\n`);
 					initializers.push(childInitializer.initializer);
 				}
 
@@ -224,12 +224,12 @@ for (let sourcePath in sources) {
 				const commonParameterInitializer = declaration.constructCommonParameterInitializer();
 
 				if (commonParameterInitializer) {
-					writer.write(`export function ${ident.toCommandName()}(${commonParameterInitializer.arguments.join(', ')})\n`);
+					writer.write(`export function ${ident.toCommandName()}(${commonParameterInitializer.arguments.join(', ')}): ${declaration.name.toPropertyClassName()}\n`);
 					initializers.push(commonParameterInitializer.initializer);
 				}
 
 				// write function implementation
-				writer.write(`export function ${ident.toCommandName()}() {\n`);
+				writer.write(`export function ${ident.toCommandName()}(): ${declaration.name.toPropertyClassName()} {\n`);
 
 				for (let initializer of initializers) {
 					writer.write(`\t${initializer}\n`);

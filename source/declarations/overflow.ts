@@ -57,10 +57,10 @@ export class OverflowYStyleProperty extends StyleProperty {
 
 export const overflowY = (mode: OverflowMode) => new OverflowYStyleProperty(mode);
 
-export function overflow(overflowX: OverflowXStyleProperty, overflowY: OverflowYStyleProperty)
-export function overflow(overflowXMode: OverflowMode, overflowYMode: OverflowMode)
-export function overflow(mode: OverflowMode)
-export function overflow() {
+export function overflow(overflowX: OverflowXStyleProperty, overflowY: OverflowYStyleProperty): OverflowStyleProperty
+export function overflow(overflowXMode: OverflowMode, overflowYMode: OverflowMode): OverflowStyleProperty
+export function overflow(mode: OverflowMode): OverflowStyleProperty
+export function overflow(): OverflowStyleProperty {
 	if (arguments[0] instanceof OverflowXStyleProperty && arguments[1] instanceof OverflowYStyleProperty) { return new OverflowStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 2) { return new OverflowStyleProperty(new OverflowXStyleProperty(arguments[0]), new OverflowYStyleProperty(arguments[1])); }
 	if (arguments.length == 1) { return new OverflowStyleProperty(new OverflowXStyleProperty(arguments[0]), new OverflowYStyleProperty(arguments[0])); }

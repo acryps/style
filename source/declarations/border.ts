@@ -312,10 +312,10 @@ export class BorderBottomStyleProperty extends StyleProperty {
 	}
 }
 
-export function borderInline(borderLeft: BorderLeftStyleProperty, borderRight: BorderRightStyleProperty)
-export function borderInline(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
-export function borderInline(width: LineWidth, style: BorderStyle, color: ColorValue)
-export function borderInline() {
+export function borderInline(borderLeft: BorderLeftStyleProperty, borderRight: BorderRightStyleProperty): BorderInlineStyleProperty
+export function borderInline(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue): BorderInlineStyleProperty
+export function borderInline(width: LineWidth, style: BorderStyle, color: ColorValue): BorderInlineStyleProperty
+export function borderInline(): BorderInlineStyleProperty {
 	if (arguments[0] instanceof BorderLeftStyleProperty && arguments[1] instanceof BorderRightStyleProperty) { return new BorderInlineStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 3) { return new BorderInlineStyleProperty(borderLeft(arguments[0], arguments[1], arguments[2]), borderRight(arguments[0], arguments[1], arguments[2])); }
 	if (arguments.length == 3) { return new BorderInlineStyleProperty(borderLeft(arguments[0], arguments[1], arguments[2]), borderRight(arguments[0], arguments[1], arguments[2])); }
@@ -323,10 +323,10 @@ export function borderInline() {
 
 BorderInlineStyleProperty.shorthand = [BorderLeftStyleProperty, BorderRightStyleProperty];
 
-export function borderBlock(borderTop: BorderTopStyleProperty, borderBottom: BorderBottomStyleProperty)
-export function borderBlock(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue)
-export function borderBlock(width: LineWidth, style: BorderStyle, color: ColorValue)
-export function borderBlock() {
+export function borderBlock(borderTop: BorderTopStyleProperty, borderBottom: BorderBottomStyleProperty): BorderBlockStyleProperty
+export function borderBlock(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue): BorderBlockStyleProperty
+export function borderBlock(width: LineWidth, style: BorderStyle, color: ColorValue): BorderBlockStyleProperty
+export function borderBlock(): BorderBlockStyleProperty {
 	if (arguments[0] instanceof BorderTopStyleProperty && arguments[1] instanceof BorderBottomStyleProperty) { return new BorderBlockStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 3) { return new BorderBlockStyleProperty(borderTop(arguments[0], arguments[1], arguments[2]), borderBottom(arguments[0], arguments[1], arguments[2])); }
 	if (arguments.length == 3) { return new BorderBlockStyleProperty(borderTop(arguments[0], arguments[1], arguments[2]), borderBottom(arguments[0], arguments[1], arguments[2])); }
@@ -334,10 +334,10 @@ export function borderBlock() {
 
 BorderBlockStyleProperty.shorthand = [BorderTopStyleProperty, BorderBottomStyleProperty];
 
-export function border(borderInline: BorderInlineStyleProperty, borderBlock: BorderBlockStyleProperty)
-export function border(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
-export function border(width: LineWidth, style: BorderStyle, color: ColorValue)
-export function border() {
+export function border(borderInline: BorderInlineStyleProperty, borderBlock: BorderBlockStyleProperty): BorderStyleProperty
+export function border(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue): BorderStyleProperty
+export function border(width: LineWidth, style: BorderStyle, color: ColorValue): BorderStyleProperty
+export function border(): BorderStyleProperty {
 	if (arguments[0] instanceof BorderInlineStyleProperty && arguments[1] instanceof BorderBlockStyleProperty) { return new BorderStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 3) { return new BorderStyleProperty(borderInline(arguments[0], arguments[1], arguments[2]), borderBlock(arguments[0], arguments[1], arguments[2])); }
 	if (arguments.length == 3) { return new BorderStyleProperty(borderInline(arguments[0], arguments[1], arguments[2]), borderBlock(arguments[0], arguments[1], arguments[2])); }
@@ -345,36 +345,36 @@ export function border() {
 
 BorderStyleProperty.shorthand = [BorderInlineStyleProperty, BorderBlockStyleProperty];
 
-export function borderLeft(borderLeftWidth: BorderLeftWidthStyleProperty, borderLeftStyle: BorderLeftStyleStyleProperty, borderLeftColor: BorderLeftColorStyleProperty)
-export function borderLeft(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue)
-export function borderLeft() {
+export function borderLeft(borderLeftWidth: BorderLeftWidthStyleProperty, borderLeftStyle: BorderLeftStyleStyleProperty, borderLeftColor: BorderLeftColorStyleProperty): BorderLeftStyleProperty
+export function borderLeft(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue): BorderLeftStyleProperty
+export function borderLeft(): BorderLeftStyleProperty {
 	if (arguments[0] instanceof BorderLeftWidthStyleProperty && arguments[1] instanceof BorderLeftStyleStyleProperty && arguments[2] instanceof BorderLeftColorStyleProperty) { return new BorderLeftStyleProperty(arguments[0], arguments[1], arguments[2]); }
 	if (arguments.length == 3) { return new BorderLeftStyleProperty(new BorderLeftWidthStyleProperty(arguments[0]), new BorderLeftStyleStyleProperty(arguments[1]), new BorderLeftColorStyleProperty(arguments[2])); }
 }
 
 BorderLeftStyleProperty.shorthand = [BorderLeftWidthStyleProperty, BorderLeftStyleStyleProperty, BorderLeftColorStyleProperty];
 
-export function borderRight(borderRightWidth: BorderRightWidthStyleProperty, borderRightStyle: BorderRightStyleStyleProperty, borderRightColor: BorderRightColorStyleProperty)
-export function borderRight(borderRightWidthWidth: LineWidth, borderRightStyleStyle: BorderStyle, borderRightColorColor: ColorValue)
-export function borderRight() {
+export function borderRight(borderRightWidth: BorderRightWidthStyleProperty, borderRightStyle: BorderRightStyleStyleProperty, borderRightColor: BorderRightColorStyleProperty): BorderRightStyleProperty
+export function borderRight(borderRightWidthWidth: LineWidth, borderRightStyleStyle: BorderStyle, borderRightColorColor: ColorValue): BorderRightStyleProperty
+export function borderRight(): BorderRightStyleProperty {
 	if (arguments[0] instanceof BorderRightWidthStyleProperty && arguments[1] instanceof BorderRightStyleStyleProperty && arguments[2] instanceof BorderRightColorStyleProperty) { return new BorderRightStyleProperty(arguments[0], arguments[1], arguments[2]); }
 	if (arguments.length == 3) { return new BorderRightStyleProperty(new BorderRightWidthStyleProperty(arguments[0]), new BorderRightStyleStyleProperty(arguments[1]), new BorderRightColorStyleProperty(arguments[2])); }
 }
 
 BorderRightStyleProperty.shorthand = [BorderRightWidthStyleProperty, BorderRightStyleStyleProperty, BorderRightColorStyleProperty];
 
-export function borderTop(borderTopWidth: BorderTopWidthStyleProperty, borderTopStyle: BorderTopStyleStyleProperty, borderTopColor: BorderTopColorStyleProperty)
-export function borderTop(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue)
-export function borderTop() {
+export function borderTop(borderTopWidth: BorderTopWidthStyleProperty, borderTopStyle: BorderTopStyleStyleProperty, borderTopColor: BorderTopColorStyleProperty): BorderTopStyleProperty
+export function borderTop(borderTopWidthWidth: LineWidth, borderTopStyleStyle: BorderStyle, borderTopColorColor: ColorValue): BorderTopStyleProperty
+export function borderTop(): BorderTopStyleProperty {
 	if (arguments[0] instanceof BorderTopWidthStyleProperty && arguments[1] instanceof BorderTopStyleStyleProperty && arguments[2] instanceof BorderTopColorStyleProperty) { return new BorderTopStyleProperty(arguments[0], arguments[1], arguments[2]); }
 	if (arguments.length == 3) { return new BorderTopStyleProperty(new BorderTopWidthStyleProperty(arguments[0]), new BorderTopStyleStyleProperty(arguments[1]), new BorderTopColorStyleProperty(arguments[2])); }
 }
 
 BorderTopStyleProperty.shorthand = [BorderTopWidthStyleProperty, BorderTopStyleStyleProperty, BorderTopColorStyleProperty];
 
-export function borderBottom(borderBottomWidth: BorderBottomWidthStyleProperty, borderBottomStyle: BorderBottomStyleStyleProperty, borderBottomColor: BorderBottomColorStyleProperty)
-export function borderBottom(borderBottomWidthWidth: LineWidth, borderBottomStyleStyle: BorderStyle, borderBottomColorColor: ColorValue)
-export function borderBottom() {
+export function borderBottom(borderBottomWidth: BorderBottomWidthStyleProperty, borderBottomStyle: BorderBottomStyleStyleProperty, borderBottomColor: BorderBottomColorStyleProperty): BorderBottomStyleProperty
+export function borderBottom(borderBottomWidthWidth: LineWidth, borderBottomStyleStyle: BorderStyle, borderBottomColorColor: ColorValue): BorderBottomStyleProperty
+export function borderBottom(): BorderBottomStyleProperty {
 	if (arguments[0] instanceof BorderBottomWidthStyleProperty && arguments[1] instanceof BorderBottomStyleStyleProperty && arguments[2] instanceof BorderBottomColorStyleProperty) { return new BorderBottomStyleProperty(arguments[0], arguments[1], arguments[2]); }
 	if (arguments.length == 3) { return new BorderBottomStyleProperty(new BorderBottomWidthStyleProperty(arguments[0]), new BorderBottomStyleStyleProperty(arguments[1]), new BorderBottomColorStyleProperty(arguments[2])); }
 }
