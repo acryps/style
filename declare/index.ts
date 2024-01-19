@@ -90,7 +90,7 @@ for (let sourcePath in sources) {
 				writer.write(`\tconstructor(\n`);
 				
 				for (let child of declaration.children) {
-					writer.write(`\t\tprivate ${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}${declaration.children.indexOf(child as any) == declaration.children.length - 1 ? '' : ','}\n`);
+					writer.write(`\t\tpublic ${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}${declaration.children.indexOf(child as any) == declaration.children.length - 1 ? '' : ','}\n`);
 				}
 
 				writer.write('\t) {\n');
