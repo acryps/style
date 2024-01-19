@@ -4,8 +4,10 @@ import { StyleMethod } from '../method';
 import { Variable } from '../variable';
 
 import { Length } from './primitives';
+import { Number } from './primitives';
 import { Integer } from './primitives';
 import { String } from './primitives';
+import { Percentage } from './primitives';
 
 // alignment mode
 export type AlignmentMode = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | Variable<AlignmentMode>;
@@ -221,6 +223,25 @@ export class FlexWrapStyleProperty extends StyleProperty {
 
 export const flexWrap = (mode: FlexWrapMode) => new FlexWrapStyleProperty(mode);
 
+// fr
+export class Fr extends StyleMethod {
+	private value: Number;
+
+	constructor(
+		value: Number
+	) {
+		super();
+
+	this.value = value;
+	}
+
+	toValueString() {
+		return `${this.value}fr`;
+	}
+}
+
+export function fr(value: Number) { return new Fr(value); }
+
 // span query
 export type SpanQuery = Integer | String | Variable<SpanQuery>;
 
@@ -242,6 +263,78 @@ export class Span extends StyleMethod {
 }
 
 export function span(query: SpanQuery) { return new Span(query); }
+
+// min max breadth
+export type MinMaxBreadth = Length | Percentage | Fr | 'max-content' | 'min-content' | 'auto' | Variable<MinMaxBreadth>;
+
+// min max
+export class MinMax extends StyleMethod {
+	private left: MinMaxBreadth;
+	private right: MinMaxBreadth;
+
+	constructor(
+		left: MinMaxBreadth,
+		right: MinMaxBreadth
+	) {
+		super();
+
+	this.left = left;
+		this.right = right;
+	}
+
+	toValueString() {
+		return `minmax(${this.left},${this.right})`;
+	}
+}
+
+export function minMax(left: MinMaxBreadth, right: MinMaxBreadth) { return new MinMax(left, right); }
+
+// fit content
+export class FitContent extends StyleMethod {
+	private size: Length;
+
+	constructor(
+		size: Length
+	) {
+		super();
+
+	this.size = size;
+	}
+
+	toValueString() {
+		return `fit-content(${this.size})`;
+	}
+}
+
+export function fitContent(size: Length) { return new FitContent(Style.resolveNumber('length', size)); }
+
+// repeat track
+export type RepeatTrack = 'auto-fill' | 'auto-fit' | Integer | Variable<RepeatTrack>;
+
+// repeat slot
+export type RepeatSlot = Length | Fr | 'min-content' | 'max-content' | MinMax | FitContent | 'auto' | Percentage | Variable<RepeatSlot>;
+
+// repeat
+export class Repeat extends StyleMethod {
+	private track: RepeatTrack;
+	private values: RepeatSlot[];
+
+	constructor(
+		track: RepeatTrack,
+		...values: RepeatSlot[]
+	) {
+		super();
+
+	this.track = track;
+		this.values = values;
+	}
+
+	toValueString() {
+		return `repeat(${this.track},${this.values.join(' ')})`;
+	}
+}
+
+export function repeat(track: RepeatTrack, ...values: RepeatSlot[]) { return new Repeat(track, ...values); }
 
 // area span
 export class AreaSpan extends StyleMethod {

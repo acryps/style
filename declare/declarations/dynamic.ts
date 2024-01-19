@@ -3,7 +3,7 @@ import { PropertyTypeDeclaration } from "../builders/property";
 import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { Ident } from "../ident";
-import { integer, length, number, string } from "./primitives";
+import { integer, length, number, percentage, string } from "./primitives";
 
 export const alignmentMode = new TypeDeclaration('normal', 'stretch', 'center', 'start', 'end', 'flex-start', 'flex-end');
 export const itemsAlignmentMode = new TypeDeclaration(alignmentMode, 'self-start', 'self-end');
@@ -53,12 +53,39 @@ export const flexWrapMode = new TypeDeclaration('nowrap', 'wrap', 'wrap-reverse'
 export const flexWrap = PropertyTypeDeclaration.fromMode(flexWrapMode); 
 
 // grid
+export const fr = MethodDeclaration.fromUnit('fr', number)
+
 export const spanQuery = new TypeDeclaration(integer, string);
 export const span = new MethodDeclaration({
 	query: spanQuery.single()
 }, `
 	this.query = query;
 `, "span ${this.query}");
+
+export const minMaxBreadth = new TypeDeclaration(length, percentage, fr, 'max-content', 'min-content', 'auto');
+export const minMax = new MethodDeclaration({
+	left: minMaxBreadth.single(),
+	right: minMaxBreadth.single()
+}, `
+	this.left = left;
+	this.right = right;
+`, "minmax(${this.left},${this.right})");
+
+export const fitContent = new MethodDeclaration({
+	size: length.single()
+}, `
+	this.size = size;
+`, "fit-content(${this.size})");
+
+export const repeatTrack = new TypeDeclaration('auto-fill', 'auto-fit', integer);
+export const repeatSlot = new TypeDeclaration(length, fr, 'min-content', 'max-content', minMax, fitContent, 'auto', percentage);
+export const repeat = new MethodDeclaration({
+	track: repeatTrack.single(),
+	values: repeatSlot.spread()
+}, `
+	this.track = track;
+	this.values = values;
+`, "repeat(${this.track},${this.values.join(' ')})");
 
 export const areaSpan = new MethodDeclaration({
 	length: integer.single(),
