@@ -1,10 +1,18 @@
 export class StyleProperty {
+	overwriteParents = false;
+
 	static shorthand: (new (...parameters) => StyleProperty)[];
 
 	constructor(
 		public propertyName: string,
 		public children?: StyleProperty[]
 	) {}
+
+	important() {
+		this.overwriteParents = true;
+
+		return this;
+	}
 
 	/**
 	 * Called when the property is used by a group
@@ -20,6 +28,6 @@ export class StyleProperty {
 	}
 
 	toPropertyString() {
-		return `${this.propertyName}:${this.toValueString()};`;
+		return `${this.propertyName}:${this.toValueString()}${this.overwriteParents ? ' !important' : ''};`;
 	}
 }
