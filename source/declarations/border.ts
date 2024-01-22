@@ -59,7 +59,7 @@ export class BorderRadiusStyleProperty extends StyleProperty {
 
 // border left width
 export class BorderLeftWidthStyleProperty extends StyleProperty {
-	private width: LineWidth;
+	public width: LineWidth;
 
 	constructor(
 		width: LineWidth
@@ -78,7 +78,7 @@ export const borderLeftWidth = (width: LineWidth) => new BorderLeftWidthStylePro
 
 // border left style
 export class BorderLeftStyleStyleProperty extends StyleProperty {
-	private style: BorderStyle;
+	public style: BorderStyle;
 
 	constructor(
 		style: BorderStyle
@@ -97,7 +97,7 @@ export const borderLeftStyle = (style: BorderStyle) => new BorderLeftStyleStyleP
 
 // border left color
 export class BorderLeftColorStyleProperty extends StyleProperty {
-	private color: ColorValue;
+	public color: ColorValue;
 
 	constructor(
 		color: ColorValue
@@ -127,7 +127,7 @@ export class BorderLeftStyleProperty extends StyleProperty {
 
 // border right width
 export class BorderRightWidthStyleProperty extends StyleProperty {
-	private width: LineWidth;
+	public width: LineWidth;
 
 	constructor(
 		width: LineWidth
@@ -146,7 +146,7 @@ export const borderRightWidth = (width: LineWidth) => new BorderRightWidthStyleP
 
 // border right style
 export class BorderRightStyleStyleProperty extends StyleProperty {
-	private style: BorderStyle;
+	public style: BorderStyle;
 
 	constructor(
 		style: BorderStyle
@@ -165,7 +165,7 @@ export const borderRightStyle = (style: BorderStyle) => new BorderRightStyleStyl
 
 // border right color
 export class BorderRightColorStyleProperty extends StyleProperty {
-	private color: ColorValue;
+	public color: ColorValue;
 
 	constructor(
 		color: ColorValue
@@ -195,7 +195,7 @@ export class BorderRightStyleProperty extends StyleProperty {
 
 // border top width
 export class BorderTopWidthStyleProperty extends StyleProperty {
-	private width: LineWidth;
+	public width: LineWidth;
 
 	constructor(
 		width: LineWidth
@@ -214,7 +214,7 @@ export const borderTopWidth = (width: LineWidth) => new BorderTopWidthStylePrope
 
 // border top style
 export class BorderTopStyleStyleProperty extends StyleProperty {
-	private style: BorderStyle;
+	public style: BorderStyle;
 
 	constructor(
 		style: BorderStyle
@@ -233,7 +233,7 @@ export const borderTopStyle = (style: BorderStyle) => new BorderTopStyleStylePro
 
 // border top color
 export class BorderTopColorStyleProperty extends StyleProperty {
-	private color: ColorValue;
+	public color: ColorValue;
 
 	constructor(
 		color: ColorValue
@@ -263,7 +263,7 @@ export class BorderTopStyleProperty extends StyleProperty {
 
 // border bottom width
 export class BorderBottomWidthStyleProperty extends StyleProperty {
-	private width: LineWidth;
+	public width: LineWidth;
 
 	constructor(
 		width: LineWidth
@@ -282,7 +282,7 @@ export const borderBottomWidth = (width: LineWidth) => new BorderBottomWidthStyl
 
 // border bottom style
 export class BorderBottomStyleStyleProperty extends StyleProperty {
-	private style: BorderStyle;
+	public style: BorderStyle;
 
 	constructor(
 		style: BorderStyle
@@ -301,7 +301,7 @@ export const borderBottomStyle = (style: BorderStyle) => new BorderBottomStyleSt
 
 // border bottom color
 export class BorderBottomColorStyleProperty extends StyleProperty {
-	private color: ColorValue;
+	public color: ColorValue;
 
 	constructor(
 		color: ColorValue
@@ -331,7 +331,7 @@ export class BorderBottomStyleProperty extends StyleProperty {
 
 // border top left radius
 export class BorderTopLeftRadiusStyleProperty extends StyleProperty {
-	private radius: BorderRadiusSize;
+	public radius: BorderRadiusSize;
 
 	constructor(
 		radius: BorderRadiusSize
@@ -350,7 +350,7 @@ export const borderTopLeftRadius = (radius: BorderRadiusSize) => new BorderTopLe
 
 // border top right radius
 export class BorderTopRightRadiusStyleProperty extends StyleProperty {
-	private radius: BorderRadiusSize;
+	public radius: BorderRadiusSize;
 
 	constructor(
 		radius: BorderRadiusSize
@@ -369,7 +369,7 @@ export const borderTopRightRadius = (radius: BorderRadiusSize) => new BorderTopR
 
 // border bottom right radius
 export class BorderBottomRightRadiusStyleProperty extends StyleProperty {
-	private radius: BorderRadiusSize;
+	public radius: BorderRadiusSize;
 
 	constructor(
 		radius: BorderRadiusSize
@@ -388,7 +388,7 @@ export const borderBottomRightRadius = (radius: BorderRadiusSize) => new BorderB
 
 // border bottom left radius
 export class BorderBottomLeftRadiusStyleProperty extends StyleProperty {
-	private radius: BorderRadiusSize;
+	public radius: BorderRadiusSize;
 
 	constructor(
 		radius: BorderRadiusSize

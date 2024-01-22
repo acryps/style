@@ -21,7 +21,7 @@ export class OverflowStyleProperty extends StyleProperty {
 
 // overflow x
 export class OverflowXStyleProperty extends StyleProperty {
-	private mode: OverflowMode;
+	public mode: OverflowMode;
 
 	constructor(
 		mode: OverflowMode
@@ -40,7 +40,7 @@ export const overflowX = (mode: OverflowMode) => new OverflowXStyleProperty(mode
 
 // overflow y
 export class OverflowYStyleProperty extends StyleProperty {
-	private mode: OverflowMode;
+	public mode: OverflowMode;
 
 	constructor(
 		mode: OverflowMode

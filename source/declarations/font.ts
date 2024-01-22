@@ -16,7 +16,7 @@ export type FontWeights = Integer | 'normal' | 'bold' | 'lighter' | 'bolder' | V
 
 // font family
 export class FontFamilyStyleProperty extends StyleProperty {
-	private name: FontFamilyIdentifier[];
+	public name: FontFamilyIdentifier[];
 
 	constructor(
 		...name: FontFamilyIdentifier[]
@@ -35,7 +35,7 @@ export const fontFamily = (...name: FontFamilyIdentifier[]) => new FontFamilySty
 
 // font size
 export class FontSizeStyleProperty extends StyleProperty {
-	private size: Length;
+	public size: Length;
 
 	constructor(
 		size: Length
@@ -54,7 +54,7 @@ export const fontSize = (size: Length) => new FontSizeStyleProperty(Style.resolv
 
 // font weight
 export class FontWeightStyleProperty extends StyleProperty {
-	private weight: FontWeights;
+	public weight: FontWeights;
 
 	constructor(
 		weight: FontWeights

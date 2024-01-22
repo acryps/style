@@ -19,7 +19,7 @@ export type BoxSizingMode = 'border-box' | 'content-box' | Variable<BoxSizingMod
 
 // box sizing
 export class BoxSizingStyleProperty extends StyleProperty {
-	private mode: BoxSizingMode;
+	public mode: BoxSizingMode;
 
 	constructor(
 		mode: BoxSizingMode
@@ -60,7 +60,7 @@ export function ratio(width: Number, height: Number) { return new Ratio(width, h
 
 // aspect ratio
 export class AspectRatioStyleProperty extends StyleProperty {
-	private ratio: Ratio;
+	public ratio: Ratio;
 
 	constructor(
 		ratio: Ratio
@@ -79,7 +79,7 @@ export const aspectRatio = (ratio: Ratio) => new AspectRatioStyleProperty(ratio)
 
 // height
 export class HeightStyleProperty extends StyleProperty {
-	private size: SizeDimension;
+	public size: SizeDimension;
 
 	constructor(
 		size: SizeDimension
@@ -98,7 +98,7 @@ export const height = (size: SizeDimension) => new HeightStyleProperty(size);
 
 // min height
 export class MinHeightStyleProperty extends StyleProperty {
-	private limit: SizeDimension;
+	public limit: SizeDimension;
 
 	constructor(
 		limit: SizeDimension
@@ -117,7 +117,7 @@ export const minHeight = (limit: SizeDimension) => new MinHeightStyleProperty(li
 
 // max height
 export class MaxHeightStyleProperty extends StyleProperty {
-	private limit: SizeDimension;
+	public limit: SizeDimension;
 
 	constructor(
 		limit: SizeDimension
@@ -136,7 +136,7 @@ export const maxHeight = (limit: SizeDimension) => new MaxHeightStyleProperty(li
 
 // width
 export class WidthStyleProperty extends StyleProperty {
-	private size: SizeDimension;
+	public size: SizeDimension;
 
 	constructor(
 		size: SizeDimension
@@ -155,7 +155,7 @@ export const width = (size: SizeDimension) => new WidthStyleProperty(size);
 
 // min width
 export class MinWidthStyleProperty extends StyleProperty {
-	private limit: SizeDimension;
+	public limit: SizeDimension;
 
 	constructor(
 		limit: SizeDimension
@@ -174,7 +174,7 @@ export const minWidth = (limit: SizeDimension) => new MinWidthStyleProperty(limi
 
 // max width
 export class MaxWidthStyleProperty extends StyleProperty {
-	private limit: SizeDimension;
+	public limit: SizeDimension;
 
 	constructor(
 		limit: SizeDimension

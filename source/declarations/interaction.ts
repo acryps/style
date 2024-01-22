@@ -11,7 +11,7 @@ export type PointerEventsMode = 'auto' | 'bounding-box' | 'visiblePainted' | 'vi
 
 // pointer events
 export class PointerEventsStyleProperty extends StyleProperty {
-	private mode: PointerEventsMode;
+	public mode: PointerEventsMode;
 
 	constructor(
 		mode: PointerEventsMode
@@ -33,7 +33,7 @@ export type UserSelectMode = 'auto' | 'text' | 'contain' | 'all' | 'none' | Vari
 
 // user select
 export class UserSelectStyleProperty extends StyleProperty {
-	private mode: UserSelectMode;
+	public mode: UserSelectMode;
 
 	constructor(
 		mode: UserSelectMode
@@ -55,7 +55,7 @@ export type TouchActionMode = 'auto' | 'none' | 'pan-x' | 'pan-left' | 'pan-righ
 
 // touch action
 export class TouchActionStyleProperty extends StyleProperty {
-	private mode: TouchActionMode;
+	public mode: TouchActionMode;
 
 	constructor(
 		mode: TouchActionMode

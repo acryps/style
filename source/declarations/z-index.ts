@@ -8,7 +8,7 @@ import { Integer } from './primitives';
 
 // z index
 export class ZIndexStyleProperty extends StyleProperty {
-	private layer: Integer;
+	public layer: Integer;
 
 	constructor(
 		layer: Integer

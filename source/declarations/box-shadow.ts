@@ -12,12 +12,12 @@ export type BoxShadowType = 'inset' | 'outset' | Variable<BoxShadowType> | Calcu
 
 // box shadow
 export class BoxShadowStyleProperty extends StyleProperty {
-	private color: ColorValue;
-	private offsetX: Length;
-	private offsetY: Length;
-	private blurRadius: Length;
-	private spreadRadius: Length;
-	private type: BoxShadowType;
+	public color: ColorValue;
+	public offsetX: Length;
+	public offsetY: Length;
+	public blurRadius: Length;
+	public spreadRadius: Length;
+	public type: BoxShadowType;
 
 	constructor(
 		color: ColorValue,

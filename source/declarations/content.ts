@@ -11,7 +11,7 @@ export type ContentAppendable = String | Variable<ContentAppendable> | Calculati
 
 // content
 export class ContentStyleProperty extends StyleProperty {
-	private content: ContentAppendable[];
+	public content: ContentAppendable[];
 
 	constructor(
 		...content: ContentAppendable[]

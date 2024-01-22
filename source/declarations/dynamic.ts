@@ -36,7 +36,7 @@ export type DistributedJustificationMode = JustificationMode | 'space-between' |
 
 // align items
 export class AlignItemsStyleProperty extends StyleProperty {
-	private mode: ItemsAlignmentMode;
+	public mode: ItemsAlignmentMode;
 
 	constructor(
 		mode: ItemsAlignmentMode
@@ -55,7 +55,7 @@ export const alignItems = (mode: ItemsAlignmentMode) => new AlignItemsStylePrope
 
 // align content
 export class AlignContentStyleProperty extends StyleProperty {
-	private mode: ItemsAlignmentMode;
+	public mode: ItemsAlignmentMode;
 
 	constructor(
 		mode: ItemsAlignmentMode
@@ -74,7 +74,7 @@ export const alignContent = (mode: ItemsAlignmentMode) => new AlignContentStyleP
 
 // align self
 export class AlignSelfStyleProperty extends StyleProperty {
-	private mode: SelfAlignmentMode;
+	public mode: SelfAlignmentMode;
 
 	constructor(
 		mode: SelfAlignmentMode
@@ -93,7 +93,7 @@ export const alignSelf = (mode: SelfAlignmentMode) => new AlignSelfStyleProperty
 
 // justify items
 export class JustifyItemsStyleProperty extends StyleProperty {
-	private mode: ItemsJustificationMode;
+	public mode: ItemsJustificationMode;
 
 	constructor(
 		mode: ItemsJustificationMode
@@ -112,7 +112,7 @@ export const justifyItems = (mode: ItemsJustificationMode) => new JustifyItemsSt
 
 // justify content
 export class JustifyContentStyleProperty extends StyleProperty {
-	private mode: ItemsJustificationMode;
+	public mode: ItemsJustificationMode;
 
 	constructor(
 		mode: ItemsJustificationMode
@@ -131,7 +131,7 @@ export const justifyContent = (mode: ItemsJustificationMode) => new JustifyConte
 
 // justify self
 export class JustifySelfStyleProperty extends StyleProperty {
-	private mode: SelfJustificationMode;
+	public mode: SelfJustificationMode;
 
 	constructor(
 		mode: SelfJustificationMode
@@ -163,7 +163,7 @@ export type FlexBasisMode = Length | 'auto' | 'max-content' | 'min-content' | 'f
 
 // flex basis
 export class FlexBasisStyleProperty extends StyleProperty {
-	private mode: FlexBasisMode;
+	public mode: FlexBasisMode;
 
 	constructor(
 		mode: FlexBasisMode
@@ -185,7 +185,7 @@ export type FlexDirectionMode = 'row' | 'row-reverse' | 'column' | 'column-rever
 
 // flex direction
 export class FlexDirectionStyleProperty extends StyleProperty {
-	private mode: FlexDirectionMode;
+	public mode: FlexDirectionMode;
 
 	constructor(
 		mode: FlexDirectionMode
@@ -207,7 +207,7 @@ export type FlexWrapMode = 'nowrap' | 'wrap' | 'wrap-reverse' | Variable<FlexWra
 
 // flex wrap
 export class FlexWrapStyleProperty extends StyleProperty {
-	private mode: FlexWrapMode;
+	public mode: FlexWrapMode;
 
 	constructor(
 		mode: FlexWrapMode
@@ -387,7 +387,7 @@ export type GridTemplateAreaName = '.' | String | Repeat | Variable<GridTemplate
 
 // grid template areas
 export class GridTemplateAreasStyleProperty extends StyleProperty {
-	private rows: GridTemplateAreaName[][];
+	public rows: GridTemplateAreaName[][];
 
 	constructor(
 		...rows: GridTemplateAreaName[][]
@@ -406,7 +406,7 @@ export const gridTemplateAreas = (...rows: GridTemplateAreaName[][]) => new Grid
 
 // column gap
 export class ColumnGapStyleProperty extends StyleProperty {
-	private distance: Length;
+	public distance: Length;
 
 	constructor(
 		distance: Length
@@ -425,7 +425,7 @@ export const columnGap = (distance: Length) => new ColumnGapStyleProperty(Style.
 
 // row gap
 export class RowGapStyleProperty extends StyleProperty {
-	private distance: Length;
+	public distance: Length;
 
 	constructor(
 		distance: Length
@@ -444,7 +444,7 @@ export const rowGap = (distance: Length) => new RowGapStyleProperty(Style.resolv
 
 // flex grow
 export class FlexGrowStyleProperty extends StyleProperty {
-	private order: Integer;
+	public order: Integer;
 
 	constructor(
 		order: Integer
@@ -463,7 +463,7 @@ export const flexGrow = (order: Integer) => new FlexGrowStyleProperty(order);
 
 // flex shrink
 export class FlexShrinkStyleProperty extends StyleProperty {
-	private order: Integer;
+	public order: Integer;
 
 	constructor(
 		order: Integer
@@ -482,7 +482,7 @@ export const flexShrink = (order: Integer) => new FlexShrinkStyleProperty(order)
 
 // grid row start
 export class GridRowStartStyleProperty extends StyleProperty {
-	private selector: GridAreaSelector;
+	public selector: GridAreaSelector;
 
 	constructor(
 		selector: GridAreaSelector
@@ -501,7 +501,7 @@ export const gridRowStart = (selector: GridAreaSelector) => new GridRowStartStyl
 
 // grid column start
 export class GridColumnStartStyleProperty extends StyleProperty {
-	private selector: GridAreaSelector;
+	public selector: GridAreaSelector;
 
 	constructor(
 		selector: GridAreaSelector
@@ -520,7 +520,7 @@ export const gridColumnStart = (selector: GridAreaSelector) => new GridColumnSta
 
 // grid row end
 export class GridRowEndStyleProperty extends StyleProperty {
-	private selector: GridAreaSelector;
+	public selector: GridAreaSelector;
 
 	constructor(
 		selector: GridAreaSelector
@@ -539,7 +539,7 @@ export const gridRowEnd = (selector: GridAreaSelector) => new GridRowEndStylePro
 
 // grid column end
 export class GridColumnEndStyleProperty extends StyleProperty {
-	private selector: GridAreaSelector;
+	public selector: GridAreaSelector;
 
 	constructor(
 		selector: GridAreaSelector

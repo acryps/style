@@ -12,7 +12,7 @@ export type StrokeColor = ColorValue | 'none' | Variable<StrokeColor> | Calculat
 
 // stroke
 export class StrokeStyleProperty extends StyleProperty {
-	private color: StrokeColor;
+	public color: StrokeColor;
 
 	constructor(
 		color: StrokeColor
@@ -31,7 +31,7 @@ export const stroke = (color: StrokeColor) => new StrokeStyleProperty(color);
 
 // stroke width
 export class StrokeWidthStyleProperty extends StyleProperty {
-	private width: Length;
+	public width: Length;
 
 	constructor(
 		width: Length
@@ -53,7 +53,7 @@ export type VectorEffectMode = 'none' | 'non-scaling-stroke' | 'non-scaling-size
 
 // vector effect
 export class VectorEffectStyleProperty extends StyleProperty {
-	private mode: VectorEffectMode;
+	public mode: VectorEffectMode;
 
 	constructor(
 		mode: VectorEffectMode

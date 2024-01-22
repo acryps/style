@@ -11,7 +11,7 @@ export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-t
 
 // text decoration line
 export class TextDecorationLineStyleProperty extends StyleProperty {
-	private modes: TextDecorationLineMode[];
+	public modes: TextDecorationLineMode[];
 
 	constructor(
 		...modes: TextDecorationLineMode[]

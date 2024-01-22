@@ -11,7 +11,7 @@ export type AlphaValue = Number | 'none' | Variable<AlphaValue> | Calculation<Pa
 
 // opacity
 export class OpacityStyleProperty extends StyleProperty {
-	private alpha: AlphaValue;
+	public alpha: AlphaValue;
 
 	constructor(
 		alpha: AlphaValue

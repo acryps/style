@@ -11,7 +11,7 @@ export type TextAlignmentDirection = 'start' | 'end' | 'left' | 'right' | 'cente
 
 // text align
 export class TextAlignStyleProperty extends StyleProperty {
-	private direction: TextAlignmentDirection;
+	public direction: TextAlignmentDirection;
 
 	constructor(
 		direction: TextAlignmentDirection
@@ -33,7 +33,7 @@ export type TextTransformationMode = 'none' | 'capitalize' | 'uppercase' | 'lowe
 
 // text transform
 export class TextTransformStyleProperty extends StyleProperty {
-	private mode: TextTransformationMode;
+	public mode: TextTransformationMode;
 
 	constructor(
 		mode: TextTransformationMode
@@ -55,7 +55,7 @@ export type TextWrapMode = 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable' |
 
 // text wrap
 export class TextWrapStyleProperty extends StyleProperty {
-	private mode: TextWrapMode;
+	public mode: TextWrapMode;
 
 	constructor(
 		mode: TextWrapMode

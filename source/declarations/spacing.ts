@@ -11,7 +11,7 @@ export type SpacingLength = 'auto' | Length | Variable<SpacingLength> | Calculat
 
 // margin left
 export class MarginLeftStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -30,7 +30,7 @@ export const marginLeft = (length: SpacingLength) => new MarginLeftStyleProperty
 
 // margin right
 export class MarginRightStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -59,7 +59,7 @@ export class MarginInlineStyleProperty extends StyleProperty {
 
 // margin top
 export class MarginTopStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -78,7 +78,7 @@ export const marginTop = (length: SpacingLength) => new MarginTopStyleProperty(l
 
 // margin bottom
 export class MarginBottomStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -117,7 +117,7 @@ export class MarginStyleProperty extends StyleProperty {
 
 // padding left
 export class PaddingLeftStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -136,7 +136,7 @@ export const paddingLeft = (length: SpacingLength) => new PaddingLeftStyleProper
 
 // padding right
 export class PaddingRightStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -165,7 +165,7 @@ export class PaddingInlineStyleProperty extends StyleProperty {
 
 // padding top
 export class PaddingTopStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
@@ -184,7 +184,7 @@ export const paddingTop = (length: SpacingLength) => new PaddingTopStyleProperty
 
 // padding bottom
 export class PaddingBottomStyleProperty extends StyleProperty {
-	private length: SpacingLength;
+	public length: SpacingLength;
 
 	constructor(
 		length: SpacingLength
