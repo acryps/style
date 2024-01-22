@@ -112,10 +112,10 @@ export const justifyItems = (mode: ItemsJustificationMode) => new JustifyItemsSt
 
 // justify content
 export class JustifyContentStyleProperty extends StyleProperty {
-	public mode: ItemsJustificationMode;
+	public mode: DistributedJustificationMode;
 
 	constructor(
-		mode: ItemsJustificationMode
+		mode: DistributedJustificationMode
 	) {
 		super('justify-content');
 
@@ -127,7 +127,7 @@ export class JustifyContentStyleProperty extends StyleProperty {
 	}
 }
 
-export const justifyContent = (mode: ItemsJustificationMode) => new JustifyContentStyleProperty(mode);
+export const justifyContent = (mode: DistributedJustificationMode) => new JustifyContentStyleProperty(mode);
 
 // justify self
 export class JustifySelfStyleProperty extends StyleProperty {

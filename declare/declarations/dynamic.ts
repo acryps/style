@@ -22,7 +22,7 @@ export const alignSelf = PropertyTypeDeclaration.fromMode(selfAlignmentMode);
 
 // justify
 export const justifyItems = PropertyTypeDeclaration.fromMode(itemsJustificationMode);
-export const justifyContent = PropertyTypeDeclaration.fromMode(itemsJustificationMode);
+export const justifyContent = PropertyTypeDeclaration.fromMode(distributedJustificationMode);
 export const justifySelf = PropertyTypeDeclaration.fromMode(selfJustificationMode);
 
 // gap
