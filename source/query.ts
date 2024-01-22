@@ -22,9 +22,9 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 			} else if (Array.isArray(item)) {
 				add(item);
 			} else if ('toStyleGroup' in item) {
-				declaration.appendChild(item.toStyleGroup());
+				add([item.toStyleGroup()]);
 			} else if ('toStyleProperty' in item) {
-				declaration.appendChild(item.toStyleProperty());
+				add([item.toStyleProperty()]);
 			} else if ('toStyleProperties' in item) {
 				add(item.toStyleProperties());
 			} else {
