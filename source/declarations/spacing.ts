@@ -6,12 +6,15 @@ import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 
+// spacing length
+export type SpacingLength = 'auto' | Length | Variable<SpacingLength> | Calculation<Partial<SpacingLength>>;
+
 // margin left
 export class MarginLeftStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('margin-left');
 
@@ -23,14 +26,14 @@ export class MarginLeftStyleProperty extends StyleProperty {
 	}
 }
 
-export const marginLeft = (length: Length) => new MarginLeftStyleProperty(Style.resolveNumber('length', length));
+export const marginLeft = (length: SpacingLength) => new MarginLeftStyleProperty(length);
 
 // margin right
 export class MarginRightStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('margin-right');
 
@@ -42,7 +45,7 @@ export class MarginRightStyleProperty extends StyleProperty {
 	}
 }
 
-export const marginRight = (length: Length) => new MarginRightStyleProperty(Style.resolveNumber('length', length));
+export const marginRight = (length: SpacingLength) => new MarginRightStyleProperty(length);
 
 // margin inline
 export class MarginInlineStyleProperty extends StyleProperty {
@@ -56,10 +59,10 @@ export class MarginInlineStyleProperty extends StyleProperty {
 
 // margin top
 export class MarginTopStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('margin-top');
 
@@ -71,14 +74,14 @@ export class MarginTopStyleProperty extends StyleProperty {
 	}
 }
 
-export const marginTop = (length: Length) => new MarginTopStyleProperty(Style.resolveNumber('length', length));
+export const marginTop = (length: SpacingLength) => new MarginTopStyleProperty(length);
 
 // margin bottom
 export class MarginBottomStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('margin-bottom');
 
@@ -90,7 +93,7 @@ export class MarginBottomStyleProperty extends StyleProperty {
 	}
 }
 
-export const marginBottom = (length: Length) => new MarginBottomStyleProperty(Style.resolveNumber('length', length));
+export const marginBottom = (length: SpacingLength) => new MarginBottomStyleProperty(length);
 
 // margin block
 export class MarginBlockStyleProperty extends StyleProperty {
@@ -114,10 +117,10 @@ export class MarginStyleProperty extends StyleProperty {
 
 // padding left
 export class PaddingLeftStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('padding-left');
 
@@ -129,14 +132,14 @@ export class PaddingLeftStyleProperty extends StyleProperty {
 	}
 }
 
-export const paddingLeft = (length: Length) => new PaddingLeftStyleProperty(Style.resolveNumber('length', length));
+export const paddingLeft = (length: SpacingLength) => new PaddingLeftStyleProperty(length);
 
 // padding right
 export class PaddingRightStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('padding-right');
 
@@ -148,7 +151,7 @@ export class PaddingRightStyleProperty extends StyleProperty {
 	}
 }
 
-export const paddingRight = (length: Length) => new PaddingRightStyleProperty(Style.resolveNumber('length', length));
+export const paddingRight = (length: SpacingLength) => new PaddingRightStyleProperty(length);
 
 // padding inline
 export class PaddingInlineStyleProperty extends StyleProperty {
@@ -162,10 +165,10 @@ export class PaddingInlineStyleProperty extends StyleProperty {
 
 // padding top
 export class PaddingTopStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('padding-top');
 
@@ -177,14 +180,14 @@ export class PaddingTopStyleProperty extends StyleProperty {
 	}
 }
 
-export const paddingTop = (length: Length) => new PaddingTopStyleProperty(Style.resolveNumber('length', length));
+export const paddingTop = (length: SpacingLength) => new PaddingTopStyleProperty(length);
 
 // padding bottom
 export class PaddingBottomStyleProperty extends StyleProperty {
-	private length: Length;
+	private length: SpacingLength;
 
 	constructor(
-		length: Length
+		length: SpacingLength
 	) {
 		super('padding-bottom');
 
@@ -196,7 +199,7 @@ export class PaddingBottomStyleProperty extends StyleProperty {
 	}
 }
 
-export const paddingBottom = (length: Length) => new PaddingBottomStyleProperty(Style.resolveNumber('length', length));
+export const paddingBottom = (length: SpacingLength) => new PaddingBottomStyleProperty(length);
 
 // padding block
 export class PaddingBlockStyleProperty extends StyleProperty {
@@ -219,30 +222,30 @@ export class PaddingStyleProperty extends StyleProperty {
 }
 
 export function marginInline(marginLeft: MarginLeftStyleProperty, marginRight: MarginRightStyleProperty): MarginInlineStyleProperty
-export function marginInline(marginLeftLength: Length, marginRightLength: Length): MarginInlineStyleProperty
-export function marginInline(length: Length): MarginInlineStyleProperty
+export function marginInline(marginLeftLength: SpacingLength, marginRightLength: SpacingLength): MarginInlineStyleProperty
+export function marginInline(length: SpacingLength): MarginInlineStyleProperty
 export function marginInline(): MarginInlineStyleProperty {
 	if (arguments[0] instanceof MarginLeftStyleProperty && arguments[1] instanceof MarginRightStyleProperty) { return new MarginInlineStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new MarginInlineStyleProperty(new MarginLeftStyleProperty(Style.resolveNumber('length', arguments[0])), new MarginRightStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new MarginInlineStyleProperty(new MarginLeftStyleProperty(Style.resolveNumber('length', arguments[0])), new MarginRightStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new MarginInlineStyleProperty(new MarginLeftStyleProperty(arguments[0]), new MarginRightStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new MarginInlineStyleProperty(new MarginLeftStyleProperty(arguments[0]), new MarginRightStyleProperty(arguments[0])); }
 }
 
 MarginInlineStyleProperty.shorthand = [MarginLeftStyleProperty, MarginRightStyleProperty];
 
 export function marginBlock(marginTop: MarginTopStyleProperty, marginBottom: MarginBottomStyleProperty): MarginBlockStyleProperty
-export function marginBlock(marginTopLength: Length, marginBottomLength: Length): MarginBlockStyleProperty
-export function marginBlock(length: Length): MarginBlockStyleProperty
+export function marginBlock(marginTopLength: SpacingLength, marginBottomLength: SpacingLength): MarginBlockStyleProperty
+export function marginBlock(length: SpacingLength): MarginBlockStyleProperty
 export function marginBlock(): MarginBlockStyleProperty {
 	if (arguments[0] instanceof MarginTopStyleProperty && arguments[1] instanceof MarginBottomStyleProperty) { return new MarginBlockStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new MarginBlockStyleProperty(new MarginTopStyleProperty(Style.resolveNumber('length', arguments[0])), new MarginBottomStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new MarginBlockStyleProperty(new MarginTopStyleProperty(Style.resolveNumber('length', arguments[0])), new MarginBottomStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new MarginBlockStyleProperty(new MarginTopStyleProperty(arguments[0]), new MarginBottomStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new MarginBlockStyleProperty(new MarginTopStyleProperty(arguments[0]), new MarginBottomStyleProperty(arguments[0])); }
 }
 
 MarginBlockStyleProperty.shorthand = [MarginTopStyleProperty, MarginBottomStyleProperty];
 
 export function margin(marginInline: MarginInlineStyleProperty, marginBlock: MarginBlockStyleProperty): MarginStyleProperty
-export function margin(marginLeftLength: Length, marginRightLength: Length): MarginStyleProperty
-export function margin(length: Length): MarginStyleProperty
+export function margin(marginLeftLength: SpacingLength, marginRightLength: SpacingLength): MarginStyleProperty
+export function margin(length: SpacingLength): MarginStyleProperty
 export function margin(): MarginStyleProperty {
 	if (arguments[0] instanceof MarginInlineStyleProperty && arguments[1] instanceof MarginBlockStyleProperty) { return new MarginStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 2) { return new MarginStyleProperty(marginInline(arguments[0], arguments[1]), marginBlock(arguments[0], arguments[1])); }
@@ -252,30 +255,30 @@ export function margin(): MarginStyleProperty {
 MarginStyleProperty.shorthand = [MarginInlineStyleProperty, MarginBlockStyleProperty];
 
 export function paddingInline(paddingLeft: PaddingLeftStyleProperty, paddingRight: PaddingRightStyleProperty): PaddingInlineStyleProperty
-export function paddingInline(paddingLeftLength: Length, paddingRightLength: Length): PaddingInlineStyleProperty
-export function paddingInline(length: Length): PaddingInlineStyleProperty
+export function paddingInline(paddingLeftLength: SpacingLength, paddingRightLength: SpacingLength): PaddingInlineStyleProperty
+export function paddingInline(length: SpacingLength): PaddingInlineStyleProperty
 export function paddingInline(): PaddingInlineStyleProperty {
 	if (arguments[0] instanceof PaddingLeftStyleProperty && arguments[1] instanceof PaddingRightStyleProperty) { return new PaddingInlineStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new PaddingInlineStyleProperty(new PaddingLeftStyleProperty(Style.resolveNumber('length', arguments[0])), new PaddingRightStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new PaddingInlineStyleProperty(new PaddingLeftStyleProperty(Style.resolveNumber('length', arguments[0])), new PaddingRightStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new PaddingInlineStyleProperty(new PaddingLeftStyleProperty(arguments[0]), new PaddingRightStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new PaddingInlineStyleProperty(new PaddingLeftStyleProperty(arguments[0]), new PaddingRightStyleProperty(arguments[0])); }
 }
 
 PaddingInlineStyleProperty.shorthand = [PaddingLeftStyleProperty, PaddingRightStyleProperty];
 
 export function paddingBlock(paddingTop: PaddingTopStyleProperty, paddingBottom: PaddingBottomStyleProperty): PaddingBlockStyleProperty
-export function paddingBlock(paddingTopLength: Length, paddingBottomLength: Length): PaddingBlockStyleProperty
-export function paddingBlock(length: Length): PaddingBlockStyleProperty
+export function paddingBlock(paddingTopLength: SpacingLength, paddingBottomLength: SpacingLength): PaddingBlockStyleProperty
+export function paddingBlock(length: SpacingLength): PaddingBlockStyleProperty
 export function paddingBlock(): PaddingBlockStyleProperty {
 	if (arguments[0] instanceof PaddingTopStyleProperty && arguments[1] instanceof PaddingBottomStyleProperty) { return new PaddingBlockStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new PaddingBlockStyleProperty(new PaddingTopStyleProperty(Style.resolveNumber('length', arguments[0])), new PaddingBottomStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new PaddingBlockStyleProperty(new PaddingTopStyleProperty(Style.resolveNumber('length', arguments[0])), new PaddingBottomStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new PaddingBlockStyleProperty(new PaddingTopStyleProperty(arguments[0]), new PaddingBottomStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new PaddingBlockStyleProperty(new PaddingTopStyleProperty(arguments[0]), new PaddingBottomStyleProperty(arguments[0])); }
 }
 
 PaddingBlockStyleProperty.shorthand = [PaddingTopStyleProperty, PaddingBottomStyleProperty];
 
 export function padding(paddingInline: PaddingInlineStyleProperty, paddingBlock: PaddingBlockStyleProperty): PaddingStyleProperty
-export function padding(paddingLeftLength: Length, paddingRightLength: Length): PaddingStyleProperty
-export function padding(length: Length): PaddingStyleProperty
+export function padding(paddingLeftLength: SpacingLength, paddingRightLength: SpacingLength): PaddingStyleProperty
+export function padding(length: SpacingLength): PaddingStyleProperty
 export function padding(): PaddingStyleProperty {
 	if (arguments[0] instanceof PaddingInlineStyleProperty && arguments[1] instanceof PaddingBlockStyleProperty) { return new PaddingStyleProperty(arguments[0], arguments[1]); }
 	if (arguments.length == 2) { return new PaddingStyleProperty(paddingInline(arguments[0], arguments[1]), paddingBlock(arguments[0], arguments[1])); }
