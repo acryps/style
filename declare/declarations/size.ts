@@ -1,6 +1,7 @@
 import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { length, percentage } from "./primitives";
+import { length, number, percentage } from "./primitives";
+import { MethodDeclaration } from "../builders/method";
 
 export const sizeDimension = new TypeDeclaration(length, percentage, 'auto', 'max-content', 'min-content', 'fit-content');
 export const sizeBoundingDimension = new TypeDeclaration(length, percentage, 'max-content', 'min-content', 'fit-content');
@@ -26,3 +27,15 @@ export const boxSizingMode = new TypeDeclaration('border-box', 'content-box');
 export const boxSizing = new PropertyTypeDeclaration({
 	mode: boxSizingMode.single()
 }, '${this.mode}');
+
+export const ratio = new MethodDeclaration({
+	width: number.single(),
+	height: number.single()
+}, `
+	this.width = width;
+	this.height = height;
+`, '${this.width} / ${this.height}');
+
+export const aspectRatio = new PropertyTypeDeclaration({
+	ratio: ratio.single()
+}, '${this.ratio}');

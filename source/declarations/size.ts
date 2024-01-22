@@ -6,6 +6,7 @@ import { Calculation, Calculable } from '../calculate';
 
 import { Length } from './primitives';
 import { Percentage } from './primitives';
+import { Number } from './primitives';
 
 // size dimension
 export type SizeDimension = Length | Percentage | 'auto' | 'max-content' | 'min-content' | 'fit-content' | Variable<SizeDimension> | Calculation<Partial<SizeDimension>>;
@@ -34,6 +35,47 @@ export class BoxSizingStyleProperty extends StyleProperty {
 }
 
 export const boxSizing = (mode: BoxSizingMode) => new BoxSizingStyleProperty(mode);
+
+// ratio
+export class Ratio extends StyleMethod {
+	private width: Number;
+	private height: Number;
+
+	constructor(
+		width: Number,
+		height: Number
+	) {
+		super();
+
+	this.width = width;
+		this.height = height;
+	}
+
+	toValueString() {
+		return `${this.width} / ${this.height}`;
+	}
+}
+
+export function ratio(width: Number, height: Number) { return new Ratio(width, height); }
+
+// aspect ratio
+export class AspectRatioStyleProperty extends StyleProperty {
+	private ratio: Ratio;
+
+	constructor(
+		ratio: Ratio
+	) {
+		super('aspect-ratio');
+
+		this.ratio = ratio;
+	}
+
+	toValueString() {
+		return `${this.ratio}`;
+	}
+}
+
+export const aspectRatio = (ratio: Ratio) => new AspectRatioStyleProperty(ratio);
 
 // height
 export class HeightStyleProperty extends StyleProperty {
