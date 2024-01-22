@@ -6,6 +6,8 @@ import { Calculation, Calculable } from '../calculate';
 
 import { LineWidth } from './primitives';
 import { ColorValue } from './color';
+import { Length } from './primitives';
+import { Percentage } from './primitives';
 
 // border style
 export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | Variable<BorderStyle> | Calculation<Partial<BorderStyle>>;
@@ -37,6 +39,21 @@ export class BorderStyleProperty extends StyleProperty {
 		public borderBlock: BorderBlockStyleProperty
 	) {
 		super('border', [borderInline, borderBlock]);
+	}
+}
+
+// border radius size
+export type BorderRadiusSize = Length | Percentage | Variable<BorderRadiusSize> | Calculation<Partial<BorderRadiusSize>>;
+
+// border radius
+export class BorderRadiusStyleProperty extends StyleProperty {
+	constructor(
+		public borderTopLeftRadius: BorderTopLeftRadiusStyleProperty,
+		public borderTopRightRadius: BorderTopRightRadiusStyleProperty,
+		public borderBottomRightRadius: BorderBottomRightRadiusStyleProperty,
+		public borderBottomLeftRadius: BorderBottomLeftRadiusStyleProperty
+	) {
+		super('border-radius', [borderTopLeftRadius, borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius]);
 	}
 }
 
@@ -312,6 +329,82 @@ export class BorderBottomStyleProperty extends StyleProperty {
 	}
 }
 
+// border top left radius
+export class BorderTopLeftRadiusStyleProperty extends StyleProperty {
+	private radius: BorderRadiusSize;
+
+	constructor(
+		radius: BorderRadiusSize
+	) {
+		super('border-top-left-radius');
+
+		this.radius = radius;
+	}
+
+	toValueString() {
+		return `${this.radius}`;
+	}
+}
+
+export const borderTopLeftRadius = (radius: BorderRadiusSize) => new BorderTopLeftRadiusStyleProperty(radius);
+
+// border top right radius
+export class BorderTopRightRadiusStyleProperty extends StyleProperty {
+	private radius: BorderRadiusSize;
+
+	constructor(
+		radius: BorderRadiusSize
+	) {
+		super('border-top-right-radius');
+
+		this.radius = radius;
+	}
+
+	toValueString() {
+		return `${this.radius}`;
+	}
+}
+
+export const borderTopRightRadius = (radius: BorderRadiusSize) => new BorderTopRightRadiusStyleProperty(radius);
+
+// border bottom right radius
+export class BorderBottomRightRadiusStyleProperty extends StyleProperty {
+	private radius: BorderRadiusSize;
+
+	constructor(
+		radius: BorderRadiusSize
+	) {
+		super('border-bottom-right-radius');
+
+		this.radius = radius;
+	}
+
+	toValueString() {
+		return `${this.radius}`;
+	}
+}
+
+export const borderBottomRightRadius = (radius: BorderRadiusSize) => new BorderBottomRightRadiusStyleProperty(radius);
+
+// border bottom left radius
+export class BorderBottomLeftRadiusStyleProperty extends StyleProperty {
+	private radius: BorderRadiusSize;
+
+	constructor(
+		radius: BorderRadiusSize
+	) {
+		super('border-bottom-left-radius');
+
+		this.radius = radius;
+	}
+
+	toValueString() {
+		return `${this.radius}`;
+	}
+}
+
+export const borderBottomLeftRadius = (radius: BorderRadiusSize) => new BorderBottomLeftRadiusStyleProperty(radius);
+
 export function borderInline(borderLeft: BorderLeftStyleProperty, borderRight: BorderRightStyleProperty): BorderInlineStyleProperty
 export function borderInline(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue): BorderInlineStyleProperty
 export function borderInline(width: LineWidth, style: BorderStyle, color: ColorValue): BorderInlineStyleProperty
@@ -344,6 +437,17 @@ export function border(): BorderStyleProperty {
 }
 
 BorderStyleProperty.shorthand = [BorderInlineStyleProperty, BorderBlockStyleProperty];
+
+export function borderRadius(borderTopLeftRadius: BorderTopLeftRadiusStyleProperty, borderTopRightRadius: BorderTopRightRadiusStyleProperty, borderBottomRightRadius: BorderBottomRightRadiusStyleProperty, borderBottomLeftRadius: BorderBottomLeftRadiusStyleProperty): BorderRadiusStyleProperty
+export function borderRadius(borderTopLeftRadiusRadius: BorderRadiusSize, borderTopRightRadiusRadius: BorderRadiusSize, borderBottomRightRadiusRadius: BorderRadiusSize, borderBottomLeftRadiusRadius: BorderRadiusSize): BorderRadiusStyleProperty
+export function borderRadius(radius: BorderRadiusSize): BorderRadiusStyleProperty
+export function borderRadius(): BorderRadiusStyleProperty {
+	if (arguments[0] instanceof BorderTopLeftRadiusStyleProperty && arguments[1] instanceof BorderTopRightRadiusStyleProperty && arguments[2] instanceof BorderBottomRightRadiusStyleProperty && arguments[3] instanceof BorderBottomLeftRadiusStyleProperty) { return new BorderRadiusStyleProperty(arguments[0], arguments[1], arguments[2], arguments[3]); }
+	if (arguments.length == 4) { return new BorderRadiusStyleProperty(new BorderTopLeftRadiusStyleProperty(arguments[0]), new BorderTopRightRadiusStyleProperty(arguments[1]), new BorderBottomRightRadiusStyleProperty(arguments[2]), new BorderBottomLeftRadiusStyleProperty(arguments[3])); }
+	if (arguments.length == 1) { return new BorderRadiusStyleProperty(new BorderTopLeftRadiusStyleProperty(arguments[0]), new BorderTopRightRadiusStyleProperty(arguments[0]), new BorderBottomRightRadiusStyleProperty(arguments[0]), new BorderBottomLeftRadiusStyleProperty(arguments[0])); }
+}
+
+BorderRadiusStyleProperty.shorthand = [BorderTopLeftRadiusStyleProperty, BorderTopRightRadiusStyleProperty, BorderBottomRightRadiusStyleProperty, BorderBottomLeftRadiusStyleProperty];
 
 export function borderLeft(borderLeftWidth: BorderLeftWidthStyleProperty, borderLeftStyle: BorderLeftStyleStyleProperty, borderLeftColor: BorderLeftColorStyleProperty): BorderLeftStyleProperty
 export function borderLeft(borderLeftWidthWidth: LineWidth, borderLeftStyleStyle: BorderStyle, borderLeftColorColor: ColorValue): BorderLeftStyleProperty

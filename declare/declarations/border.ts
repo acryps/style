@@ -3,7 +3,7 @@ import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
 import { ShorthandDeclaration } from "../builders/shorthand";
 import { colorValue } from "./color";
-import { lineWidth } from "./primitives";
+import { length, lineWidth, percentage } from "./primitives";
 
 export const borderStyle = new TypeDeclaration('none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
 
@@ -38,4 +38,17 @@ export const borderBlock = new ShorthandDeclaration([
 export const border = new ShorthandDeclaration([
 	borderInline,
 	borderBlock
+]);
+
+export const borderRadiusSize = new TypeDeclaration(length, percentage);
+
+const exportBorderRadiusSide = (block: string, inline: string) => module.exports[`border${Ident.fromCamelCase(block).toClassCamelCase()}${Ident.fromCamelCase(inline).toClassCamelCase()}Radius`] = new PropertyTypeDeclaration({
+	radius: borderRadiusSize.single()
+}, '${this.radius}');
+
+export const borderRadius = new ShorthandDeclaration([
+	exportBorderRadiusSide('top', 'left'),
+	exportBorderRadiusSide('top', 'right'),
+	exportBorderRadiusSide('bottom', 'right'),
+	exportBorderRadiusSide('bottom', 'left')
 ]);
