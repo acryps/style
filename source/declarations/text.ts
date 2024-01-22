@@ -28,3 +28,25 @@ export class TextAlignStyleProperty extends StyleProperty {
 
 export const textAlign = (direction: TextAlignmentDirection) => new TextAlignStyleProperty(direction);
 
+// text transformation mode
+export type TextTransformationMode = 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'full-width' | 'full-size-kana' | Variable<TextTransformationMode> | Calculation<Partial<TextTransformationMode>>;
+
+// text transform
+export class TextTransformStyleProperty extends StyleProperty {
+	private mode: TextTransformationMode;
+
+	constructor(
+		mode: TextTransformationMode
+	) {
+		super('text-transform');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const textTransform = (mode: TextTransformationMode) => new TextTransformStyleProperty(mode);
+

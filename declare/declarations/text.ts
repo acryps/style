@@ -6,3 +6,9 @@ export const textAlignmentDirection = new TypeDeclaration('start', 'end', 'left'
 export const textAlign = new PropertyTypeDeclaration({
 	direction: textAlignmentDirection.single()
 }, '${this.direction}');
+
+export const textTransformationMode = new TypeDeclaration('none', 'capitalize', 'uppercase', 'lowercase', 'full-width', 'full-size-kana');
+
+export const textTransform = new PropertyTypeDeclaration({
+	mode: textTransformationMode.single()
+}, '${this.mode}');
