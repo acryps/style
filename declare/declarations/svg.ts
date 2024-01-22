@@ -3,8 +3,10 @@ import { TypeDeclaration } from "../builders/type";
 import { colorValue } from "./color";
 import { length } from "./primitives";
 
+export const strokeColor = new TypeDeclaration(colorValue, 'none');
+
 export const stroke = new PropertyTypeDeclaration({
-	color: colorValue.single()
+	color: strokeColor.single()
 }, '${this.color}');
 
 export const strokeWidth = new PropertyTypeDeclaration({

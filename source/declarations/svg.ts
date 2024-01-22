@@ -7,12 +7,15 @@ import { Calculation, Calculable } from '../calculate';
 import { ColorValue } from './color';
 import { Length } from './primitives';
 
+// stroke color
+export type StrokeColor = ColorValue | 'none' | Variable<StrokeColor> | Calculation<Partial<StrokeColor>>;
+
 // stroke
 export class StrokeStyleProperty extends StyleProperty {
-	private color: ColorValue;
+	private color: StrokeColor;
 
 	constructor(
-		color: ColorValue
+		color: StrokeColor
 	) {
 		super('stroke');
 
@@ -24,7 +27,7 @@ export class StrokeStyleProperty extends StyleProperty {
 	}
 }
 
-export const stroke = (color: ColorValue) => new StrokeStyleProperty(color);
+export const stroke = (color: StrokeColor) => new StrokeStyleProperty(color);
 
 // stroke width
 export class StrokeWidthStyleProperty extends StyleProperty {
