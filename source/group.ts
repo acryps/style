@@ -73,15 +73,17 @@ export class StyleGroup {
 	}
 
 	get allAtRules() {
-		const rules = new Set(this.atRules);
+		const rules = [...this.atRules];
 
 		for (let child of this.children) {
 			for (let rule of child.allAtRules) {
-				rules.add(rule);
+				if (!rules.includes(rule)) {
+					rules.push(rule);
+				}
 			}
 		}
 
-		return Array.from(rules);
+		return rules;
 	}
 
 	toString(parentSelector: string = '', includeAtRules = false) {
