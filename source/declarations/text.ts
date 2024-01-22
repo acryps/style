@@ -50,3 +50,25 @@ export class TextTransformStyleProperty extends StyleProperty {
 
 export const textTransform = (mode: TextTransformationMode) => new TextTransformStyleProperty(mode);
 
+// text wrap mode
+export type TextWrapMode = 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable' | Variable<TextWrapMode> | Calculation<Partial<TextWrapMode>>;
+
+// text wrap
+export class TextWrapStyleProperty extends StyleProperty {
+	private mode: TextWrapMode;
+
+	constructor(
+		mode: TextWrapMode
+	) {
+		super('text-wrap');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const textWrap = (mode: TextWrapMode) => new TextWrapStyleProperty(mode);
+

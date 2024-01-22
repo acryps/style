@@ -12,3 +12,10 @@ export const textTransformationMode = new TypeDeclaration('none', 'capitalize', 
 export const textTransform = new PropertyTypeDeclaration({
 	mode: textTransformationMode.single()
 }, '${this.mode}');
+
+export const textWrapMode = new TypeDeclaration('wrap', 'nowrap', 'balance', 'pretty', 'stable');
+
+export const textWrap = new PropertyTypeDeclaration({
+	mode: textWrapMode.single()
+}, '${this.mode}');
+
