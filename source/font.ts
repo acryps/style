@@ -1,5 +1,5 @@
 import { AtRule } from "./at-rule";
-import { fontFamily, url } from "./declarations";
+import { FontWeightStyleProperty, fontFamily, url } from "./declarations";
 import { StyleProperty } from "./property";
 import { StyleInsert, StyleSelectorBody } from "./query";
 
@@ -59,8 +59,17 @@ export class Font extends AtRule {
 		return `@font-face{font-family:${JSON.stringify(this.name)};src:${this.sources.map(source => source.toValueString()).join(',')};${rules.join('')}}`;
 	}
 
-	// use the font just by 
-	toStyleProperty() {
-		return fontFamily(this.name);
+	// use the font just by adding the rule
+	toStyleProperties() {
+		const qualifiers: StyleProperty[] = [fontFamily(this.name)];
+
+		// only add certain qualifiers to select this exact font face
+		for (let rule of this.rules) {
+			if (rule instanceof FontWeightStyleProperty) {
+				qualifiers.push(rule);
+			}
+		}
+
+		return qualifiers;
 	}
 }
