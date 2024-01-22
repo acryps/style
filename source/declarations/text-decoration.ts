@@ -31,7 +31,7 @@ export const textDecorationLine = (...modes: TextDecorationLineMode[]) => new Te
 // text decoration
 export class TextDecorationStyleProperty extends StyleProperty {
 	constructor(
-		private textDecorationLine: TextDecorationLineStyleProperty
+		public textDecorationLine: TextDecorationLineStyleProperty
 	) {
 		super('text-decoration', [textDecorationLine]);
 	}

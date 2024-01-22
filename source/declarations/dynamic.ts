@@ -151,8 +151,8 @@ export const justifySelf = (mode: SelfJustificationMode) => new JustifySelfStyle
 // gap
 export class GapStyleProperty extends StyleProperty {
 	constructor(
-		private columnGap: ColumnGapStyleProperty,
-		private rowGap: RowGapStyleProperty
+		public columnGap: ColumnGapStyleProperty,
+		public rowGap: RowGapStyleProperty
 	) {
 		super('gap', [columnGap, rowGap]);
 	}
@@ -373,10 +373,10 @@ export type GridAreaSelector = String | 'auto' | Span | AreaSpan | Variable<Grid
 // gird area
 export class GirdAreaStyleProperty extends StyleProperty {
 	constructor(
-		private gridRowStart: GridRowStartStyleProperty,
-		private gridColumnStart: GridColumnStartStyleProperty,
-		private gridRowEnd: GridRowEndStyleProperty,
-		private gridColumnEnd: GridColumnEndStyleProperty
+		public gridRowStart: GridRowStartStyleProperty,
+		public gridColumnStart: GridColumnStartStyleProperty,
+		public gridRowEnd: GridRowEndStyleProperty,
+		public gridColumnEnd: GridColumnEndStyleProperty
 	) {
 		super('gird-area', [gridRowStart, gridColumnStart, gridRowEnd, gridColumnEnd]);
 	}

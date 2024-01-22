@@ -12,8 +12,8 @@ export type OverflowMode = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | V
 // overflow
 export class OverflowStyleProperty extends StyleProperty {
 	constructor(
-		private overflowX: OverflowXStyleProperty,
-		private overflowY: OverflowYStyleProperty
+		public overflowX: OverflowXStyleProperty,
+		public overflowY: OverflowYStyleProperty
 	) {
 		super('overflow', [overflowX, overflowY]);
 	}

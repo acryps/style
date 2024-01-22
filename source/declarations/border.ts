@@ -13,8 +13,8 @@ export type BorderStyle = 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'd
 // border inline
 export class BorderInlineStyleProperty extends StyleProperty {
 	constructor(
-		private borderLeft: BorderLeftStyleProperty,
-		private borderRight: BorderRightStyleProperty
+		public borderLeft: BorderLeftStyleProperty,
+		public borderRight: BorderRightStyleProperty
 	) {
 		super('border-inline', [borderLeft, borderRight]);
 	}
@@ -23,8 +23,8 @@ export class BorderInlineStyleProperty extends StyleProperty {
 // border block
 export class BorderBlockStyleProperty extends StyleProperty {
 	constructor(
-		private borderTop: BorderTopStyleProperty,
-		private borderBottom: BorderBottomStyleProperty
+		public borderTop: BorderTopStyleProperty,
+		public borderBottom: BorderBottomStyleProperty
 	) {
 		super('border-block', [borderTop, borderBottom]);
 	}
@@ -33,8 +33,8 @@ export class BorderBlockStyleProperty extends StyleProperty {
 // border
 export class BorderStyleProperty extends StyleProperty {
 	constructor(
-		private borderInline: BorderInlineStyleProperty,
-		private borderBlock: BorderBlockStyleProperty
+		public borderInline: BorderInlineStyleProperty,
+		public borderBlock: BorderBlockStyleProperty
 	) {
 		super('border', [borderInline, borderBlock]);
 	}
@@ -100,9 +100,9 @@ export const borderLeftColor = (color: ColorValue) => new BorderLeftColorStylePr
 // border left
 export class BorderLeftStyleProperty extends StyleProperty {
 	constructor(
-		private borderLeftWidth: BorderLeftWidthStyleProperty,
-		private borderLeftStyle: BorderLeftStyleStyleProperty,
-		private borderLeftColor: BorderLeftColorStyleProperty
+		public borderLeftWidth: BorderLeftWidthStyleProperty,
+		public borderLeftStyle: BorderLeftStyleStyleProperty,
+		public borderLeftColor: BorderLeftColorStyleProperty
 	) {
 		super('border-left', [borderLeftWidth, borderLeftStyle, borderLeftColor]);
 	}
@@ -168,9 +168,9 @@ export const borderRightColor = (color: ColorValue) => new BorderRightColorStyle
 // border right
 export class BorderRightStyleProperty extends StyleProperty {
 	constructor(
-		private borderRightWidth: BorderRightWidthStyleProperty,
-		private borderRightStyle: BorderRightStyleStyleProperty,
-		private borderRightColor: BorderRightColorStyleProperty
+		public borderRightWidth: BorderRightWidthStyleProperty,
+		public borderRightStyle: BorderRightStyleStyleProperty,
+		public borderRightColor: BorderRightColorStyleProperty
 	) {
 		super('border-right', [borderRightWidth, borderRightStyle, borderRightColor]);
 	}
@@ -236,9 +236,9 @@ export const borderTopColor = (color: ColorValue) => new BorderTopColorStyleProp
 // border top
 export class BorderTopStyleProperty extends StyleProperty {
 	constructor(
-		private borderTopWidth: BorderTopWidthStyleProperty,
-		private borderTopStyle: BorderTopStyleStyleProperty,
-		private borderTopColor: BorderTopColorStyleProperty
+		public borderTopWidth: BorderTopWidthStyleProperty,
+		public borderTopStyle: BorderTopStyleStyleProperty,
+		public borderTopColor: BorderTopColorStyleProperty
 	) {
 		super('border-top', [borderTopWidth, borderTopStyle, borderTopColor]);
 	}
@@ -304,9 +304,9 @@ export const borderBottomColor = (color: ColorValue) => new BorderBottomColorSty
 // border bottom
 export class BorderBottomStyleProperty extends StyleProperty {
 	constructor(
-		private borderBottomWidth: BorderBottomWidthStyleProperty,
-		private borderBottomStyle: BorderBottomStyleStyleProperty,
-		private borderBottomColor: BorderBottomColorStyleProperty
+		public borderBottomWidth: BorderBottomWidthStyleProperty,
+		public borderBottomStyle: BorderBottomStyleStyleProperty,
+		public borderBottomColor: BorderBottomColorStyleProperty
 	) {
 		super('border-bottom', [borderBottomWidth, borderBottomStyle, borderBottomColor]);
 	}

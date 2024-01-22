@@ -74,9 +74,9 @@ export const fontWeight = (weight: FontWeights) => new FontWeightStyleProperty(w
 // font
 export class FontStyleProperty extends StyleProperty {
 	constructor(
-		private fontSize: FontSizeStyleProperty,
-		private fontWeight: FontWeightStyleProperty,
-		private fontFamily: FontFamilyStyleProperty
+		public fontSize: FontSizeStyleProperty,
+		public fontWeight: FontWeightStyleProperty,
+		public fontFamily: FontFamilyStyleProperty
 	) {
 		super('font', [fontSize, fontWeight, fontFamily]);
 	}

@@ -31,8 +31,8 @@ export const position = (mode: PositionMode) => new PositionStyleProperty(mode);
 // inset inline
 export class InsetInlineStyleProperty extends StyleProperty {
 	constructor(
-		private left: LeftStyleProperty,
-		private right: RightStyleProperty
+		public left: LeftStyleProperty,
+		public right: RightStyleProperty
 	) {
 		super('inset-inline', [left, right]);
 	}
@@ -41,8 +41,8 @@ export class InsetInlineStyleProperty extends StyleProperty {
 // inset block
 export class InsetBlockStyleProperty extends StyleProperty {
 	constructor(
-		private top: TopStyleProperty,
-		private bottom: BottomStyleProperty
+		public top: TopStyleProperty,
+		public bottom: BottomStyleProperty
 	) {
 		super('inset-block', [top, bottom]);
 	}
@@ -51,8 +51,8 @@ export class InsetBlockStyleProperty extends StyleProperty {
 // inset
 export class InsetStyleProperty extends StyleProperty {
 	constructor(
-		private insetInline: InsetInlineStyleProperty,
-		private insetBlock: InsetBlockStyleProperty
+		public insetInline: InsetInlineStyleProperty,
+		public insetBlock: InsetBlockStyleProperty
 	) {
 		super('inset', [insetInline, insetBlock]);
 	}

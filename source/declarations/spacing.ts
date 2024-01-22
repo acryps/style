@@ -47,8 +47,8 @@ export const marginRight = (length: Length) => new MarginRightStyleProperty(Styl
 // margin inline
 export class MarginInlineStyleProperty extends StyleProperty {
 	constructor(
-		private marginLeft: MarginLeftStyleProperty,
-		private marginRight: MarginRightStyleProperty
+		public marginLeft: MarginLeftStyleProperty,
+		public marginRight: MarginRightStyleProperty
 	) {
 		super('margin-inline', [marginLeft, marginRight]);
 	}
@@ -95,8 +95,8 @@ export const marginBottom = (length: Length) => new MarginBottomStyleProperty(St
 // margin block
 export class MarginBlockStyleProperty extends StyleProperty {
 	constructor(
-		private marginTop: MarginTopStyleProperty,
-		private marginBottom: MarginBottomStyleProperty
+		public marginTop: MarginTopStyleProperty,
+		public marginBottom: MarginBottomStyleProperty
 	) {
 		super('margin-block', [marginTop, marginBottom]);
 	}
@@ -105,8 +105,8 @@ export class MarginBlockStyleProperty extends StyleProperty {
 // margin
 export class MarginStyleProperty extends StyleProperty {
 	constructor(
-		private marginInline: MarginInlineStyleProperty,
-		private marginBlock: MarginBlockStyleProperty
+		public marginInline: MarginInlineStyleProperty,
+		public marginBlock: MarginBlockStyleProperty
 	) {
 		super('margin', [marginInline, marginBlock]);
 	}
@@ -153,8 +153,8 @@ export const paddingRight = (length: Length) => new PaddingRightStyleProperty(St
 // padding inline
 export class PaddingInlineStyleProperty extends StyleProperty {
 	constructor(
-		private paddingLeft: PaddingLeftStyleProperty,
-		private paddingRight: PaddingRightStyleProperty
+		public paddingLeft: PaddingLeftStyleProperty,
+		public paddingRight: PaddingRightStyleProperty
 	) {
 		super('padding-inline', [paddingLeft, paddingRight]);
 	}
@@ -201,8 +201,8 @@ export const paddingBottom = (length: Length) => new PaddingBottomStyleProperty(
 // padding block
 export class PaddingBlockStyleProperty extends StyleProperty {
 	constructor(
-		private paddingTop: PaddingTopStyleProperty,
-		private paddingBottom: PaddingBottomStyleProperty
+		public paddingTop: PaddingTopStyleProperty,
+		public paddingBottom: PaddingBottomStyleProperty
 	) {
 		super('padding-block', [paddingTop, paddingBottom]);
 	}
@@ -211,8 +211,8 @@ export class PaddingBlockStyleProperty extends StyleProperty {
 // padding
 export class PaddingStyleProperty extends StyleProperty {
 	constructor(
-		private paddingInline: PaddingInlineStyleProperty,
-		private paddingBlock: PaddingBlockStyleProperty
+		public paddingInline: PaddingInlineStyleProperty,
+		public paddingBlock: PaddingBlockStyleProperty
 	) {
 		super('padding', [paddingInline, paddingBlock]);
 	}

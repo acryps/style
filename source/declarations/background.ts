@@ -52,8 +52,8 @@ export const backgroundColor = (color: ColorValue) => new BackgroundColorStylePr
 // background
 export class BackgroundStyleProperty extends StyleProperty {
 	constructor(
-		private backgroundColor: BackgroundColorStyleProperty,
-		private backgroundImage: BackgroundImageStyleProperty
+		public backgroundColor: BackgroundColorStyleProperty,
+		public backgroundImage: BackgroundImageStyleProperty
 	) {
 		super('background', [backgroundColor, backgroundImage]);
 	}
