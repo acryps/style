@@ -6,10 +6,20 @@ const createPseudo = (group: StyleGroup, selector: string) => (content: string[]
 	content = Array.isArray(content) ? content : [content];
 
 	group.appendChild(style(selector, new ContentStyleProperty(...content), items));
+
+	return group;
 };
 
 const createState = (group: StyleGroup, selector: string) => (...items: StyleSelectorBody[]) => {
 	group.appendChild(style(selector, items));
+
+	return group;
+};
+
+const styleAttribute = (group: StyleGroup, selector: string, items: StyleSelectorBody) => {
+	group.appendChild(style(selector, items));
+
+	return group;
 };
 
 export class StyleGroup {
@@ -28,6 +38,21 @@ export class StyleGroup {
 	hover = createState(this, ':hover');
 	active = createState(this, ':active');
 	checked = createState(this, ':checked');
+
+	attribute = (name: string, valueOrFirstStyle: string | StyleSelectorBody, ...items: StyleSelectorBody[]) => {
+		// catch values
+		if (typeof valueOrFirstStyle == 'string') {
+			return styleAttribute(this, `[${name}=${JSON.stringify(valueOrFirstStyle)}]`, items);
+		}
+
+		return styleAttribute(this, `[${name}]`, [valueOrFirstStyle, ...items]);
+	}
+	
+	attributeContains = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}*=${JSON.stringify(substring)}]`, items);
+	attributeStartsWith = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}^=${JSON.stringify(substring)}]`, items);
+	attributeEndsWith = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}$=${JSON.stringify(substring)}]`, items);
+	attributeDashPrefixes = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}|=${JSON.stringify(substring)}]`, items);
+	attributeIn = (name: string, options: string[], ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}~=${options.map(option => JSON.stringify(option)).join(' ')}]`, items);
 
 	appendChild(child: StyleGroup) {
 		this.children.push(child);
