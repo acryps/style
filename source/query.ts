@@ -1,14 +1,20 @@
+import { AtRule } from "./at-rule";
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
 
 export type StyleInsert = { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] };
-export type StyleSelectorBody = StyleProperty | StyleGroup | StyleInsert | StyleSelectorBody[];
+export type StyleSelectorBody = StyleProperty | StyleGroup | StyleInsert | AtRule | StyleSelectorBody[];
 
 export function style(selector: string, ...items: StyleSelectorBody[]) {
 	const declaration = new StyleGroup(selector);
 
 	const add = items => {
 		for (let item of items) {
+			// at rules may be defined and used simultaneously
+			if (item instanceof AtRule) {
+				declaration.appendRule(item);
+			}
+
 			if (item instanceof StyleGroup) {
 				declaration.appendChild(item);
 			} else if (item instanceof StyleProperty) {

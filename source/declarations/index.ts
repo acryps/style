@@ -19,7 +19,6 @@ export * from './primitives';
 export * from './size';
 export * from './spacing';
 export * from './svg';
-export * from './text-decoration';
 export * from './text';
 export * from './wrapping';
 export * from './z-index';

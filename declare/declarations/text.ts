@@ -1,4 +1,5 @@
 import { PropertyTypeDeclaration } from "../builders/property";
+import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 
 export const textAlignmentDirection = new TypeDeclaration('start', 'end', 'left', 'right', 'center', 'justify', 'justify-all', 'match-parent');
@@ -19,3 +20,10 @@ export const textWrap = new PropertyTypeDeclaration({
 	mode: textWrapMode.single()
 }, '${this.mode}');
 
+export const textDecorationLineMode = new TypeDeclaration('none', 'underline', 'overline', 'line-through', 'blink');
+
+export const textDecorationLine = new PropertyTypeDeclaration({
+	modes: textDecorationLineMode.spread()
+}, "${this.modes.join(' ')}");
+
+export const textDecoration = new ShorthandDeclaration([textDecorationLine]);

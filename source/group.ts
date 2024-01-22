@@ -1,3 +1,4 @@
+import { AtRule } from "./at-rule";
 import { ContentStyleProperty } from "./declarations";
 import { StyleProperty } from "./property";
 import { StyleSelectorBody, style } from "./query";
@@ -25,6 +26,7 @@ const styleAttribute = (group: StyleGroup, selector: string, items: StyleSelecto
 export class StyleGroup {
 	private children: StyleGroup[] = [];
 	private properties: StyleProperty[] = [];
+	private atRules: AtRule[] = [];
 
 	constructor(
 		public selector: string
@@ -66,7 +68,23 @@ export class StyleGroup {
 		return this;
 	}
 
-	toString(parentSelector: string = '') {
+	appendRule(rule: AtRule) {
+		this.atRules.push(rule);
+	}
+
+	get allAtRules() {
+		const rules = new Set(this.atRules);
+
+		for (let child of this.children) {
+			for (let rule of child.allAtRules) {
+				rules.add(rule);
+			}
+		}
+
+		return Array.from(rules);
+	}
+
+	toString(parentSelector: string = '', includeAtRules = false) {
 		const selector = `${parentSelector}${this.selector}`;
 
 		const useProperties = (source: StyleProperty[]) => {
@@ -93,6 +111,8 @@ export class StyleGroup {
 			useProperties(this.properties).join(';')
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
+		}${
+			includeAtRules ? this.allAtRules.map(rule => rule.toRuleString()).join('') : ''
 		}`;
 	}
 
@@ -110,7 +130,7 @@ export class StyleGroup {
 		}
 		
 		const styleSheet = document.createElement('style');
-		styleSheet.textContent = this.toString();
+		styleSheet.textContent = this.toString('', true);
 
 		document.head.appendChild(styleSheet);
 	}
