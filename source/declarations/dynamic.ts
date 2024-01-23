@@ -398,7 +398,7 @@ export class GridTemplateAreasStyleProperty extends StyleProperty {
 	}
 
 	toValueString() {
-		return `${this.rows.map(row => `"${row.join(' ')}"`).join(' ')}`;
+		return `${this.rows.map(row => typeof row[0] == 'string' ? `"${row.join(' ')}"` : row.join(' ')).join(' ')}`;
 	}
 }
 

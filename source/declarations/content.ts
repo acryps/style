@@ -22,7 +22,7 @@ export class ContentStyleProperty extends StyleProperty {
 	}
 
 	toValueString() {
-		return `${this.content.join(' ')}`;
+		return `${this.content.map(fragment => typeof fragment == 'string' ? JSON.stringify(fragment) : fragment).join(' ')}`;
 	}
 }
 
