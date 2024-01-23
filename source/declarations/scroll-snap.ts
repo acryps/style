@@ -9,14 +9,17 @@ import { Calculation, Calculable } from '../calculate';
 // scroll snap axis
 export type ScrollSnapAxis = 'none' | 'x' | 'y' | 'block' | 'inline' | 'both' | Variable<ScrollSnapAxis> | Calculation<Partial<ScrollSnapAxis>>;
 
+// scroll snap force mode
+export type ScrollSnapForceMode = 'mandatory' | 'proximity' | Variable<ScrollSnapForceMode> | Calculation<Partial<ScrollSnapForceMode>>;
+
 // scroll snap type
 export class ScrollSnapTypeStyleProperty extends StyleProperty {
 	public mandatory: ScrollSnapAxis;
-	public proximity: ScrollSnapAxis | undefined;
+	public proximity: ScrollSnapForceMode | undefined;
 
 	constructor(
 		mandatory: ScrollSnapAxis,
-		proximity?: ScrollSnapAxis
+		proximity?: ScrollSnapForceMode
 	) {
 		super('scroll-snap-type');
 
@@ -29,7 +32,7 @@ export class ScrollSnapTypeStyleProperty extends StyleProperty {
 	}
 }
 
-export const scrollSnapType = (mandatory: ScrollSnapAxis, proximity?: ScrollSnapAxis) => new ScrollSnapTypeStyleProperty(mandatory, proximity);
+export const scrollSnapType = (mandatory: ScrollSnapAxis, proximity?: ScrollSnapForceMode) => new ScrollSnapTypeStyleProperty(mandatory, proximity);
 
 // scroll snap align mode
 export type ScrollSnapAlignMode = 'none' | 'start' | 'end' | 'center' | Variable<ScrollSnapAlignMode> | Calculation<Partial<ScrollSnapAlignMode>>;
