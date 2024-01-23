@@ -11,4 +11,10 @@ const exportOverflowAxis = (axis: string) => module.exports[`overflow${axis.toUp
 export const overflow = new ShorthandDeclaration([
 	exportOverflowAxis('x'),
 	exportOverflowAxis('y')
-]);6
+]);
+
+export const textOverflowMode = new TypeDeclaration('clip', 'ellipsis');
+
+export const textOverflow = new PropertyTypeDeclaration({
+	mode: textOverflowMode.single()
+}, "${this.mode}");

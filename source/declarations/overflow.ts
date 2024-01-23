@@ -19,6 +19,28 @@ export class OverflowStyleProperty extends StyleProperty {
 	}
 }
 
+// text overflow mode
+export type TextOverflowMode = 'clip' | 'ellipsis' | Variable<TextOverflowMode> | Calculation<Partial<TextOverflowMode>>;
+
+// text overflow
+export class TextOverflowStyleProperty extends StyleProperty {
+	public mode: TextOverflowMode;
+
+	constructor(
+		mode: TextOverflowMode
+	) {
+		super('text-overflow');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const textOverflow = (mode: TextOverflowMode) => new TextOverflowStyleProperty(mode);
+
 // overflow x
 export class OverflowXStyleProperty extends StyleProperty {
 	public mode: OverflowMode;
