@@ -38,7 +38,7 @@ export class BoxShadowStyleProperty extends StyleProperty {
 	}
 
 	toValueString() {
-		return `${this.offsetX} ${this.offsetY} ${this.blurRadius ?? ''} ${this.spreadRadius ?? ''} ${this.type == 'inset' ? ' inset' : ''}`;
+		return `${this.type == 'inset' ? ' inset' : ''} ${this.offsetX} ${this.offsetY} ${this.blurRadius ?? ''} ${this.spreadRadius ?? ''} ${this.color}`;
 	}
 }
 
