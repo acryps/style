@@ -2,6 +2,7 @@ import { AtRule } from "./at-rule";
 import { ContentStyleProperty } from "./declarations";
 import { StyleProperty } from "./property";
 import { StyleSelectorBody, style } from "./query";
+import { Transition } from "./transition";
 
 const createPseudo = (group: StyleGroup, selector: string) => (content: string[] | string, ...items: StyleSelectorBody[]) => {
 	content = Array.isArray(content) ? content : [content];
@@ -88,6 +89,7 @@ export class StyleGroup {
 
 	toString(parentSelector: string = '', includeAtRules = false) {
 		const selector = `${parentSelector}${this.selector}`;
+		const transitions: Transition[] = [];
 
 		const useProperties = (source: StyleProperty[]) => {
 			const flattenedProperties: string[] = [];
@@ -100,6 +102,10 @@ export class StyleGroup {
 						if (child.children) {
 							flattenedProperties.push(...useProperties(child.children));
 						} else {
+							if (child.transitionRule) {
+								transitions.push(child.transitionRule);
+							}
+
 							flattenedProperties.push(child.toPropertyString());
 						}
 					}
@@ -110,7 +116,9 @@ export class StyleGroup {
 		};
 
 		return `${selector}{${
-			useProperties(this.properties).join(';')
+			useProperties(this.properties).join('')
+		}${
+			transitions.length ? `;transition:${transitions.map(transition => transition.toValueString()).join(',')}` : ''
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
 		}${

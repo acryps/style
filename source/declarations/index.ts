@@ -21,5 +21,6 @@ export * from './size';
 export * from './spacing';
 export * from './svg';
 export * from './text';
+export * from './time';
 export * from './wrapping';
 export * from './z-index';

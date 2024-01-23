@@ -1,5 +1,9 @@
+import { Duration, EasingFunction } from "./declarations";
+import { Transition } from "./transition";
+
 export class StyleProperty {
 	overwriteParents = false;
+	transitionRule: Transition;
 
 	static shorthand: (new (...parameters) => StyleProperty)[];
 
@@ -12,6 +16,10 @@ export class StyleProperty {
 		this.overwriteParents = true;
 
 		return this;
+	}
+
+	transition(duration: Duration, delay?: Duration, easingFunction?: EasingFunction) {
+		this.transitionRule = new Transition(this, duration, delay, easingFunction);
 	}
 
 	/**
