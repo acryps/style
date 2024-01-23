@@ -7,15 +7,15 @@ import { Calculation, Calculable } from '../calculate';
 import { ColorValue } from './color';
 import { Length } from './primitives';
 
-// stroke color
-export type StrokeColor = ColorValue | 'none' | Variable<StrokeColor> | Calculation<Partial<StrokeColor>>;
+// paint color
+export type PaintColor = ColorValue | 'none' | Variable<PaintColor> | Calculation<Partial<PaintColor>>;
 
 // stroke
 export class StrokeStyleProperty extends StyleProperty {
-	public color: StrokeColor;
+	public color: PaintColor;
 
 	constructor(
-		color: StrokeColor
+		color: PaintColor
 	) {
 		super('stroke');
 
@@ -27,7 +27,7 @@ export class StrokeStyleProperty extends StyleProperty {
 	}
 }
 
-export const stroke = (color: StrokeColor) => new StrokeStyleProperty(color);
+export const stroke = (color: PaintColor) => new StrokeStyleProperty(color);
 
 // stroke width
 export class StrokeWidthStyleProperty extends StyleProperty {
@@ -47,6 +47,25 @@ export class StrokeWidthStyleProperty extends StyleProperty {
 }
 
 export const strokeWidth = (width: Length) => new StrokeWidthStyleProperty(Style.resolveNumber('length', width));
+
+// fill
+export class FillStyleProperty extends StyleProperty {
+	public color: PaintColor;
+
+	constructor(
+		color: PaintColor
+	) {
+		super('fill');
+
+		this.color = color;
+	}
+
+	toValueString() {
+		return `${this.color}`;
+	}
+}
+
+export const fill = (color: PaintColor) => new FillStyleProperty(color);
 
 // vector effect mode
 export type VectorEffectMode = 'none' | 'non-scaling-stroke' | 'non-scaling-size' | 'non-rotation' | 'fixed-position' | Variable<VectorEffectMode> | Calculation<Partial<VectorEffectMode>>;
