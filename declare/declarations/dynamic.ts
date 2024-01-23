@@ -120,4 +120,4 @@ export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
 
 export const gridTemplateAreas = new PropertyTypeDeclaration({
 	rows: gridTemplateAreaName.spreadArray()
-}, '${this.rows.map(row => `"${row.join(\' \')}"`).join(\' \')}');
+}, '${this.rows.map(row => typeof row[0] == \'string\' ? `"${row.join(\' \')}"` : row.join(\' \')).join(\' \')}');
