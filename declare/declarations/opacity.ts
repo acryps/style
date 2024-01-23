@@ -1,8 +1,8 @@
 import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { number } from "./primitives";
+import { number, percentage } from "./primitives";
 
-export const alphaValue = new TypeDeclaration(number, 'none');
+export const alphaValue = new TypeDeclaration(number, 'none', percentage);
 
 export const opacity = new PropertyTypeDeclaration({
 	alpha: alphaValue.single()

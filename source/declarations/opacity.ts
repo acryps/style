@@ -5,9 +5,10 @@ import { Variable } from '../variable';
 import { Calculation, Calculable } from '../calculate';
 
 import { Number } from './primitives';
+import { Percentage } from './primitives';
 
 // alpha value
-export type AlphaValue = Number | 'none' | Variable<AlphaValue> | Calculation<Partial<AlphaValue>>;
+export type AlphaValue = Number | 'none' | Percentage | Variable<AlphaValue> | Calculation<Partial<AlphaValue>>;
 
 // opacity
 export class OpacityStyleProperty extends StyleProperty {
