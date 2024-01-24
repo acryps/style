@@ -71,6 +71,28 @@ export class FontWeightStyleProperty extends StyleProperty {
 
 export const fontWeight = (weight: FontWeights) => new FontWeightStyleProperty(weight);
 
+// font style mode
+export type FontStyleMode = 'normal' | 'italic' | 'oblique' | Variable<FontStyleMode> | Calculation<Partial<FontStyleMode>>;
+
+// font style
+export class FontStyleStyleProperty extends StyleProperty {
+	public style: FontStyleMode;
+
+	constructor(
+		style: FontStyleMode
+	) {
+		super('font-style');
+
+		this.style = style;
+	}
+
+	toValueString() {
+		return `${this.style}`;
+	}
+}
+
+export const fontStyle = (style: FontStyleMode) => new FontStyleStyleProperty(style);
+
 // font
 export class FontStyleProperty extends StyleProperty {
 	constructor(

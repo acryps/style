@@ -18,6 +18,12 @@ export const fontWeight = new PropertyTypeDeclaration({
 	weight: fontWeights.single()
 }, '${this.weight}');
 
+export const fontStyleMode = new TypeDeclaration('normal', 'italic', 'oblique');
+
+export const fontStyle = new PropertyTypeDeclaration({
+	style: fontStyleMode.single()
+}, '${this.style}');
+
 export const font = new ShorthandDeclaration([
 	fontSize,
 	fontWeight,
