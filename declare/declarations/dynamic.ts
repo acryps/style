@@ -127,5 +127,5 @@ export const gridTemplateColumns = new PropertyTypeDeclaration({
 }, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');
 
 export const gridTemplateRows = new PropertyTypeDeclaration({
-	rows: gridTemplateAreaName.spread()
+	cells: gridTemplateAreaName.spread()
 }, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');

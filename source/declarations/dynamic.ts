@@ -425,14 +425,14 @@ export const gridTemplateColumns = (...cells: GridTemplateAreaName[]) => new Gri
 
 // grid template rows
 export class GridTemplateRowsStyleProperty extends StyleProperty {
-	public rows: GridTemplateAreaName[];
+	public cells: GridTemplateAreaName[];
 
 	constructor(
-		...rows: GridTemplateAreaName[]
+		...cells: GridTemplateAreaName[]
 	) {
 		super('grid-template-rows');
 
-		this.rows = rows;
+		this.cells = cells;
 	}
 
 	toValueString() {
@@ -440,7 +440,7 @@ export class GridTemplateRowsStyleProperty extends StyleProperty {
 	}
 }
 
-export const gridTemplateRows = (...rows: GridTemplateAreaName[]) => new GridTemplateRowsStyleProperty(...rows);
+export const gridTemplateRows = (...cells: GridTemplateAreaName[]) => new GridTemplateRowsStyleProperty(...cells);
 
 // column gap
 export class ColumnGapStyleProperty extends StyleProperty {
