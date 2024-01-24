@@ -121,3 +121,11 @@ export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
 export const gridTemplateAreas = new PropertyTypeDeclaration({
 	rows: gridTemplateAreaName.spreadArray()
 }, '${this.rows.map(row => typeof row[0] == \'string\' ? `"${row.join(\' \')}"` : row.join(\' \')).join(\' \')}');
+
+export const gridTemplateColumns = new PropertyTypeDeclaration({
+	cells: gridTemplateAreaName.spread()
+}, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');
+
+export const gridTemplateRows = new PropertyTypeDeclaration({
+	rows: gridTemplateAreaName.spread()
+}, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');

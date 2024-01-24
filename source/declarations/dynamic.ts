@@ -404,6 +404,44 @@ export class GridTemplateAreasStyleProperty extends StyleProperty {
 
 export const gridTemplateAreas = (...rows: GridTemplateAreaName[][]) => new GridTemplateAreasStyleProperty(...rows);
 
+// grid template columns
+export class GridTemplateColumnsStyleProperty extends StyleProperty {
+	public cells: GridTemplateAreaName[];
+
+	constructor(
+		...cells: GridTemplateAreaName[]
+	) {
+		super('grid-template-columns');
+
+		this.cells = cells;
+	}
+
+	toValueString() {
+		return `${this.cells.map(cell => typeof cell == 'string' ? `"${cell}"` : cell).join(' ')}`;
+	}
+}
+
+export const gridTemplateColumns = (...cells: GridTemplateAreaName[]) => new GridTemplateColumnsStyleProperty(...cells);
+
+// grid template rows
+export class GridTemplateRowsStyleProperty extends StyleProperty {
+	public rows: GridTemplateAreaName[];
+
+	constructor(
+		...rows: GridTemplateAreaName[]
+	) {
+		super('grid-template-rows');
+
+		this.rows = rows;
+	}
+
+	toValueString() {
+		return `${this.cells.map(cell => typeof cell == 'string' ? `"${cell}"` : cell).join(' ')}`;
+	}
+}
+
+export const gridTemplateRows = (...rows: GridTemplateAreaName[]) => new GridTemplateRowsStyleProperty(...rows);
+
 // column gap
 export class ColumnGapStyleProperty extends StyleProperty {
 	public distance: Length;
