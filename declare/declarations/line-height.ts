@@ -1,8 +1,8 @@
 import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { number } from "./primitives";
+import { length, number } from "./primitives";
 
-export const lineHeightSize = new TypeDeclaration(number);
+export const lineHeightSize = new TypeDeclaration(number, length);
 
 export const lineHeight = new PropertyTypeDeclaration({
 	size: lineHeightSize.single()
