@@ -56,3 +56,25 @@ export class ScrollSnapAlignStyleProperty extends StyleProperty {
 
 export const scrollSnapAlign = (...snaps: ScrollSnapAlignMode[]) => new ScrollSnapAlignStyleProperty(...snaps);
 
+// scroll behavior mode
+export type ScrollBehaviorMode = 'auto' | 'smooth' | Variable<ScrollBehaviorMode> | Calculation<Partial<ScrollBehaviorMode>>;
+
+// scroll behavior
+export class ScrollBehaviorStyleProperty extends StyleProperty {
+	public mode: ScrollBehaviorMode;
+
+	constructor(
+		mode: ScrollBehaviorMode
+	) {
+		super('scroll-behavior');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const scrollBehavior = (mode: ScrollBehaviorMode) => new ScrollBehaviorStyleProperty(mode);
+

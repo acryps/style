@@ -16,7 +16,7 @@ export * from './opacity';
 export * from './overflow';
 export * from './position';
 export * from './primitives';
-export * from './scroll-snap';
+export * from './scroll';
 export * from './size';
 export * from './spacing';
 export * from './svg';

@@ -14,3 +14,9 @@ export const scrollSnapAlignMode = new TypeDeclaration('none', 'start', 'end', '
 export const scrollSnapAlign = new PropertyTypeDeclaration({
 	snaps: scrollSnapAlignMode.spread()
 }, "${this.snaps.join(' ')}");
+
+export const scrollBehaviorMode = new TypeDeclaration('auto', 'smooth');
+
+export const scrollBehavior = new PropertyTypeDeclaration({
+	mode: scrollBehaviorMode.single()
+}, "${this.mode}");
