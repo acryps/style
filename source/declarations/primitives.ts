@@ -127,7 +127,7 @@ export class Max extends StyleMethod {
 	}
 
 	toValueString() {
-		return `min(${this.values.join(',')})`;
+		return `max(${this.values.join(',')})`;
 	}
 }
 
