@@ -86,7 +86,7 @@ export const max = new MethodDeclaration({
 	values: staticLength.spread()
 }, `
 	this.values = values;
-`, 'min(${this.values.join(\',\')})');
+`, 'max(${this.values.join(\',\')})');
 
 export const length = new TypeDeclaration(staticLength, min, max);
 export const lineWidth = new TypeDeclaration(number, length);
