@@ -35,7 +35,7 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	 * ```<ui-test style={someColorVariable.provide(item.color)}> ... </ui-test>```
 	 */
 	provide(value: T) {
-		return new Variable<T>(this.name, value);
+		return new ProvidedVariable<T>(this, value);
 	}
 
 	/**
@@ -61,5 +61,20 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	// lets return a reference `var(--abc)` then
 	toString() {
 		return `var(${this.propertyName})`;
+	}
+}
+
+export class ProvidedVariable<T> {
+	constructor(
+		public source: Variable<T>,
+		public value: T
+	) {}
+
+	toString() {
+		return `${this.source.propertyName}:${this.value}`;
+	}
+
+	toStyleProperty() {
+		return new Variable(this.source.name, this.value);
 	}
 }
