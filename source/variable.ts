@@ -29,6 +29,16 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	}
 
 	/**
+	 * Creates a copy of the variable with a value set
+	 * 
+	 * Use this to insert a value into an element
+	 * ```<ui-test style={someColorVariable.provide(item.color)}> ... </ui-test>```
+	 */
+	provide(value: T) {
+		return new Variable<T>(this.name, value);
+	}
+
+	/**
 	 * Update the variables value
 	 * 
 	 * This will apply the new value to DOM contexts if available
