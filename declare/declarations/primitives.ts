@@ -74,5 +74,19 @@ export const absoluteLengthDimension = new TypeDeclaration(
 	exportDimension('pt')
 );
 
-export const length = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension).defaultNumberConverter(rem);
+export const staticLength = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension).defaultNumberConverter(rem);
+
+export const min = new MethodDeclaration({
+	values: staticLength.spread()
+}, `
+	this.values = values;
+`, 'min(${this.values.join(\',\')})');
+
+export const max = new MethodDeclaration({
+	values: staticLength.spread()
+}, `
+	this.values = values;
+`, 'min(${this.values.join(\',\')})');
+
+export const length = new TypeDeclaration(staticLength, min, max);
 export const lineWidth = new TypeDeclaration(number, length);

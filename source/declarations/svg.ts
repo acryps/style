@@ -46,7 +46,7 @@ export class StrokeWidthStyleProperty extends StyleProperty {
 	}
 }
 
-export const strokeWidth = (width: Length) => new StrokeWidthStyleProperty(Style.resolveNumber('length', width));
+export const strokeWidth = (width: Length) => new StrokeWidthStyleProperty(width);
 
 // fill
 export class FillStyleProperty extends StyleProperty {

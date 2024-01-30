@@ -11,7 +11,6 @@ export * from './font';
 export * from './gradient';
 export * from './interaction';
 export * from './line-height';
-export * from './math';
 export * from './object';
 export * from './opacity';
 export * from './overflow';

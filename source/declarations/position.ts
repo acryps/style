@@ -75,7 +75,7 @@ export class LeftStyleProperty extends StyleProperty {
 	}
 }
 
-export const left = (offset: Length) => new LeftStyleProperty(Style.resolveNumber('length', offset));
+export const left = (offset: Length) => new LeftStyleProperty(offset);
 
 // right
 export class RightStyleProperty extends StyleProperty {
@@ -94,7 +94,7 @@ export class RightStyleProperty extends StyleProperty {
 	}
 }
 
-export const right = (offset: Length) => new RightStyleProperty(Style.resolveNumber('length', offset));
+export const right = (offset: Length) => new RightStyleProperty(offset);
 
 // top
 export class TopStyleProperty extends StyleProperty {
@@ -113,7 +113,7 @@ export class TopStyleProperty extends StyleProperty {
 	}
 }
 
-export const top = (offset: Length) => new TopStyleProperty(Style.resolveNumber('length', offset));
+export const top = (offset: Length) => new TopStyleProperty(offset);
 
 // bottom
 export class BottomStyleProperty extends StyleProperty {
@@ -132,15 +132,15 @@ export class BottomStyleProperty extends StyleProperty {
 	}
 }
 
-export const bottom = (offset: Length) => new BottomStyleProperty(Style.resolveNumber('length', offset));
+export const bottom = (offset: Length) => new BottomStyleProperty(offset);
 
 export function insetInline(left: LeftStyleProperty, right: RightStyleProperty): InsetInlineStyleProperty
 export function insetInline(leftOffset: Length, rightOffset: Length): InsetInlineStyleProperty
 export function insetInline(offset: Length): InsetInlineStyleProperty
 export function insetInline(): InsetInlineStyleProperty {
 	if (arguments[0] instanceof LeftStyleProperty && arguments[1] instanceof RightStyleProperty) { return new InsetInlineStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new InsetInlineStyleProperty(new LeftStyleProperty(Style.resolveNumber('length', arguments[0])), new RightStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new InsetInlineStyleProperty(new LeftStyleProperty(Style.resolveNumber('length', arguments[0])), new RightStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new InsetInlineStyleProperty(new LeftStyleProperty(arguments[0]), new RightStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new InsetInlineStyleProperty(new LeftStyleProperty(arguments[0]), new RightStyleProperty(arguments[0])); }
 }
 
 InsetInlineStyleProperty.shorthand = [LeftStyleProperty, RightStyleProperty];
@@ -150,8 +150,8 @@ export function insetBlock(topOffset: Length, bottomOffset: Length): InsetBlockS
 export function insetBlock(offset: Length): InsetBlockStyleProperty
 export function insetBlock(): InsetBlockStyleProperty {
 	if (arguments[0] instanceof TopStyleProperty && arguments[1] instanceof BottomStyleProperty) { return new InsetBlockStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new InsetBlockStyleProperty(new TopStyleProperty(Style.resolveNumber('length', arguments[0])), new BottomStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new InsetBlockStyleProperty(new TopStyleProperty(Style.resolveNumber('length', arguments[0])), new BottomStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new InsetBlockStyleProperty(new TopStyleProperty(arguments[0]), new BottomStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new InsetBlockStyleProperty(new TopStyleProperty(arguments[0]), new BottomStyleProperty(arguments[0])); }
 }
 
 InsetBlockStyleProperty.shorthand = [TopStyleProperty, BottomStyleProperty];

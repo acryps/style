@@ -92,8 +92,49 @@ export function inch(value: Number) { return new Inch(value); }
 // absolute length dimension
 export type AbsoluteLengthDimension = Px | Cm | Mm | Inch | Pc | Pt | Variable<AbsoluteLengthDimension> | Calculation<Partial<AbsoluteLengthDimension>>;
 
+// static length
+export type StaticLength = 0 | FontDimension | ViewportDimension | ContainerDimension | AbsoluteLengthDimension | Variable<StaticLength> | Calculation<Partial<StaticLength>>;
+
+// min
+export class Min extends StyleMethod {
+	private values: StaticLength[];
+
+	constructor(
+		...values: StaticLength[]
+	) {
+		super();
+
+	this.values = values;
+	}
+
+	toValueString() {
+		return `min(${this.values.join(',')})`;
+	}
+}
+
+export function min(...values: StaticLength[]) { return new Min(...values.map(value => Style.resolveNumber('staticLength', value))); }
+
+// max
+export class Max extends StyleMethod {
+	private values: StaticLength[];
+
+	constructor(
+		...values: StaticLength[]
+	) {
+		super();
+
+	this.values = values;
+	}
+
+	toValueString() {
+		return `min(${this.values.join(',')})`;
+	}
+}
+
+export function max(...values: StaticLength[]) { return new Max(...values.map(value => Style.resolveNumber('staticLength', value))); }
+
 // length
-export type Length = 0 | FontDimension | ViewportDimension | ContainerDimension | AbsoluteLengthDimension | Variable<Length> | Calculation<Partial<Length>>;
+export type Length = StaticLength | Min | Max | Variable<Length> | Calculation<Partial<Length>>;
 
 // line width
 export type LineWidth = Number | Length | Variable<LineWidth> | Calculation<Partial<LineWidth>>;
@@ -1130,4 +1171,4 @@ export class Pt extends StyleMethod implements Calculable<Pt> {
 
 export function pt(value: Number) { return new Pt(value); }
 
-Style.numberConverter['length'] = Rem;
+Style.numberConverter['staticLength'] = Rem;

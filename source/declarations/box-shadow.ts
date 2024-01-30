@@ -42,5 +42,5 @@ export class BoxShadowStyleProperty extends StyleProperty {
 	}
 }
 
-export const boxShadow = (color: ColorValue, offsetX: Length, offsetY: Length, blurRadius: Length, spreadRadius: Length = 0, type: BoxShadowType = 'outset') => new BoxShadowStyleProperty(color, Style.resolveNumber('length', offsetX), Style.resolveNumber('length', offsetY), Style.resolveNumber('length', blurRadius), Style.resolveNumber('length', spreadRadius), type);
+export const boxShadow = (color: ColorValue, offsetX: Length, offsetY: Length, blurRadius: Length, spreadRadius: Length = 0, type: BoxShadowType = 'outset') => new BoxShadowStyleProperty(color, offsetX, offsetY, blurRadius, spreadRadius, type);
 

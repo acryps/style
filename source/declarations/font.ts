@@ -50,7 +50,7 @@ export class FontSizeStyleProperty extends StyleProperty {
 	}
 }
 
-export const fontSize = (size: Length) => new FontSizeStyleProperty(Style.resolveNumber('length', size));
+export const fontSize = (size: Length) => new FontSizeStyleProperty(size);
 
 // font weight
 export class FontWeightStyleProperty extends StyleProperty {
@@ -108,7 +108,7 @@ export function font(fontSize: FontSizeStyleProperty, fontWeight: FontWeightStyl
 export function font(fontSizeSize: Length, fontWeightWeight: FontWeights, ...fontFamilyName: FontFamilyIdentifier[]): FontStyleProperty
 export function font(): FontStyleProperty {
 	if (arguments[0] instanceof FontSizeStyleProperty && arguments[1] instanceof FontWeightStyleProperty && arguments[2] instanceof FontFamilyStyleProperty) { return new FontStyleProperty(arguments[0], arguments[1], arguments[2]); }
-	if (arguments.length == 3) { return new FontStyleProperty(new FontSizeStyleProperty(Style.resolveNumber('length', arguments[0])), new FontWeightStyleProperty(arguments[1]), new FontFamilyStyleProperty(...arguments[2])); }
+	if (arguments.length == 3) { return new FontStyleProperty(new FontSizeStyleProperty(arguments[0]), new FontWeightStyleProperty(arguments[1]), new FontFamilyStyleProperty(...arguments[2])); }
 }
 
 FontStyleProperty.shorthand = [FontSizeStyleProperty, FontWeightStyleProperty, FontFamilyStyleProperty];

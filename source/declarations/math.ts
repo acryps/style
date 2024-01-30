@@ -23,7 +23,7 @@ export class Min extends StyleMethod {
 	}
 }
 
-export function min(...values: Length[]) { return new Min(...values.map(value => Style.resolveNumber('length', value))); }
+export function min(...values: Length[]) { return new Min(...values); }
 
 // max
 export class Max extends StyleMethod {
@@ -42,5 +42,5 @@ export class Max extends StyleMethod {
 	}
 }
 
-export function max(...values: Length[]) { return new Max(...values.map(value => Style.resolveNumber('length', value))); }
+export function max(...values: Length[]) { return new Max(...values); }
 

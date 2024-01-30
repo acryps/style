@@ -307,7 +307,7 @@ export class FitContent extends StyleMethod {
 	}
 }
 
-export function fitContent(size: Length) { return new FitContent(Style.resolveNumber('length', size)); }
+export function fitContent(size: Length) { return new FitContent(size); }
 
 // repeat track
 export type RepeatTrack = 'auto-fill' | 'auto-fit' | Integer | Variable<RepeatTrack> | Calculation<Partial<RepeatTrack>>;
@@ -459,7 +459,7 @@ export class ColumnGapStyleProperty extends StyleProperty {
 	}
 }
 
-export const columnGap = (distance: Length) => new ColumnGapStyleProperty(Style.resolveNumber('length', distance));
+export const columnGap = (distance: Length) => new ColumnGapStyleProperty(distance);
 
 // row gap
 export class RowGapStyleProperty extends StyleProperty {
@@ -478,7 +478,7 @@ export class RowGapStyleProperty extends StyleProperty {
 	}
 }
 
-export const rowGap = (distance: Length) => new RowGapStyleProperty(Style.resolveNumber('length', distance));
+export const rowGap = (distance: Length) => new RowGapStyleProperty(distance);
 
 // flex grow
 export class FlexGrowStyleProperty extends StyleProperty {
@@ -599,8 +599,8 @@ export function gap(columnGapDistance: Length, rowGapDistance: Length): GapStyle
 export function gap(distance: Length): GapStyleProperty
 export function gap(): GapStyleProperty {
 	if (arguments[0] instanceof ColumnGapStyleProperty && arguments[1] instanceof RowGapStyleProperty) { return new GapStyleProperty(arguments[0], arguments[1]); }
-	if (arguments.length == 2) { return new GapStyleProperty(new ColumnGapStyleProperty(Style.resolveNumber('length', arguments[0])), new RowGapStyleProperty(Style.resolveNumber('length', arguments[1]))); }
-	if (arguments.length == 1) { return new GapStyleProperty(new ColumnGapStyleProperty(Style.resolveNumber('length', arguments[0])), new RowGapStyleProperty(Style.resolveNumber('length', arguments[0]))); }
+	if (arguments.length == 2) { return new GapStyleProperty(new ColumnGapStyleProperty(arguments[0]), new RowGapStyleProperty(arguments[1])); }
+	if (arguments.length == 1) { return new GapStyleProperty(new ColumnGapStyleProperty(arguments[0]), new RowGapStyleProperty(arguments[0])); }
 }
 
 GapStyleProperty.shorthand = [ColumnGapStyleProperty, RowGapStyleProperty];
