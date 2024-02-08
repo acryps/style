@@ -4,7 +4,8 @@ import { StyleMethod } from '../method';
 import { Variable } from '../variable';
 import { Calculation, Calculable } from '../calculate';
 
-
+import { Length } from './primitives';
+import { Integer } from './primitives';
 
 // text alignment direction
 export type TextAlignmentDirection = 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'justify-all' | 'match-parent' | Variable<TextAlignmentDirection> | Calculation<Partial<TextAlignmentDirection>>;
@@ -102,6 +103,28 @@ export class TextDecorationStyleProperty extends StyleProperty {
 		super('text-decoration', [textDecorationLine]);
 	}
 }
+
+// tab size length
+export type TabSizeLength = Length | Integer | Variable<TabSizeLength> | Calculation<Partial<TabSizeLength>>;
+
+// tab size
+export class TabSizeStyleProperty extends StyleProperty {
+	public size: TabSizeLength;
+
+	constructor(
+		size: TabSizeLength
+	) {
+		super('tab-size');
+
+		this.size = size;
+	}
+
+	toValueString() {
+		return `${this.size}`;
+	}
+}
+
+export const tabSize = (size: TabSizeLength) => new TabSizeStyleProperty(size);
 
 export function textDecoration(textDecorationLine: TextDecorationLineStyleProperty): TextDecorationStyleProperty
 export function textDecoration(...textDecorationLineModes: TextDecorationLineMode[]): TextDecorationStyleProperty
