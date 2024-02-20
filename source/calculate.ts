@@ -31,6 +31,10 @@ export class Calculation<ValueType> implements Calculable<ValueType> {
 		return new Calculation(`(${this.expression}) * (${this.wrapExpression(value)})`);
 	}
 
+	invert<T>() {
+		return this.multiply(-1);
+	}
+
 	divide<T>(value: T) {
 		return new Calculation(`(${this.expression}) / (${this.wrapExpression(value)})`);
 	}

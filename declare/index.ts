@@ -137,6 +137,10 @@ for (let sourcePath in sources) {
 					for (let operation of ['add', 'subtract', 'multiply', 'divide']) {
 						writer.write(`\t${operation} = value => new Calculation(this.toValueString()).${operation}(value);\n`);
 					}
+
+					for (let operation of ['invert']) {
+						writer.write(`\t${operation} = () => new Calculation(this.toValueString()).${operation}();\n`);
+					}
 					
 					writer.write('\n');
 				}
