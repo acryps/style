@@ -34,3 +34,9 @@ export const tabSizeLength = new TypeDeclaration(length, integer);
 export const tabSize = new PropertyTypeDeclaration({
 	size: tabSizeLength.single()
 }, "${this.size}");
+
+export const writingModeDirection = new TypeDeclaration('horizontal-tb', 'vertical-rl', 'vertical-lr', 'sideways-rl', 'sideways-lr');
+
+export const writingMode = new PropertyTypeDeclaration({
+	mode: writingModeDirection.single()
+}, "${this.mode}");

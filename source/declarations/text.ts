@@ -126,6 +126,28 @@ export class TabSizeStyleProperty extends StyleProperty {
 
 export const tabSize = (size: TabSizeLength) => new TabSizeStyleProperty(size);
 
+// writing mode direction
+export type WritingModeDirection = 'horizontal-tb' | 'vertical-rl' | 'vertical-lr' | 'sideways-rl' | 'sideways-lr' | Variable<WritingModeDirection> | Calculation<Partial<WritingModeDirection>>;
+
+// writing mode
+export class WritingModeStyleProperty extends StyleProperty {
+	public mode: WritingModeDirection;
+
+	constructor(
+		mode: WritingModeDirection
+	) {
+		super('writing-mode');
+
+		this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export const writingMode = (mode: WritingModeDirection) => new WritingModeStyleProperty(mode);
+
 export function textDecoration(textDecorationLine: TextDecorationLineStyleProperty): TextDecorationStyleProperty
 export function textDecoration(...textDecorationLineModes: TextDecorationLineMode[]): TextDecorationStyleProperty
 export function textDecoration(...modes: TextDecorationLineMode[]): TextDecorationStyleProperty
