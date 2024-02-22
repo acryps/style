@@ -7,7 +7,7 @@
 		"postversion": "git push",
 		"prepare": "tsc && node built/declare/index.js && tsc",
 		"build": "tsc",
-		"declare": "tsc && node built/declare/index.js"
+		"declare": "tsc && node built/declare/index.js && tsc"
 	},
 	"license": "GPL-3.0-only",
 	"devDependencies": {
