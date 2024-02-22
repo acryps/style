@@ -72,7 +72,7 @@ export type ViewportDimension = Vh | Svh | Lvh | Dvh | Vw | Svw | Lvw | Dvw | Vm
 export type ContainerDimension = Cqw | Cqh | Cqb | Cqi | Cqmin | Cqmax | Variable<ContainerDimension> | Calculation<Partial<ContainerDimension>>;
 
 // inch
-export class Inch extends StyleMethod {
+export class Inch extends StyleMethod implements Calculable<Inch> {
 	private value: Number;
 
 	constructor(
@@ -82,6 +82,12 @@ export class Inch extends StyleMethod {
 
 	this.value = value;
 	}
+
+	add = value => new Calculation(this.toValueString()).add(value);
+	subtract = value => new Calculation(this.toValueString()).subtract(value);
+	multiply = value => new Calculation(this.toValueString()).multiply(value);
+	divide = value => new Calculation(this.toValueString()).divide(value);
+	invert = () => new Calculation(this.toValueString()).invert();
 
 	toValueString() {
 		return `${this.value}in`;

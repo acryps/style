@@ -63,7 +63,7 @@ export const containerDimension = new TypeDeclaration(
 
 // absolute lengths
 // we have omitted Q (who even ever heard about let alone used this?)
-export const inch = MethodDeclaration.fromUnit('in', number);
+export const inch = MethodDeclaration.fromUnit('in', number).calculable();
 
 export const absoluteLengthDimension = new TypeDeclaration(
 	exportDimension('px'),
