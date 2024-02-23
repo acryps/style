@@ -21,6 +21,7 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	subtract = value => new Calculation(this.toString()).subtract(value);
 	divide = value => new Calculation(this.toString()).divide(value);
 	multiply = value => new Calculation(this.toString()).multiply(value);
+	invert = () => new Calculation(this.toString()).invert();
 
 	use(selector: string) {
 		this.users.push(selector);

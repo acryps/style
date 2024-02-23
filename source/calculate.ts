@@ -4,6 +4,8 @@ export interface Calculable<ValueType> {
 
 	multiply<MultipliedValue>(value: MultipliedValue): Calculation<ValueType | MultipliedValue>;
 	divide<DividedValue>(value: DividedValue): Calculation<ValueType | DividedValue>;
+	
+	invert(): Calculation<ValueType>;
 }
 
 export class Calculation<ValueType> implements Calculable<ValueType> {
