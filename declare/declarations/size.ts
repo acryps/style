@@ -42,8 +42,6 @@ export const aspectRatio = new PropertyTypeDeclaration({
 
 export const resizeMode = new TypeDeclaration('none', 'both', 'horizontal', 'vertical', 'block', 'inline');
 
-export const resize = new MethodDeclaration({
+export const resize = new PropertyTypeDeclaration({
 	mode: resizeMode.single()
-}, `
-	this.mode = mode;
-`, '${this.mode}');
+}, '${this.mode}');

@@ -81,15 +81,15 @@ export const aspectRatio = (ratio: Ratio) => new AspectRatioStyleProperty(ratio)
 export type ResizeMode = 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline' | Variable<ResizeMode> | Calculation<Partial<ResizeMode>>;
 
 // resize
-export class Resize extends StyleMethod {
-	private mode: ResizeMode;
+export class ResizeStyleProperty extends StyleProperty {
+	public mode: ResizeMode;
 
 	constructor(
 		mode: ResizeMode
 	) {
-		super();
+		super('resize');
 
-	this.mode = mode;
+		this.mode = mode;
 	}
 
 	toValueString() {
@@ -97,7 +97,7 @@ export class Resize extends StyleMethod {
 	}
 }
 
-export function resize(mode: ResizeMode) { return new Resize(mode); }
+export const resize = (mode: ResizeMode) => new ResizeStyleProperty(mode);
 
 // height
 export class HeightStyleProperty extends StyleProperty {
