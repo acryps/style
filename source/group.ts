@@ -25,9 +25,9 @@ const styleAttribute = (group: StyleGroup, selector: string, items: StyleSelecto
 };
 
 export class StyleGroup {
-	private children: StyleGroup[] = [];
-	private properties: StyleProperty[] = [];
-	private atRules: AtRule[] = [];
+	public children: StyleGroup[] = [];
+	public properties: StyleProperty[] = [];
+	public atRules: AtRule[] = [];
 
 	constructor(
 		public selector: string
