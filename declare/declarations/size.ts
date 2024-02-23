@@ -39,3 +39,11 @@ export const ratio = new MethodDeclaration({
 export const aspectRatio = new PropertyTypeDeclaration({
 	ratio: ratio.single()
 }, '${this.ratio}');
+
+export const resizeMode = new TypeDeclaration('none', 'both', 'horizontal', 'vertical', 'block', 'inline');
+
+export const resize = new MethodDeclaration({
+	mode: resizeMode.single()
+}, `
+	this.mode = mode;
+`, '${this.mode}');

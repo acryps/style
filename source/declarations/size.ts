@@ -77,6 +77,28 @@ export class AspectRatioStyleProperty extends StyleProperty {
 
 export const aspectRatio = (ratio: Ratio) => new AspectRatioStyleProperty(ratio);
 
+// resize mode
+export type ResizeMode = 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline' | Variable<ResizeMode> | Calculation<Partial<ResizeMode>>;
+
+// resize
+export class Resize extends StyleMethod {
+	private mode: ResizeMode;
+
+	constructor(
+		mode: ResizeMode
+	) {
+		super();
+
+	this.mode = mode;
+	}
+
+	toValueString() {
+		return `${this.mode}`;
+	}
+}
+
+export function resize(mode: ResizeMode) { return new Resize(mode); }
+
 // height
 export class HeightStyleProperty extends StyleProperty {
 	public size: SizeDimension;
