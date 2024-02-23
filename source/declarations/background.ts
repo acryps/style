@@ -13,6 +13,8 @@ export type BackgroundImageSource = ImageSource | Gradient | Variable<Background
 
 // background image
 export class BackgroundImageStyleProperty extends StyleProperty {
+	static properties = ['sources'];
+
 	public sources: BackgroundImageSource[];
 
 	constructor(
@@ -32,6 +34,8 @@ export const backgroundImage = (...sources: BackgroundImageSource[]) => new Back
 
 // background color
 export class BackgroundColorStyleProperty extends StyleProperty {
+	static properties = ['color'];
+
 	public color: ColorValue;
 
 	constructor(

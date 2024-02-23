@@ -11,6 +11,8 @@ export type CursorType = 'auto' | 'default' | 'none' | 'context-menu' | 'help' |
 
 // cursor
 export class CursorStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
 	public type: CursorType;
 
 	constructor(

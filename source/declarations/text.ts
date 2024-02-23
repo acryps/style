@@ -12,6 +12,8 @@ export type TextAlignmentDirection = 'start' | 'end' | 'left' | 'right' | 'cente
 
 // text align
 export class TextAlignStyleProperty extends StyleProperty {
+	static properties = ['direction'];
+
 	public direction: TextAlignmentDirection;
 
 	constructor(
@@ -34,6 +36,8 @@ export type TextTransformationMode = 'none' | 'capitalize' | 'uppercase' | 'lowe
 
 // text transform
 export class TextTransformStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: TextTransformationMode;
 
 	constructor(
@@ -56,6 +60,8 @@ export type TextWrapMode = 'wrap' | 'nowrap' | 'balance' | 'pretty' | 'stable' |
 
 // text wrap
 export class TextWrapStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: TextWrapMode;
 
 	constructor(
@@ -78,6 +84,8 @@ export type TextDecorationLineMode = 'none' | 'underline' | 'overline' | 'line-t
 
 // text decoration line
 export class TextDecorationLineStyleProperty extends StyleProperty {
+	static properties = ['modes'];
+
 	public modes: TextDecorationLineMode[];
 
 	constructor(
@@ -109,6 +117,8 @@ export type TabSizeLength = Length | Integer | Variable<TabSizeLength> | Calcula
 
 // tab size
 export class TabSizeStyleProperty extends StyleProperty {
+	static properties = ['size'];
+
 	public size: TabSizeLength;
 
 	constructor(
@@ -131,6 +141,8 @@ export type WritingModeDirection = 'horizontal-tb' | 'vertical-rl' | 'vertical-l
 
 // writing mode
 export class WritingModeStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: WritingModeDirection;
 
 	constructor(

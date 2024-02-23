@@ -12,6 +12,8 @@ export type AlphaValue = Number | 'none' | Percentage | Variable<AlphaValue> | C
 
 // opacity
 export class OpacityStyleProperty extends StyleProperty {
+	static properties = ['alpha'];
+
 	public alpha: AlphaValue;
 
 	constructor(

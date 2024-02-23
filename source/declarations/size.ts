@@ -19,6 +19,8 @@ export type BoxSizingMode = 'border-box' | 'content-box' | Variable<BoxSizingMod
 
 // box sizing
 export class BoxSizingStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: BoxSizingMode;
 
 	constructor(
@@ -60,6 +62,8 @@ export function ratio(width: Number, height: Number) { return new Ratio(width, h
 
 // aspect ratio
 export class AspectRatioStyleProperty extends StyleProperty {
+	static properties = ['ratio'];
+
 	public ratio: Ratio;
 
 	constructor(
@@ -82,6 +86,8 @@ export type ResizeMode = 'none' | 'both' | 'horizontal' | 'vertical' | 'block' |
 
 // resize
 export class ResizeStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: ResizeMode;
 
 	constructor(
@@ -101,6 +107,8 @@ export const resize = (mode: ResizeMode) => new ResizeStyleProperty(mode);
 
 // height
 export class HeightStyleProperty extends StyleProperty {
+	static properties = ['size'];
+
 	public size: SizeDimension;
 
 	constructor(
@@ -120,6 +128,8 @@ export const height = (size: SizeDimension) => new HeightStyleProperty(size);
 
 // min height
 export class MinHeightStyleProperty extends StyleProperty {
+	static properties = ['limit'];
+
 	public limit: SizeDimension;
 
 	constructor(
@@ -139,6 +149,8 @@ export const minHeight = (limit: SizeDimension) => new MinHeightStyleProperty(li
 
 // max height
 export class MaxHeightStyleProperty extends StyleProperty {
+	static properties = ['limit'];
+
 	public limit: SizeDimension;
 
 	constructor(
@@ -158,6 +170,8 @@ export const maxHeight = (limit: SizeDimension) => new MaxHeightStyleProperty(li
 
 // width
 export class WidthStyleProperty extends StyleProperty {
+	static properties = ['size'];
+
 	public size: SizeDimension;
 
 	constructor(
@@ -177,6 +191,8 @@ export const width = (size: SizeDimension) => new WidthStyleProperty(size);
 
 // min width
 export class MinWidthStyleProperty extends StyleProperty {
+	static properties = ['limit'];
+
 	public limit: SizeDimension;
 
 	constructor(
@@ -196,6 +212,8 @@ export const minWidth = (limit: SizeDimension) => new MinWidthStyleProperty(limi
 
 // max width
 export class MaxWidthStyleProperty extends StyleProperty {
+	static properties = ['limit'];
+
 	public limit: SizeDimension;
 
 	constructor(

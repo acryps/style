@@ -11,6 +11,8 @@ export type SpacingLength = 'auto' | Length | Variable<SpacingLength> | Calculat
 
 // margin left
 export class MarginLeftStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -30,6 +32,8 @@ export const marginLeft = (length: SpacingLength) => new MarginLeftStyleProperty
 
 // margin right
 export class MarginRightStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -59,6 +63,8 @@ export class MarginInlineStyleProperty extends StyleProperty {
 
 // margin top
 export class MarginTopStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -78,6 +84,8 @@ export const marginTop = (length: SpacingLength) => new MarginTopStyleProperty(l
 
 // margin bottom
 export class MarginBottomStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -117,6 +125,8 @@ export class MarginStyleProperty extends StyleProperty {
 
 // padding left
 export class PaddingLeftStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -136,6 +146,8 @@ export const paddingLeft = (length: SpacingLength) => new PaddingLeftStyleProper
 
 // padding right
 export class PaddingRightStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -165,6 +177,8 @@ export class PaddingInlineStyleProperty extends StyleProperty {
 
 // padding top
 export class PaddingTopStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(
@@ -184,6 +198,8 @@ export const paddingTop = (length: SpacingLength) => new PaddingTopStyleProperty
 
 // padding bottom
 export class PaddingBottomStyleProperty extends StyleProperty {
+	static properties = ['length'];
+
 	public length: SpacingLength;
 
 	constructor(

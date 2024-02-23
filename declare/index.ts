@@ -162,6 +162,7 @@ for (let sourcePath in sources) {
 
 			if (declaration instanceof PropertyTypeDeclaration) {
 				writer.write(`export class ${ident.toPropertyClassName()} extends StyleProperty {\n`);
+				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
 
 				const constructorArguments = [];
 				const passArguments = [];

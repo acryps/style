@@ -101,6 +101,8 @@ export type ColorValue = Hex | Rgb | Hsl | 'currentColor' | 'transparent' | Vari
 
 // color
 export class ColorStyleProperty extends StyleProperty {
+	static properties = ['color'];
+
 	public color: ColorValue;
 
 	constructor(

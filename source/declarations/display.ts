@@ -11,6 +11,8 @@ export type DisplayMode = 'block' | 'inline' | 'flex' | 'grid' | 'flow-root' | '
 
 // display
 export class DisplayStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: DisplayMode[];
 
 	constructor(

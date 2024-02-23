@@ -11,6 +11,8 @@ export type WhiteSpaceMode = 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-lin
 
 // white space
 export class WhiteSpaceStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: WhiteSpaceMode;
 
 	constructor(
@@ -33,6 +35,8 @@ export type OverflowWrapMode = 'normal' | 'break-word' | 'anywhere' | Variable<O
 
 // overflow wrap
 export class OverflowWrapStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: OverflowWrapMode;
 
 	constructor(
@@ -55,6 +59,8 @@ export type WordBreakMode = 'normal' | 'break-word' | 'keep-all' | 'auto-phrase'
 
 // word break
 export class WordBreakStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: WordBreakMode;
 
 	constructor(
@@ -77,6 +83,8 @@ export type HyphensMode = 'none' | 'manual' | 'auto' | Variable<HyphensMode> | C
 
 // hyphens
 export class HyphensStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: HyphensMode;
 
 	constructor(

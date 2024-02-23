@@ -14,6 +14,8 @@ export type ScrollSnapForceMode = 'mandatory' | 'proximity' | Variable<ScrollSna
 
 // scroll snap type
 export class ScrollSnapTypeStyleProperty extends StyleProperty {
+	static properties = ['mandatory', 'proximity'];
+
 	public mandatory: ScrollSnapAxis;
 	public proximity: ScrollSnapForceMode | undefined;
 
@@ -39,6 +41,8 @@ export type ScrollSnapAlignMode = 'none' | 'start' | 'end' | 'center' | Variable
 
 // scroll snap align
 export class ScrollSnapAlignStyleProperty extends StyleProperty {
+	static properties = ['snaps'];
+
 	public snaps: ScrollSnapAlignMode[];
 
 	constructor(
@@ -61,6 +65,8 @@ export type ScrollBehaviorMode = 'auto' | 'smooth' | Variable<ScrollBehaviorMode
 
 // scroll behavior
 export class ScrollBehaviorStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: ScrollBehaviorMode;
 
 	constructor(

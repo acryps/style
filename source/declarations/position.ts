@@ -11,6 +11,8 @@ export type PositionMode = 'static' | 'relative' | 'absolute' | 'fixed' | 'stick
 
 // position
 export class PositionStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: PositionMode;
 
 	constructor(
@@ -60,6 +62,8 @@ export class InsetStyleProperty extends StyleProperty {
 
 // left
 export class LeftStyleProperty extends StyleProperty {
+	static properties = ['offset'];
+
 	public offset: Length;
 
 	constructor(
@@ -79,6 +83,8 @@ export const left = (offset: Length) => new LeftStyleProperty(offset);
 
 // right
 export class RightStyleProperty extends StyleProperty {
+	static properties = ['offset'];
+
 	public offset: Length;
 
 	constructor(
@@ -98,6 +104,8 @@ export const right = (offset: Length) => new RightStyleProperty(offset);
 
 // top
 export class TopStyleProperty extends StyleProperty {
+	static properties = ['offset'];
+
 	public offset: Length;
 
 	constructor(
@@ -117,6 +125,8 @@ export const top = (offset: Length) => new TopStyleProperty(offset);
 
 // bottom
 export class BottomStyleProperty extends StyleProperty {
+	static properties = ['offset'];
+
 	public offset: Length;
 
 	constructor(

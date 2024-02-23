@@ -24,6 +24,8 @@ export type TextOverflowMode = 'clip' | 'ellipsis' | Variable<TextOverflowMode> 
 
 // text overflow
 export class TextOverflowStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: TextOverflowMode;
 
 	constructor(
@@ -43,6 +45,8 @@ export const textOverflow = (mode: TextOverflowMode) => new TextOverflowStylePro
 
 // overflow x
 export class OverflowXStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: OverflowMode;
 
 	constructor(
@@ -62,6 +66,8 @@ export const overflowX = (mode: OverflowMode) => new OverflowXStyleProperty(mode
 
 // overflow y
 export class OverflowYStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: OverflowMode;
 
 	constructor(

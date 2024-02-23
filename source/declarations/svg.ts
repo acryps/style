@@ -12,6 +12,8 @@ export type PaintColor = ColorValue | 'none' | Variable<PaintColor> | Calculatio
 
 // stroke
 export class StrokeStyleProperty extends StyleProperty {
+	static properties = ['color'];
+
 	public color: PaintColor;
 
 	constructor(
@@ -31,6 +33,8 @@ export const stroke = (color: PaintColor) => new StrokeStyleProperty(color);
 
 // stroke width
 export class StrokeWidthStyleProperty extends StyleProperty {
+	static properties = ['width'];
+
 	public width: Length;
 
 	constructor(
@@ -50,6 +54,8 @@ export const strokeWidth = (width: Length) => new StrokeWidthStyleProperty(width
 
 // fill
 export class FillStyleProperty extends StyleProperty {
+	static properties = ['color'];
+
 	public color: PaintColor;
 
 	constructor(
@@ -72,6 +78,8 @@ export type VectorEffectMode = 'none' | 'non-scaling-stroke' | 'non-scaling-size
 
 // vector effect
 export class VectorEffectStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: VectorEffectMode;
 
 	constructor(

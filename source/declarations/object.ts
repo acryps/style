@@ -12,6 +12,8 @@ export type ObjectFitMode = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
 
 // object fit
 export class ObjectFitStyleProperty extends StyleProperty {
+	static properties = ['mode'];
+
 	public mode: ObjectFitMode;
 
 	constructor(
@@ -37,6 +39,8 @@ export type ObjectPositionBlockDirection = 'top' | 'center' | 'bottom' | 'left' 
 
 // object position
 export class ObjectPositionStyleProperty extends StyleProperty {
+	static properties = ['block', 'inline'];
+
 	public block: ObjectPositionBlockDirection;
 	public inline: ObjectPositionInlineDirection | undefined;
 

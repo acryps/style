@@ -12,6 +12,8 @@ export type LineHeightSize = Number | Length | Variable<LineHeightSize> | Calcul
 
 // line height
 export class LineHeightStyleProperty extends StyleProperty {
+	static properties = ['size'];
+
 	public size: LineHeightSize;
 
 	constructor(

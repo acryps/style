@@ -12,6 +12,8 @@ export type BoxShadowType = 'inset' | 'outset' | Variable<BoxShadowType> | Calcu
 
 // box shadow
 export class BoxShadowStyleProperty extends StyleProperty {
+	static properties = ['color', 'offsetX', 'offsetY', 'blurRadius', 'spreadRadius', 'type'];
+
 	public color: ColorValue;
 	public offsetX: Length;
 	public offsetY: Length;

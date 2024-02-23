@@ -8,6 +8,8 @@ import { Integer } from './primitives';
 
 // z index
 export class ZIndexStyleProperty extends StyleProperty {
+	static properties = ['layer'];
+
 	public layer: Integer;
 
 	constructor(

@@ -3,6 +3,8 @@ import { Style } from "./style";
 import { Transition } from "./transition";
 
 export class StyleProperty {
+	static properties: string[];
+	
 	overwriteParents = false;
 	transitionRule: Transition;
 
