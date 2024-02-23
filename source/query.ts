@@ -2,7 +2,7 @@ import { AtRule } from "./at-rule";
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
 
-export type StyleInsert = { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] };
+export type StyleInsert = { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] } | { toStyle(): StyleSelectorBody };
 export type StyleSelectorBody = StyleProperty | StyleGroup | StyleInsert | AtRule | StyleSelectorBody[];
 
 export function style(selector: string, ...items: StyleSelectorBody[]) {
@@ -27,6 +27,8 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 				add([item.toStyleProperty()]);
 			} else if ('toStyleProperties' in item) {
 				add(item.toStyleProperties());
+			} else if ('toStyle' in item) {
+				add(item.toStyle());
 			} else {
 				throw new Error('Invalid style declaration');
 			}
