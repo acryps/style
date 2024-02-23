@@ -28,7 +28,7 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 			} else if ('toStyleProperties' in item) {
 				add(item.toStyleProperties());
 			} else if ('toStyle' in item) {
-				add(item.toStyle());
+				add([item.toStyle()]);
 			} else {
 				throw new Error('Invalid style declaration');
 			}
