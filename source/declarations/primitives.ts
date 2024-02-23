@@ -46,11 +46,11 @@ export class Percentage extends StyleMethod implements Calculable<Percentage> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}%`;
@@ -83,11 +83,11 @@ export class Inch extends StyleMethod implements Calculable<Inch> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}in`;
@@ -158,11 +158,11 @@ export class Rem extends StyleMethod implements Calculable<Rem> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}rem`;
@@ -183,11 +183,11 @@ export class Em extends StyleMethod implements Calculable<Em> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}em`;
@@ -208,11 +208,11 @@ export class Ex extends StyleMethod implements Calculable<Ex> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}ex`;
@@ -233,11 +233,11 @@ export class Ch extends StyleMethod implements Calculable<Ch> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}ch`;
@@ -258,11 +258,11 @@ export class Cap extends StyleMethod implements Calculable<Cap> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cap`;
@@ -283,11 +283,11 @@ export class Ic extends StyleMethod implements Calculable<Ic> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}ic`;
@@ -308,11 +308,11 @@ export class Lh extends StyleMethod implements Calculable<Lh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lh`;
@@ -333,11 +333,11 @@ export class Rlh extends StyleMethod implements Calculable<Rlh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}rlh`;
@@ -358,11 +358,11 @@ export class Vh extends StyleMethod implements Calculable<Vh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vh`;
@@ -383,11 +383,11 @@ export class Svh extends StyleMethod implements Calculable<Svh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svh`;
@@ -408,11 +408,11 @@ export class Lvh extends StyleMethod implements Calculable<Lvh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvh`;
@@ -433,11 +433,11 @@ export class Dvh extends StyleMethod implements Calculable<Dvh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvh`;
@@ -458,11 +458,11 @@ export class Vw extends StyleMethod implements Calculable<Vw> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vw`;
@@ -483,11 +483,11 @@ export class Svw extends StyleMethod implements Calculable<Svw> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svw`;
@@ -508,11 +508,11 @@ export class Lvw extends StyleMethod implements Calculable<Lvw> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvw`;
@@ -533,11 +533,11 @@ export class Dvw extends StyleMethod implements Calculable<Dvw> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvw`;
@@ -558,11 +558,11 @@ export class Vmax extends StyleMethod implements Calculable<Vmax> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vmax`;
@@ -583,11 +583,11 @@ export class Svmax extends StyleMethod implements Calculable<Svmax> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svmax`;
@@ -608,11 +608,11 @@ export class Lvmax extends StyleMethod implements Calculable<Lvmax> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvmax`;
@@ -633,11 +633,11 @@ export class Dvmax extends StyleMethod implements Calculable<Dvmax> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvmax`;
@@ -658,11 +658,11 @@ export class Vmin extends StyleMethod implements Calculable<Vmin> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vmin`;
@@ -683,11 +683,11 @@ export class Svmin extends StyleMethod implements Calculable<Svmin> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svmin`;
@@ -708,11 +708,11 @@ export class Lvmin extends StyleMethod implements Calculable<Lvmin> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvmin`;
@@ -733,11 +733,11 @@ export class Dvmin extends StyleMethod implements Calculable<Dvmin> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvmin`;
@@ -758,11 +758,11 @@ export class Vb extends StyleMethod implements Calculable<Vb> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vb`;
@@ -783,11 +783,11 @@ export class Svb extends StyleMethod implements Calculable<Svb> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svb`;
@@ -808,11 +808,11 @@ export class Lvb extends StyleMethod implements Calculable<Lvb> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvb`;
@@ -833,11 +833,11 @@ export class Dvb extends StyleMethod implements Calculable<Dvb> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvb`;
@@ -858,11 +858,11 @@ export class Vi extends StyleMethod implements Calculable<Vi> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}vi`;
@@ -883,11 +883,11 @@ export class Svi extends StyleMethod implements Calculable<Svi> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}svi`;
@@ -908,11 +908,11 @@ export class Lvi extends StyleMethod implements Calculable<Lvi> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}lvi`;
@@ -933,11 +933,11 @@ export class Dvi extends StyleMethod implements Calculable<Dvi> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}dvi`;
@@ -958,11 +958,11 @@ export class Cqw extends StyleMethod implements Calculable<Cqw> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqw`;
@@ -983,11 +983,11 @@ export class Cqh extends StyleMethod implements Calculable<Cqh> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqh`;
@@ -1008,11 +1008,11 @@ export class Cqb extends StyleMethod implements Calculable<Cqb> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqb`;
@@ -1033,11 +1033,11 @@ export class Cqi extends StyleMethod implements Calculable<Cqi> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqi`;
@@ -1058,11 +1058,11 @@ export class Cqmin extends StyleMethod implements Calculable<Cqmin> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqmin`;
@@ -1083,11 +1083,11 @@ export class Cqmax extends StyleMethod implements Calculable<Cqmax> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cqmax`;
@@ -1108,11 +1108,11 @@ export class Px extends StyleMethod implements Calculable<Px> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}px`;
@@ -1133,11 +1133,11 @@ export class Cm extends StyleMethod implements Calculable<Cm> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}cm`;
@@ -1158,11 +1158,11 @@ export class Mm extends StyleMethod implements Calculable<Mm> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}mm`;
@@ -1183,11 +1183,11 @@ export class Pc extends StyleMethod implements Calculable<Pc> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}pc`;
@@ -1208,11 +1208,11 @@ export class Pt extends StyleMethod implements Calculable<Pt> {
 	this.value = value;
 	}
 
-	add = value => new Calculation(this.toValueString()).add(value);
-	subtract = value => new Calculation(this.toValueString()).subtract(value);
-	multiply = value => new Calculation(this.toValueString()).multiply(value);
-	divide = value => new Calculation(this.toValueString()).divide(value);
-	invert = () => new Calculation(this.toValueString()).invert();
+	add = value => new Calculation(this.toValueString(), [this]).add(value);
+	subtract = value => new Calculation(this.toValueString(), [this]).subtract(value);
+	multiply = value => new Calculation(this.toValueString(), [this]).multiply(value);
+	divide = value => new Calculation(this.toValueString(), [this]).divide(value);
+	invert = () => new Calculation(this.toValueString(), [this]).invert();
 
 	toValueString() {
 		return `${this.value}pt`;

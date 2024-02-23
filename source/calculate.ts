@@ -10,7 +10,8 @@ export interface Calculable<ValueType> {
 
 export class Calculation<ValueType> implements Calculable<ValueType> {
 	constructor(
-		private expression: string
+		public expression: string,
+		public sources: any[]
 	) {}
 
 	private wrapExpression(value: any) {
@@ -22,15 +23,15 @@ export class Calculation<ValueType> implements Calculable<ValueType> {
 	}
 
 	add<T>(value: T) {
-		return new Calculation(`${this.expression} + ${this.wrapExpression(value)}`);
+		return new Calculation(`${this.expression} + ${this.wrapExpression(value)}`, [...this.sources, value]);
 	}
 
 	subtract<T>(value: T) {
-		return new Calculation(`${this.expression} - ${this.wrapExpression(value)}`);
+		return new Calculation(`${this.expression} - ${this.wrapExpression(value)}`, [...this.sources, value]);
 	}
 
 	multiply<T>(value: T) {
-		return new Calculation(`(${this.expression}) * (${this.wrapExpression(value)})`);
+		return new Calculation(`(${this.expression}) * (${this.wrapExpression(value)})`, [...this.sources, value]);
 	}
 
 	invert<T>() {
@@ -38,7 +39,7 @@ export class Calculation<ValueType> implements Calculable<ValueType> {
 	}
 
 	divide<T>(value: T) {
-		return new Calculation(`(${this.expression}) / (${this.wrapExpression(value)})`);
+		return new Calculation(`(${this.expression}) / (${this.wrapExpression(value)})`, [...this.sources, value]);
 	}
 
 	toValueString() {
@@ -51,5 +52,5 @@ export class Calculation<ValueType> implements Calculable<ValueType> {
 }
 
 export function calc(expression: string) {
-	return new Calculation(expression);
+	return new Calculation(expression, []);
 }

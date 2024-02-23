@@ -17,11 +17,11 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	}
 
 	// calculable methods
-	add = value => new Calculation(this.toString()).add(value);
-	subtract = value => new Calculation(this.toString()).subtract(value);
-	divide = value => new Calculation(this.toString()).divide(value);
-	multiply = value => new Calculation(this.toString()).multiply(value);
-	invert = () => new Calculation(this.toString()).invert();
+	add = value => new Calculation(this.toString(), [this]).add(value);
+	subtract = value => new Calculation(this.toString(), [this]).subtract(value);
+	divide = value => new Calculation(this.toString(), [this]).divide(value);
+	multiply = value => new Calculation(this.toString(), [this]).multiply(value);
+	invert = () => new Calculation(this.toString(), [this]).invert();
 
 	use(selector: string) {
 		this.users.push(selector);
