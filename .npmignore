@@ -1,4 +1,6 @@
 /source
 /declare
 
+/built/declare
+
 tsconfig.json
