@@ -1,6 +1,6 @@
 {
 	"name": "@acryps/style",
-	"main": "built/index.js",
+	"main": "built/source/index.js",
 	"typings": "built/source/index.d.ts",
 	"scripts": {
 		"preversion": "git pull",
