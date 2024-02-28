@@ -466,6 +466,27 @@ export class GridTemplateRowsStyleProperty extends StyleProperty {
 
 export const gridTemplateRows = (...cells: GridTemplateAreaName[]) => new GridTemplateRowsStyleProperty(...cells);
 
+// order
+export class OrderStyleProperty extends StyleProperty {
+	static properties = ['order'];
+
+	public order: Integer;
+
+	constructor(
+		order: Integer
+	) {
+		super('order');
+
+		this.order = order;
+	}
+
+	toValueString() {
+		return `${this.order}`;
+	}
+}
+
+export const order = (order: Integer) => new OrderStyleProperty(order);
+
 // column gap
 export class ColumnGapStyleProperty extends StyleProperty {
 	static properties = ['distance'];

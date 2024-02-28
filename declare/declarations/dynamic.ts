@@ -129,3 +129,7 @@ export const gridTemplateColumns = new PropertyTypeDeclaration({
 export const gridTemplateRows = new PropertyTypeDeclaration({
 	cells: gridTemplateAreaName.spread()
 }, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');
+
+export const order = new PropertyTypeDeclaration({
+	order: integer.single()
+}, '${this.order}');
