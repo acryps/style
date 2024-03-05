@@ -1,6 +1,6 @@
 
 import { AtRule } from "./at-rule";
-import { url } from "./declarations";
+import { url } from "./declarations/primitives";
 
 export class ExternalStyleSheet extends AtRule {
 	sortingOrder = 2; // after @charset

@@ -1,5 +1,5 @@
 import { Ident } from "../ident";
-import { Declaration, PropertyInitializer } from ".";
+import { Declaration, PropertyInitializer } from "./index";
 import { TypeDeclaration } from "./type";
 
 export class PropertyTypeDeclaration implements Declaration {

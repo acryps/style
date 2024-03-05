@@ -1,4 +1,4 @@
-import { Duration, EasingFunction } from "./declarations";
+import { Duration, EasingFunction } from "./declarations/time";
 import { Style } from "./style";
 import { Transition } from "./transition";
 

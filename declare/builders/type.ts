@@ -1,5 +1,5 @@
 import { Ident } from "../ident";
-import { Declaration, PropertyInitializer } from ".";
+import { Declaration, PropertyInitializer } from "./index";
 
 export class TypeDeclaration implements Declaration {
 	name: Ident;
@@ -91,4 +91,3 @@ export class PrimitiveType extends TypeDeclaration {
 		return this.definition;
 	}
 }
-

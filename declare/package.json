@@ -1,0 +1,7 @@
+{
+	"name": "@acryps/style-declaration-generator",
+	"devDependencies": {
+		"@types/node": "^20.11.24",
+		"typescript": "^5.3.2"
+	}
+}

@@ -1,2 +1,8 @@
 node_modules
-built
+
+# build output
+.built
+declare/.built
+
+# generated declarations
+source/declarations

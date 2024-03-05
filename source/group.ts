@@ -1,5 +1,5 @@
 import { AtRule } from "./at-rule";
-import { ContentStyleProperty } from "./declarations";
+import { ContentStyleProperty } from "./declarations/content";
 import { StyleProperty } from "./property";
 import { StyleSelectorBody, style } from "./query";
 import { Transition } from "./transition";

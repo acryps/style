@@ -1,4 +1,4 @@
-import { Duration, EasingFunction } from "./declarations";
+import { Duration, EasingFunction } from "./declarations/time";
 import { StyleProperty } from "./property";
 import { StyleSelectorBody } from "./query";
 

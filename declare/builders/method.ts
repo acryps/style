@@ -1,4 +1,4 @@
-import { PropertyInitializer } from ".";
+import { PropertyInitializer } from "./index";
 import { TypeDeclaration } from "./type";
 
 export class MethodDeclaration extends TypeDeclaration {

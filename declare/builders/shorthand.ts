@@ -1,5 +1,5 @@
 import { Ident } from "../ident";
-import { Declaration } from ".";
+import { Declaration } from "./index";
 import { PropertyTypeDeclaration } from "./property";
 
 export class ShorthandDeclaration implements Declaration {

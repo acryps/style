@@ -1,7 +1,7 @@
 import { createWriteStream, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
 import { Ident } from "./ident";
-import { Declaration } from "./builders";
+import { Declaration } from "./builders/index";
 import { TypeDeclaration } from "./builders/type";
 import { PropertyTypeDeclaration } from "./builders/property";
 import { ShorthandDeclaration } from "./builders/shorthand";
@@ -9,7 +9,7 @@ import { MethodDeclaration } from "./builders/method";
 
 const sourceBase = join(__dirname, 'declarations');
 
-const drainBase = join('source', 'declarations');
+const drainBase = join('..', 'source', 'declarations');
 mkdirSync(drainBase, { recursive: true });
 
 const sources: Record<string, any> = {};
