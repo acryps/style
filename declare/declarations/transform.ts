@@ -1,4 +1,5 @@
 import { MethodDeclaration } from "../builders/method";
+import { PropertyTypeDeclaration } from "../builders/property";
 import { TypeDeclaration } from "../builders/type";
 import { angle } from "./angle";
 import { length, number, percentage } from "./primitives";
@@ -18,7 +19,7 @@ export const matrix = new MethodDeclaration({
 	this.d = d;
 	this.tx = tx;
 	this.ty = ty;
-`, '${this.a}, ${this.b}, ${this.c}, ${this.d}, ${this.tx}, ${this.ty}');
+`, 'matrix(${this.a}, ${this.b}, ${this.c}, ${this.d}, ${this.tx}, ${this.ty})');
 
 export const matrix3d = new MethodDeclaration({
 	a1: number.single(),
@@ -60,7 +61,7 @@ export const matrix3d = new MethodDeclaration({
 	this.b4 = b4;
 	this.c4 = c4;
 	this.d4 = d4;
-`, '${this.a1}, ${this.b1}, ${this.c1}, ${this.d1}, ${this.a2}, ${this.b2}, ${this.c2}, ${this.d2}, ${this.a3}, ${this.b3}, ${this.c3}, ${this.d3}, ${this.a4}, ${this.b4}, ${this.c4}, ${this.d4}');
+`, 'matrix3d(${this.a1}, ${this.b1}, ${this.c1}, ${this.d1}, ${this.a2}, ${this.b2}, ${this.c2}, ${this.d2}, ${this.a3}, ${this.b3}, ${this.c3}, ${this.d3}, ${this.a4}, ${this.b4}, ${this.c4}, ${this.d4})');
 
 
 export const perspectiveDimensionLength = new TypeDeclaration(length, 'none');
@@ -69,44 +70,44 @@ export const perspective = new MethodDeclaration({
 	length: perspectiveDimensionLength.single()
 }, `
 	this.length = length;
-`, '${this.length}');
+`, 'perspective(${this.length})');
 
 // Rotation
 export const rotate = new MethodDeclaration({
-	a: angle.single()
+	angle: angle.single()
 },`
-	this.a = a;
-`, '${this.a}');
+	this.angle = angle;
+`, 'rotate(${this.angle})');
 
 export const rotate3d = new MethodDeclaration({
 	x: number.single(),
 	y: number.single(),
 	z: number.single(),
-	a: angle.single()
+	angle: angle.single()
 }, `
 	this.x = x;
 	this.y = y;
 	this.z = z;
-	this.a = a;
-`, '${this.x}, ${this.y}, ${this.z}, ${this.a}');
+	this.angle = angle;
+`, 'rotate3d(${this.x}, ${this.y}, ${this.z}, ${this.angle})');
 
 export const rotateX = new MethodDeclaration({
-	a: angle.single()
+	angle: angle.single()
 },`
-	this.a = a;
-`, '${this.a}');
+	this.angle = angle;
+`, 'rotateX(${this.angle})');
 
 export const rotateY = new MethodDeclaration({
-	a: angle.single()
+	angle: angle.single()
 },`
-	this.a = a;
-`, '${this.a}');
+	this.angle = angle;
+`, 'rotateY(${this.angle})');
 
 export const rotateZ = new MethodDeclaration({
-	a: angle.single()
+	angle: angle.single()
 },`
-	this.a = a;
-`, '${this.a}');
+	this.angle = angle;
+`, 'rotateZ(${this.angle})');
 
 // Scaling (resizing)
 export const scalingType = new TypeDeclaration(number, percentage);
@@ -117,7 +118,7 @@ export const scale = new MethodDeclaration({
 }, `
 	this.scaleX = scaleX;
 	this.scaleY = scaleY;
-`, "${this.scaleX}${this.scaleY == null ? '' : `, ${this.scaleY}`}");
+`, "scale(${this.scaleX}${this.scaleY == null ? '' : `, ${this.scaleY}`})");
 
 export const scale3d = new MethodDeclaration({
 	scaleX: scalingType.single(),
@@ -127,25 +128,25 @@ export const scale3d = new MethodDeclaration({
 	this.scaleX = scaleX;
 	this.scaleY = scaleY;
 	this.scaleZ = scaleZ;
-`, '${this.scaleX}, ${this.scaleY}, ${this.scaleZ}');
+`, 'scale3d(${this.scaleX}, ${this.scaleY}, ${this.scaleZ})');
 
 export const scaleX = new MethodDeclaration({
 	scale: scalingType.single()
 }, `
 	this.scale = scale;
-`, '${this.scale}');
+`, 'scaleX(${this.scale})');
 
 export const scaleY = new MethodDeclaration({
 	scale: scalingType.single()
 }, `
 	this.scale = scale;
-`, '${this.scale}');
+`, 'scaleY(${this.scale})');
 
 export const scaleZ = new MethodDeclaration({
 	scale: scalingType.single()
 }, `
 	this.scale = scale;
-`, '${this.scale}');
+`, 'scaleZ(${this.scale})');
 
 // Skewing (distortion)
 export const skew = new MethodDeclaration({
@@ -154,19 +155,19 @@ export const skew = new MethodDeclaration({
 }, `
 	this.angleX = angleX;
 	this.angleY = angleY;
-`, "${this.angleX}${this.angleY == null ? '' : `, ${this.angleY}`}");
+`, "skew(${this.angleX}${this.angleY == null ? '' : `, ${this.angleY}`})");
 
 export const skewX = new MethodDeclaration({
 	angle: angle.single()
 }, `
 	this.angle = angle;
-`, '${this.angle}');
+`, 'skewX(${this.angle})');
 
 export const skewY = new MethodDeclaration({
 	angle: angle.single()
 }, `
 	this.angle = angle;
-`, '${this.angle}');
+`, 'skewY(${this.angle})');
 
 // Translation (moving)
 export const translationType = new TypeDeclaration(length, percentage);
@@ -177,7 +178,7 @@ export const translate = new MethodDeclaration({
 }, `
 	this.translationX = translationX;
 	this.translationY = translationY;
-`, "${this.translationX}${this.translationY == null ? '' : `, ${this.translationY}`}");
+`, "translate(${this.translationX}${this.translationY == null ? '' : `, ${this.translationY}`})");
 
 export const translate3d = new MethodDeclaration({
 	translationX: translationType.single(),
@@ -187,22 +188,31 @@ export const translate3d = new MethodDeclaration({
 	this.translationX = translationX;
 	this.translationY = translationY;
 	this.translationZ = translationZ;
-`, '${this.translationX}${this.translationY}${this.translationZ}');
+`, 'translate3d(${this.translationX}${this.translationY}${this.translationZ})');
 
 export const translateX = new MethodDeclaration({
 	translationX: translationType.single()
 }, `
 	this.translationX = translationX;
-`, '${this.translationX}');
+`, 'translateX(${this.translationX})');
 
 export const translateY = new MethodDeclaration({
 	translationY: translationType.single()
 }, `
 	this.translationY = translationY;
-`, '${this.translationY}');
+`, 'translateY(${this.translationY})');
 
 export const translateZ = new MethodDeclaration({
 	translationZ: length.single()
 }, `
 	this.translationZ = translationZ;
-`, '${this.translationZ}');
+`, 'translateZ(${this.translationZ})');
+
+export const transformType = new TypeDeclaration(matrix, matrix3d, perspective, rotate, rotate3d, rotateX, rotateY, rotateZ, translate, translate3d, translateX, translateY, translateZ, scale, scale3d, scaleX, scaleY, scaleZ, skew, skewX, skewY);
+
+export const transform = new PropertyTypeDeclaration(
+	{
+		type: transformType.spread()
+	},
+	"${this.type.join(' ')}"
+);

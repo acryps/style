@@ -37,7 +37,7 @@ export class Matrix extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.a}, ${this.b}, ${this.c}, ${this.d}, ${this.tx}, ${this.ty}`;
+		return `matrix(${this.a}, ${this.b}, ${this.c}, ${this.d}, ${this.tx}, ${this.ty})`;
 	}
 }
 
@@ -104,7 +104,7 @@ export class Matrix3d extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.a1}, ${this.b1}, ${this.c1}, ${this.d1}, ${this.a2}, ${this.b2}, ${this.c2}, ${this.d2}, ${this.a3}, ${this.b3}, ${this.c3}, ${this.d3}, ${this.a4}, ${this.b4}, ${this.c4}, ${this.d4}`;
+		return `matrix3d(${this.a1}, ${this.b1}, ${this.c1}, ${this.d1}, ${this.a2}, ${this.b2}, ${this.c2}, ${this.d2}, ${this.a3}, ${this.b3}, ${this.c3}, ${this.d3}, ${this.a4}, ${this.b4}, ${this.c4}, ${this.d4})`;
 	}
 }
 
@@ -126,7 +126,7 @@ export class Perspective extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.length}`;
+		return `perspective(${this.length})`;
 	}
 }
 
@@ -134,107 +134,107 @@ export function perspective(length: PerspectiveDimensionLength) { return new Per
 
 // rotate
 export class Rotate extends StyleMethod {
-	private a: Angle;
+	private angle: Angle;
 
 	constructor(
-		a: Angle
+		angle: Angle
 	) {
 		super();
 
-	this.a = a;
+	this.angle = angle;
 	}
 
 	toValueString() {
-		return `${this.a}`;
+		return `rotate(${this.angle})`;
 	}
 }
 
-export function rotate(a: Angle) { return new Rotate(Style.resolveNumber('angle', a)); }
+export function rotate(angle: Angle) { return new Rotate(Style.resolveNumber('angle', angle)); }
 
 // rotate3d
 export class Rotate3d extends StyleMethod {
 	private x: Number;
 	private y: Number;
 	private z: Number;
-	private a: Angle;
+	private angle: Angle;
 
 	constructor(
 		x: Number,
 		y: Number,
 		z: Number,
-		a: Angle
+		angle: Angle
 	) {
 		super();
 
 	this.x = x;
 		this.y = y;
 		this.z = z;
-		this.a = a;
+		this.angle = angle;
 	}
 
 	toValueString() {
-		return `${this.x}, ${this.y}, ${this.z}, ${this.a}`;
+		return `rotate3d(${this.x}, ${this.y}, ${this.z}, ${this.angle})`;
 	}
 }
 
-export function rotate3d(x: Number, y: Number, z: Number, a: Angle) { return new Rotate3d(x, y, z, Style.resolveNumber('angle', a)); }
+export function rotate3d(x: Number, y: Number, z: Number, angle: Angle) { return new Rotate3d(x, y, z, Style.resolveNumber('angle', angle)); }
 
 // rotate x
 export class RotateX extends StyleMethod {
-	private a: Angle;
+	private angle: Angle;
 
 	constructor(
-		a: Angle
+		angle: Angle
 	) {
 		super();
 
-	this.a = a;
+	this.angle = angle;
 	}
 
 	toValueString() {
-		return `${this.a}`;
+		return `rotateX(${this.angle})`;
 	}
 }
 
-export function rotateX(a: Angle) { return new RotateX(Style.resolveNumber('angle', a)); }
+export function rotateX(angle: Angle) { return new RotateX(Style.resolveNumber('angle', angle)); }
 
 // rotate y
 export class RotateY extends StyleMethod {
-	private a: Angle;
+	private angle: Angle;
 
 	constructor(
-		a: Angle
+		angle: Angle
 	) {
 		super();
 
-	this.a = a;
+	this.angle = angle;
 	}
 
 	toValueString() {
-		return `${this.a}`;
+		return `rotateY(${this.angle})`;
 	}
 }
 
-export function rotateY(a: Angle) { return new RotateY(Style.resolveNumber('angle', a)); }
+export function rotateY(angle: Angle) { return new RotateY(Style.resolveNumber('angle', angle)); }
 
 // rotate z
 export class RotateZ extends StyleMethod {
-	private a: Angle;
+	private angle: Angle;
 
 	constructor(
-		a: Angle
+		angle: Angle
 	) {
 		super();
 
-	this.a = a;
+	this.angle = angle;
 	}
 
 	toValueString() {
-		return `${this.a}`;
+		return `rotateZ(${this.angle})`;
 	}
 }
 
-export function rotateZ(a: Angle) { return new RotateZ(Style.resolveNumber('angle', a)); }
+export function rotateZ(angle: Angle) { return new RotateZ(Style.resolveNumber('angle', angle)); }
 
 // scaling type
 export type ScalingType = Number | Percentage | Variable<ScalingType> | Calculation<Partial<ScalingType>>;
@@ -255,7 +255,7 @@ export class Scale extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.scaleX}${this.scaleY == null ? '' : `, ${this.scaleY}`}`;
+		return `scale(${this.scaleX}${this.scaleY == null ? '' : `, ${this.scaleY}`})`;
 	}
 }
 
@@ -280,7 +280,7 @@ export class Scale3d extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.scaleX}, ${this.scaleY}, ${this.scaleZ}`;
+		return `scale3d(${this.scaleX}, ${this.scaleY}, ${this.scaleZ})`;
 	}
 }
 
@@ -299,7 +299,7 @@ export class ScaleX extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.scale}`;
+		return `scaleX(${this.scale})`;
 	}
 }
 
@@ -318,7 +318,7 @@ export class ScaleY extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.scale}`;
+		return `scaleY(${this.scale})`;
 	}
 }
 
@@ -337,7 +337,7 @@ export class ScaleZ extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.scale}`;
+		return `scaleZ(${this.scale})`;
 	}
 }
 
@@ -359,7 +359,7 @@ export class Skew extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.angleX}${this.angleY == null ? '' : `, ${this.angleY}`}`;
+		return `skew(${this.angleX}${this.angleY == null ? '' : `, ${this.angleY}`})`;
 	}
 }
 
@@ -378,7 +378,7 @@ export class SkewX extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.angle}`;
+		return `skewX(${this.angle})`;
 	}
 }
 
@@ -397,7 +397,7 @@ export class SkewY extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.angle}`;
+		return `skewY(${this.angle})`;
 	}
 }
 
@@ -422,7 +422,7 @@ export class Translate extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.translationX}${this.translationY == null ? '' : `, ${this.translationY}`}`;
+		return `translate(${this.translationX}${this.translationY == null ? '' : `, ${this.translationY}`})`;
 	}
 }
 
@@ -447,7 +447,7 @@ export class Translate3d extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.translationX}${this.translationY}${this.translationZ}`;
+		return `translate3d(${this.translationX}${this.translationY}${this.translationZ})`;
 	}
 }
 
@@ -466,7 +466,7 @@ export class TranslateX extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.translationX}`;
+		return `translateX(${this.translationX})`;
 	}
 }
 
@@ -485,7 +485,7 @@ export class TranslateY extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.translationY}`;
+		return `translateY(${this.translationY})`;
 	}
 }
 
@@ -504,9 +504,33 @@ export class TranslateZ extends StyleMethod {
 	}
 
 	toValueString() {
-		return `${this.translationZ}`;
+		return `translateZ(${this.translationZ})`;
 	}
 }
 
 export function translateZ(translationZ: Length) { return new TranslateZ(translationZ); }
+
+// transform type
+export type TransformType = Matrix | Matrix3d | Perspective | Rotate | Rotate3d | RotateX | RotateY | RotateZ | Translate | Translate3d | TranslateX | TranslateY | TranslateZ | Scale | Scale3d | ScaleX | ScaleY | ScaleZ | Skew | SkewX | SkewY | Variable<TransformType> | Calculation<Partial<TransformType>>;
+
+// transform
+export class TransformStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
+	public type: TransformType[];
+
+	constructor(
+		...type: TransformType[]
+	) {
+		super('transform');
+
+		this.type = type;
+	}
+
+	toValueString() {
+		return `${this.type.join(' ')}`;
+	}
+}
+
+export const transform = (...type: TransformType[]) => new TransformStyleProperty(...type);
 
