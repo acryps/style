@@ -115,14 +115,14 @@ export class StyleGroup {
 			return flattenedProperties;
 		};
 
-		return `${selector}{${
+		return `${
+			includeAtRules ? this.allAtRules.sort((a, b) => a.sortingOrder - b.sortingOrder).map(rule => rule.toRuleString()).join('') : ''
+		}${selector}{${
 			useProperties(this.properties).join('')
 		}${
 			transitions.length ? `;transition:${transitions.map(transition => transition.toValueString()).join(',')}` : ''
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
-		}${
-			includeAtRules ? this.allAtRules.map(rule => rule.toRuleString()).join('') : ''
 		}`;
 	}
 

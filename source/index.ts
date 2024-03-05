@@ -6,3 +6,4 @@ export * from './declarations';
 export * from './variable';
 export * from './calculate';
 export * from './font';
+export * from './external';
