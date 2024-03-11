@@ -30,7 +30,7 @@ export function style(selector: string, ...items: StyleSelectorBody[]) {
 			} else if ('toStyle' in item) {
 				add([item.toStyle()]);
 			} else {
-				throw new Error('Invalid style declaration');
+				throw new Error(`Invalid style declaration: ${item}`);
 			}
 		}
 	};
