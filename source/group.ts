@@ -41,7 +41,10 @@ export class StyleGroup {
 	hover = createState(this, ':hover');
 	active = createState(this, ':active');
 	checked = createState(this, ':checked');
-
+	
+	empty = createState(this, ':empty');
+	
+	// attributes
 	attribute = (name: string, valueOrFirstStyle: string | StyleSelectorBody, ...items: StyleSelectorBody[]) => {
 		// catch values
 		if (typeof valueOrFirstStyle == 'string') {
