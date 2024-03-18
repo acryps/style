@@ -9,6 +9,7 @@ export * from './display';
 export * from './dynamic';
 export * from './font';
 export * from './gradient';
+export * from './image';
 export * from './interaction';
 export * from './line-height';
 export * from './object';
