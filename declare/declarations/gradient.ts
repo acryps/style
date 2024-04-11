@@ -22,4 +22,12 @@ export const linearGradient = new MethodDeclaration({
 	this.stops = stops;
 `, "linear-gradient(${this.angle}, ${this.stops.join(',')})");
 
-export const gradient = new TypeDeclaration(linearGradient);
+export const repeatingLinearGradient = new MethodDeclaration({
+	angle: angle.single(),
+	stops: colorStop.spread()
+}, `
+	this.angle = angle;
+	this.stops = stops;
+`, "repeating-linear-gradient(${this.angle}, ${this.stops.join(',')})");
+
+export const gradient = new TypeDeclaration(linearGradient, repeatingLinearGradient);

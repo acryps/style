@@ -56,6 +56,28 @@ export class LinearGradient extends StyleMethod {
 
 export function linearGradient(angle: Angle, ...stops: ColorStop[]) { return new LinearGradient(Style.resolveNumber('angle', angle), ...stops); }
 
+// repeating linear gradient
+export class RepeatingLinearGradient extends StyleMethod {
+	private angle: Angle;
+	private stops: ColorStop[];
+
+	constructor(
+		angle: Angle,
+		...stops: ColorStop[]
+	) {
+		super();
+
+	this.angle = angle;
+		this.stops = stops;
+	}
+
+	toValueString() {
+		return `repeating-linear-gradient(${this.angle}, ${this.stops.join(',')})`;
+	}
+}
+
+export function repeatingLinearGradient(angle: Angle, ...stops: ColorStop[]) { return new RepeatingLinearGradient(Style.resolveNumber('angle', angle), ...stops); }
+
 // gradient
-export type Gradient = LinearGradient | Variable<Gradient> | Calculation<Partial<Gradient>>;
+export type Gradient = LinearGradient | RepeatingLinearGradient | Variable<Gradient> | Calculation<Partial<Gradient>>;
 
