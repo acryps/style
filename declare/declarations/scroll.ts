@@ -20,3 +20,9 @@ export const scrollBehaviorMode = new TypeDeclaration('auto', 'smooth');
 export const scrollBehavior = new PropertyTypeDeclaration({
 	mode: scrollBehaviorMode.single()
 }, "${this.mode}");
+
+export const overScrollBehaviorMode = new TypeDeclaration('auto', 'contain', 'none', 'initial', 'inherit', 'unset', 'revert');
+
+export const overScrollBehavior = new PropertyTypeDeclaration({
+	mode: overScrollBehaviorMode.single()
+}, "${this.mode}")
