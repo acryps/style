@@ -1,5 +1,6 @@
 import { PropertyTypeDeclaration } from "../builders/property";
 import { TypeDeclaration } from "../builders/type";
+import { colorValue } from "./color";
 
 export const cursorType = new TypeDeclaration(
 	'auto', 'default', 'none', 
@@ -23,3 +24,7 @@ export const cursorType = new TypeDeclaration(
 export const cursor = new PropertyTypeDeclaration({
 	type: cursorType.single()
 }, '${this.type}');
+
+export const caretColor = new PropertyTypeDeclaration({
+	color: colorValue.single()
+}, '${this.color}');

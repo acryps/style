@@ -4,7 +4,7 @@ import { StyleMethod } from '../method';
 import { Variable } from '../variable';
 import { Calculation, Calculable } from '../calculate';
 
-
+import { ColorValue } from './color';
 
 // cursor type
 export type CursorType = 'auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'grab' | 'grabbing' | 'all-scroll' | 'col-resize' | 'row-resize' | 'n-resize' | 'e-resize' | 's-resize' | 'w-resize' | 'ne-resize' | 'nw-resize' | 'se-resize' | 'sw-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'zoom-in' | 'zoom-out' | Variable<CursorType> | Calculation<Partial<CursorType>>;
@@ -29,4 +29,25 @@ export class CursorStyleProperty extends StyleProperty {
 }
 
 export const cursor = (type: CursorType) => new CursorStyleProperty(type);
+
+// caret color
+export class CaretColorStyleProperty extends StyleProperty {
+	static properties = ['color'];
+
+	public color: ColorValue;
+
+	constructor(
+		color: ColorValue
+	) {
+		super('caret-color');
+
+		this.color = color;
+	}
+
+	toValueString() {
+		return `${this.color}`;
+	}
+}
+
+export const caretColor = (color: ColorValue) => new CaretColorStyleProperty(color);
 
