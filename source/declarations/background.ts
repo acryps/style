@@ -89,6 +89,30 @@ export class BackgroundSizeStyleProperty extends StyleProperty {
 
 export const backgroundSize = (...value: BackgroundSizeType[]) => new BackgroundSizeStyleProperty(...value);
 
+// background repeat type
+export type BackgroundRepeatType = 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | Variable<BackgroundRepeatType> | Calculation<Partial<BackgroundRepeatType>>;
+
+// background repeat
+export class BackgroundRepeatStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
+	public type: BackgroundRepeatType[];
+
+	constructor(
+		...type: BackgroundRepeatType[]
+	) {
+		super('background-repeat');
+
+		this.type = type;
+	}
+
+	toValueString() {
+		return `${this.type.join(' ')}`;
+	}
+}
+
+export const backgroundRepeat = (...type: BackgroundRepeatType[]) => new BackgroundRepeatStyleProperty(...type);
+
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
 export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
 export function background(): BackgroundStyleProperty {

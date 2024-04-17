@@ -22,9 +22,12 @@ export const background = new ShorthandDeclaration([
 
 export const backgroundSizeType = new TypeDeclaration('cover', 'contain', 'auto', length, percentage);
 
-export const backgroundSize = new PropertyTypeDeclaration(
-	{
-		value: backgroundSizeType.spread()
-	},
-	"${this.value.join(' ')}"
-);
+export const backgroundSize = new PropertyTypeDeclaration({
+	value: backgroundSizeType.spread()
+},"${this.value.join(' ')}");
+
+export const backgroundRepeatType = new TypeDeclaration('repeat-x', 'repeat-y', 'repeat', 'space', 'round', 'no-repeat');
+
+export const backgroundRepeat = new PropertyTypeDeclaration({
+	type: backgroundRepeatType.spread()
+}, "${this.type.join(' ')}");
