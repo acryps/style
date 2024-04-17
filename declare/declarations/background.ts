@@ -31,3 +31,9 @@ export const backgroundRepeatType = new TypeDeclaration('repeat-x', 'repeat-y', 
 export const backgroundRepeat = new PropertyTypeDeclaration({
 	type: backgroundRepeatType.spread()
 }, "${this.type.join(' ')}");
+
+export const backgroundPositionType = new TypeDeclaration('top', 'left', 'right', 'bottom', 'center');
+
+export const backgroundPosition = new PropertyTypeDeclaration({
+	types: backgroundPositionType.spreadArray()
+}, "${this.types.map(type => type.join(' ')).join(',')}");

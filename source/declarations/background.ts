@@ -113,6 +113,30 @@ export class BackgroundRepeatStyleProperty extends StyleProperty {
 
 export const backgroundRepeat = (...type: BackgroundRepeatType[]) => new BackgroundRepeatStyleProperty(...type);
 
+// background position type
+export type BackgroundPositionType = 'top' | 'left' | 'right' | 'bottom' | 'center' | Variable<BackgroundPositionType> | Calculation<Partial<BackgroundPositionType>>;
+
+// background position
+export class BackgroundPositionStyleProperty extends StyleProperty {
+	static properties = ['types'];
+
+	public types: BackgroundPositionType[][];
+
+	constructor(
+		...types: BackgroundPositionType[][]
+	) {
+		super('background-position');
+
+		this.types = types;
+	}
+
+	toValueString() {
+		return `${this.types.map(type => type.join(' ')).join(',')}`;
+	}
+}
+
+export const backgroundPosition = (...types: BackgroundPositionType[][]) => new BackgroundPositionStyleProperty(...types);
+
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
 export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
 export function background(): BackgroundStyleProperty {
