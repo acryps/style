@@ -2,7 +2,7 @@ import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
 import { ShorthandDeclaration } from "../builders/shorthand";
 import { colorValue } from "./color";
-import { imageSource } from "./primitives";
+import { imageSource, length, percentage } from "./primitives";
 import { gradient } from "./gradient";
 
 export const backgroundImageSource = new TypeDeclaration(imageSource, gradient);
@@ -19,3 +19,12 @@ export const background = new ShorthandDeclaration([
 	backgroundColor,
 	backgroundImage
 ]);
+
+export const backgroundSizeType = new TypeDeclaration('cover', 'contain', 'auto', length, percentage);
+
+export const backgroundSize = new PropertyTypeDeclaration(
+	{
+		value: backgroundSizeType.spread()
+	},
+	"${this.value.join(' ')}"
+);

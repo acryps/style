@@ -7,6 +7,8 @@ import { Calculation, Calculable } from '../calculate';
 import { ImageSource } from './primitives';
 import { Gradient } from './gradient';
 import { ColorValue } from './color';
+import { Length } from './primitives';
+import { Percentage } from './primitives';
 
 // background image source
 export type BackgroundImageSource = ImageSource | Gradient | Variable<BackgroundImageSource> | Calculation<Partial<BackgroundImageSource>>;
@@ -62,6 +64,30 @@ export class BackgroundStyleProperty extends StyleProperty {
 		super('background', [backgroundColor, backgroundImage]);
 	}
 }
+
+// background size type
+export type BackgroundSizeType = 'cover' | 'contain' | 'auto' | Length | Percentage | Variable<BackgroundSizeType> | Calculation<Partial<BackgroundSizeType>>;
+
+// background size
+export class BackgroundSizeStyleProperty extends StyleProperty {
+	static properties = ['value'];
+
+	public value: BackgroundSizeType[];
+
+	constructor(
+		...value: BackgroundSizeType[]
+	) {
+		super('background-size');
+
+		this.value = value;
+	}
+
+	toValueString() {
+		return `${this.value.join(' ')}`;
+	}
+}
+
+export const backgroundSize = (...value: BackgroundSizeType[]) => new BackgroundSizeStyleProperty(...value);
 
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
 export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
