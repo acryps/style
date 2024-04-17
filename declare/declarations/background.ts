@@ -37,3 +37,9 @@ export const backgroundPositionType = new TypeDeclaration('top', 'left', 'right'
 export const backgroundPosition = new PropertyTypeDeclaration({
 	types: backgroundPositionType.spreadArray()
 }, "${this.types.map(type => type.join(' ')).join(',')}");
+
+export const backgroundAttachmentType = new TypeDeclaration('scroll', 'fixed', 'local');
+
+export const backgroundAttachment = new PropertyTypeDeclaration({
+	type: backgroundAttachmentType.spread()
+}, "${this.type.join(', ')}");

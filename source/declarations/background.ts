@@ -137,6 +137,30 @@ export class BackgroundPositionStyleProperty extends StyleProperty {
 
 export const backgroundPosition = (...types: BackgroundPositionType[][]) => new BackgroundPositionStyleProperty(...types);
 
+// background attachment type
+export type BackgroundAttachmentType = 'scroll' | 'fixed' | 'local' | Variable<BackgroundAttachmentType> | Calculation<Partial<BackgroundAttachmentType>>;
+
+// background attachment
+export class BackgroundAttachmentStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
+	public type: BackgroundAttachmentType[];
+
+	constructor(
+		...type: BackgroundAttachmentType[]
+	) {
+		super('background-attachment');
+
+		this.type = type;
+	}
+
+	toValueString() {
+		return `${this.type.join(', ')}`;
+	}
+}
+
+export const backgroundAttachment = (...type: BackgroundAttachmentType[]) => new BackgroundAttachmentStyleProperty(...type);
+
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
 export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
 export function background(): BackgroundStyleProperty {
