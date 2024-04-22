@@ -21,8 +21,8 @@ export const scrollBehavior = new PropertyTypeDeclaration({
 	mode: scrollBehaviorMode.single()
 }, "${this.mode}");
 
-export const overScrollBehaviorMode = new TypeDeclaration('auto', 'contain', 'none', 'initial', 'inherit', 'unset', 'revert');
+export const overscrollBehaviorMode = new TypeDeclaration('auto', 'contain', 'none', 'initial', 'inherit', 'unset', 'revert');
 
-export const overScrollBehavior = new PropertyTypeDeclaration({
-	mode: overScrollBehaviorMode.single()
+export const overscrollBehavior = new PropertyTypeDeclaration({
+	mode: overscrollBehaviorMode.single()
 }, "${this.mode}")

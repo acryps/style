@@ -84,19 +84,19 @@ export class ScrollBehaviorStyleProperty extends StyleProperty {
 
 export const scrollBehavior = (mode: ScrollBehaviorMode) => new ScrollBehaviorStyleProperty(mode);
 
-// over scroll behavior mode
-export type OverScrollBehaviorMode = 'auto' | 'contain' | 'none' | 'initial' | 'inherit' | 'unset' | 'revert' | Variable<OverScrollBehaviorMode> | Calculation<Partial<OverScrollBehaviorMode>>;
+// overscroll behavior mode
+export type OverscrollBehaviorMode = 'auto' | 'contain' | 'none' | 'initial' | 'inherit' | 'unset' | 'revert' | Variable<OverscrollBehaviorMode> | Calculation<Partial<OverscrollBehaviorMode>>;
 
-// over scroll behavior
-export class OverScrollBehaviorStyleProperty extends StyleProperty {
+// overscroll behavior
+export class OverscrollBehaviorStyleProperty extends StyleProperty {
 	static properties = ['mode'];
 
-	public mode: OverScrollBehaviorMode;
+	public mode: OverscrollBehaviorMode;
 
 	constructor(
-		mode: OverScrollBehaviorMode
+		mode: OverscrollBehaviorMode
 	) {
-		super('over-scroll-behavior');
+		super('overscroll-behavior');
 
 		this.mode = mode;
 	}
@@ -106,5 +106,5 @@ export class OverScrollBehaviorStyleProperty extends StyleProperty {
 	}
 }
 
-export const overScrollBehavior = (mode: OverScrollBehaviorMode) => new OverScrollBehaviorStyleProperty(mode);
+export const overscrollBehavior = (mode: OverscrollBehaviorMode) => new OverscrollBehaviorStyleProperty(mode);
 

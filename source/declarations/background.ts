@@ -7,6 +7,8 @@ import { Calculation, Calculable } from '../calculate';
 import { ImageSource } from './primitives';
 import { Gradient } from './gradient';
 import { ColorValue } from './color';
+import { Length } from './primitives';
+import { Percentage } from './primitives';
 
 // background image source
 export type BackgroundImageSource = ImageSource | Gradient | Variable<BackgroundImageSource> | Calculation<Partial<BackgroundImageSource>>;
@@ -62,6 +64,102 @@ export class BackgroundStyleProperty extends StyleProperty {
 		super('background', [backgroundColor, backgroundImage]);
 	}
 }
+
+// background size type
+export type BackgroundSizeType = 'cover' | 'contain' | 'auto' | Length | Percentage | Variable<BackgroundSizeType> | Calculation<Partial<BackgroundSizeType>>;
+
+// background size
+export class BackgroundSizeStyleProperty extends StyleProperty {
+	static properties = ['value'];
+
+	public value: BackgroundSizeType[];
+
+	constructor(
+		...value: BackgroundSizeType[]
+	) {
+		super('background-size');
+
+		this.value = value;
+	}
+
+	toValueString() {
+		return `${this.value.join(' ')}`;
+	}
+}
+
+export const backgroundSize = (...value: BackgroundSizeType[]) => new BackgroundSizeStyleProperty(...value);
+
+// background repeat type
+export type BackgroundRepeatType = 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | Variable<BackgroundRepeatType> | Calculation<Partial<BackgroundRepeatType>>;
+
+// background repeat
+export class BackgroundRepeatStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
+	public type: BackgroundRepeatType[];
+
+	constructor(
+		...type: BackgroundRepeatType[]
+	) {
+		super('background-repeat');
+
+		this.type = type;
+	}
+
+	toValueString() {
+		return `${this.type.join(' ')}`;
+	}
+}
+
+export const backgroundRepeat = (...type: BackgroundRepeatType[]) => new BackgroundRepeatStyleProperty(...type);
+
+// background position type
+export type BackgroundPositionType = 'top' | 'left' | 'right' | 'bottom' | 'center' | Variable<BackgroundPositionType> | Calculation<Partial<BackgroundPositionType>>;
+
+// background position
+export class BackgroundPositionStyleProperty extends StyleProperty {
+	static properties = ['types'];
+
+	public types: BackgroundPositionType[][];
+
+	constructor(
+		...types: BackgroundPositionType[][]
+	) {
+		super('background-position');
+
+		this.types = types;
+	}
+
+	toValueString() {
+		return `${this.types.map(type => type.join(' ')).join(',')}`;
+	}
+}
+
+export const backgroundPosition = (...types: BackgroundPositionType[][]) => new BackgroundPositionStyleProperty(...types);
+
+// background attachment type
+export type BackgroundAttachmentType = 'scroll' | 'fixed' | 'local' | Variable<BackgroundAttachmentType> | Calculation<Partial<BackgroundAttachmentType>>;
+
+// background attachment
+export class BackgroundAttachmentStyleProperty extends StyleProperty {
+	static properties = ['type'];
+
+	public type: BackgroundAttachmentType[];
+
+	constructor(
+		...type: BackgroundAttachmentType[]
+	) {
+		super('background-attachment');
+
+		this.type = type;
+	}
+
+	toValueString() {
+		return `${this.type.join(', ')}`;
+	}
+}
+
+export const backgroundAttachment = (...type: BackgroundAttachmentType[]) => new BackgroundAttachmentStyleProperty(...type);
 
 export function background(backgroundColor: BackgroundColorStyleProperty, backgroundImage: BackgroundImageStyleProperty): BackgroundStyleProperty
 export function background(backgroundColorColor: ColorValue, ...backgroundImageSources: BackgroundImageSource[]): BackgroundStyleProperty
