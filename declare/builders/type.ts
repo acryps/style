@@ -1,5 +1,5 @@
 import { Ident } from "../ident";
-import { Declaration, PropertyInitializer } from "./index";
+import { Declaration, PropertyInitializer, SpreadPropertyInitializer } from "./index";
 
 export class TypeDeclaration implements Declaration {
 	name: Ident;
@@ -20,20 +20,26 @@ export class TypeDeclaration implements Declaration {
 	}
 
 	spread() {
-		return (propertyName: string) => new PropertyInitializer(
+		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
 			`${this.name.toClassCamelCase()}[]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
-			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`
+			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`,
+
+			`${propertyName}: ${this.name.toClassCamelCase()}[]`,
+			`${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))`
 		);
 	}
 
 	spreadArray() {
-		return (propertyName: string) => new PropertyInitializer(
+		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
 			`${this.name.toClassCamelCase()}[][]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[][]`,
-			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`
+			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`,
+			
+			`${propertyName}: ${this.name.toClassCamelCase()}[][]`,
+			`${propertyName}.map(axis => axis.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value)))`
 		);
 	}
 

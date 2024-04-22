@@ -1,5 +1,5 @@
 import { Ident } from "../ident";
-import { Declaration } from "./index";
+import { Declaration, SpreadPropertyInitializer } from "./index";
 import { PropertyTypeDeclaration } from "./property";
 
 export class ShorthandDeclaration implements Declaration {
@@ -37,12 +37,31 @@ export class ShorthandDeclaration implements Declaration {
 			const childInitializerNamedFunctionArguments = [];
 			const childInitializerPassArguments = [];
 
+			const requireFlatInitializers = children.flatMap(child => Object.values(child.initializer).filter(property => (property('') instanceof SpreadPropertyInitializer))).length > 1;
+
 			for (let child of children) {
 				for (let property in child.initializer) {
-					childInitializerGenericFunctionArguments.push(child.initializer[property](property).argument);
-					childInitializerNamedFunctionArguments.push(child.initializer[property](child.name.merge(Ident.fromCamelCase(property)).toCamelCase()).argument);
+					const initializedGenericFunction = child.initializer[property](property);
+					const initializedNamedFunction = child.initializer[property](child.name.merge(Ident.fromCamelCase(property)).toCamelCase());
+					
+					const initializer = child.initializer[property](`arguments[${childInitializerPassArguments.length}]`);
+					
+					if (
+						requireFlatInitializers &&
+						(initializer instanceof SpreadPropertyInitializer) &&
+						(initializedGenericFunction instanceof SpreadPropertyInitializer) &&
+						(initializedNamedFunction instanceof SpreadPropertyInitializer)
+					) {
+						childInitializerNamedFunctionArguments.push(initializedNamedFunction.flatArgument);
+						childInitializerGenericFunctionArguments.push(initializedGenericFunction.flatArgument);
 
-					childInitializerPassArguments.push(child.initializer[property](`arguments[${childInitializerPassArguments.length}]`).pass);
+						childInitializerPassArguments.push(initializer.flatPass);
+					} else {
+						childInitializerNamedFunctionArguments.push(initializedNamedFunction.argument);
+						childInitializerGenericFunctionArguments.push(initializedGenericFunction.argument);
+
+						childInitializerPassArguments.push(initializer.pass);
+					}
 				}
 			}
 
@@ -76,16 +95,29 @@ export class ShorthandDeclaration implements Declaration {
 
 		if (firstDeclaration instanceof PropertyTypeDeclaration) {
 			const children = this.children as PropertyTypeDeclaration[];
-
 			const firstInitializerGroup = Object.keys(firstDeclaration.initializer).join(',');
 
 			if (children.every(child => Object.keys(child.initializer).join(',') == firstInitializerGroup)) {
 				const functionArguments = [];
 				const passArguments = [];
+				
+				const requireFlatInitializers = children.flatMap(child => Object.values(child.initializer).filter(property => (property instanceof SpreadPropertyInitializer))).length > 1;
 
 				for (let property in firstDeclaration.initializer) {
-					functionArguments.push(firstDeclaration.initializer[property](property).argument);
-					passArguments.push(firstDeclaration.initializer[property](`arguments[${passArguments.length}]`).pass);
+					const initializer = firstDeclaration.initializer[property](`arguments[${passArguments.length}]`);
+					const propertyInitializer = firstDeclaration.initializer[property](property);
+
+					if (
+						requireFlatInitializers &&
+						(initializer instanceof SpreadPropertyInitializer) &&
+						(propertyInitializer instanceof SpreadPropertyInitializer)
+					) {
+						functionArguments.push(propertyInitializer.flatArgument);
+						passArguments.push(initializer.flatPass);
+					} else {
+						functionArguments.push(propertyInitializer.argument);
+						passArguments.push(initializer.pass);
+					}
 				}
 
 				return {
