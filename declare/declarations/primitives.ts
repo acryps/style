@@ -74,7 +74,7 @@ export const absoluteLengthDimension = new TypeDeclaration(
 	exportDimension('pt')
 );
 
-export const staticLength = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension).defaultNumberConverter(rem);
+export const staticLength = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension, percentage).defaultNumberConverter(rem);
 
 export const min = new MethodDeclaration({
 	values: staticLength.spread()
