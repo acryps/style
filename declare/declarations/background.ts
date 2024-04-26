@@ -24,8 +24,8 @@ export const background = new ShorthandDeclaration([
 export const backgroundSizeType = new TypeDeclaration('cover', 'contain', 'auto', length, percentage);
 
 export const backgroundSize = new PropertyTypeDeclaration({
-	value: backgroundSizeType.spread()
-},"${this.value.join(' ')}");
+	layers: backgroundSizeType.spreadArray()
+},"${this.layers.map(layer => layer.join(' ')).join(',')}");
 
 export const backgroundRepeatType = new TypeDeclaration('repeat-x', 'repeat-y', 'repeat', 'space', 'round', 'no-repeat');
 
