@@ -114,7 +114,7 @@ for (let sourcePath in sources) {
 				for (let property in declaration.parameters) {
 					const initializer = declaration.parameters[property](property);
 
-					writer.write(`\tprivate ${property}: ${initializer.type};\n`);
+					writer.write(`\tpublic ${property}: ${initializer.type};\n`);
 
 					constructorArguments.push(initializer.argument);
 					passArguments.push(initializer.pass);
