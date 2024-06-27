@@ -216,3 +216,15 @@ export const transform = new PropertyTypeDeclaration(
 	},
 	"${this.type.join(' ')}"
 );
+
+export const xOffsetKeywords = new TypeDeclaration('center', 'left', 'right', length, percentage);
+export const yOffsetKeywords = new TypeDeclaration('center', 'top', 'bottom', length, percentage);
+export const zOffsetKeywords = new TypeDeclaration(length, percentage);
+
+export const transformOrigin = new PropertyTypeDeclaration({
+	xOffset: xOffsetKeywords.single(),
+	yOffset: yOffsetKeywords.single(),
+	zOffset: zOffsetKeywords.optional(),
+},
+	"${this.xOffset} ${this.yOffset} ${this.zOffset ? `${this.zOffset}` : ''}"
+);
