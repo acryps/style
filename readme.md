@@ -92,6 +92,21 @@ style('ui-page',
 ).apply();
 ```
 
+## Pitfalls / Common Issues
+Some of the specs are weird, but we try to implement them as is.
+
+### Text Decoration
+Use `textDecorationLine('underline')` instead of `textDecoration('underline')`.
+
+`text-decoration` is acutally a shorthand consisting of `text-decoration-color`, `-line`, `-style` and others.
+When using multiple text decorations, use `textDecorationLine('underline', 'line-through')`.
+
+### Opacity Filter
+Use `filter(opacityFilter(1))` instead of `filter(opacity(1))`.
+
+There are two things called `opacity` in CSS: The `opacity: 1;` property, and the `opacity(1)` filter layer.
+To prevent conflicts, we renamed the less used opacity filter.
+
 ## Declaration Generator
 We have tried using official declaration lists, like `@webref/css` or `mdn-data`.
 Sadly, even the official declarations contain errors, which broke the parser (check out old commits) multiple times.

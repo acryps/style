@@ -90,3 +90,4 @@ export const max = new MethodDeclaration({
 
 export const length = new TypeDeclaration(staticLength, min, max);
 export const lineWidth = new TypeDeclaration(number, length);
+export const intensity = new TypeDeclaration(number, percentage);
