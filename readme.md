@@ -9,7 +9,7 @@ You can assemble, combine, generate, theme, inherit, extend, ... your styles on 
 This framework aims to translate all the CSS features into typescript, while adding type safety.
 You may combine this with other libraries which add preassembled mixins, err i meant functions, and classes to help with flex, ...
 
-> We do not have the resources to add every single CSS property into @acryps/styles, so we only added the properties we use for our applications. 
+> We do not have the resources to add every single CSS property into @acryps/styles, so we only added the properties we use for our applications.
 > If something is missing, please open an issue or create a pull request and we'll try to add it asap.
 
 This does not define any styles or mixins on its own.
@@ -92,8 +92,13 @@ style('ui-page',
 ).apply();
 ```
 
-## Pitfalls / Common Issues
+## Pitfalls / Common Issues
 Some of the specs are weird, but we try to implement them as is.
+
+### Background Color
+Use `backgroundColor(hex('f00'))` instead of `background(hex('f00'))`
+
+`background` is a shorthand to define multiple background layers at once, whereas `background-color` is the proper property to set multiple layers of background colors.
 
 ### Text Decoration
 Use `textDecorationLine('underline')` instead of `textDecoration('underline')`.
@@ -110,7 +115,7 @@ To prevent conflicts, we renamed the less used opacity filter.
 ## Declaration Generator
 We have tried using official declaration lists, like `@webref/css` or `mdn-data`.
 Sadly, even the official declarations contain errors, which broke the parser (check out old commits) multiple times.
-But there was a bigger issue: You can't automatically map css declarations to useful typescript APIs. 
+But there was a bigger issue: You can't automatically map css declarations to useful typescript APIs.
 There are always a ton of declaration options for the same property, which we cannot make type safe.
 After long consideration, we thus chose to make them manually.
 
