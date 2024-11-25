@@ -4,7 +4,7 @@ import { Transition } from "./transition";
 
 export class StyleProperty {
 	static properties: string[];
-	
+
 	overwriteParents = false;
 	transitionRule: Transition;
 
@@ -29,7 +29,7 @@ export class StyleProperty {
 
 	/**
 	 * Called when the property is used by a group
-	 * 
+	 *
 	 * You may return an altered version of this property depending on the use
 	 */
 	use(selector: string): StyleProperty | StyleProperty[] | undefined | null {
@@ -40,7 +40,7 @@ export class StyleProperty {
 		throw new Error(`No property value for '${this.constructor.name}' implemented`);
 	}
 
-	toPropertyString() {
-		return `${this.propertyName}:${this.toValueString()}${this.overwriteParents ? ' !important' : ''};`;
+	toPropertyString(terminate = true) {
+		return `${this.propertyName}:${this.toValueString()}${this.overwriteParents ? ' !important' : ''}${terminate ? ';' : ''}`;
 	}
 }

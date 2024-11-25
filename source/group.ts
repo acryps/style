@@ -41,9 +41,9 @@ export class StyleGroup {
 	hover = createState(this, ':hover');
 	active = createState(this, ':active');
 	checked = createState(this, ':checked');
-	
+
 	empty = createState(this, ':empty');
-	
+
 	// attributes
 	attribute = (name: string, valueOrFirstStyle: string | StyleSelectorBody, ...items: StyleSelectorBody[]) => {
 		// catch values
@@ -53,7 +53,7 @@ export class StyleGroup {
 
 		return styleAttribute(this, `[${name}]`, [valueOrFirstStyle, ...items]);
 	}
-	
+
 	attributeContains = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}*=${JSON.stringify(substring)}]`, items);
 	attributeStartsWith = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}^=${JSON.stringify(substring)}]`, items);
 	attributeEndsWith = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}$=${JSON.stringify(substring)}]`, items);
@@ -74,14 +74,20 @@ export class StyleGroup {
 
 	appendRule(rule: AtRule) {
 		this.atRules.push(rule);
+
+		return this;
 	}
 
 	get allAtRules() {
-		const rules = [...this.atRules];
+		const rules = [...this.atRules.map(rule => ({
+			rule,
+			selector: this.selector
+		}))];
 
 		for (let child of this.children) {
 			for (let rule of child.allAtRules) {
 				if (!rules.includes(rule)) {
+					rule.selector = `${this.selector}${rule.selector}`;
 					rules.push(rule);
 				}
 			}
@@ -118,20 +124,24 @@ export class StyleGroup {
 			return flattenedProperties;
 		};
 
+		const atRules = this.allAtRules.sort((a, b) => a.rule.sortingOrder - b.rule.sortingOrder);
+
 		return `${
-			includeAtRules ? this.allAtRules.sort((a, b) => a.sortingOrder - b.sortingOrder).map(rule => rule.toRuleString()).join('') : ''
+			includeAtRules ? atRules.filter(rule => !rule.rule.afterRules).map(rule => rule.rule.toRuleString(rule.selector)).join('') : ''
 		}${selector}{${
 			useProperties(this.properties).join('')
 		}${
 			transitions.length ? `;transition:${transitions.map(transition => transition.toValueString()).join(',')}` : ''
 		}}${
 			this.children.map(child => child.toString(selector)).join('')
+		}${
+			includeAtRules ? atRules.filter(rule => rule.rule.afterRules).map(rule => rule.rule.toRuleString(rule.selector)).join('') : ''
 		}`;
 	}
 
 	/**
 	 * Apply the styles
-	 * 
+	 *
 	 * This creates a stylesheet and adds it to the documents head
 	 * Will fail in non-browser contexts (like node)
 	 */
@@ -141,7 +151,7 @@ export class StyleGroup {
 		if (!document || !document.createElement || !document.head) {
 			throw new Error('Cannot apply styles in non-DOM context.');
 		}
-		
+
 		const styleSheet = document.createElement('style');
 		styleSheet.textContent = this.toString('', true);
 
