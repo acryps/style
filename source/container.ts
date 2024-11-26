@@ -1,8 +1,6 @@
 import { AtRule } from "./at-rule";
 import { StyleGroup } from "./group";
 import { StyleProperty } from "./property";
-import { StyleSelectorBody } from "./query";
-import { Style } from "./style";
 
 export class Container extends AtRule {
 	afterRules = true;

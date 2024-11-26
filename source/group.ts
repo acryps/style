@@ -60,6 +60,39 @@ export class StyleGroup {
 	attributeDashPrefixes = (name: string, substring: string, ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}|=${JSON.stringify(substring)}]`, items);
 	attributeIn = (name: string, options: string[], ...items: StyleSelectorBody[]) => styleAttribute(this, `[${name}~=${options.map(option => JSON.stringify(option)).join(' ')}]`, items);
 
+	append(...items: StyleSelectorBody[]) {
+		const add = (items: StyleSelectorBody[]) => {
+			for (let item of items) {
+				// at rules may be defined and used simultaneously
+				if (item instanceof AtRule) {
+					this.appendRule(item);
+				}
+
+				if (item instanceof StyleGroup) {
+					this.appendChild(item);
+				} else if (item instanceof StyleProperty) {
+					this.appendProperty(item);
+				} else if (Array.isArray(item)) {
+					add(item);
+				} else if ('toStyleGroup' in item) {
+					add([item.toStyleGroup()]);
+				} else if ('toStyleProperty' in item) {
+					add([item.toStyleProperty()]);
+				} else if ('toStyleProperties' in item) {
+					add(item.toStyleProperties());
+				} else if ('toStyle' in item) {
+					add([item.toStyle()]);
+				} else {
+					throw new Error(`Invalid style declaration: ${item}`);
+				}
+			}
+		};
+
+		add(items);
+
+		return this;
+	}
+
 	appendChild(child: StyleGroup) {
 		this.children.push(child);
 
