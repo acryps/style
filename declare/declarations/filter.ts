@@ -76,3 +76,7 @@ export const filterLayer = new TypeDeclaration(blur, brightness, contrast, dropS
 export const filter = new PropertyTypeDeclaration({
 	layers: filterLayer.spread()
 }, "${this.layers.join(' ')}");
+
+export const backdropFilter = new PropertyTypeDeclaration({
+	layers: filterLayer.spread()
+}, "${this.layers.join(' ')}");
