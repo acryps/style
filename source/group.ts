@@ -32,7 +32,7 @@ export class StyleGroup {
 	constructor(
 		public selector: string
 	) {
-		selector = this.wrapSelector(selector);
+		this.selector = this.wrapSelector(selector);
 	}
 
 	// pseudo elements
