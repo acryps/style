@@ -31,7 +31,9 @@ export class StyleGroup {
 
 	constructor(
 		public selector: string
-	) {}
+	) {
+		selector = this.wrapSelector(selector);
+	}
 
 	// pseudo elements
 	before = createPseudo(this, '::before');
@@ -109,6 +111,11 @@ export class StyleGroup {
 		this.atRules.push(rule);
 
 		return this;
+	}
+
+	// for external code to modifiy
+	wrapSelector(selector: string) {
+		return selector;
 	}
 
 	get allAtRules() {
