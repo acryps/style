@@ -44,13 +44,13 @@ exportFlexSizing('grow');
 exportFlexSizing('shrink');
 
 export const flexBasisMode = new TypeDeclaration(length, 'auto', 'max-content', 'min-content', 'fit-content', 'content');
-export const flexBasis = PropertyTypeDeclaration.fromMode(flexBasisMode); 
+export const flexBasis = PropertyTypeDeclaration.fromMode(flexBasisMode);
 
 export const flexDirectionMode = new TypeDeclaration('row', 'row-reverse', 'column', 'column-reverse');
-export const flexDirection = PropertyTypeDeclaration.fromMode(flexDirectionMode); 
+export const flexDirection = PropertyTypeDeclaration.fromMode(flexDirectionMode);
 
 export const flexWrapMode = new TypeDeclaration('nowrap', 'wrap', 'wrap-reverse');
-export const flexWrap = PropertyTypeDeclaration.fromMode(flexWrapMode); 
+export const flexWrap = PropertyTypeDeclaration.fromMode(flexWrapMode);
 
 // grid
 export const fr = MethodDeclaration.fromUnit('fr', number)
@@ -117,18 +117,19 @@ export const girdArea = new ShorthandDeclaration([
 ]);
 
 export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
-export const gridTemplateAxisName = new TypeDeclaration(length, fr, repeat, 'max-content', 'min-content', minMax, fitContent, 'auto', 'none', 'masonry', 'subgrid');
 
 export const gridTemplateAreas = new PropertyTypeDeclaration({
 	rows: gridTemplateAreaName.spreadArray()
 }, '${this.rows.map(row => typeof row[0] == \'string\' ? `"${row.join(\' \')}"` : row.join(\' \')).join(\' \')}');
 
+export const gridTemplateAxisDimension = new TypeDeclaration(length, fr, repeat, 'max-content', 'min-content', minMax, fitContent, 'auto', 'none', 'masonry', 'subgrid');
+
 export const gridTemplateColumns = new PropertyTypeDeclaration({
-	cells: gridTemplateAxisName.spread()
+	cells: gridTemplateAxisDimension.spread()
 }, '${this.cells.map(cell => cell).join(\' \')}');
 
 export const gridTemplateRows = new PropertyTypeDeclaration({
-	cells: gridTemplateAxisName.spread()
+	cells: gridTemplateAxisDimension.spread()
 }, '${this.cells.map(cell => cell).join(\' \')}');
 
 export const order = new PropertyTypeDeclaration({
