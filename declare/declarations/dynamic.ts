@@ -117,18 +117,19 @@ export const girdArea = new ShorthandDeclaration([
 ]);
 
 export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
+export const gridTemplateAxisName = new TypeDeclaration(length, fr, repeat, 'max-content', 'min-content', minMax, fitContent, 'auto', 'none', 'masonry', 'subgrid');
 
 export const gridTemplateAreas = new PropertyTypeDeclaration({
 	rows: gridTemplateAreaName.spreadArray()
 }, '${this.rows.map(row => typeof row[0] == \'string\' ? `"${row.join(\' \')}"` : row.join(\' \')).join(\' \')}');
 
 export const gridTemplateColumns = new PropertyTypeDeclaration({
-	cells: gridTemplateAreaName.spread()
-}, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');
+	cells: gridTemplateAxisName.spread()
+}, '${this.cells.map(cell => cell).join(\' \')}');
 
 export const gridTemplateRows = new PropertyTypeDeclaration({
-	cells: gridTemplateAreaName.spread()
-}, '${this.cells.map(cell => typeof cell == \'string\' ? `"${cell}"` : cell).join(\' \')}');
+	cells: gridTemplateAxisName.spread()
+}, '${this.cells.map(cell => cell).join(\' \')}');
 
 export const order = new PropertyTypeDeclaration({
 	order: integer.single()
