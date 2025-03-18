@@ -8,11 +8,13 @@ export const colorStopLocation = new TypeDeclaration(length, percentage);
 
 export const colorStop = new MethodDeclaration({
 	location: colorStopLocation.single(),
-	color: colorValue.single()
+	color: colorValue.single(),
+	end: colorStopLocation.optional()
 }, `
 	this.location = location;
 	this.color = color;
-`, "${typeof this.color == 'string' ? this.color : this.color.toValueString()} ${this.location}");
+	this.end = end;
+`, "${typeof this.color == 'string' ? this.color : this.color.toValueString()} ${this.location}${this.end ? ` ${this.end}` : ''}");
 
 export const linearGradient = new MethodDeclaration({
 	angle: angle.single(),
@@ -30,4 +32,10 @@ export const repeatingLinearGradient = new MethodDeclaration({
 	this.stops = stops;
 `, "repeating-linear-gradient(${this.angle}, ${this.stops.join(',')})");
 
-export const gradient = new TypeDeclaration(linearGradient, repeatingLinearGradient);
+export const conicGradient = new MethodDeclaration({
+	stops: colorStop.spread()
+}, `
+	this.stops = stops;
+`, "conic-gradient(${this.stops.join(',')})");
+
+export const gradient = new TypeDeclaration(linearGradient, repeatingLinearGradient, conicGradient);
