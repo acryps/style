@@ -4,7 +4,7 @@ import { angle } from "./angle";
 import { colorValue } from "./color";
 import { length, percentage } from "./primitives";
 
-export const colorStopLocation = new TypeDeclaration(length, percentage);
+export const colorStopLocation = new TypeDeclaration(length, percentage, angle);
 
 export const colorStop = new MethodDeclaration({
 	location: colorStopLocation.single(),
