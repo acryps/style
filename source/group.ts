@@ -184,6 +184,8 @@ export class StyleGroup {
 	 *
 	 * This creates a stylesheet and adds it to the documents head
 	 * Will fail in non-browser contexts (like node)
+	 *
+	 * Awaiting will wait for the stylesheet to load
 	 */
 	apply(document?) {
 		document = (globalThis as any).document;
@@ -196,5 +198,7 @@ export class StyleGroup {
 		styleSheet.textContent = this.toString('', true);
 
 		document.head.appendChild(styleSheet);
+
+		return new Promise<void>(done => styleSheet.onload = () => done());
 	}
 }
