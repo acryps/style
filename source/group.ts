@@ -29,10 +29,15 @@ export class StyleGroup {
 	public properties: StyleProperty[] = [];
 	public atRules: AtRule[] = [];
 
+	// for external code to modifiy
+	static wrapSelector(selector: string) {
+		return selector;
+	}
+
 	constructor(
 		public selector: string
 	) {
-		this.selector = this.wrapSelector(selector);
+		this.selector = StyleGroup.wrapSelector(selector);
 	}
 
 	// pseudo elements
@@ -111,11 +116,6 @@ export class StyleGroup {
 		this.atRules.push(rule);
 
 		return this;
-	}
-
-	// for external code to modifiy
-	wrapSelector(selector: string) {
-		return selector;
 	}
 
 	get allAtRules() {
