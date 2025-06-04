@@ -14,7 +14,7 @@ export const colorStop = new MethodDeclaration({
 	this.location = location;
 	this.color = color;
 	this.end = end;
-`, "${typeof this.color == 'string' ? this.color : this.color.toValueString()} ${this.location}${this.end ? ` ${this.end}` : ''}");
+`, "${this.color} ${this.location}${this.end ? ` ${this.end}` : ''}");
 
 export const linearGradient = new MethodDeclaration({
 	angle: angle.single(),
