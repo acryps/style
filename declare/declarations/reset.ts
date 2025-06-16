@@ -14,5 +14,5 @@ export const appearanceMode = new TypeDeclaration(
 );
 
 export const appearance = new PropertyTypeDeclaration({
-	mode: resetMode.single()
+	mode: appearanceMode.single()
 }, '${this.mode}');
