@@ -8,12 +8,12 @@ export const sizeBoundingDimension = new TypeDeclaration(length, percentage, 'ma
 
 const exportSizeBound = (dimension: string, bound: string) => module.exports[`${bound}-${dimension}`] = new PropertyTypeDeclaration({
 	limit: sizeDimension.single()
-}, '${this.limit}');
+}, '${this.limit}').mediaQueryable();
 
 const exportSize = (dimension: string) => {
 	module.exports[dimension] = new PropertyTypeDeclaration({
 		size: sizeDimension.single()
-	}, '${this.size}');
+	}, '${this.size}').mediaQueryable();
 
 	exportSizeBound(dimension, 'min');
 	exportSizeBound(dimension, 'max');
@@ -38,7 +38,7 @@ export const ratio = new MethodDeclaration({
 
 export const aspectRatio = new PropertyTypeDeclaration({
 	ratio: ratio.single()
-}, '${this.ratio}');
+}, '${this.ratio}').mediaQueryable();
 
 export const resizeMode = new TypeDeclaration('none', 'both', 'horizontal', 'vertical', 'block', 'inline');
 

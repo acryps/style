@@ -5,6 +5,8 @@ import { TypeDeclaration } from "./type";
 export class PropertyTypeDeclaration implements Declaration {
 	name: Ident;
 
+	allowMediaQuery = false;
+
 	static fromMode(mode: TypeDeclaration) {
 		return new PropertyTypeDeclaration({
 			mode: mode.single()
@@ -18,5 +20,11 @@ export class PropertyTypeDeclaration implements Declaration {
 
 	requirements() {
 		return Object.values(this.initializer).map(value => value('').source);
+	}
+
+	mediaQueryable() {
+		this.allowMediaQuery = true;
+
+		return this;
 	}
 }

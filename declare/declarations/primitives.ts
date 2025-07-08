@@ -61,6 +61,15 @@ export const containerDimension = new TypeDeclaration(
 	exportDimension('cqmax')
 );
 
+// resolution dimensions
+export const resolutionDimension = new TypeDeclaration(
+	exportDimension('dpi'),
+	exportDimension('dpcm'),
+	exportDimension('dppx')
+);
+
+export const resolution = new TypeDeclaration(resolutionDimension);
+
 // absolute lengths
 // we have omitted Q (who even ever heard about let alone used this?)
 export const inch = MethodDeclaration.fromUnit('in', number).calculable();

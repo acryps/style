@@ -1,5 +1,8 @@
 import { AtRule } from "./at-rule";
 import { StyleGroup } from "./group";
+import { MediaFeature } from "./media/feature";
+import { NotMediaQuery } from "./media/not";
+import { MediaQueryable } from "./media/queryable";
 import { StyleProperty } from "./property";
 
 export type StyleInsert = { toStyleGroup(): StyleGroup } | { toStyleProperty(): StyleProperty } | { toStyleProperties(): StyleProperty[] } | { toStyle(): StyleSelectorBody };
@@ -216,7 +219,13 @@ export const hostContext = (...selectors: Selector[]) => {
 	return style(`:host-context(${stringifySelectors(selectors)})`);
 }
 
-export const hover = () => {
+export function hover(): (...items: StyleSelectorBody[]) => StyleGroup;
+export function hover(value: 'hover' | 'none'): MediaFeature;
+export function hover(value?: 'hover' | 'none') {
+	if (value) {
+		return new MediaFeature('hover', value);
+	}
+
 	return style(':hover');
 }
 
@@ -264,8 +273,13 @@ export const muted = () => {
 	return style(':muted');
 }
 
-export const not = (...selectorsList: Selector[][]) => {
-	return style(`:not(${selectorsList.map(selectors => stringifySelectors(selectors)).join(', ')})`);
+export function not(query: MediaQueryable): NotMediaQuery;
+export function not(item: Selector[] | MediaQueryable, ...selectorsList: Selector[][]) {
+	if (Array.isArray(item)) {
+		return style(`:not(${[item, ...selectorsList].map(selectors => stringifySelectors(selectors)).join(', ')})`);
+	}
+
+	return new NotMediaQuery(item);
 }
 
 export const nthChild = (pattern: NTHPattern, ...selectors: Selector[]) => {

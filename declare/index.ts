@@ -37,6 +37,7 @@ for (let sourcePath in sources) {
 		// import base types
 		writer.write(`import { Style } from '../style';\n`);
 		writer.write(`import { StyleProperty } from '../property';\n`);
+		writer.write(`import { MediaQueryableStyleProperty } from '../media/property';\n`);
 		writer.write(`import { StyleMethod } from '../method';\n`);
 		writer.write(`import { Variable } from '../variable';\n`);
 		writer.write(`import { Calculation, Calculable } from '../calculate';\n`);
@@ -88,7 +89,7 @@ for (let sourcePath in sources) {
 			if (declaration instanceof ShorthandDeclaration) {
 				writer.write(`export class ${ident.toPropertyClassName()} extends StyleProperty {\n`);
 				writer.write(`\tconstructor(\n`);
-				
+
 				for (let child of declaration.children) {
 					writer.write(`\t\tpublic ${child.name.toCamelCase()}: ${child.name.toPropertyClassName()}${declaration.children.indexOf(child as any) == declaration.children.length - 1 ? '' : ','}\n`);
 				}
@@ -101,13 +102,13 @@ for (let sourcePath in sources) {
 
 			if (declaration instanceof MethodDeclaration) {
 				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
-				
+
 				if (declaration.isCalculable) {
 					writer.write(` implements Calculable<${declaration.name.toClassCamelCase()}>`);
 				}
 
 				writer.write(' {\n');
-				
+
 				const constructorArguments = [];
 				const passArguments = [];
 
@@ -127,7 +128,7 @@ for (let sourcePath in sources) {
 				writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
 				writer.write('\t) {\n\t');
 				writer.write('\tsuper();\n\n');
-				
+
 
 				writer.write(declaration.creator.trim().split('\n').map(line => `\t${line}`).join('\n'));
 
@@ -141,7 +142,7 @@ for (let sourcePath in sources) {
 					for (let operation of ['invert']) {
 						writer.write(`\t${operation} = () => new Calculation(this.toValueString(), [this]).${operation}();\n`);
 					}
-					
+
 					writer.write('\n');
 				}
 
@@ -161,7 +162,7 @@ for (let sourcePath in sources) {
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
-				writer.write(`export class ${ident.toPropertyClassName()} extends StyleProperty {\n`);
+				writer.write(`export class ${ident.toPropertyClassName()} extends ${declaration.allowMediaQuery ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
 				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
 
 				const constructorArguments = [];
