@@ -52,8 +52,9 @@ const stringifyNTHPattern = (pattern: NTHPattern, ...selectors: Selector[]) => {
 	return stringified;
 }
 
-export const style = (selector: string) => {
-	return new StyleGroup(selector).append;
+export function style(selector: string): (...items: StyleSelectorBody[]) => StyleGroup {
+	const styleGroup = new StyleGroup(selector);
+	return styleGroup.append.bind(styleGroup);
 }
 
 // base combinator selectors

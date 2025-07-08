@@ -8,7 +8,7 @@ export class StyleGroup {
 	public properties: StyleProperty[] = [];
 	public atRules: AtRule[] = [];
 
-	// for external code to modifiy
+	// for external code to modify
 	static wrapSelector(selector: string) {
 		return selector;
 	}
