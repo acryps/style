@@ -22,18 +22,20 @@ Basic styles with fixed variables.
 const primaryColor = rgb(132, 33, 187);
 const spacing = rem(3);
 
-style('ui-book',
+style('ui-book') (
 	display('block'),
 
-	child('ui-title',
+	child('ui-title') (
 		display('block'),
 		marginBottom(spacing)
-	)
+	),
 
-	child('a')
-		.after('→',
+	child('a') (
+		after() (
+			content('→'),
 			color(primaryColor)
 		)
+	)
 ).apply();
 ```
 
@@ -44,24 +46,26 @@ Note that `.update` will apply a new value to the DOM only on DOM contexts, whil
 let primaryColor;
 const spacing = rem(3);
 
-const layout = style('ui-book',
+const layout = style('ui-book') (
 	primaryColor = new Variable('primary-color', rgb(132, 33, 187)),
 
 	display('block'),
 
-	child('ui-title',
+	child('ui-title') (
 		display('block'),
 		marginBottom(spacing)
-	)
+	),
 
-	child('a')
-		.after('→',
+	child('a') (
+		after() (
+			content('→'),
 			color(primaryColor)
 		)
+	)
 ).apply();
 
 button.onclick = () => {
-	primaryColor.update(hsl(deg(51), 100, 40));
+	primaryColor.update(hsl(deg(51), percentage(100), percentage(40)));
 
 	console.debug(layout.toString());
 }
@@ -77,18 +81,44 @@ const header = () => [
 	marginBottom(spacing)
 ];
 
-style('ui-page',
-	child('ui-book',
+style('ui-page') (
+	child('ui-book') (
 		display('block'),
 
-		child('ui-title', header())
-	).apply();
+		child('ui-title') (header())
+	),
 
-	child('ui-author',
+	child('ui-author') (
 		display('block'),
 
-		child('ui-title', header())
-	).apply();
+		child('ui-title') (header())
+	)
+).apply();
+```
+
+Using media queries
+```ts
+const primaryColor = rgb(132, 33, 187);
+const spacing = rem(3);
+
+style('ui-book') (
+	display('block'),
+
+	child('ui-title') (
+		display('block'),
+		marginBottom(spacing),
+
+		media(mediaType('screen').and(maxWidth(px(1000)))) (
+			fontSize(rem(0.8))
+		)
+	),
+
+	child('a') (
+		after() (
+			content('→'),
+			color(primaryColor)
+		)
+	)
 ).apply();
 ```
 
