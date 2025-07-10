@@ -1,14 +1,42 @@
+import { AtRule } from "../at-rule";
 import { Resolution } from "../declarations/primitives";
 import { Ratio } from "../declarations/size";
-import { style } from "../query";
+import { StyleGroup } from "../group";
+import { style, StyleSelectorBody } from "../query";
 import { MediaFeature } from "./feature";
 import { MediaQueryable } from "./queryable";
 import { MediaType, MediaTypeName } from "./type";
 
-export function media(query: MediaQueryable, ...queries: MediaQueryable[]) {
-	const stringifiedQueries = [query, ...queries].map(query => query.toMediaQueryString());
+class Media extends AtRule {
+	private style: StyleGroup;
 
-	return style(`@media ${stringifiedQueries.join(', ')}`);
+	constructor (
+		private queries: MediaQueryable[]
+	) {
+		super();
+	}
+
+	append(...styles: StyleSelectorBody[]) {
+		this.style = style('') (...styles);
+
+		return this;
+	}
+
+	// return nothing as this at rule cannot be "used" directly
+	toStyle() {
+		return [];
+	}
+
+	toRuleString(parentSelector: string) {
+		const stringifiedQueries = this.queries.map(query => query.toMediaQueryString());
+
+		return `@media ${stringifiedQueries.join(', ')} {${this.style.toString(parentSelector, true)}}`;
+	}
+}
+
+export function media(query: MediaQueryable, ...queries: MediaQueryable[]): (...styles: StyleSelectorBody[]) => Media {
+	const media = new Media([query, ...queries]);
+	return media.append.bind(media);
 }
 
 export const mediaType = (name: MediaTypeName) => {
