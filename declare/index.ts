@@ -96,8 +96,13 @@ for (let sourcePath in sources) {
 
 				writer.write('\t) {\n');
 				writer.write(`\t\tsuper('${ident.toDashed()}', [${declaration.children.map(child => child.name.toCamelCase()).join(', ')}]);\n`);
+				writer.write('\t}\n\n');
+
+				writer.write('\ttoValueString() {\n');
+				writer.write(`\t\treturn \`$\{this.children?.map(child => child.toValueString()).join(' ')}\`;\n`);
 				writer.write('\t}\n');
-				writer.write(`}\n\n`);
+
+				writer.write('}\n\n');
 			}
 
 			if (declaration instanceof MethodDeclaration) {

@@ -57,7 +57,7 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 	}
 
 	toValueString() {
-		return this.value ?? 'none';
+		return `${this.value ?? 'none'}`;
 	}
 
 	// to string is invoked when the variable is used by a property, unit or method as a value
