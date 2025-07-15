@@ -2,7 +2,7 @@ import { Duration, EasingFunction } from "./declarations/time";
 import { Style } from "./style";
 import { Transition } from "./transition";
 
-export class StyleProperty {
+export abstract class StyleProperty {
 	static properties: string[];
 
 	overwriteParents = false;
@@ -36,9 +36,7 @@ export class StyleProperty {
 		return this;
 	}
 
-	toValueString() {
-		throw new Error(`No property value for '${this.constructor.name}' implemented`);
-	}
+	abstract toValueString(): string;
 
 	toPropertyString(terminate = true) {
 		return `${this.propertyName}:${this.toValueString()}${this.overwriteParents ? ' !important' : ''}${terminate ? ';' : ''}`;
