@@ -19,8 +19,9 @@ export const wordBreak = new PropertyTypeDeclaration({
 	mode: wordBreakMode.single()
 }, '${this.mode}');
 
-export const hyphensMode = new TypeDeclaration('none', 'manual', 'auto');
+export const hyphensMode = new TypeDeclaration('manual', 'auto');
 
 export const hyphens = new PropertyTypeDeclaration({
 	mode: hyphensMode.single()
-}, '${this.mode}');
+}, '${this.mode}')
+	.allowNone();

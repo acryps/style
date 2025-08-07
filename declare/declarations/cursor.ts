@@ -3,13 +3,13 @@ import { TypeDeclaration } from "../builders/type";
 import { colorValue } from "./color";
 
 export const cursorType = new TypeDeclaration(
-	'auto', 'default', 'none', 
+	'auto', 'default',
 
 	// links & status
-	'context-menu', 'help', 'pointer', 'progress', 'wait', 
+	'context-menu', 'help', 'pointer', 'progress', 'wait',
 
 	// selection
-	'cell', 'crosshair', 'text', 'vertical-text', 
+	'cell', 'crosshair', 'text', 'vertical-text',
 
 	// drag and drop
 	'alias', 'copy', 'move', 'no-drop', 'not-allowed', 'grab', 'grabbing',
@@ -23,7 +23,8 @@ export const cursorType = new TypeDeclaration(
 
 export const cursor = new PropertyTypeDeclaration({
 	type: cursorType.single()
-}, '${this.type}');
+}, '${this.type}')
+	.allowNone();
 
 export const caretColor = new PropertyTypeDeclaration({
 	color: colorValue.single()

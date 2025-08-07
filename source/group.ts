@@ -94,15 +94,11 @@ export class StyleGroup {
 
 				if (used) {
 					for (let child of Array.isArray(used) ? used : [used]) {
-						if (child.children) {
-							flattenedProperties.push(...useProperties(child.children));
-						} else {
-							if (child.transitionRule) {
-								transitions.push(child.transitionRule);
-							}
-
-							flattenedProperties.push(child.toPropertyString());
+						if (child.transitionRule) {
+							transitions.push(child.transitionRule);
 						}
+
+						flattenedProperties.push(child.toPropertyString());
 					}
 				}
 			}

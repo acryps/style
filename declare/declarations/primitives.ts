@@ -2,6 +2,8 @@ import { MethodDeclaration } from "../builders/method";
 import { PrimitiveType } from "../builders/type";
 import { TypeDeclaration } from "../builders/type";
 
+export const globalPropertyValue = new TypeDeclaration('inherit', 'initial', 'unset', 'revert', 'revert-layer');
+
 export const string = new PrimitiveType('string');
 
 export const url = new MethodDeclaration({

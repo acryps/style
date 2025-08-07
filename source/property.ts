@@ -11,8 +11,7 @@ export abstract class StyleProperty {
 	static shorthand: (new (...parameters) => StyleProperty)[];
 
 	constructor(
-		public propertyName: string,
-		public children?: StyleProperty[]
+		public propertyName: string
 	) {}
 
 	important() {

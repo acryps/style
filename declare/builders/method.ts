@@ -5,7 +5,7 @@ export class MethodDeclaration extends TypeDeclaration {
 	isCalculable = false;
 
 	constructor(
-		public parameters: Record<string, (propertyName: string) => PropertyInitializer>,
+		public parameters: Record<string, (propertyName: string, noneAllowed: boolean) => PropertyInitializer>,
 		public creator: string,
 		public valueConverter: string
 	) {
@@ -25,6 +25,6 @@ export class MethodDeclaration extends TypeDeclaration {
 	}
 
 	requirements() {
-		return Object.values(this.parameters).map(parameter => parameter(parameter.name).source);
+		return Object.values(this.parameters).map(parameter => parameter(parameter.name, false).source);
 	}
 }

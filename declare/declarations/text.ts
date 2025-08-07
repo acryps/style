@@ -1,5 +1,4 @@
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { integer, length } from "./primitives";
 
@@ -9,11 +8,12 @@ export const textAlign = new PropertyTypeDeclaration({
 	direction: textAlignmentDirection.single()
 }, '${this.direction}');
 
-export const textTransformationMode = new TypeDeclaration('none', 'capitalize', 'uppercase', 'lowercase', 'full-width', 'full-size-kana');
+export const textTransformationMode = new TypeDeclaration('capitalize', 'uppercase', 'lowercase', 'full-width', 'full-size-kana');
 
 export const textTransform = new PropertyTypeDeclaration({
 	mode: textTransformationMode.single()
-}, '${this.mode}');
+}, '${this.mode}')
+	.allowNone();
 
 export const textWrapMode = new TypeDeclaration('wrap', 'nowrap', 'balance', 'pretty', 'stable');
 
@@ -21,13 +21,16 @@ export const textWrap = new PropertyTypeDeclaration({
 	mode: textWrapMode.single()
 }, '${this.mode}');
 
-export const textDecorationLineMode = new TypeDeclaration('none', 'underline', 'overline', 'line-through', 'blink');
+export const textDecorationLineMode = new TypeDeclaration('underline', 'overline', 'line-through', 'blink');
 
 export const textDecorationLine = new PropertyTypeDeclaration({
 	modes: textDecorationLineMode.spread()
-}, "${this.modes.join(' ')}");
+}, "${this.modes.join(' ')}")
+	.allowNone();
 
-export const textDecoration = new ShorthandDeclaration([textDecorationLine]);
+export const textDecoration = new PropertyTypeDeclaration({
+	modes: textDecorationLineMode.spread()
+}, "${this.modes.join(' ')}");
 
 export const tabSizeLength = new TypeDeclaration(length, integer);
 

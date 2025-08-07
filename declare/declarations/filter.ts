@@ -71,12 +71,14 @@ export const sepia = new MethodDeclaration({
 	this.amount = amount;
 `, 'sepia(${this.amount})');
 
-export const filterLayer = new TypeDeclaration(blur, brightness, contrast, dropShadow, grayscale, hueRotate, invert, saturate, sepia, 'none');
+export const filterLayer = new TypeDeclaration(blur, brightness, contrast, dropShadow, grayscale, hueRotate, invert, saturate, sepia);
 
 export const filter = new PropertyTypeDeclaration({
 	layers: filterLayer.spread()
-}, "${this.layers.join(' ')}");
+}, "${this.layers.join(' ')}")
+	.allowNone();
 
 export const backdropFilter = new PropertyTypeDeclaration({
 	layers: filterLayer.spread()
-}, "${this.layers.join(' ')}");
+}, "${this.layers.join(' ')}")
+	.allowNone();

@@ -1,5 +1,4 @@
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { integer, string } from "./primitives";
 import { duration, easingFunction } from "./time";
@@ -22,11 +21,11 @@ export const animationDuration = new PropertyTypeDeclaration({
 	duration: duration.spread()
 }, '${this.duration.join()}');
 
-export const animationFillModeType = new TypeDeclaration('none', 'forwards', 'backwards', 'both');
+export const animationFillModeType = new TypeDeclaration('forwards', 'backwards', 'both');
 
 export const animationFillMode = new PropertyTypeDeclaration({
 	mode: animationFillModeType.spread()
-}, '${this.mode.join()}');
+}, '${this.mode.join()}').allowNone();
 
 export const iterationCount = new TypeDeclaration(integer, 'infinite');
 export const animationIterationCount = new PropertyTypeDeclaration({
