@@ -23,7 +23,7 @@ const exportBorder = (side: string) => module.exports[`border${side ? Ident.from
 	width: lineWidth.single(),
 	style: borderStyleType.single(),
 	color: colorValue.single()
-}, '')
+}, '${this.width} ${this.style} ${this.color}')
 	.allowNone();
 
 const exportBorderSide = (side: string) => {

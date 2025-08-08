@@ -1,7 +1,7 @@
 import { createWriteStream, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
 import { Ident } from "./ident";
-import { Declaration, PropertyInitializer } from "./builders/index";
+import { Declaration, globalNonePropertyValues, globalPropertyValues } from "./builders/index";
 import { TypeDeclaration } from "./builders/type";
 import { PropertyTypeDeclaration } from "./builders/property";
 import { MethodDeclaration } from "./builders/method";
@@ -42,7 +42,7 @@ for (let sourcePath in sources) {
 		writer.write(`import { Calculation, Calculable } from '../calculate';\n`);
 
 		if (!sourcePath.startsWith('primitives')) {
-			writer.write(`import { GlobalPropertyValue } from './primitives';\n`);
+			writer.write(`import { GlobalPropertyValue, GlobalNonePropertyValue } from './primitives';\n`);
 		}
 
 		writer.write('\n');
@@ -103,7 +103,7 @@ for (let sourcePath in sources) {
 				const passArguments = [];
 
 				for (let property in declaration.parameters) {
-					const initializer = declaration.parameters[property](property, false);
+					const initializer = declaration.parameters[property](property);
 
 					writer.write(`\tpublic ${property}: ${initializer.type};\n`);
 
@@ -157,12 +157,11 @@ for (let sourcePath in sources) {
 					arguments: string[]
 				}[] = [];
 
-				// base style class
 				const propertyClassName = ident.toPropertyClassName();
 				const constructorArguments: string[] = [];
 
 				for (const property in declaration.initializer) {
-					const initializer = declaration.initializer[property](property, declaration.noneAllowed);
+					const initializer = declaration.initializer[property](property);
 
 					constructorArguments.push(initializer.argument);
 				}
@@ -172,11 +171,12 @@ for (let sourcePath in sources) {
 					arguments: constructorArguments
 				});
 
+				// base style class
 				writer.write(`export class ${propertyClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
 				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
 
 				for (const property in declaration.initializer) {
-					writer.write(`\tpublic ${property}: ${declaration.initializer[property](property, declaration.noneAllowed).type};\n`);
+					writer.write(`\tpublic ${property}: ${declaration.initializer[property](property).type};\n`);
 				}
 
 				writer.write('\n');
@@ -194,6 +194,29 @@ for (let sourcePath in sources) {
 
 				writer.write('\ttoValueString() {\n');
 				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
+				writer.write('\t}\n');
+
+				writer.write('}\n\n');
+
+				// global style property class
+				const globalClassName = ident.toPropertyGlobalClassName();
+				const globalValueType = declaration.noneAllowed ? 'GlobalNonePropertyValue' : 'GlobalPropertyValue';
+
+				writer.write(`export class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+				writer.write(`\tstatic properties = ['value'];\n\n`);
+
+				writer.write(`\tpublic value: ${globalValueType};\n`);
+				writer.write('\n');
+
+				writer.write('\tconstructor(\n');
+				writer.write(`\t\tvalue: ${globalValueType}\n`);
+				writer.write('\t) {\n');
+				writer.write(`\t\tsuper('${ident.toDashed()}');\n\n`);
+				writer.write(`\t\tthis.value = value;\n`);
+				writer.write('\t}\n\n');
+
+				writer.write('\ttoValueString() {\n');
+				writer.write(`\t\treturn \`$\{this.value}\`;\n`);
 				writer.write('\t}\n');
 
 				writer.write('}\n\n');
@@ -233,7 +256,7 @@ for (let sourcePath in sources) {
 					writer.write(`export class ${shorthandClassName} extends ${inheritanceClass.className} {\n`);
 					writer.write(`\tstatic properties = [${Object.keys(shorthandInitializer.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
 
-					writer.write(constructorArguments.map(argument => `\tpublic ${argument};\n`).join(''));
+					writer.write(constructorArguments.map(argument => `\tpublic ${argument};`).join('\n'));
 					writer.write('\n\n');
 
 					writer.write('\tconstructor(\n');
@@ -246,23 +269,33 @@ for (let sourcePath in sources) {
 					writer.write('\t}\n\n');
 
 					writer.write('\ttoValueString() {\n');
-					writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
+					writer.write(`\t\treturn \`${shorthandInitializer.valueConverter}\`;\n`);
 					writer.write('\t}\n');
 
 					writer.write('}\n\n');
 				}
 
 				// helper functions
-				if (stylePropertyClasses.length == 1) {
-					writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${propertyClassName}>): ${propertyClassName} {\n`);
-					writer.write(`\treturn new ${propertyClassName}(${stylePropertyClasses[0].arguments.map((_, index) => `parameters[${index}]`).join(', ')});\n`);
-					writer.write(`}\n\n`);
-				} else {
-					for (const stylePropertyClass of stylePropertyClasses) {
-						writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${stylePropertyClass.className}>): ${stylePropertyClass.className};\n`);
-					}
+				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
 
-					writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
+				for (const stylePropertyClass of stylePropertyClasses) {
+					writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${stylePropertyClass.className}>): ${stylePropertyClass.className};\n`);
+				}
+
+				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
+
+				// global helper function
+				writer.write(`\tif (parameters.length == 1) {\n`);
+				writer.write(`\t\tconst value = (parameters[0] instanceof Variable || parameters[0] instanceof Calculation) ? parameters[0].toValueString() : parameters[0];\n\n`);
+				writer.write(`\t\tif ([${(declaration.noneAllowed ? globalNonePropertyValues : globalPropertyValues).map(value => `'${value}'`).join(', ')}].includes(value)) {\n`);
+				writer.write(`\t\t\treturn new ${globalClassName}(parameters[0]);\n`);
+				writer.write(`\t\t}\n`);
+				writer.write(`\t}\n\n`);
+
+
+				if (stylePropertyClasses.length == 1) {
+					writer.write(`\treturn new ${propertyClassName}(${stylePropertyClasses[0].arguments.map((_, index) => `parameters[${index}]`).join(', ')});\n`);
+				} else {
 					writer.write(`\tswitch (parameters.length) {\n`);
 
 					for (const stylePropertyClass of stylePropertyClasses) {
@@ -272,8 +305,9 @@ for (let sourcePath in sources) {
 					writer.write(`\t}\n\n`);
 
 					writer.write(`\tthrow new Error('Invalid number of arguments to ${ident.toCommandName()}');\n`);
-					writer.write(`}\n\n`);
 				}
+
+				writer.write(`}\n\n`);
 			}
 		}
 

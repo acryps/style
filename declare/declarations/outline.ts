@@ -23,7 +23,8 @@ export const outline = new PropertyTypeDeclaration({
 	width: outlineWidthType.single(),
 	style: outlineStyleType.single(),
 	color: colorValue.single()
-}, '${this.width} ${this.style} ${this.color}');
+}, '${this.width} ${this.style} ${this.color}')
+	.allowNone();
 
 export const outlineOffset = new PropertyTypeDeclaration({
 	style: length.single()

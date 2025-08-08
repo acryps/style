@@ -4,7 +4,7 @@ export interface Calculable<ValueType> {
 
 	multiply<MultipliedValue>(value: MultipliedValue): Calculation<ValueType | MultipliedValue>;
 	divide<DividedValue>(value: DividedValue): Calculation<ValueType | DividedValue>;
-	
+
 	invert(): Calculation<ValueType>;
 }
 
@@ -43,11 +43,11 @@ export class Calculation<ValueType> implements Calculable<ValueType> {
 	}
 
 	toValueString() {
-		return `calc(${this.expression})`;
+		return this.expression;
 	}
 
 	toString() {
-		return this.toValueString();
+		return `calc(${this.expression})`;
 	}
 }
 

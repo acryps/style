@@ -20,12 +20,12 @@ export class PropertyTypeDeclaration implements Declaration {
 	}
 
 	constructor(
-		public initializer: Record<string, (propertyName: string, noneAllowed: boolean) => PropertyInitializer>,
+		public initializer: Record<string, (propertyName: string) => PropertyInitializer>,
 		public valueConverter: string
 	) { }
 
 	requirements() {
-		return Object.values(this.initializer).map(value => value('', false).source);
+		return Object.values(this.initializer).map(value => value('').source);
 	}
 
 	allowNone() {

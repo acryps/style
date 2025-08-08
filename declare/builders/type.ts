@@ -20,10 +20,10 @@ export class TypeDeclaration implements Declaration {
 	}
 
 	spread() {
-		return (propertyName: string, noneAllowed: boolean) => new SpreadPropertyInitializer(
+		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
-			`(${this.toCompleteUnionType(noneAllowed)})[]`,
-			`...${propertyName}: (${this.toCompleteUnionType(noneAllowed)})[]`,
+			`(${this.name.toClassCamelCase()})[]`,
+			`...${propertyName}: (${this.name.toClassCamelCase()})[]`,
 			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`,
 
 			`${propertyName}: ${this.name.toClassCamelCase()}[]`,
@@ -32,31 +32,31 @@ export class TypeDeclaration implements Declaration {
 	}
 
 	spreadArray() {
-		return (propertyName: string, noneAllowed: boolean) => new SpreadPropertyInitializer(
+		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
-			`(${this.toCompleteUnionType(noneAllowed)})[][]`,
-			`...${propertyName}: (${this.toCompleteUnionType(noneAllowed)})[][]`,
+			`(${this.name.toClassCamelCase()})[][]`,
+			`...${propertyName}: (${this.name.toClassCamelCase()})[][]`,
 			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`,
 
-			`${propertyName}: (${this.toCompleteUnionType(noneAllowed)})[][]`,
+			`${propertyName}: (${this.name.toClassCamelCase()})[][]`,
 			`${propertyName}.map(axis => axis.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value)))`
 		);
 	}
 
 	single(defaultValue?: string) {
-		return (propertyName: string, noneAllowed: boolean) => new PropertyInitializer(
+		return (propertyName: string) => new PropertyInitializer(
 			this,
-			`${this.toCompleteUnionType(noneAllowed)}`,
-			`${propertyName}: ${this.toCompleteUnionType(noneAllowed)}${defaultValue ? ` = ${defaultValue}` : ''}`,
+			`${this.name.toClassCamelCase()}`,
+			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
 			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
 		);
 	}
 
 	optional() {
-		return (propertyName: string, noneAllowed: boolean) => new PropertyInitializer(
+		return (propertyName: string) => new PropertyInitializer(
 			this,
-			`${this.toCompleteUnionType(noneAllowed)} | undefined`,
-			`${propertyName}?: ${this.toCompleteUnionType(noneAllowed)}`,
+			`${this.name.toClassCamelCase()} | undefined`,
+			`${propertyName}?: ${this.name.toClassCamelCase()}`,
 			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
 		);
 	}
@@ -79,10 +79,6 @@ export class TypeDeclaration implements Declaration {
 				return `${option}`;
 			}
 		}).join(' | ');
-	}
-
-	private toCompleteUnionType(noneAllowed: boolean) {
-		return `${this.name.toClassCamelCase()}${noneAllowed ? ` | 'none'` : ''} | GlobalPropertyValue`;
 	}
 }
 
