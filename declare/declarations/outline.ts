@@ -4,7 +4,7 @@ import { colorValue } from "./color";
 import { length, lineWidth } from "./primitives";
 
 export const outlineWidthType = new TypeDeclaration(lineWidth, 'thin', 'medium', 'thick');
-export const outlineStyleType = new TypeDeclaration('hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
+export const outlineStyleType = new TypeDeclaration('none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
 
 export const outlineColor =  new PropertyTypeDeclaration({
 	color: colorValue.single()
@@ -12,8 +12,7 @@ export const outlineColor =  new PropertyTypeDeclaration({
 
 export const outlineStyle =  new PropertyTypeDeclaration({
 	style: outlineStyleType.single()
-}, '${this.style}')
-	.allowNone();
+}, '${this.style}');
 
 export const outlineWidth = new PropertyTypeDeclaration({
 	width: outlineWidthType.single()

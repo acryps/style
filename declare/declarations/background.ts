@@ -9,8 +9,7 @@ export const backgroundImageSource = new TypeDeclaration(imageSource, gradient);
 
 export const backgroundImage = new PropertyTypeDeclaration({
 	sources: backgroundImageSource.spread()
-}, "${this.sources.join(', ')}")
-	.allowNone();
+}, "${this.sources.join(', ')}");
 
 export const backgroundColor = new PropertyTypeDeclaration({
 	color: colorValue.single()

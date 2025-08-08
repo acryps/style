@@ -21,11 +21,11 @@ export const animationDuration = new PropertyTypeDeclaration({
 	duration: duration.spread()
 }, '${this.duration.join()}');
 
-export const animationFillModeType = new TypeDeclaration('forwards', 'backwards', 'both');
+export const animationFillModeType = new TypeDeclaration('none', 'forwards', 'backwards', 'both');
 
 export const animationFillMode = new PropertyTypeDeclaration({
 	mode: animationFillModeType.spread()
-}, '${this.mode.join()}').allowNone();
+}, '${this.mode.join()}');
 
 export const iterationCount = new TypeDeclaration(integer, 'infinite');
 export const animationIterationCount = new PropertyTypeDeclaration({

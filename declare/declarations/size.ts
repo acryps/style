@@ -40,9 +40,8 @@ export const aspectRatio = new PropertyTypeDeclaration({
 	ratio: ratio.single()
 }, '${this.ratio}').allowMediaQuery();
 
-export const resizeMode = new TypeDeclaration('both', 'horizontal', 'vertical', 'block', 'inline');
+export const resizeMode = new TypeDeclaration('none', 'both', 'horizontal', 'vertical', 'block', 'inline');
 
 export const resize = new PropertyTypeDeclaration({
 	mode: resizeMode.single()
-}, '${this.mode}')
-	.allowNone();
+}, '${this.mode}');

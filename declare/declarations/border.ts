@@ -4,7 +4,7 @@ import { PropertyTypeDeclaration } from "../builders/property";
 import { colorValue } from "./color";
 import { length, lineWidth, percentage } from "./primitives";
 
-export const borderStyleType = new TypeDeclaration('hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
+export const borderStyleType = new TypeDeclaration('none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset');
 
 const exportBorderWidth = (side: string) => module.exports[`border${side ? Ident.fromCamelCase(side).toClassCamelCase() : ''}Width`] = new PropertyTypeDeclaration({
 	width: lineWidth.single()
@@ -12,8 +12,7 @@ const exportBorderWidth = (side: string) => module.exports[`border${side ? Ident
 
 const exportBorderStyle = (side: string) => module.exports[`border${side ? Ident.fromCamelCase(side).toClassCamelCase() : ''}Style`] = new PropertyTypeDeclaration({
 	style: borderStyleType.single()
-}, '${this.style}')
-	.allowNone();
+}, '${this.style}');
 
 const exportBorderColor = (side: string) => module.exports[`border${side ? Ident.fromCamelCase(side).toClassCamelCase() : ''}Color`] = new PropertyTypeDeclaration({
 	color: colorValue.single()
