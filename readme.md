@@ -125,11 +125,6 @@ style('ui-book') (
 ## Pitfalls / Common Issues
 Some of the specs are weird, but we try to implement them as is.
 
-### Background Color
-Use `backgroundColor(hex('f00'))` instead of `background(hex('f00'))`
-
-`background` is a shorthand to define multiple background layers at once, whereas `background-color` is the proper property to set multiple layers of background colors.
-
 ### Text Decoration
 Use `textDecorationLine('underline')` instead of `textDecoration('underline')`.
 
