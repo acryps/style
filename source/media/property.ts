@@ -1,0 +1,8 @@
+import { StyleProperty } from "../property";
+import { MediaQuery } from "./query";
+import { MediaQueryable } from "./queryable";
+
+export abstract class MediaQueryableStyleProperty extends StyleProperty implements MediaQueryable {
+	and = (queryable: MediaQueryable) => new MediaQuery(this).and(queryable);
+	toMediaQueryString = () => `(${this.toPropertyString(false)})`;
+}

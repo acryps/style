@@ -1,6 +1,5 @@
 import { TypeDeclaration } from "../builders/type";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { integer, length, percentage, string } from "./primitives";
 
 export const fontFamilyIdentifier = new TypeDeclaration(string);
@@ -26,8 +25,8 @@ export const fontStyle = new PropertyTypeDeclaration({
 	style: fontStyleMode.single()
 }, '${this.style}');
 
-export const font = new ShorthandDeclaration([
-	fontSize,
-	fontWeight,
-	fontFamily
-]);
+export const font = new PropertyTypeDeclaration({
+	size: fontSizeType.single(),
+	weight: fontWeights.single(),
+	style: fontStyleMode.single()
+}, '${this.size} ${this.weight} ${this.style}');

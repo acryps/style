@@ -2,8 +2,6 @@ import { AtRule } from "./at-rule";
 import { AnimationDirectionMode, animationDelay, animationDirection, animationDuration, animationName, animationTimingFunction } from "./declarations/animation";
 import { Percentage } from "./declarations/primitives";
 import { Duration, EasingFunction } from "./declarations/time";
-import { StyleGroup } from "./group";
-import { StyleProperty } from "./property";
 import { StyleSelectorBody, style } from "./query";
 
 export type KeyframeLocation = Percentage[] | Percentage | 'from' | 'to';
@@ -16,7 +14,9 @@ export class Keyframe {
 
 	toRuleString() {
 		// does not wrap the name
-		return `${this.location}${style('', ...this.rules).toString()}`;
+		return `${this.location}${style('') (
+			this.rules
+		).toString()}`;
 	}
 }
 

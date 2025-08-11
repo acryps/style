@@ -28,7 +28,7 @@ export const overscrollBehavior = new PropertyTypeDeclaration({
 	mode: overscrollBehaviorMode.single()
 }, "${this.mode}");
 
-export const scrollbarWidthMode = new TypeDeclaration('auto', 'thin', 'none');
+export const scrollbarWidthMode = new TypeDeclaration('none', 'auto', 'thin');
 
 export const scrollbarWidth = new PropertyTypeDeclaration({
 	mode: scrollbarWidthMode.single()

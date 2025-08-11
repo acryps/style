@@ -1,6 +1,5 @@
 import { MethodDeclaration } from "../builders/method";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { Ident } from "../ident";
 import { integer, length, number, percentage, string } from "./primitives";
@@ -26,14 +25,20 @@ export const justifyContent = PropertyTypeDeclaration.fromMode(distributedJustif
 export const justifySelf = PropertyTypeDeclaration.fromMode(selfJustificationMode);
 
 // gap
-const exportGapAxis = axis => module.exports[`${axis}-gap`] = new PropertyTypeDeclaration({
+const exportGapAxis = (axis: string) => module.exports[`${axis}-gap`] = new PropertyTypeDeclaration({
 	distance: length.single()
 }, '${this.distance}');
 
-export const gap = new ShorthandDeclaration([
-	exportGapAxis('column'),
-	exportGapAxis('row')
-]);
+exportGapAxis('column');
+exportGapAxis('row');
+
+export const gap = new PropertyTypeDeclaration({
+	column: length.single(),
+	row: length.single()
+}, '${this.column} ${this.row}')
+	.addShorthandInitializer({
+		length: ['column', 'row']
+	}, '${this.length}');
 
 // flex spacific
 const exportFlexSizing = operation => module.exports[`flex${Ident.fromCamelCase(operation).toClassCamelCase()}`] = new PropertyTypeDeclaration({
@@ -109,12 +114,20 @@ const exportGridArea = (axis: string, side: string) => module.exports[`grid${Ide
 	selector: gridAreaSelector.single()
 }, "${this.selector}");
 
-export const girdArea = new ShorthandDeclaration([
-	exportGridArea('row', 'start'),
-	exportGridArea('column', 'start'),
-	exportGridArea('row', 'end'),
-	exportGridArea('column', 'end')
-]);
+exportGridArea('row', 'start');
+exportGridArea('column', 'start');
+exportGridArea('row', 'end');
+exportGridArea('column', 'end');
+
+export const girdArea = new PropertyTypeDeclaration({
+	rowStart: gridAreaSelector.single(),
+	columnStart: gridAreaSelector.single(),
+	rowEnd: gridAreaSelector.single(),
+	columnEnd: gridAreaSelector.single()
+}, '${this.rowStart} ${this.columnStart} ${this.rowEnd} ${this.columnEnd}')
+	.addShorthandInitializer({
+		area: ['rowStart', 'columnStart', 'rowEnd', 'columnEnd']
+	}, '${this.area}');
 
 export const gridTemplateAreaName = new TypeDeclaration('.', string, repeat);
 
