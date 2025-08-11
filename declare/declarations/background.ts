@@ -15,6 +15,12 @@ export const backgroundColor = new PropertyTypeDeclaration({
 	color: colorValue.single()
 }, "${this.color}");
 
+export const background = new PropertyTypeDeclaration({
+	color: colorValue.single(),
+	imageSources: backgroundImageSource.spread()
+}, "${this.color} ${this.imageSources.join(', ')}")
+	.allowNone();
+
 export const backgroundSizeType = new TypeDeclaration('cover', 'contain', 'auto', length, percentage);
 
 export const backgroundSize = new PropertyTypeDeclaration({
