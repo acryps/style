@@ -2,7 +2,6 @@ import { AtRule } from "./at-rule";
 import { FontWeightStyleProperty, fontFamily } from "./declarations/font";
 import { url } from "./declarations/primitives";
 import { StyleProperty } from "./property";
-import { StyleInsert, StyleSelectorBody } from "./query";
 
 type RecursingStyleProperty = StyleProperty | RecursingStyleProperty[];
 

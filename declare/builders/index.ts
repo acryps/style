@@ -1,6 +1,9 @@
 import { TypeDeclaration } from "./type";
 import { Ident } from "../ident";
 
+export const globalPropertyValues = ['inherit', 'initial', 'unset', 'revert', 'revert-layer'];
+export const globalNonePropertyValues = [...globalPropertyValues, 'none'];
+
 export interface Declaration {
 	name: Ident;
 	requirements(): Declaration[];

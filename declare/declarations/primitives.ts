@@ -1,6 +1,10 @@
+import { globalNonePropertyValues, globalPropertyValues } from "../builders";
 import { MethodDeclaration } from "../builders/method";
 import { PrimitiveType } from "../builders/type";
 import { TypeDeclaration } from "../builders/type";
+
+export const globalPropertyValue = new TypeDeclaration(...globalPropertyValues);
+export const globalNonePropertyValue = new TypeDeclaration(...globalNonePropertyValues);
 
 export const string = new PrimitiveType('string');
 
@@ -60,6 +64,15 @@ export const containerDimension = new TypeDeclaration(
 	exportDimension('cqmin'),
 	exportDimension('cqmax')
 );
+
+// resolution dimensions
+export const resolutionDimension = new TypeDeclaration(
+	exportDimension('dpi'),
+	exportDimension('dpcm'),
+	exportDimension('dppx')
+);
+
+export const resolution = new TypeDeclaration(resolutionDimension);
 
 // absolute lengths
 // we have omitted Q (who even ever heard about let alone used this?)

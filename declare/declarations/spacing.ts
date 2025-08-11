@@ -1,29 +1,56 @@
-import { Ident } from "../ident";
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { length } from "./primitives";
 import { TypeDeclaration } from "../builders/type";
+import { Ident } from "../ident";
 
-export const spacingLength = new TypeDeclaration('auto', length);
+export const autoLength = new TypeDeclaration('auto', length);
 
-const exportSpacingSide = (type: string, side: string) => module.exports[`${type}${Ident.fromCamelCase(side).toClassCamelCase()}`] = new PropertyTypeDeclaration({
-	length: spacingLength.single()
-}, '${this.length}');
+const exportSpacingAround = (name: string, type: TypeDeclaration) => module.exports[name] = new PropertyTypeDeclaration({
+	top: type.single(),
+	right: type.single(),
+	bottom: type.single(),
+	left: type.single()
+}, '${this.top} ${this.right} ${this.bottom} ${this.left}')
+	.addShorthandInitializer({
+		block: ['top', 'bottom'],
+		inline: ['left', 'right']
+	}, '${this.block} ${this.inline}')
+	.addShorthandInitializer({
+		length: ['block', 'inline']
+	}, '${this.length}')
+	.allowNone();
 
-const exportSpacingInline = (type: string) => module.exports[`${type}Inline`] = new ShorthandDeclaration([
-	exportSpacingSide(type, 'left'),
-	exportSpacingSide(type, 'right')
-]);
+const exportSpacingBlock = (name: string, type: TypeDeclaration) => module.exports[`${name}Block`] = new PropertyTypeDeclaration({
+	top: type.single(),
+	bottom: type.single()
+}, '${this.top} ${this.bottom}')
+	.addShorthandInitializer({
+		block: ['top', 'bottom']
+	}, '${this.block}')
+	.allowNone();
 
-const exportSpacingBlock = (type: string) => module.exports[`${type}Block`] = new ShorthandDeclaration([
-	exportSpacingSide(type, 'top'),
-	exportSpacingSide(type, 'bottom')
-]);
+const exportSpacingInline = (name: string, type: TypeDeclaration) => module.exports[`${name}Inline`] = new PropertyTypeDeclaration({
+	left: type.single(),
+	right: type.single()
+}, '${this.left} ${this.right}')
+	.addShorthandInitializer({
+		inline: ['left', 'right']
+	}, '${this.inline}')
+	.allowNone();
 
-const exportSpacing = (type: string) => module.exports[type] = new ShorthandDeclaration([
-	exportSpacingInline(type),
-	exportSpacingBlock(type)
-]);
+const exportSpacingSide = (name: string, type: TypeDeclaration, side: string) => module.exports[`${name}${Ident.fromCamelCase(side).toClassCamelCase()}`] = new PropertyTypeDeclaration({
+	[side]: type.single()
+}, `$\{this.${side}}`).allowNone();
 
-exportSpacing('margin');
-exportSpacing('padding');
+const exportSpacing = (name: string, type: TypeDeclaration) => {
+	exportSpacingAround(name, type);
+	exportSpacingBlock(name, type);
+	exportSpacingInline(name, type);
+	exportSpacingSide(name, type, 'top');
+	exportSpacingSide(name, type, 'right');
+	exportSpacingSide(name, type, 'bottom');
+	exportSpacingSide(name, type, 'left');
+}
+
+exportSpacing('margin', autoLength);
+exportSpacing('padding', length);

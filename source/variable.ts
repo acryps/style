@@ -31,7 +31,7 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 
 	/**
 	 * Creates a copy of the variable with a value set
-	 * 
+	 *
 	 * Use this to insert a value into an element
 	 * ```<ui-test style={someColorVariable.provide(item.color)}> ... </ui-test>```
 	 */
@@ -41,7 +41,7 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 
 	/**
 	 * Update the variables value
-	 * 
+	 *
 	 * This will apply the new value to DOM contexts if available
 	 */
 	update(value: T) {
@@ -49,13 +49,15 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 
 		try {
 			for (let user of this.users) {
-				style(user, new Variable<T>(this.name, this.value)).apply();
+				style(user) (
+					new Variable<T>(this.name, this.value)
+				).apply();
 			}
 		} catch {}
 	}
 
 	toValueString() {
-		return this.value ?? 'none';
+		return `${this.value ?? 'none'}`;
 	}
 
 	// to string is invoked when the variable is used by a property, unit or method as a value

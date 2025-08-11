@@ -1,5 +1,4 @@
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { integer, length } from "./primitives";
 
@@ -27,7 +26,9 @@ export const textDecorationLine = new PropertyTypeDeclaration({
 	modes: textDecorationLineMode.spread()
 }, "${this.modes.join(' ')}");
 
-export const textDecoration = new ShorthandDeclaration([textDecorationLine]);
+export const textDecoration = new PropertyTypeDeclaration({
+	modes: textDecorationLineMode.spread()
+}, "${this.modes.join(' ')}");
 
 export const tabSizeLength = new TypeDeclaration(length, integer);
 

@@ -1,5 +1,4 @@
 import { PropertyTypeDeclaration } from "../builders/property";
-import { ShorthandDeclaration } from "../builders/shorthand";
 import { TypeDeclaration } from "../builders/type";
 import { integer, string } from "./primitives";
 import { duration, easingFunction } from "./time";
