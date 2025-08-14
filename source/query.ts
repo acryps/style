@@ -275,6 +275,7 @@ export const muted = () => {
 }
 
 export function not(query: MediaQueryable): NotMediaQuery;
+export function not(selector: Selector[], ...selectorsList: Selector[][]): (...items: StyleSelectorBody[]) => StyleGroup;
 export function not(item: Selector[] | MediaQueryable, ...selectorsList: Selector[][]) {
 	if (Array.isArray(item)) {
 		return style(`:not(${[item, ...selectorsList].map(selectors => stringifySelectors(selectors)).join(', ')})`);
