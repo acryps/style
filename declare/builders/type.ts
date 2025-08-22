@@ -22,8 +22,8 @@ export class TypeDeclaration implements Declaration {
 	spread() {
 		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
-			`(${this.name.toClassCamelCase()})[]`,
-			`...${propertyName}: (${this.name.toClassCamelCase()})[]`,
+			`${this.name.toClassCamelCase()}[]`,
+			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
 			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`,
 
 			`${propertyName}: ${this.name.toClassCamelCase()}[]`,
@@ -34,8 +34,8 @@ export class TypeDeclaration implements Declaration {
 	spreadArray() {
 		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
-			`(${this.name.toClassCamelCase()})[][]`,
-			`...${propertyName}: (${this.name.toClassCamelCase()})[][]`,
+			`${this.name.toClassCamelCase()}[][]`,
+			`...${propertyName}: ${this.name.toClassCamelCase()}[][]`,
 			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`,
 
 			`${propertyName}: (${this.name.toClassCamelCase()})[][]`,

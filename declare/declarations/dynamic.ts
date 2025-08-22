@@ -119,7 +119,7 @@ exportGridArea('column', 'start');
 exportGridArea('row', 'end');
 exportGridArea('column', 'end');
 
-export const girdArea = new PropertyTypeDeclaration({
+export const gridArea = new PropertyTypeDeclaration({
 	rowStart: gridAreaSelector.single(),
 	columnStart: gridAreaSelector.single(),
 	rowEnd: gridAreaSelector.single(),
