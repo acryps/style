@@ -293,11 +293,11 @@ export const nthLastChild = (pattern: NTHPattern, ...selectors: Selector[]) => {
 }
 
 export const nthLastOfType = (pattern: NTHPattern) => {
-	return style(`:nth-last-of-type(${stringifyNTHPattern(pattern, null)})`);
+	return style(`:nth-last-of-type(${stringifyNTHPattern(pattern)})`);
 }
 
 export const nthOfType = (pattern: NTHPattern) => {
-	return style(`:nth-of-type(${stringifyNTHPattern(pattern, null)})`);
+	return style(`:nth-of-type(${stringifyNTHPattern(pattern)})`);
 }
 
 export const onlyChild = () => {
