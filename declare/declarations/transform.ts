@@ -217,6 +217,12 @@ export const transform = new PropertyTypeDeclaration(
 	"${this.type.join(' ')}"
 );
 
+export const transformBoxType = new TypeDeclaration('content-box', 'border-box', 'fill-box', 'stroke-box', 'view-box');
+
+export const transformBox = new PropertyTypeDeclaration({
+	mode: transformBoxType.single()
+}, "${this.mode}");
+
 export const xOffsetKeywords = new TypeDeclaration('center', 'left', 'right', length, percentage);
 export const yOffsetKeywords = new TypeDeclaration('center', 'top', 'bottom', length, percentage);
 export const zOffsetKeywords = new TypeDeclaration(length, percentage);
@@ -228,3 +234,9 @@ export const transformOrigin = new PropertyTypeDeclaration({
 },
 	"${this.xOffset} ${this.yOffset} ${this.zOffset ? `${this.zOffset}` : ''}"
 );
+
+export const transformStyleType = new TypeDeclaration('flat', 'preserve-3d');
+
+export const transformStyle = new PropertyTypeDeclaration({
+	style: transformStyleType.single()
+}, "${this.style}");
