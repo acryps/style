@@ -4,6 +4,7 @@ import { colorValue } from "./color";
 import { imageSource, length, percentage } from "./primitives";
 import { gradient } from "./gradient";
 import { MethodDeclaration } from "../builders/method";
+import { blendMode } from "./composite";
 
 export const backgroundImageSource = new TypeDeclaration(imageSource, gradient);
 
@@ -31,7 +32,7 @@ export const backgroundRepeatType = new TypeDeclaration('repeat-x', 'repeat-y', 
 
 export const backgroundRepeat = new PropertyTypeDeclaration({
 	type: backgroundRepeatType.spread()
-}, "${this.type.join(' ')}");
+}, "${this.type.join(', ')}");
 
 export const backgroundPositionDirectionalOffsetLength = new TypeDeclaration(length, percentage);
 
@@ -66,3 +67,17 @@ export const backgroundAttachmentType = new TypeDeclaration('scroll', 'fixed', '
 export const backgroundAttachment = new PropertyTypeDeclaration({
 	type: backgroundAttachmentType.spread()
 }, "${this.type.join(', ')}");
+
+export const backgroundBlendMode = new PropertyTypeDeclaration({
+	mode: blendMode.spread()
+}, "${this.mode.join(', ')}");
+
+export const visualBox = new TypeDeclaration('content-box', 'padding-box', 'border-box');
+
+export const backgroundClip = new PropertyTypeDeclaration({
+	clip: visualBox.spread()
+}, "${this.clip.join(', ')}");
+
+export const backgroundOrigin = new PropertyTypeDeclaration({
+	origin: visualBox.spread()
+}, "${this.origin.join(', ')}");
