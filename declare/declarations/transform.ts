@@ -240,3 +240,9 @@ export const transformStyleType = new TypeDeclaration('flat', 'preserve-3d');
 export const transformStyle = new PropertyTypeDeclaration({
 	style: transformStyleType.single()
 }, "${this.style}");
+
+export const backfaceVisibilityType = new TypeDeclaration('visible', 'hidden');
+
+export const backfaceVisibility = new PropertyTypeDeclaration({
+	mode: backfaceVisibilityType.single()
+}, "${this.mode}");
