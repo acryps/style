@@ -66,7 +66,7 @@ export const matrix3d = new MethodDeclaration({
 
 export const perspectiveDimensionLength = new TypeDeclaration(length, 'none');
 
-export const perspective = new MethodDeclaration({
+export const perspectiveTransform = new MethodDeclaration({
 	length: perspectiveDimensionLength.single()
 }, `
 	this.length = length;
@@ -208,7 +208,7 @@ export const translateZ = new MethodDeclaration({
 	this.translationZ = translationZ;
 `, 'translateZ(${this.translationZ})');
 
-export const transformType = new TypeDeclaration(matrix, matrix3d, perspective, rotate, rotate3d, rotateX, rotateY, rotateZ, translate, translate3d, translateX, translateY, translateZ, scale, scale3d, scaleX, scaleY, scaleZ, skew, skewX, skewY);
+export const transformType = new TypeDeclaration(matrix, matrix3d, perspectiveTransform, rotate, rotate3d, rotateX, rotateY, rotateZ, translate, translate3d, translateX, translateY, translateZ, scale, scale3d, scaleX, scaleY, scaleZ, skew, skewX, skewY);
 
 export const transform = new PropertyTypeDeclaration(
 	{
@@ -216,6 +216,12 @@ export const transform = new PropertyTypeDeclaration(
 	},
 	"${this.type.join(' ')}"
 );
+
+export const transformBoxType = new TypeDeclaration('content-box', 'border-box', 'fill-box', 'stroke-box', 'view-box');
+
+export const transformBox = new PropertyTypeDeclaration({
+	mode: transformBoxType.single()
+}, "${this.mode}");
 
 export const xOffsetKeywords = new TypeDeclaration('center', 'left', 'right', length, percentage);
 export const yOffsetKeywords = new TypeDeclaration('center', 'top', 'bottom', length, percentage);
@@ -228,3 +234,28 @@ export const transformOrigin = new PropertyTypeDeclaration({
 },
 	"${this.xOffset} ${this.yOffset} ${this.zOffset ? `${this.zOffset}` : ''}"
 );
+
+export const transformStyleType = new TypeDeclaration('flat', 'preserve-3d');
+
+export const transformStyle = new PropertyTypeDeclaration({
+	style: transformStyleType.single()
+}, "${this.style}");
+
+export const backfaceVisibilityType = new TypeDeclaration('visible', 'hidden');
+
+export const backfaceVisibility = new PropertyTypeDeclaration({
+	mode: backfaceVisibilityType.single()
+}, "${this.mode}");
+
+export const perspective = new PropertyTypeDeclaration({
+	length: perspectiveDimensionLength.single()
+}, "${this.length}").allowNone();
+
+export const perspectiveOriginType = new TypeDeclaration(length, 'center');
+export const perspectiveOriginXType = new TypeDeclaration(perspectiveOriginType, 'left', 'right');
+export const perspectiveOriginYType = new TypeDeclaration(perspectiveOriginType, 'top', 'bottom');
+
+export const perspectiveOrigin = new PropertyTypeDeclaration({
+	xPosition: perspectiveOriginXType.single(),
+	yPosition: perspectiveOriginYType.optional()
+}, "${this.xPosition}${this.yPosition == null ? '' : ` ${this.yPosition}`}");

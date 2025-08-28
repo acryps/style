@@ -40,7 +40,7 @@ export const gap = new PropertyTypeDeclaration({
 		length: ['column', 'row']
 	}, '${this.length}');
 
-// flex spacific
+// flex specific
 const exportFlexSizing = operation => module.exports[`flex${Ident.fromCamelCase(operation).toClassCamelCase()}`] = new PropertyTypeDeclaration({
 	order: integer.single()
 }, '${this.order}');
@@ -50,6 +50,12 @@ exportFlexSizing('shrink');
 
 export const flexBasisMode = new TypeDeclaration(length, 'auto', 'max-content', 'min-content', 'fit-content', 'content');
 export const flexBasis = PropertyTypeDeclaration.fromMode(flexBasisMode);
+
+export const flex = new PropertyTypeDeclaration({
+	grow: integer.single(),
+	shrink: integer.optional(),
+	flexBasis: flexBasisMode.optional()
+}, "${this.grow}${this.shrink == null ? '' : ` ${this.shrink}`}${this.flexBasis == null ? '' : ` ${this.flexBasis}`}");
 
 export const flexDirectionMode = new TypeDeclaration('row', 'row-reverse', 'column', 'column-reverse');
 export const flexDirection = PropertyTypeDeclaration.fromMode(flexDirectionMode);
