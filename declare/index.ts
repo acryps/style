@@ -171,10 +171,75 @@ for (let sourcePath in sources) {
 					arguments: constructorArguments
 				});
 
-				// global style property class
 				const globalClassName = ident.toPropertyGlobalClassName();
 				const globalValueType = declaration.noneAllowed ? 'GlobalNonePropertyValue' : 'GlobalPropertyValue';
 
+				// helper functions
+				// before class to make the functions appear before the classes in autocomplete
+				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
+
+				for (const stylePropertyClass of stylePropertyClasses) {
+					const initializingParameters = [];
+					const variants = [];
+
+					for (let parameterIndex = 0; parameterIndex < stylePropertyClass.arguments.length; parameterIndex++) {
+						const parameter = stylePropertyClass.arguments[parameterIndex];
+
+						// has default value
+						if (parameter.includes('=')) {
+							variants.push([...initializingParameters]);
+							initializingParameters.push(parameter.split('=')[0].trim());
+						} else {
+							initializingParameters.push(parameter);
+						}
+					}
+
+					variants.push(initializingParameters);
+
+					for (let variant of variants) {
+						writer.write(`export function ${ident.toCommandName()}(${variant.join(', ')}): ${stylePropertyClass.className};\n`);
+					}
+				}
+
+				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
+
+				// global helper function
+				writer.write(`\tif (parameters.length == 1) {\n`);
+				writer.write(`\t\tconst value = (parameters[0] instanceof Variable || parameters[0] instanceof Calculation) ? parameters[0].toValueString() : parameters[0];\n\n`);
+				writer.write(`\t\tif ([${(declaration.noneAllowed ? globalNonePropertyValues : globalPropertyValues).map(value => `'${value}'`).join(', ')}].includes(value)) {\n`);
+				writer.write(`\t\t\treturn new ${globalClassName}(parameters[0]);\n`);
+				writer.write(`\t\t}\n`);
+				writer.write(`\t}\n\n`);
+
+				if (stylePropertyClasses.length == 1) {
+					const initializerArguments = stylePropertyClasses[0].arguments.map((argument, index) => {
+						if (argument.startsWith('...')) {
+							if (index == 0) {
+								return `...parameters`;
+							}
+
+							return `...parameters.slice(${index})`;
+						}
+
+						return `parameters[${index}]`;
+					});
+
+					writer.write(`\treturn new ${propertyClassName}(${initializerArguments.join(', ')});\n`);
+				} else {
+					writer.write(`\tswitch (parameters.length) {\n`);
+
+					for (const stylePropertyClass of stylePropertyClasses) {
+						writer.write(`\t\tcase ${stylePropertyClass.arguments.length}: return new ${stylePropertyClass.className}(${stylePropertyClass.arguments.map((_, index) => `parameters[${index}]`).join(', ')}); break;\n`);
+					}
+
+					writer.write(`\t}\n\n`);
+
+					writer.write(`\tthrow new Error('Invalid number of arguments to ${ident.toCommandName()}');\n`);
+				}
+
+				writer.write(`}\n\n`);
+
+				// global style property class
 				writer.write(`export class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
 				writer.write(`\tstatic properties = ['value'];\n\n`);
 
@@ -274,51 +339,6 @@ for (let sourcePath in sources) {
 
 					writer.write('}\n\n');
 				}
-
-				// helper functions
-				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
-
-				for (const stylePropertyClass of stylePropertyClasses) {
-					writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${stylePropertyClass.className}>): ${stylePropertyClass.className};\n`);
-				}
-
-				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
-
-				// global helper function
-				writer.write(`\tif (parameters.length == 1) {\n`);
-				writer.write(`\t\tconst value = (parameters[0] instanceof Variable || parameters[0] instanceof Calculation) ? parameters[0].toValueString() : parameters[0];\n\n`);
-				writer.write(`\t\tif ([${(declaration.noneAllowed ? globalNonePropertyValues : globalPropertyValues).map(value => `'${value}'`).join(', ')}].includes(value)) {\n`);
-				writer.write(`\t\t\treturn new ${globalClassName}(parameters[0]);\n`);
-				writer.write(`\t\t}\n`);
-				writer.write(`\t}\n\n`);
-
-				if (stylePropertyClasses.length == 1) {
-					const initializerArguments = stylePropertyClasses[0].arguments.map((argument, index) => {
-						if (argument.startsWith('...')) {
-							if (index == 0) {
-								return `...parameters`;
-							}
-
-							return `...parameters.slice(${index})`;
-						}
-
-						return `parameters[${index}]`;
-					});
-
-					writer.write(`\treturn new ${propertyClassName}(${initializerArguments.join(', ')});\n`);
-				} else {
-					writer.write(`\tswitch (parameters.length) {\n`);
-
-					for (const stylePropertyClass of stylePropertyClasses) {
-						writer.write(`\t\tcase ${stylePropertyClass.arguments.length}: return new ${stylePropertyClass.className}(${stylePropertyClass.arguments.map((_, index) => `parameters[${index}]`).join(', ')}); break;\n`);
-					}
-
-					writer.write(`\t}\n\n`);
-
-					writer.write(`\tthrow new Error('Invalid number of arguments to ${ident.toCommandName()}');\n`);
-				}
-
-				writer.write(`}\n\n`);
 			}
 		}
 
