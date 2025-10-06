@@ -199,6 +199,8 @@ for (let sourcePath in sources) {
 					for (let variant of variants) {
 						writer.write(`/** @recommended */ export function ${ident.toCommandName()}(${variant.join(', ')}): ${stylePropertyClass.className};\n`);
 					}
+
+					writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${stylePropertyClass.className}>): ${stylePropertyClass.className};\n`);
 				}
 
 				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
