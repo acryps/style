@@ -197,7 +197,7 @@ for (let sourcePath in sources) {
 					variants.push(initializingParameters);
 
 					for (let variant of variants) {
-						writer.write(`export function ${ident.toCommandName()}(${variant.join(', ')}): ${stylePropertyClass.className};\n`);
+						writer.write(`/** @recommended */ export function ${ident.toCommandName()}(${variant.join(', ')}): ${stylePropertyClass.className};\n`);
 					}
 				}
 
