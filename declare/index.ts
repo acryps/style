@@ -28,6 +28,12 @@ for (let sourcePath of readdirSync(sourceBase)) {
 	}
 }
 
+// collect all exported classes
+// style functions (`display`) are exported directly
+// order of exports matters
+const preferredRootExports = [];
+const extendedRootExports = [];
+
 for (let sourcePath in sources) {
 	if (sourcePath.endsWith('.js')) {
 		const declarations = sources[sourcePath];
@@ -46,6 +52,11 @@ for (let sourcePath in sources) {
 		}
 
 		writer.write('\n');
+
+		// collect all exported members
+		// all class exports are exported collectively at the end of the file
+		const preferredExports = [];
+		const extendedExports = [];
 
 		// import all types
 		const imports = [];
@@ -91,7 +102,8 @@ for (let sourcePath in sources) {
 			writer.write(`// ${ident.toSpaced()}\n`);
 
 			if (declaration instanceof MethodDeclaration) {
-				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
+				writer.write(`class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
+				extendedExports.push(declaration.name.toClassCamelCase());
 
 				if (declaration.isCalculable) {
 					writer.write(` implements Calculable<${declaration.name.toClassCamelCase()}>`);
@@ -119,7 +131,6 @@ for (let sourcePath in sources) {
 				writer.write('\t) {\n\t');
 				writer.write('\tsuper();\n\n');
 
-
 				writer.write(declaration.creator.trim().split('\n').map(line => `\t${line}`).join('\n'));
 
 				writer.write('\n\t}\n\n');
@@ -143,8 +154,10 @@ for (let sourcePath in sources) {
 				writer.write(`}\n\n`);
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
+				preferredExports.push(declaration.name.toCamelCase());
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}> | Calculation<Partial<${ident.toClassCamelCase()}>>;\n\n`);
+				writer.write(`type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}> | Calculation<Partial<${ident.toClassCamelCase()}>>;\n\n`);
+				extendedExports.push(ident.toClassCamelCase());
 
 				if (declaration.defaultNumberConverterDeclaration) {
 					defaultNumberConverters.push(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};`);
@@ -174,9 +187,118 @@ for (let sourcePath in sources) {
 				const globalClassName = ident.toPropertyGlobalClassName();
 				const globalValueType = declaration.noneAllowed ? 'GlobalNonePropertyValue' : 'GlobalPropertyValue';
 
+				// global style property class
+				writer.write(`class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+				extendedExports.push(globalClassName);
+
+				writer.write(`\tstatic properties = ['value'];\n\n`);
+
+				writer.write(`\tpublic value: ${globalValueType};\n`);
+				writer.write('\n');
+
+				writer.write('\tconstructor(\n');
+				writer.write(`\t\tvalue: ${globalValueType}\n`);
+				writer.write('\t) {\n');
+				writer.write(`\t\tsuper('${ident.toDashed()}');\n\n`);
+				writer.write(`\t\tthis.value = value;\n`);
+				writer.write('\t}\n\n');
+
+				writer.write('\ttoValueString() {\n');
+				writer.write(`\t\treturn \`$\{this.value}\`;\n`);
+				writer.write('\t}\n');
+
+				writer.write('}\n\n');
+
+				// base style class
+				writer.write(`class ${propertyClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+				extendedExports.push(propertyClassName);
+
+				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
+
+				for (const property in declaration.initializer) {
+					writer.write(`\tpublic ${property}: ${declaration.initializer[property](property).type};\n`);
+				}
+
+				writer.write('\n');
+
+				writer.write('\tconstructor(\n');
+				writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
+				writer.write('\t) {\n');
+				writer.write(`\t\tsuper('${ident.toDashed()}');\n\n`);
+
+				for (const property in declaration.initializer) {
+					writer.write(`\t\tthis.${property} = ${property};\n`);
+				}
+
+				writer.write('\t}\n\n');
+
+				writer.write('\ttoValueString() {\n');
+				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
+				writer.write('\t}\n');
+
+				writer.write('}\n\n');
+
+				// shorthand style classes
+				for (const shorthandInitializer of declaration.shorthandInitializers) {
+					const shorthandClassName = ident.toPropertyShorthandClassName(
+						Object.keys(shorthandInitializer.initializer).map(property => Ident.fromCamelCase(property))
+					);
+
+					const constructorArguments = [];
+					const superArguments = [];
+
+					const mappedProperties = Object.values(shorthandInitializer.initializer).flat();
+					const inheritanceClass = stylePropertyClasses.find(styleClass => mappedProperties.every(property => styleClass.arguments.find(argument => argument.split(':')[0].endsWith(property))));
+
+					for (const property in shorthandInitializer.initializer) {
+						const argument = inheritanceClass.arguments.find(argument => argument.split(':')[0].endsWith(shorthandInitializer.initializer[property][0]));
+						constructorArguments.push(`${property}:${argument.split(':')[1]}`);
+					}
+
+					for (const argument of inheritanceClass.arguments) {
+						const argumentName = argument.split(':')[0];
+
+						for (const property in shorthandInitializer.initializer) {
+							if (shorthandInitializer.initializer[property].includes(argumentName)) {
+								superArguments.push(property);
+								break;
+							}
+						}
+					}
+
+					stylePropertyClasses.push({
+						className: shorthandClassName,
+						arguments: constructorArguments
+					});
+
+					writer.write(`class ${shorthandClassName} extends ${inheritanceClass.className} {\n`);
+					extendedExports.push(shorthandClassName);
+
+					writer.write(`\tstatic properties = [${Object.keys(shorthandInitializer.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
+
+					writer.write(constructorArguments.map(argument => `\tpublic ${argument};`).join('\n'));
+					writer.write('\n\n');
+
+					writer.write('\tconstructor(\n');
+
+					writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
+
+					writer.write('\t) {\n');
+					writer.write(`\t\tsuper(${superArguments.join(', ')});\n\n`);
+					writer.write(`\t\t${constructorArguments.map(argument => `this.${argument.split(':')[0]} = ${argument.split(':')[0]};`).join('\n\t\t')}\n`);
+					writer.write('\t}\n\n');
+
+					writer.write('\ttoValueString() {\n');
+					writer.write(`\t\treturn \`${shorthandInitializer.valueConverter}\`;\n`);
+					writer.write('\t}\n');
+
+					writer.write('}\n\n');
+				}
+
 				// helper functions
-				// before class to make the functions appear before the classes in autocomplete
+				// exported directly before class to make the functions appear before the classes in autocomplete
 				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
+				preferredExports.push(ident.toCommandName());
 
 				for (const stylePropertyClass of stylePropertyClasses) {
 					const initializingParameters = [];
@@ -199,13 +321,9 @@ for (let sourcePath in sources) {
 					for (let variant of variants) {
 						writer.write(`/** @recommended */ export function ${ident.toCommandName()}(${variant.join(', ')}): ${stylePropertyClass.className};\n`);
 					}
-
-					writer.write(`export function ${ident.toCommandName()}(...parameters: ConstructorParameters<typeof ${stylePropertyClass.className}>): ${stylePropertyClass.className};\n`);
 				}
 
 				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
-
-				// global helper function
 				writer.write(`\tif (parameters.length == 1) {\n`);
 				writer.write(`\t\tconst value = (parameters[0] instanceof Variable || parameters[0] instanceof Calculation) ? parameters[0].toValueString() : parameters[0];\n\n`);
 				writer.write(`\t\tif ([${(declaration.noneAllowed ? globalNonePropertyValues : globalPropertyValues).map(value => `'${value}'`).join(', ')}].includes(value)) {\n`);
@@ -240,107 +358,6 @@ for (let sourcePath in sources) {
 				}
 
 				writer.write(`}\n\n`);
-
-				// global style property class
-				writer.write(`export class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
-				writer.write(`\tstatic properties = ['value'];\n\n`);
-
-				writer.write(`\tpublic value: ${globalValueType};\n`);
-				writer.write('\n');
-
-				writer.write('\tconstructor(\n');
-				writer.write(`\t\tvalue: ${globalValueType}\n`);
-				writer.write('\t) {\n');
-				writer.write(`\t\tsuper('${ident.toDashed()}');\n\n`);
-				writer.write(`\t\tthis.value = value;\n`);
-				writer.write('\t}\n\n');
-
-				writer.write('\ttoValueString() {\n');
-				writer.write(`\t\treturn \`$\{this.value}\`;\n`);
-				writer.write('\t}\n');
-
-				writer.write('}\n\n');
-
-				// base style class
-				writer.write(`export class ${propertyClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
-				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
-
-				for (const property in declaration.initializer) {
-					writer.write(`\tpublic ${property}: ${declaration.initializer[property](property).type};\n`);
-				}
-
-				writer.write('\n');
-
-				writer.write('\tconstructor(\n');
-				writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
-				writer.write('\t) {\n');
-				writer.write(`\t\tsuper('${ident.toDashed()}');\n\n`);
-
-				for (const property in declaration.initializer) {
-					writer.write(`\t\tthis.${property} = ${property};\n`);
-				}
-
-				writer.write('\t}\n\n');
-
-				writer.write('\ttoValueString() {\n');
-				writer.write(`\t\treturn \`${declaration.valueConverter}\`;\n`);
-				writer.write('\t}\n');
-
-				writer.write('}\n\n');
-
-				// shorthand style classes
-				for (const shorthandInitializer of declaration.shorthandInitializers) {
-					const shorthandClassName = ident.toPropertyShorthandClassName(
-						Object.keys(shorthandInitializer.initializer).map(property => Ident.fromCamelCase(property))
-					);
-					const constructorArguments = [];
-					const superArguments = [];
-
-					const mappedProperties = Object.values(shorthandInitializer.initializer).flat();
-					const inheritanceClass = stylePropertyClasses.find(styleClass => mappedProperties.every(property => styleClass.arguments.find(argument => argument.split(':')[0].endsWith(property))));
-
-					for (const property in shorthandInitializer.initializer) {
-						const argument = inheritanceClass.arguments.find(argument => argument.split(':')[0].endsWith(shorthandInitializer.initializer[property][0]));
-						constructorArguments.push(`${property}:${argument.split(':')[1]}`);
-					}
-
-					for (const argument of inheritanceClass.arguments) {
-						const argumentName = argument.split(':')[0];
-
-						for (const property in shorthandInitializer.initializer) {
-							if (shorthandInitializer.initializer[property].includes(argumentName)) {
-								superArguments.push(property);
-								break;
-							}
-						}
-					}
-
-					stylePropertyClasses.push({
-						className: shorthandClassName,
-						arguments: constructorArguments
-					});
-
-					writer.write(`export class ${shorthandClassName} extends ${inheritanceClass.className} {\n`);
-					writer.write(`\tstatic properties = [${Object.keys(shorthandInitializer.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
-
-					writer.write(constructorArguments.map(argument => `\tpublic ${argument};`).join('\n'));
-					writer.write('\n\n');
-
-					writer.write('\tconstructor(\n');
-
-					writer.write(`\t\t${constructorArguments.join(',\n\t\t')}\n`);
-
-					writer.write('\t) {\n');
-					writer.write(`\t\tsuper(${superArguments.join(', ')});\n\n`);
-					writer.write(`\t\t${constructorArguments.map(argument => `this.${argument.split(':')[0]} = ${argument.split(':')[0]};`).join('\n\t\t')}\n`);
-					writer.write('\t}\n\n');
-
-					writer.write('\ttoValueString() {\n');
-					writer.write(`\t\treturn \`${shorthandInitializer.valueConverter}\`;\n`);
-					writer.write('\t}\n');
-
-					writer.write('}\n\n');
-				}
 			}
 		}
 
@@ -348,14 +365,26 @@ for (let sourcePath in sources) {
 		// insert at the bottom
 		writer.write(defaultNumberConverters.join('\n'));
 
+		// export all classes
+		writer.write(`\n\nexport {\n${extendedExports.map(name => `\t${name}`).join(',\n')}\n};`);
+
+		preferredRootExports.push(`export { ${preferredExports.join(', ')} } from './${sourcePath.replace('.js', '')}';`);
+		extendedRootExports.push(`export { ${extendedExports.join(', ')} } from './${sourcePath.replace('.js', '')}';`);
+
 		writer.close();
 	}
 }
 
 const indexWriter = createWriteStream(join(drainBase, 'index.ts'));
 
-for (let sourcePath in sources) {
-	indexWriter.write(`export * from './${sourcePath.replace('.js', '')}';\n`);
+for (let source of preferredRootExports) {
+	indexWriter.write(`${source}\n`);
+}
+
+indexWriter.write(`\n`);
+
+for (let source of extendedRootExports) {
+	indexWriter.write(`${source}\n`);
 }
 
 indexWriter.end();
