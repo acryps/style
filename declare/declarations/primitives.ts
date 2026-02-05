@@ -8,6 +8,7 @@ export const globalPropertyValue = new TypeDeclaration(...globalPropertyValues);
 export const globalNonePropertyValue = new TypeDeclaration(...globalNonePropertyValues);
 
 export const string = new PrimitiveType('string');
+export const customIdentifier = new PrimitiveType('`--${string}`');
 
 export const url = new MethodDeclaration({
 	source: string.single()

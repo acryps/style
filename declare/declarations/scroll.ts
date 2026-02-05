@@ -1,6 +1,8 @@
 import { PropertyTypeDeclaration } from "../builders/property";
 import { TypeDeclaration } from "../builders/type";
 import { colorValue } from "./color";
+import { containerIdent } from "./container";
+import { customIdentifier, string } from "./primitives";
 
 export const scrollSnapAxis = new TypeDeclaration('none', 'x', 'y', 'block', 'inline', 'both');
 export const scrollSnapForceMode = new TypeDeclaration('mandatory', 'proximity');
@@ -44,3 +46,20 @@ export const scrollbarColor = new PropertyTypeDeclaration({
 	thumb: colorValue.single(),
 	track: colorValue.optional()
 }, "${this.thumb}${this.track ? ` ${this.track}` : ''}");
+
+export const scrollTimelineIdentifier = new TypeDeclaration(customIdentifier);
+export const scrollTimelineAxisMode = new TypeDeclaration('x', 'y', 'block', 'inline');
+
+export const scrollTimelineName = new PropertyTypeDeclaration({
+	name: scrollTimelineIdentifier.single()
+}, "${this.name}")
+	.allowNone();
+
+export const scrollTimelineAxis = new PropertyTypeDeclaration({
+	mode: scrollTimelineAxisMode.single()
+}, "${this.mode}");
+
+export const scrollTimeline = new PropertyTypeDeclaration({
+	name: scrollTimelineIdentifier.single(),
+	mode: scrollTimelineAxisMode.optional()
+}, "${this.name}${this.mode ? ` ${this.mode}` : ''}");

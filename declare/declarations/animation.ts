@@ -1,6 +1,7 @@
 import { PropertyTypeDeclaration } from "../builders/property";
 import { TypeDeclaration } from "../builders/type";
 import { integer, string } from "./primitives";
+import { scrollTimelineIdentifier } from "./scroll";
 import { duration, easingFunction } from "./time";
 
 export const animationDelay = new PropertyTypeDeclaration({
@@ -41,3 +42,7 @@ export const animationPlayStateMode = new TypeDeclaration('running', 'paused');
 export const animationPlayState = new PropertyTypeDeclaration({
 	mode: animationPlayStateMode.spread()
 }, '${this.mode.join()}');
+
+export const animationTimeline = new PropertyTypeDeclaration({
+	timeline: scrollTimelineIdentifier.single()
+}, "${this.timeline}");
