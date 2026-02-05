@@ -39,4 +39,4 @@ export const env = new MethodDeclaration({
 }, `
 	this.name = name;
 	this.fallback = fallback;
-`, "env(${this.name}, ${this.fallback.join(',')})");
+`, "env(${this.name}${this.fallback.map(value => `,${value}`).join('')})");
