@@ -2,6 +2,7 @@ import { globalNonePropertyValues, globalPropertyValues } from "../builders";
 import { MethodDeclaration } from "../builders/method";
 import { PrimitiveType } from "../builders/type";
 import { TypeDeclaration } from "../builders/type";
+import { env } from "./environment";
 
 export const globalPropertyValue = new TypeDeclaration(...globalPropertyValues);
 export const globalNonePropertyValue = new TypeDeclaration(...globalNonePropertyValues);
@@ -87,7 +88,7 @@ export const absoluteLengthDimension = new TypeDeclaration(
 	exportDimension('pt')
 );
 
-export const staticLength = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension, percentage).defaultNumberConverter(rem);
+export const staticLength = new TypeDeclaration(0, fontDimension, viewportDimension, containerDimension, absoluteLengthDimension, percentage, env).defaultNumberConverter(rem);
 
 export const min = new MethodDeclaration({
 	values: staticLength.spread()

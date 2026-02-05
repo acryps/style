@@ -1,11 +1,13 @@
 import { PropertyInitializer } from "./index";
 import { TypeDeclaration } from "./type";
 
+type MethodParameters = Record<string, (propertyName: string) => PropertyInitializer>;
+
 export class MethodDeclaration extends TypeDeclaration {
 	isCalculable = false;
 
 	constructor(
-		public parameters: Record<string, (propertyName: string) => PropertyInitializer>,
+		private parameters: MethodParameters | (() => MethodParameters),
 		public creator: string,
 		public valueConverter: string
 	) {
@@ -24,7 +26,15 @@ export class MethodDeclaration extends TypeDeclaration {
 		return this;
 	}
 
+	resolveParameters(): MethodParameters {
+		if (typeof this.parameters == 'function') {
+			return this.parameters();
+		}
+
+		return this.parameters;
+	}
+
 	requirements() {
-		return Object.values(this.parameters).map(parameter => parameter(parameter.name).source);
+		return Object.values(this.resolveParameters()).map(parameter => parameter(parameter.name).source);
 	}
 }

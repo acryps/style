@@ -114,8 +114,10 @@ for (let sourcePath in sources) {
 				const constructorArguments = [];
 				const passArguments = [];
 
-				for (let property in declaration.parameters) {
-					const initializer = declaration.parameters[property](property);
+				const parameters = declaration.resolveParameters();
+
+				for (let property in parameters) {
+					const initializer = parameters[property](property);
 
 					writer.write(`\tpublic ${property}: ${initializer.type};\n`);
 

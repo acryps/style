@@ -1,6 +1,6 @@
 import { MethodDeclaration } from "../builders/method";
 import { TypeDeclaration } from "../builders/type";
-import { length } from "./primitives";
+import { length, string } from "./primitives";
 
 export const envVariableName = new TypeDeclaration(
 	'safe-area-inset-top',
@@ -33,10 +33,10 @@ export const envVariableName = new TypeDeclaration(
 	'viewport-segment-left'
 )
 
-export const env = new MethodDeclaration({
+export const env = new MethodDeclaration(() => ({
 	name: envVariableName.single(),
 	fallback: length.spread()
-}, `
+}), `
 	this.name = name;
 	this.fallback = fallback;
 `, "env(${this.name}${this.fallback.map(value => `,${value}`).join('')})");
