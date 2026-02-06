@@ -1,5 +1,4 @@
 import { Duration, EasingFunction } from "./declarations/time";
-import { Style } from "./style";
 import { Transition } from "./transition";
 
 export abstract class StyleProperty {
@@ -20,8 +19,8 @@ export abstract class StyleProperty {
 		return this;
 	}
 
-	transition(duration: Duration | number, delay?: Duration | number, easingFunction?: EasingFunction) {
-		this.transitionRule = new Transition(this, Style.resolveNumber('duration', duration), Style.resolveNumber('duration', delay), easingFunction);
+	transition(duration: Duration, delay?: Duration, easingFunction?: EasingFunction) {
+		this.transitionRule = new Transition(this, duration, delay, easingFunction);
 
 		return this;
 	}

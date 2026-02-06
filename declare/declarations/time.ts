@@ -5,7 +5,7 @@ import { integer, number } from "./primitives";
 export const seconds = MethodDeclaration.fromUnit('s', number);
 export const milliseconds = MethodDeclaration.fromUnit('ms', number);
 
-export const duration = new TypeDeclaration(seconds, milliseconds).defaultNumberConverter(seconds);
+export const duration = new TypeDeclaration(seconds, milliseconds);
 
 export const stepJumpMode = new TypeDeclaration('jump-start', 'jump-end', 'jump-none', 'jump-both');
 

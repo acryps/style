@@ -5,7 +5,6 @@ export class TypeDeclaration implements Declaration {
 	name: Ident;
 
 	options: (string | number | TypeDeclaration)[];
-	defaultNumberConverterDeclaration: TypeDeclaration;
 
 	constructor(
 		...options: (string | number | TypeDeclaration)[]
@@ -13,21 +12,15 @@ export class TypeDeclaration implements Declaration {
 		this.options = options;
 	}
 
-	defaultNumberConverter(type: TypeDeclaration) {
-		this.defaultNumberConverterDeclaration = type;
-
-		return this;
-	}
-
 	spread() {
 		return (propertyName: string) => new SpreadPropertyInitializer(
 			this,
 			`${this.name.toClassCamelCase()}[]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[]`,
-			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))` : `...${propertyName}`,
+			`...${propertyName}`,
 
 			`${propertyName}: ${this.name.toClassCamelCase()}[]`,
-			`${propertyName}.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value))`
+			`[...${propertyName}]`
 		);
 	}
 
@@ -36,10 +29,10 @@ export class TypeDeclaration implements Declaration {
 			this,
 			`${this.name.toClassCamelCase()}[][]`,
 			`...${propertyName}: ${this.name.toClassCamelCase()}[][]`,
-			this.defaultNumberConverterDeclaration ? `...${propertyName}.map(row => row.map(cell => Style.resolveNumber('${this.name.toCamelCase()}', cell)))` : `...${propertyName}`,
+			`...${propertyName}`,
 
 			`${propertyName}: (${this.name.toClassCamelCase()})[][]`,
-			`${propertyName}.map(axis => axis.map(value => Style.resolveNumber('${this.name.toCamelCase()}', value)))`
+			`${propertyName}.map(axis => [...axis])`
 		);
 	}
 
@@ -48,7 +41,7 @@ export class TypeDeclaration implements Declaration {
 			this,
 			`${this.name.toClassCamelCase()}`,
 			`${propertyName}: ${this.name.toClassCamelCase()}${defaultValue ? ` = ${defaultValue}` : ''}`,
-			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
+			propertyName
 		);
 	}
 
@@ -57,7 +50,7 @@ export class TypeDeclaration implements Declaration {
 			this,
 			`${this.name.toClassCamelCase()} | undefined`,
 			`${propertyName}?: ${this.name.toClassCamelCase()}`,
-			this.defaultNumberConverterDeclaration ? `Style.resolveNumber('${this.name.toCamelCase()}', ${propertyName})` : propertyName
+			propertyName
 		);
 	}
 

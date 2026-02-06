@@ -7,4 +7,3 @@ export const rad = MethodDeclaration.fromUnit('rad', number).calculable();
 export const turn = MethodDeclaration.fromUnit('turn', number).calculable();
 
 export const angle = new TypeDeclaration(0, deg, rad, turn)
-	.defaultNumberConverter(turn);

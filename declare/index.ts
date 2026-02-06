@@ -32,6 +32,7 @@ for (let sourcePath of readdirSync(sourceBase)) {
 // style functions (`display`) are exported directly
 // order of exports matters
 const preferredRootExports = [];
+const extendedRootImports = [];
 const extendedRootExports = [];
 
 for (let sourcePath in sources) {
@@ -40,7 +41,6 @@ for (let sourcePath in sources) {
 		const writer = createWriteStream(join(drainBase, sourcePath.replace('.js', '.ts')));
 
 		// import base types
-		writer.write(`import { Style } from '../style';\n`);
 		writer.write(`import { StyleProperty } from '../property';\n`);
 		writer.write(`import { MediaQueryableStyleProperty } from '../media/property';\n`);
 		writer.write(`import { StyleMethod } from '../method';\n`);
@@ -55,7 +55,7 @@ for (let sourcePath in sources) {
 
 		// collect all exported members
 		// all class exports are exported collectively at the end of the file
-		const preferredExports = [];
+		const directExports = [];
 		const extendedExports = [];
 
 		// import all types
@@ -93,8 +93,6 @@ for (let sourcePath in sources) {
 		writer.write(imports.join('\n'));
 		writer.write('\n\n');
 
-		const defaultNumberConverters = [];
-
 		for (let name in declarations) {
 			const ident = Ident.fromCamelCase(name);
 			const declaration = declarations[name] as Declaration;
@@ -102,7 +100,7 @@ for (let sourcePath in sources) {
 			writer.write(`// ${ident.toSpaced()}\n`);
 
 			if (declaration instanceof MethodDeclaration) {
-				writer.write(`class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
+				writer.write(`export class ${declaration.name.toClassCamelCase()} extends StyleMethod`);
 				extendedExports.push(declaration.name.toClassCamelCase());
 
 				if (declaration.isCalculable) {
@@ -156,14 +154,10 @@ for (let sourcePath in sources) {
 				writer.write(`}\n\n`);
 
 				writer.write(`export function ${declaration.name.toCamelCase()}(${constructorArguments.join(', ')}) { return new ${declaration.name.toClassCamelCase()}(${passArguments.join(', ')}); }\n\n`);
-				preferredExports.push(declaration.name.toCamelCase());
+				directExports.push(declaration.name.toCamelCase());
 			} else if (declaration instanceof TypeDeclaration) {
-				writer.write(`type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}> | Calculation<Partial<${ident.toClassCamelCase()}>>;\n\n`);
+				writer.write(`export type ${ident.toClassCamelCase()} = ${declaration} | Variable<${ident.toClassCamelCase()}> | Calculation<Partial<${ident.toClassCamelCase()}>>;\n\n`);
 				extendedExports.push(ident.toClassCamelCase());
-
-				if (declaration.defaultNumberConverterDeclaration) {
-					defaultNumberConverters.push(`Style.numberConverter['${declaration.name.toCamelCase()}'] = ${declaration.defaultNumberConverterDeclaration.name.toClassCamelCase()};`);
-				}
 			}
 
 			if (declaration instanceof PropertyTypeDeclaration) {
@@ -190,7 +184,7 @@ for (let sourcePath in sources) {
 				const globalValueType = declaration.noneAllowed ? 'GlobalNonePropertyValue' : 'GlobalPropertyValue';
 
 				// global style property class
-				writer.write(`class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+				writer.write(`export class ${globalClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
 				extendedExports.push(globalClassName);
 
 				writer.write(`\tstatic properties = ['value'];\n\n`);
@@ -212,7 +206,7 @@ for (let sourcePath in sources) {
 				writer.write('}\n\n');
 
 				// base style class
-				writer.write(`class ${propertyClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+				writer.write(`export class ${propertyClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
 				extendedExports.push(propertyClassName);
 
 				writer.write(`\tstatic properties = [${Object.keys(declaration.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
@@ -273,7 +267,7 @@ for (let sourcePath in sources) {
 						arguments: constructorArguments
 					});
 
-					writer.write(`class ${shorthandClassName} extends ${inheritanceClass.className} {\n`);
+					writer.write(`export class ${shorthandClassName} extends ${inheritanceClass.className} {\n`);
 					extendedExports.push(shorthandClassName);
 
 					writer.write(`\tstatic properties = [${Object.keys(shorthandInitializer.initializer).map(key => `'${key}'`).join(', ')}];\n\n`);
@@ -300,7 +294,7 @@ for (let sourcePath in sources) {
 				// helper functions
 				// exported directly before class to make the functions appear before the classes in autocomplete
 				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
-				preferredExports.push(ident.toCommandName());
+				directExports.push(ident.toCommandName());
 
 				for (const stylePropertyClass of stylePropertyClasses) {
 					const initializingParameters = [];
@@ -363,15 +357,10 @@ for (let sourcePath in sources) {
 			}
 		}
 
-		// number converters require all types to be set
-		// insert at the bottom
-		writer.write(defaultNumberConverters.join('\n'));
-
 		// export all classes
-		writer.write(`\n\nexport {\n${extendedExports.map(name => `\t${name}`).join(',\n')}\n};`);
-
-		preferredRootExports.push(`export { ${preferredExports.join(', ')} } from './${sourcePath.replace('.js', '')}';`);
-		extendedRootExports.push(`export { ${extendedExports.join(', ')} } from './${sourcePath.replace('.js', '')}';`);
+		preferredRootExports.push(`export {\n${directExports.map(name => `\t${name}`).join(',\n')}\n} from './${sourcePath.replace('.js', '')}';`);
+		extendedRootImports.push(`import {\n${extendedExports.map(name => `\t${name}`).join(',\n')}\n} from './${sourcePath.replace('.js', '')}';`);
+		extendedRootExports.push(extendedExports);
 
 		writer.close();
 	}
@@ -380,13 +369,8 @@ for (let sourcePath in sources) {
 const indexWriter = createWriteStream(join(drainBase, 'index.ts'));
 
 for (let source of preferredRootExports) {
-	indexWriter.write(`${source}\n`);
+	indexWriter.write(`${source}\n\n`);
 }
 
-indexWriter.write(`\n`);
-
-for (let source of extendedRootExports) {
-	indexWriter.write(`${source}\n`);
-}
-
+indexWriter.write('\n');
 indexWriter.end();
