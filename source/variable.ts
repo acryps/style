@@ -39,6 +39,14 @@ export class Variable<T> extends StyleProperty implements Calculable<T> {
 		return new ProvidedVariable<T>(this, value);
 	}
 
+	apply(element: any, value: T) {
+		if (!element.style) {
+			throw new Error('Cannot apply variable in non-DOM context.');
+		}
+
+		element.style.setProperty(this.propertyName, `${value}`);
+	}
+
 	/**
 	 * Update the variables value
 	 *
