@@ -38,4 +38,12 @@ export const conicGradient = new MethodDeclaration({
 	this.stops = stops;
 `, "conic-gradient(${this.stops.join(',')})");
 
-export const gradient = new TypeDeclaration(linearGradient, repeatingLinearGradient, conicGradient);
+export const radialGradient = new MethodDeclaration({
+	stops: colorStop.spread()
+}, `
+	this.stops = stops;
+`, "radial-gradient(${this.stops.join(',')})");
+
+
+
+export const gradient = new TypeDeclaration(linearGradient, repeatingLinearGradient, conicGradient, radialGradient);
