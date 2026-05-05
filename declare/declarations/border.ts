@@ -66,3 +66,6 @@ export const borderRadius = new PropertyTypeDeclaration({
 	.addShorthandInitializer({
 		length: ['topLeftAndBottomRight', 'topRightAndBottomLeft']
 	}, '${this.length}');
+
+export const borderCollapseMode = new TypeDeclaration('collapse', 'separate');
+export const borderCollapse = PropertyTypeDeclaration.fromMode(borderCollapseMode);
