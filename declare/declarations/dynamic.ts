@@ -151,6 +151,15 @@ export const gridTemplateRows = new PropertyTypeDeclaration({
 	cells: gridTemplateAxisDimension.spread()
 }, '${this.cells.map(cell => cell).join(\' \')}');
 
+
+export const gridAutoFlowDense = new TypeDeclaration('dense');
+export const gridAutoFlowMode = new TypeDeclaration('row', 'column', gridAutoFlowDense);
+
+export const gridAutoFlow = new PropertyTypeDeclaration({
+	mode: gridAutoFlowMode.single(),
+	dense: gridAutoFlowDense.optional(),
+}, '${this.mode} ${this.dense}');
+
 export const order = new PropertyTypeDeclaration({
 	order: integer.single()
 }, '${this.order}');
