@@ -12,4 +12,6 @@ export const boxShadow = new PropertyTypeDeclaration({
 	blurRadius: length.single(),
 	spreadRadius: length.single('0'),
 	type: boxShadowType.single("'outset'")
-}, "${this.type == 'inset' ? ' inset' : ''} ${this.offsetX} ${this.offsetY} ${this.blurRadius ?? ''} ${this.spreadRadius ?? ''} ${this.color}");
+}, "${this.type == 'inset' ? ' inset' : ''} ${this.offsetX} ${this.offsetY} ${this.blurRadius ?? ''} ${this.spreadRadius ?? ''} ${this.color}")
+	.allowNone()
+	.allowMultiple();

@@ -6,6 +6,7 @@ export class PropertyTypeDeclaration implements Declaration {
 	name: Ident;
 
 	noneAllowed = false;
+	multipleAllowed = false;
 	mediaQueryAllowed = false;
 
 	shorthandInitializers: {
@@ -30,6 +31,12 @@ export class PropertyTypeDeclaration implements Declaration {
 
 	allowNone() {
 		this.noneAllowed = true;
+
+		return this;
+	}
+
+	allowMultiple() {
+		this.multipleAllowed = true;
 
 		return this;
 	}

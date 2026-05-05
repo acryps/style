@@ -35,6 +35,10 @@ export class Ident {
 		return `${this.toClassCamelCase()}GlobalStyleProperty`;
 	}
 
+	toPropertyMultipleClassName() {
+		return `${this.toClassCamelCase()}MultipleStyleProperty`;
+	}
+
 	toPropertyShorthandClassName(properties: Ident[]) {
 		return `${this.toClassCamelCase()}StyleShorthand${properties.map(property => property.toClassCamelCase()).join('')}`;
 	}

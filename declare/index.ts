@@ -291,11 +291,28 @@ for (let sourcePath in sources) {
 					writer.write('}\n\n');
 				}
 
+				// multiple style class
+				const propertyMultipleClassName = ident.toPropertyMultipleClassName();
+
+				if (declaration.multipleAllowed) {
+					writer.write(`export class ${propertyMultipleClassName} extends ${declaration.mediaQueryAllowed ? 'MediaQueryableStyleProperty' : 'StyleProperty'} {\n`);
+					writer.write(`\tpublic layers: ${propertyClassName}[];\n`);
+					writer.write(`\n`);
+					writer.write(`\tconstructor(layers: ${propertyClassName}[]) {\n`);
+					writer.write(`\t\tsuper('${ident.toDashed()}');\n`);
+					writer.write(`\n`);
+					writer.write(`\t\tthis.layers = layers;\n`);
+					writer.write(`\t}\n`);
+					writer.write(`\n`);
+					writer.write(`\ttoValueString() {\n`);
+					writer.write(`\t\treturn this.layers.map(property => property.toValueString()).join(', ');\n`);
+					writer.write(`\t}\n`);
+					writer.write(`}\n`);
+					writer.write(`\n`);
+				}
+
 				// helper functions
 				// exported directly before class to make the functions appear before the classes in autocomplete
-				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
-				directExports.push(ident.toCommandName());
-
 				for (const stylePropertyClass of stylePropertyClasses) {
 					const initializingParameters = [];
 					const variants = [];
@@ -319,7 +336,22 @@ for (let sourcePath in sources) {
 					}
 				}
 
+				if (declaration.multipleAllowed) {
+					writer.write(`export function ${ident.toCommandName()}(layer: ${propertyClassName}, ...layers: ${propertyClassName}[]): ${propertyMultipleClassName};\n`);
+				}
+
+				writer.write(`export function ${ident.toCommandName()}(value: ${globalValueType}): ${globalClassName};\n`);
+				directExports.push(ident.toCommandName());
+
 				writer.write(`export function ${ident.toCommandName()}(...parameters: any[]): any {\n`);
+
+				if (declaration.multipleAllowed) {
+					writer.write(`\tif (parameters[0] instanceof ${propertyClassName}) {\n`);
+					writer.write(`\t\treturn new ${propertyMultipleClassName}(parameters);\n`);
+					writer.write(`\t}\n`);
+					writer.write(`\n`);
+				}
+
 				writer.write(`\tif (parameters.length == 1) {\n`);
 				writer.write(`\t\tconst value = (parameters[0] instanceof Variable || parameters[0] instanceof Calculation) ? parameters[0].toValueString() : parameters[0];\n\n`);
 				writer.write(`\t\tif ([${(declaration.noneAllowed ? globalNonePropertyValues : globalPropertyValues).map(value => `'${value}'`).join(', ')}].includes(value)) {\n`);
