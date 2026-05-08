@@ -82,8 +82,9 @@ export const minMax = new MethodDeclaration({
 	this.right = right;
 `, "minmax(${this.left},${this.right})");
 
+export const fitContentSize = new TypeDeclaration(length, percentage);
 export const fitContent = new MethodDeclaration({
-	size: length.single()
+	size: fitContentSize.single()
 }, `
 	this.size = size;
 `, "fit-content(${this.size})");
@@ -150,6 +151,24 @@ export const gridTemplateColumns = new PropertyTypeDeclaration({
 export const gridTemplateRows = new PropertyTypeDeclaration({
 	cells: gridTemplateAxisDimension.spread()
 }, '${this.cells.map(cell => cell).join(\' \')}');
+
+export const gridAutoAxisDimension = new TypeDeclaration(length, fr, 'min-content', 'max-content', minMax, fitContent, 'auto', percentage);
+
+export const gridAutoColumns = new PropertyTypeDeclaration({
+	cells: gridAutoAxisDimension.spread()
+}, '${this.cells.map(cell => cell).join(\' \')}');
+
+export const gridAutoRows = new PropertyTypeDeclaration({
+	cells: gridAutoAxisDimension.spread()
+}, '${this.cells.map(cell => cell).join(\' \')}');
+
+export const gridAutoFlowDense = new TypeDeclaration('dense');
+export const gridAutoFlowMode = new TypeDeclaration('row', 'column', gridAutoFlowDense);
+
+export const gridAutoFlow = new PropertyTypeDeclaration({
+	mode: gridAutoFlowMode.single(),
+	dense: gridAutoFlowDense.optional(),
+}, '${this.mode} ${this.dense}');
 
 export const order = new PropertyTypeDeclaration({
 	order: integer.single()
